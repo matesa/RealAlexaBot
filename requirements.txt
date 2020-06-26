@@ -56,7 +56,7 @@ dnspython
 pymongo[srv]
 redis
 pybase64
-chatterbot==1.0.4
 selenium
 bing_image_downloader
 git+https://github.com/rachmadaniHaryono/we-get.git
+coffeehouse
