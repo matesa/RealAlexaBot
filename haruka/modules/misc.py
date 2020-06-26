@@ -1456,7 +1456,7 @@ async def _(event):
                     except gTTSError:
                       return
                     with open("results.mp3", "r"):
-                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.from_id)
+                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.id)
                     os.remove("results.mp3")
                 else:                   
                     try:
@@ -1472,7 +1472,7 @@ async def _(event):
                     except gTTSError:
                       return
                     with open("results.mp3", "r"):
-                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.from_id)
+                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.id)
                     os.remove("results.mp3")
             else:
                 await event.reply("API Failure !")
@@ -1641,7 +1641,7 @@ async def chat_bot(event):
                    await event.reply("This User is Already in Auto-Chat List.")
                    return 
          auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-         await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+" in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
+         await event.reply("Coffeehouse AI turned on For User: "+str(reply_msg.from_id)+" in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
          await asyncio.sleep(1800)
          auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
                
@@ -1660,7 +1660,7 @@ async def chat_bot(event):
       for c in chats:
         if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
            auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-           await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
+           await event.reply("Coffeehouse AI turned off For User: "+str(reply_msg.from_id)+" in this chat.")
 
 
 @register(pattern="")
