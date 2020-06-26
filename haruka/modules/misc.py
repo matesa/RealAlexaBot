@@ -1396,6 +1396,8 @@ def lyrics(bot: Bot, update: Update, args):
         else:
             msg.reply_text(reply)
 
+# Made by @Ayushchatterjee
+
 import wolframalpha 
 from haruka import WOLFRAM_ID
 
@@ -1436,7 +1438,7 @@ async def _(event):
                     alternatives = alternative["alternatives"][0]
                     transcript_response += " " + str(alternatives["transcript"]) 
                 if transcript_response != "":
-                    string_to_show = transcript_response
+                    string_to_show = "{}".format(transcript_response)           
                     app_id =  WOLFRAM_ID
                     client = wolframalpha.Client(app_id)
                     res = client.query(string_to_show)
@@ -1456,7 +1458,21 @@ async def _(event):
                         await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
                         os.remove("results.mp3")
                 else:
-                    return 
+                    answer = "Sorry I can't recognise your query"
+                    try:
+                       tts = gTTS(answer, tld='com', lang=lan)
+                       tts.save("results.mp3")
+                    except AssertionError: 
+                      return
+                    except ValueError:    
+                      return
+                    except RuntimeError:        
+                      return
+                    except gTTSError:
+                      return
+                    with open("results.mp3", "r"):
+                        await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
+                        os.remove("results.mp3")
             else:
                 await event.reply("API Failure !")
                 os.remove(required_file_name)
