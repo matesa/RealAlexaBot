@@ -1441,14 +1441,13 @@ async def _(event):
                 else:
                     string_to_show = "Sorry I can't recognise your query"
                 app_id =  WOLFRAM_ID
-                client = wolframalpha.Client(app_id) 
-                question = string_to_show
-                res = client.query(question) 
-                answer = next(res.results).text 
+                client = wolframalpha.Client(app_id)
+                res = client.query(string_to_show)
+                answer = next(res.results).text
                 try:
                     tts = gTTS(answer, tld='com', lang=lan)
                     tts.save("results.mp3")
-                except AssertionError:     
+                except AssertionError: 
                       return
                 except ValueError:    
                       return
