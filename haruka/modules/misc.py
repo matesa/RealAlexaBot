@@ -1456,7 +1456,7 @@ async def _(event):
                     except gTTSError:
                       return
                     with open("results.mp3", "r"):
-                        await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
+                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.from_id)
                     os.remove("results.mp3")
                 else:                   
                     try:
@@ -1472,7 +1472,7 @@ async def _(event):
                     except gTTSError:
                       return
                     with open("results.mp3", "r"):
-                        await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
+                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.from_id)
                     os.remove("results.mp3")
             else:
                 await event.reply("API Failure !")
