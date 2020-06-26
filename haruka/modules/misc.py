@@ -670,7 +670,7 @@ async def wiki(wiki_q):
 from search_engine_parser import GoogleSearch
 
 @register(pattern=r"^/google(?: |$)(.*)")
-async def gsearch(q_event):
+async def googlsearch(q_event):
     """ For .google command, do a Google search. """
     textx = await q_event.get_reply_message()
     query = q_event.pattern_match.group(1)
@@ -688,7 +688,7 @@ async def gsearch(q_event):
     googsearch = GoogleSearch()
     gresults = await googsearch.async_search(*search_args)
     msg = ""
-    for i in range(1, 6):
+    for i in range(1, 9):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
@@ -1399,15 +1399,71 @@ def lyrics(bot: Bot, update: Update, args):
 import wolframalpha 
 from haruka import WOLFRAM_ID
 
-@register(pattern=r'^/alexa (.*)')
-async def wolfram(wvent): 
+# using @register as default call 
+@register(pattern=r"^/alexa(?: |$)([\s\S]*)") # set outgoing=True for userbot
+async def _(event):
+    if event.fwd_from:
+        return
     app_id =  WOLFRAM_ID
     client = wolframalpha.Client(app_id) 
-    question = wvent.pattern_match.group(1)
+    question = event.pattern_match.group(1)
     res = client.query(question) 
     answer = next(res.results).text 
-    await wvent.reply(f'**{question}**\n\n' + answer, parse_mode='Markdown')
-    
+    await event.reply(f'**{question}**\n\n' + answer, parse_mode='Markdown')
+        
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        required_file_name = await event.client.download_media(previous_message, TEMP_DOWNLOAD_DIRECTORY)
+        if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
+            await event.reply("You need to set the required ENV variables for this module. \nModule stopping")
+        else:
+            headers = {
+                "Content-Type": previous_message.media.document.mime_type,
+            }
+            data = open(required_file_name, "rb").read()
+            response = requests.post(
+                IBM_WATSON_CRED_URL + "/v1/recognize",
+                headers=headers,
+                data=data,
+                auth=("apikey", IBM_WATSON_CRED_PASSWORD)
+            )
+            r = response.json()
+            if "results" in r:
+                # process the json to appropriate string format
+                results = r["results"]
+                transcript_response = ""
+                transcript_confidence = ""
+                for alternative in results:
+                    alternatives = alternative["alternatives"][0]
+                    transcript_response += " " + str(alternatives["transcript"]) 
+                if transcript_response != "":
+                    string_to_show = transcript_response
+                else:
+                    string_to_show = "Sorry I can't recognise your query"
+                app_id =  WOLFRAM_ID
+                client = wolframalpha.Client(app_id) 
+                question = string_to_show
+                res = client.query(question) 
+                answer = next(res.results).text 
+                try:
+                    tts = gTTS(answer, tld='com', lang=lan)
+                    tts.save("results.mp3")
+                except AssertionError:     
+                      return
+                except ValueError:    
+                      return
+                except RuntimeError:        
+                      return
+                except gTTSError:
+                      return
+                with open("results.mp3", "r"):
+                        await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
+                        os.remove("results.mp3")
+            else:
+                await event.reply("API Failure !")
+                os.remove(required_file_name)
+
+
 from bs4 import BeautifulSoup as bs 
 import requests
 from telethon import events
