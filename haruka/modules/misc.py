@@ -1445,7 +1445,7 @@ async def _(event):
                     res = client.query(string_to_show)
                     answer = next(res.results).text
                     try:
-                       tts = gTTS(answer, tld='com', lang=lan)
+                       tts = gTTS(answer, tld='com', lang='en')
                        tts.save("results.mp3")
                     except AssertionError: 
                       return
@@ -1461,7 +1461,7 @@ async def _(event):
                 else:                   
                     try:
                        answer = "Sorry I can't recognise your query"
-                       tts = gTTS(answer, tld='com', lang=lan)
+                       tts = gTTS(answer, tld='com', lang='en')
                        tts.save("results.mp3")
                     except AssertionError: 
                       return
