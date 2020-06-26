@@ -1602,7 +1602,7 @@ async def chat_bot_update(ebent):
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              try:
                 msg = str(ebent.text)
-                session = auto_chat.find({'id', 'user'})
+                session = auto_chat.find({})
                 async with event.client.action(event.chat_id, "typing"):
                     text_rep = session.think_thought(msg)
                     wait_time = 0
