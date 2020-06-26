@@ -1443,7 +1443,7 @@ async def _(event):
                 app_id =  WOLFRAM_ID
                 alloc = string_to_show.text
                 client = wolframalpha.Client(app_id)
-                res = client.query(allow) 
+                res = client.query(alloc)
                 answer = next(res.results).text
                 try:
                     tts = gTTS(answer, tld='com', lang=lan)
