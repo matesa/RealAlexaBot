@@ -1405,12 +1405,13 @@ from haruka import WOLFRAM_ID
 async def _(event):
     if event.fwd_from:
         return
-    app_id =  WOLFRAM_ID
-    client = wolframalpha.Client(app_id) 
-    question = event.pattern_match.group(1)
-    res = client.query(question) 
-    answer = next(res.results).text 
-    await event.reply(f'**{question}**\n\n' + answer, parse_mode='Markdown')
+    if not event.reply_to_msg_id:
+       app_id =  WOLFRAM_ID
+       client = wolframalpha.Client(app_id) 
+       question = event.pattern_match.group(1)
+       res = client.query(question) 
+       answer = next(res.results).text 
+       await event.reply(f'**{question}**\n\n' + answer, parse_mode='Markdown')
         
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
@@ -1456,10 +1457,10 @@ async def _(event):
                       return
                     with open("results.mp3", "r"):
                         await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
-                        os.remove("results.mp3")
-                else:
-                    answer = "Sorry I can't recognise your query"
+                    os.remove("results.mp3")
+                else:                   
                     try:
+                       answer = "Sorry I can't recognise your query"
                        tts = gTTS(answer, tld='com', lang=lan)
                        tts.save("results.mp3")
                     except AssertionError: 
@@ -1472,7 +1473,7 @@ async def _(event):
                       return
                     with open("results.mp3", "r"):
                         await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
-                        os.remove("results.mp3")
+                    os.remove("results.mp3")
             else:
                 await event.reply("API Failure !")
                 os.remove(required_file_name)
