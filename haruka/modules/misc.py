@@ -1399,8 +1399,7 @@ def lyrics(bot: Bot, update: Update, args):
 import wolframalpha 
 from haruka import WOLFRAM_ID
 
-# using @register as default call 
-@register(pattern=r"^/alexa(?: |$)([\s\S]*)") # set outgoing=True for userbot
+@register(pattern=r"^/alexa(?: |$)([\s\S]*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -1438,27 +1437,26 @@ async def _(event):
                     transcript_response += " " + str(alternatives["transcript"]) 
                 if transcript_response != "":
                     string_to_show = transcript_response
-                else:
-                    string_to_show = "Sorry I can't recognise your query"
-                app_id =  WOLFRAM_ID
-                alloc = string_to_show.text
-                client = wolframalpha.Client(app_id)
-                res = client.query(alloc)
-                answer = next(res.results).text
-                try:
-                    tts = gTTS(answer, tld='com', lang=lan)
-                    tts.save("results.mp3")
-                except AssertionError: 
+                    app_id =  WOLFRAM_ID
+                    client = wolframalpha.Client(app_id)
+                    res = client.query(string_to_show)
+                    answer = next(res.results).text
+                    try:
+                       tts = gTTS(answer, tld='com', lang=lan)
+                       tts.save("results.mp3")
+                    except AssertionError: 
                       return
-                except ValueError:    
+                    except ValueError:    
                       return
-                except RuntimeError:        
+                    except RuntimeError:        
                       return
-                except gTTSError:
+                    except gTTSError:
                       return
-                with open("results.mp3", "r"):
+                    with open("results.mp3", "r"):
                         await event.client.send_file(event.chat_id, "k.mp3", voice_note=True, reply_to=event.from_id)
                         os.remove("results.mp3")
+                else:
+                    return 
             else:
                 await event.reply("API Failure !")
                 os.remove(required_file_name)
