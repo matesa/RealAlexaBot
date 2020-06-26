@@ -1529,8 +1529,22 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
-from chatterbot import ChatBot 
-from chatterbot.trainers import ChatterBotCorpusTrainer 
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
+import asyncio
+from telethon import events
+import logging
+logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+                    level=logging.WARNING)
+
+import coffeehouse as cf
+import asyncio
+import io
+from time import time
+import coffeehouse
+from haruka import LYDIA_API_KEY
+
+from telethon import events
 from pymongo import MongoClient
 from haruka import MONGO_DB_URI
 
@@ -1586,13 +1600,18 @@ async def chat_bot_update(ebent):
    if not ebent.media:
       for ch in auto_chats:
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-             msg = str(ebent.text)
-             chatbot=ChatBot('Alexa')
-             trainer = ChatterBotCorpusTrainer(chatbot) 
-             trainer.train("chatterbot.corpus.english")
-             response = chatbot.get_response(msg)
-             let = str(response)
-             await ebent.reply(let)
+             try:
+                msg = str(ebent.text)
+                session = auto_chat.find({'id', 'user'})
+                async with event.client.action(event.chat_id, "typing"):
+                    text_rep = session.think_thought(msg)
+                    wait_time = 0
+                    for i in range(len(text_rep)):
+                        wait_time = wait_time + 0.1
+                    await asyncio.sleep(wait_time)
+                    await event.reply(text_rep)
+             except (KeyError, TypeError):
+                return
    if not ebent.text:
       return
 
