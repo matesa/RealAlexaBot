@@ -1441,8 +1441,9 @@ async def _(event):
                 else:
                     string_to_show = "Sorry I can't recognise your query"
                 app_id =  WOLFRAM_ID
+                alloc = string_to_show.text
                 client = wolframalpha.Client(app_id)
-                res = client.query(string_to_show)
+                res = client.query(allow) 
                 answer = next(res.results).text
                 try:
                     tts = gTTS(answer, tld='com', lang=lan)
