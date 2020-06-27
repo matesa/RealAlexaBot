@@ -693,8 +693,8 @@ async def _(event):
         url = result.get("url")
         description = result.get("description")
         last = html2text.html2text(description)
-        output_str += "[{}]({})\n`{}` \n\n".format(text, url, last)       
-    await event.reply("{}".format(output_str), link_preview=False)
+        output_str += "[{}]({})\n`{}`\n\n".format(text, url, last)       
+    await event.reply("{}".format(output_str), link_preview=False, parse_mode='Markdown')
 
 import aiohttp
 import io
