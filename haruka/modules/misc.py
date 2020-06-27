@@ -692,9 +692,8 @@ async def _(event):
         text = result.get("title")
         url = result.get("url")
         description = result.get("description")
-        image = result.get("image")
-        output_str += "[{}]({})\n`{}` \n\n".format(text, url, description)
-        lastly = html2text.html2text(output_str)
+        last = html2text.html2text(description)
+        output_str += "[{}]({})\n`{}` \n\n".format(text, url, last)       
     await event.reply("{}".format(lastly), link_preview=False)
 
 import aiohttp
