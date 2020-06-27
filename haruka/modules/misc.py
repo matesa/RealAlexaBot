@@ -676,6 +676,7 @@ from datetime import datetime
 import sys
 import shutil
 from re import findall
+import html2text
 
 @register(pattern="^/google (.*)") # pylint:disable=E0602
 async def _(event):
@@ -693,7 +694,8 @@ async def _(event):
         description = result.get("description")
         image = result.get("image")
         output_str += "[{}]({})\n`{}` \n\n".format(text, url, description)
-    await event.reply("{}".format(output_str), link_preview=False)
+        lastly = print(html2text.html2text(output_str)
+    await event.reply("{}".format(lastly), link_preview=False)
 
 import aiohttp
 import io
