@@ -692,7 +692,7 @@ async def _(event):
         url = result.get("url")
         description = result.get("description")
         image = result.get("image")
-        output_str += "[{}]({}) \n\n".format(text, url)
+        output_str += "[{}]({})`{}` \n\n".format(text, url, description)
     await event.reply("{}".format(output_str), link_preview=False)
 
 import aiohttp
