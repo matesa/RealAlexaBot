@@ -7,8 +7,8 @@ __help__ = """
 ▪️The background should be somewhat darker than the page
 ▪️The image should contain only the page with no other objects like pencil, eraser etc. beside it(within the image)
 
-*PRO TIP*:
-You can simply draw a border(a black square) around the portion you want to scan for better efficiency
+*PRO TIP*
+You can simply draw a border(a black square) around the portion you want to scan for better efficiency and edge detection
 
 *Examples*
 See [The Original Image](https://telegra.ph/file/892b85d31f4aeed2f14c8.jpg) and the [The Scanned Image](https://telegra.ph/file/53231747269bd72d186ad.jpg)
