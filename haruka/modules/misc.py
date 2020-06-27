@@ -667,38 +667,33 @@ async def wiki(wiki_q):
         return
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
-from search_engine_parser import GoogleSearch
+import asyncio
+import os
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+#from google_images_download import google_images_download
+import sys
+import shutil
+from re import findall
 
-@register(pattern=r"^/google(?: |$)(.*)")
-async def googlsearch(q_event):
-    """ For .google command, do a Google search. """
-    textx = await q_event.get_reply_message()
-    query = q_event.pattern_match.group(1)
-
-    if query:
-        pass
-    elif textx:
-        query = textx.text
-    else:
-        await q_event.reply("`Pass a query as an argument or reply "
-                           "to a message for Google search!`")
+@register(pattern="^/google (.*)") # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
         return
-
-    search_args = (str(query), 1)
-    googsearch = GoogleSearch()
-    gresults = await googsearch.async_search(*search_args)
-    msg = ""
-    for i in range(1, 9):
-        try:
-            title = gresults["titles"][i]
-            link = gresults["links"][i]
-            desc = gresults["descriptions"][i]
-            msg += f"{i}. [{title}]({link})\n`{desc}`\n\n"
-        except IndexError:
-            break
-    await q_event.reply("**Search Query:**\n`" + query + "`\n\n**Results:**\n" +
-                       msg,
-                       link_preview=False)
+    # SHOW_DESCRIPTION = False
+    input_str = event.pattern_match.group(1) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
+    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
+    headers = {"USER-AGENT": "UniBorg"}
+    response = requests.get(input_url, headers=headers).json()
+    output_str = " "
+    for result in response["results"]:
+        text = result.get("title")
+        url = result.get("url")
+        description = result.get("description")
+        image = result.get("image")
+        output_str += "[{}]({}) \n\n".format(text, url)
+    await event.reply("{}".format(output_str), link_preview=False)
 
 import aiohttp
 import io
