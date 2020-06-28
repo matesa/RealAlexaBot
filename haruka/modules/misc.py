@@ -1491,7 +1491,7 @@ async def tor_search(event):
       return 
    str = event.pattern_match.group(1)
    let = f'"{str}"'
-  subprocess.check_output(["we-get", "-s", let, "-J"])
+   subprocess.check_output(["we-get", "-s", let, "-J"])
    sit = hit.replace("{", "")
    pit = sit.replace("}", "")
    op = pit.replace(",", "")
