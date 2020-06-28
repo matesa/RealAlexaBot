@@ -1670,13 +1670,13 @@ async def chat_bot_update(ebent):
              try:
                 msg = str(ebent.text)
                 session = auto_chat.find({})
-                async with event.client.action(event.chat_id, "typing"):
+                async with ebent.client.action(event.chat_id, "typing"):
                     text_rep = session.think_thought(msg)
                     wait_time = 0
                     for i in range(len(text_rep)):
                         wait_time = wait_time + 0.1
                     await asyncio.sleep(wait_time)
-                    await event.reply(text_rep)
+                    await ebent.reply(text_rep)
              except (KeyError, TypeError):
                 return
    if not ebent.text:
