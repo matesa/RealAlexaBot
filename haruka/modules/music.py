@@ -7,7 +7,7 @@ import time
 from haruka.events import register
 import glob
 import os
-import instantmusic,subprocess
+import instantmusic, subprocess
 
 @register(pattern="^/song (.*)")
 async def _(event):
@@ -19,7 +19,7 @@ async def _(event):
         reply_to_id = event.reply_to_msg_id
     os.system("instantmusic -q -s "+cmd)
     bro = 'for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done && for f in *.m4a; do      mv -- "$f" "${f%.m4a}.mp3"; done && for f in *.wav; do      mv -- "$f" "${f%.wav}.mp3"; done'
-    os.system(bro)
+    subprocess.Popen(bro)
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.reply("sending the song")
