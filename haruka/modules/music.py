@@ -17,9 +17,8 @@ async def _(event):
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
-    os.system("instantmusic -q -s "+cmd)
-    bro = 'for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done && for f in *.m4a; do      mv -- "$f" "${f%.m4a}.mp3"; done && for f in *.wav; do      mv -- "$f" "${f%.wav}.mp3"; done'
-    subprocess.Popen(bro, shell=True)
+    subprocess.check_output(["instantmusic", "-q", "-s", cmd])
+    subprocess.check_output('for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done && for f in *.m4a; do      mv -- "$f" "${f%.m4a}.mp3"; done && for f in *.wav; do      mv -- "$f" "${f%.wav}.mp3"; done', shell=True)
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.reply("sending the song")
