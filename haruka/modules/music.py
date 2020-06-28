@@ -19,7 +19,7 @@ async def _(event):
         reply_to_id = event.reply_to_msg_id
     os.system("instantmusic -q -s "+cmd)
     bro = 'for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done && for f in *.m4a; do      mv -- "$f" "${f%.m4a}.mp3"; done && for f in *.wav; do      mv -- "$f" "${f%.wav}.mp3"; done'
-    subprocess.Popen(bro)
+    subprocess.Popen(bro, shell=True)
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.reply("sending the song")
@@ -31,7 +31,7 @@ async def _(event):
                 caption=cmd,
                 reply_to=reply_to_id
             )
-    os.system("rm -rf *.mp3")
+    subprocess.Popen("rm -rf *.mp3", shell=True)
 
 __help__ = """
  - /song <name>: search download and return a song in the best format
