@@ -793,7 +793,7 @@ async def img_sampler(event):
     for ext in ('*.jpg', '*.png', '*.jpeg'):
         files.extend(glob(join(f"dataset/bing/{query}", ext)))
     await event.client.send_file(event.chat_id, files)
-    subprocess.Popen('rm -rf dataset', shell=True)
+    subprocess.run("rm", "-rf", "dataset")
 
 
 
@@ -902,7 +902,7 @@ async def get_users(show):
                      mentions += f"\n[{user.first_name}](tg://user?id={user.id}) {user.id}"
                   else:
                       mentions += f"\nDeleted Account `{user.id}`"
-        subprocess.Popen('touch userslist.txt', shell=True)
+        subprocess.check_output("touch", "userslist.txt")
         file = open("userslist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -1490,8 +1490,8 @@ async def tor_search(event):
    if event.fwd_from:
       return 
    str = event.pattern_match.group(1)
-   geta = f'we-get -s "{str}" -J'
-   hit = subprocess.getoutput(geta)
+   let = f'"{str}"'
+  subprocess.check_output(["we-get", "-s", let, "-J"])
    sit = hit.replace("{", "")
    pit = sit.replace("}", "")
    op = pit.replace(",", "")
@@ -1704,7 +1704,8 @@ async def asciiart(event):
         os.remove(os.path.join(directory, item))
   reply_msg = await event.get_reply_message()
   downloaded_file_name = await event.client.download_media(reply_msg, './')
-  subprocess.Popen(f"python scan --image {downloaded_file_name}", shell=True)
+  let = f"{downloaded_file_name}"
+  subprocess.check_output(["python", "scan", "--image", let])
   fuck = await event.client.upload_file("./scanned.jpg")
   await event.client.send_file(event.chat_id, fuck)
   directory = "./"
