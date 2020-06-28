@@ -1669,7 +1669,7 @@ async def chat_bot_update(ebent):
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              try:
                 msg = str(ebent.text)
-                session = auto_chat.find({})
+                session = auto_chat.find({'user', 'id'})
                 async with ebent.client.action(event.chat_id, "typing"):
                     text_rep = session.think_thought(msg)
                     wait_time = 0
@@ -1682,21 +1682,6 @@ async def chat_bot_update(ebent):
    if not ebent.text:
       return
 
-
-@register(pattern="^/listautochat")
-async def list_db(event):
-	if event.fwd_from:
-		return
-	if MONGO_DB_URI is None:
-		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
-		return
-	autos = auto_chat.find({})
-	msg = "**List of autochat users:\n**"
-
-	for i in autos:
-		msg += "User: "+str(i['user'])+"\nChat: "+str(i['id'])+"\n\n"
-	
-	await event.reply(msg)
 
 import os
 import sys
