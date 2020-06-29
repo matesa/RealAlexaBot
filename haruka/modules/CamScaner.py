@@ -10,7 +10,6 @@ __help__ = """
 *PRO TIP*
 You can simply draw a border(a black square) around the portion you want to scan for better efficiency and edge detection
 
-*Examples*
-See [The Original Image](https://telegra.ph/file/892b85d31f4aeed2f14c8.jpg) and the [The Scanned Image](https://telegra.ph/file/53231747269bd72d186ad.jpg)
+If you are still messed up send `/helpcamscanner` in pm for the tutorial !
 """
 __mod_name__ = "CamScanner"
