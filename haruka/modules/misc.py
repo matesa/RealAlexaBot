@@ -902,7 +902,7 @@ async def get_users(show):
                      mentions += f"\n[{user.first_name}](tg://user?id={user.id}) {user.id}"
                   else:
                       mentions += f"\nDeleted Account `{user.id}`"
-        subprocess.check_output("touch", "userslist.txt")
+        subprocess.run("touch", "userslist.txt")
         file = open("userslist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -1491,7 +1491,7 @@ async def tor_search(event):
       return 
    str = event.pattern_match.group(1)
    let = f'"{str}"'
-   subprocess.check_output(["we-get", "-s", let, "-J"])
+   hit = subprocess.check_output(["we-get", "-s", let, "-J"])   
    sit = hit.replace("{", "")
    pit = sit.replace("}", "")
    op = pit.replace(",", "")
@@ -1705,7 +1705,7 @@ async def asciiart(event):
   reply_msg = await event.get_reply_message()
   downloaded_file_name = await event.client.download_media(reply_msg, './')
   let = f"{downloaded_file_name}"
-  subprocess.check_output(["python", "scan", "--image", let])
+  subprocess.run(["python", "scan", "--image", let])
   fuck = await event.client.upload_file("./scanned.jpg")
   await event.client.send_file(event.chat_id, fuck)
   directory = "./"
