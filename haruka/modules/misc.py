@@ -1494,7 +1494,8 @@ async def tor_search(event):
       return 
    str = event.pattern_match.group(1)
    let = f'"{str}"'
-   hit = subprocess.check_output(["we-get", "-s", let, "-J"])   
+   jit = subprocess.check_output(["we-get", "-s", let, "-J"])   
+   hit = str(jit)
    sit = hit.replace("{", "")
    pit = sit.replace("}", "")
    op = pit.replace(",", "")
@@ -1673,7 +1674,7 @@ async def chat_bot_update(ebent):
              try:
                 msg = str(ebent.text)
                 session = auto_chat.find({'user', 'id'})
-                async with ebent.client.action(event.chat_id, "typing"):
+                async with ebent.client.action(ebent.chat_id, "typing"):
                     text_rep = session.think_thought(msg)
                     wait_time = 0
                     for i in range(len(text_rep)):
