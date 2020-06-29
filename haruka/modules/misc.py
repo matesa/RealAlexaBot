@@ -345,6 +345,9 @@ def get_id(bot: Bot, update: Update, args: List[str]):
         else:
             update.effective_message.reply_text(tld(chat.id, "This group's id is `{}`.").format(chat.id),
                                                 parse_mode=ParseMode.MARKDOWN)
+@run_async
+def stats(bot: Bot, update: Update):
+    update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
 @run_async
 def info(bot: Bot, update: Update, args: List[str]):
@@ -1754,7 +1757,9 @@ GET_PASTE_HANDLER = DisableAbleCommandHandler("getpaste", get_paste_content, pas
 PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, pass_args=True)
 LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
+STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 
+dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(TIME_HANDLER)
 dispatcher.add_handler(PASTE_HANDLER)
 dispatcher.add_handler(GET_PASTE_HANDLER)
