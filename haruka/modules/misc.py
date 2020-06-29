@@ -1624,6 +1624,11 @@ client = MongoClient(MONGO_DB_URI)
 db = client['test']
 auto_chat = db.auto_chat
 
+if LYDIA_API_KEY:
+    api_key = LYDIA_API_KEY
+    api_client = API(api_key)
+    lydia = LydiaAI(api_client)
+
 @register(pattern="^/autochat")
 async def chat_bot(event):
          if event.fwd_from:
@@ -1673,14 +1678,10 @@ async def chat_bot_update(ebent):
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              try:
                 msg = str(ebent.text)
-                session = auto_chat.find({'user', 'id'})
-                async with ebent.client.action(ebent.chat_id, "typing"):
-                    text_rep = session.think_thought(msg)
-                    wait_time = 0
-                    for i in range(len(text_rep)):
-                        wait_time = wait_time + 0.1
-                    await asyncio.sleep(wait_time)
-                    await ebent.reply(text_rep)
+                session = lydia.create_session()
+                session_id = session.id
+                text_rep = session.think_thought(msg)
+                await ebent.reply(text_rep)
              except (KeyError, TypeError):
                 return
    if not ebent.text:
