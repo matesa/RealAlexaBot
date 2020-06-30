@@ -1515,7 +1515,7 @@ async def helptorrent(event):
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Torrent Module", reply_to=event.id)
    
 @register(pattern="^/helpcamscanner")
-async def helptorrent(event):
+async def helpcam(event):
  if event.fwd_from or event.is_group:
     return 
  else:
@@ -1728,7 +1728,7 @@ async def chat_bot_update(ebent):
                             session = lydia.create_session()
                             session_id = session.id
                             text_rep = session.think_thought(msg)
-                            await ebent.reply(text_rep)
+                            answer = text_rep
                          except (KeyError, TypeError):
                             return
                          try:
