@@ -115,12 +115,12 @@ def bot_admin(func):
 
 def user_admin(func):
 	@wraps(func)
-	def is_admin(update: Update, context, *args, **kwargs):
+	def is_admin(bot: Bot, update: Update, context, *args, **kwargs):
 		if update.effective_chat.type == "private":
-			return func(update, context, *args, **kwargs)
+			return func(bot, update, context, *args, **kwargs)
 		user = update.effective_user  # type: Optional[User]
-		if user and is_user_admin(update.effective_chat, user.id):
-			return func(update, context, *args, **kwargs)
+		if user and is_user_admin(bot, update.effective_chat, user.id):
+			return func(bot, update, context, *args, **kwargs)
 
 		elif not user:
 			pass
@@ -136,10 +136,10 @@ def user_admin(func):
 
 def user_admin_no_reply(func):
 	@wraps(func)
-	def is_admin(update: Update, context, *args, **kwargs):
+	def is_admin(bot: Bot, update: Update, context, *args, **kwargs):
 		user = update.effective_user  # type: Optional[User]
 		if user and is_user_admin(update.effective_chat, user.id):
-			return func(update, context, *args, **kwargs)
+			return func(bot, update, context, *args, **kwargs)
 
 		elif not user:
 			pass
