@@ -7,11 +7,9 @@ from typing import Optional
 from telegram import User, Chat, ChatMember, Update, Bot
 from telegram import error
 
-from emilia import dispatcher, DEL_CMDS, SUDO_USERS, WHITELIST_USERS, LOGGER
+from haurka import dispatcher, DEL_CMDS, SUDO_USERS, WHITELIST_USERS, LOGGER
 
-from emilia.modules import languages
-
-DUMP_CHAT = -1001287670948
+DUMP_CHAT = -1001368364852
 
 def send_message(message, text, target_id=None, *args,**kwargs):
 	if not target_id:
