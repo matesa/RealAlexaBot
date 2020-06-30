@@ -20,7 +20,6 @@ from haruka.modules.helper_funcs.string_handling import button_markdown_parser, 
 import haruka.modules.sql.antiflood_sql as antifloodsql
 import haruka.modules.sql.blacklist_sql as blacklistsql
 from haruka.modules.sql import cust_filters_sql as filtersql
-from haruka.modules.sql import languages_sql as langsql
 import haruka.modules.sql.locks_sql as locksql
 from haruka.modules.locks import LOCK_TYPES
 from haruka.modules.sql import notes_sql as notesql
@@ -146,10 +145,6 @@ def export_data(update, context):
 
 	getcur, cur_value, extra_verify, timeout, timeout_mode, cust_text = welcsql.welcome_security(chat_id)
 	greetings["security"] = {"enable": getcur, "text": cust_text, "time": cur_value, "extra_verify": extra_verify, "timeout": timeout, "timeout_mode": timeout_mode}
-
-	# Backuping chat language
-	getlang = langsql.get_lang(chat_id)
-	language = {"language": getlang}
 
 	# Backuping locks
 	curr_locks = locksql.get_locks(chat_id)
