@@ -125,25 +125,28 @@ def user_admin(func):
 			update.effective_message.delete()
 
 		else:
-			update.effective_message.reply_text(tld(update.effective_message, "Siapa ini yang bukan admin memberikan perintah kepada saya?"))
+			update.effective_message.reply_text(tld(update.effective_message, "Who dis non-admin telling me what to do?"))
 
 	return is_admin
 
 
 def user_admin_no_reply(func):
-    @wraps(func)
-    def is_admin(bot: Bot, update: Update, *args, **kwargs):
-        user = update.effective_user  # type: Optional[User]
-        if user and is_user_admin(update.effective_chat, user.id):
-            return func(bot, update, *args, **kwargs)
+	@wraps(func)
+	def is_admin(update, context, *args, **kwargs):
+		user = update.effective_user  # type: Optional[User]
+		if user and is_user_admin(update.effective_chat, user.id):
+			return func(update, context, *args, **kwargs)
 
-        elif not user:
-            pass
+		elif not user:
+			pass
 
-        elif DEL_CMDS and " " not in update.effective_message.text:
-            update.effective_message.delete()
+		elif DEL_CMDS and " " not in update.effective_message.text:
+			update.effective_message.delete()
 
-    return is_admin
+		else:
+			context.bot.answer_callback_query(update.callback_query.id, tld(update.effective_message, "))
+
+	return is_admin
 
 
 def user_not_admin(func):
