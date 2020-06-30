@@ -1495,8 +1495,8 @@ async def tor_search(event):
    str = event.pattern_match.group(1)
    let = f'"{str}"'
    jit = subprocess.check_output(["we-get", "-s", let, "-J"])   
-   hit = str(jit)
-   sit = hit.replace("{", "")
+   proc = jit.decode()
+   sit = proc.replace("{", "")
    pit = sit.replace("}", "")
    op = pit.replace(",", "")
    seta = f"Magnets for {str} are below:"
@@ -1519,7 +1519,7 @@ async def helpcam(event):
  if event.fwd_from or event.is_group:
     return 
  else:
-   topa = "./haruka/Tutorial For Camscanner.mp4"
+   topa = "./haruka/Tutorial for Camscanner.mp4"
    file = await event.client.upload_file(topa) 
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Camscanner Module", reply_to=event.id)
    
