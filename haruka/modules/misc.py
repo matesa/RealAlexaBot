@@ -1621,7 +1621,7 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 import coffeehouse as cf
 import asyncio
 import io
-from time import time
+import time
 import coffeehouse
 from haruka import LYDIA_API_KEY
 
