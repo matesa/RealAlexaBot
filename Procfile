@@ -1,1 +1,1 @@
-worker: python3 -m haruka
+worker: bash start.sh
