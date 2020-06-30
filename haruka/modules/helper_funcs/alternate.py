@@ -7,7 +7,7 @@ from typing import Optional
 from telegram import User, Chat, ChatMember, Update, Bot
 from telegram import error
 
-from haurka import dispatcher, DEL_CMDS, SUDO_USERS, WHITELIST_USERS, LOGGER
+from haruka import dispatcher, DEL_CMDS, SUDO_USERS, WHITELIST_USERS, LOGGER
 
 DUMP_CHAT = -1001368364852
 
