@@ -1693,11 +1693,11 @@ async def chat_bot_update(ebent):
              except (KeyError, TypeError):
                 return
    if ebent.media:
-      if event.reply_to_msg_id:
-        previous_message = await event.get_reply_message()
-        required_file_name = await event.client.download_media(previous_message, TEMP_DOWNLOAD_DIRECTORY)
+      if ebent.reply_to_msg_id:
+        previous_message = await ebent.get_reply_message()
+        required_file_name = await ebent.client.download_media(previous_message, TEMP_DOWNLOAD_DIRECTORY)
         if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
-            await event.reply("You need to set the required ENV variables for this module. \nModule stopping")
+            await ebent.reply("You need to set the required ENV variables for this module. \nModule stopping")
         else:
             headers = {
                 "Content-Type": previous_message.media.document.mime_type,
@@ -1743,7 +1743,7 @@ async def chat_bot_update(ebent):
                          except gTTSError:
                           return
                          with open("results.mp3", "r"):
-                          await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.id)
+                          await ebent.client.send_file(ebent.chat_id, "results.mp3", voice_note=True, reply_to=ebent.id)
                          os.remove("results.mp3")
                 else:                   
                     try:
@@ -1759,10 +1759,10 @@ async def chat_bot_update(ebent):
                     except gTTSError:
                       return
                     with open("results.mp3", "r"):
-                        await event.client.send_file(event.chat_id, "results.mp3", voice_note=True, reply_to=event.id)
+                        await ebent.client.send_file(ebent.chat_id, "results.mp3", voice_note=True, reply_to=ebent.id)
                     os.remove("results.mp3")
             else:
-                await event.reply("API Failure !")
+                await ebent.reply("API Failure !")
                 os.remove(required_file_name)
 
 import os
