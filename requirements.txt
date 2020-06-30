@@ -54,7 +54,6 @@ instantmusic
 wolframalpha
 dnspython
 pymongo[srv]
-redis
 pybase64
 selenium
 bing_image_downloader
