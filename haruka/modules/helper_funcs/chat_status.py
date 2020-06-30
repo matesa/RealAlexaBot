@@ -144,7 +144,7 @@ def user_admin_no_reply(func):
 			update.effective_message.delete()
 
 		else:
-			context.bot.answer_callback_query(update.callback_query.id, tld(update.effective_message, "))
+			context.bot.answer_callback_query(update.callback_query.id, tld(update.effective_message, "Who dis non-admin telling me what to do?"))
 
 	return is_admin
 
