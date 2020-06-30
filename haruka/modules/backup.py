@@ -32,7 +32,7 @@ import haruka.modules.sql.welcome_sql as welcsql
 from haruka.modules.connection import connected
 
 from haruka.modules.helper_funcs.msg_types import Types
-from haruka.modules.languages import tl
+from haruka.modules.languages import tld
 from haruka.modules.helper_funcs.alternate import send_message
 
 
