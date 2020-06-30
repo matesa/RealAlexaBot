@@ -95,7 +95,7 @@ if ENV:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
-
+    TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     REDIS = StrictRedis(host='localhost', port=6379, db=0)
 
     def is_redis_alive():
