@@ -279,12 +279,11 @@ def get_chat(chat_id, chat_data):
 	except KeyError:
 		return {"status": False, "user": None, "value": False}
 
-EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True)
-dispatcher.add_handler(EXPORT_HANDLER)
-
-
 help = """
  - /export: Send a backup containing all your notes, filters, blacklist etc..
  - /import: Imports the backup from a backup file, use /export to create a backup file
  """
 __mod_name__ = "Import/Export"
+
+EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True)
+dispatcher.add_handler(EXPORT_HANDLER)
