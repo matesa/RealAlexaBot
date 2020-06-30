@@ -2,7 +2,6 @@ import logging
 import os
 import sys
 from pymongo import MongoClient
-from redis import StrictRedis
 from telethon import TelegramClient
 import telegram.ext as tg
 
@@ -96,14 +95,6 @@ if ENV:
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    REDIS = StrictRedis(host='localhost', port=6379, db=0)
-
-    def is_redis_alive():
-      try:
-        REDIS.ping()
-        return True
-      except BaseException:
-        return False
-
+    
 else:
    quit(1)
