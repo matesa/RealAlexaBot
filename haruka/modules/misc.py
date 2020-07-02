@@ -1546,6 +1546,8 @@ async def phone(event):
     location = obj['location']
     carrier = obj['carrier']
     line_type = obj['line_type']	
+    validornot = obj['valid']	
+    aa = "Valid : "+str(validornot)
     a = "Phone number: "+str(number)
     b = "Country: " +str(country_code)
     c = "Country Name: " +str(country_name)
