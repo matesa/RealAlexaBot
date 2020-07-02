@@ -22,7 +22,6 @@ import haruka.modules.sql.blacklist_sql as blacklistsql
 
 from haruka.modules.sql import disable_sql as disabledsql
 from haruka.modules.sql import cust_filters_sql as filtersql
-from haruka.modules.sql import languages_sql as langsql
 import haruka.modules.sql.locks_sql as locksql
 from haruka.modules.locks import LOCK_TYPES, RESTRICTION_TYPES
 from haruka.modules.sql import notes_sql as notesql
@@ -80,7 +79,7 @@ def import_data(bot: Bot, update):
 
 		try:
 			# If backup is from Emilia
-			if data.get('bot_base') == "Alexa":
+			if data.get('bot_base') == "nothing":
 				imp_antiflood = False
 				imp_blacklist = False
 				imp_blacklist_count = 0
@@ -303,7 +302,7 @@ def import_data(bot: Bot, update):
 		try:
 			# If backup is from rose
 			# doing manual lol
-			if data.get('bot_id') == 609517172:
+			if data.get('bot_id') == 100:
 				imp_antiflood = False
 				imp_blacklist = False
 				imp_blacklist_count = 0
@@ -727,6 +726,8 @@ __mod_name__ = "Import/Export"
 
 __help__ = """
 *Admins Only*
+
+*NOTE:* The backup file can be imported from this bot only, no other bots can import it !
 
  - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
  - /import: Type in reply to the backup file to restore your chat data
