@@ -1,6 +1,8 @@
 import html, time
 import re
+import random
 from typing import Optional, List
+
 
 from telegram import Message, Chat, Update, Bot, User, CallbackQuery
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
@@ -83,6 +85,13 @@ def send(update, message, keyboard, backup_message):
 @run_async
 def new_member(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user
+    msg = update.effective_message
+    chat_name = chat.title or chat.first or chat.usernam
+    should_welc, cust_welcome, welc_type = sql.get_welc_pref(chat.id)
+    welc_mutes = sql.welcome_mutes(chat.id)
+    user_id = user.id
+    human_checks = sql.get_human_checks(user_id, chat.id)
 
     should_welc, cust_welcome, welc_type = sql.get_welc_pref(chat.id)
     if should_welc:
@@ -91,17 +100,21 @@ def new_member(bot: Bot, update: Update):
         for new_mem in new_members:
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
-                bot.send_message(chat.id, "Hi. My Godfather just joined the group, Please behave on yourself 😒")
+                bot.send_message(chat.id, "Oh, Genos? Let's get this moving.")
                 continue
 
             # Give start information when add bot to group
-            elif new_mem.id == bot.id:
-                bot.send_message(
-                    MESSAGE_DUMP,
-                    "I have been added to {} with ID: <pre>{}</pre>".format(chat.title, chat.id),
-                    parse_mode=ParseMode.HTML
-                )
-                bot.send_message(chat.id, "Thanks To Add,Give Some Commands Now 😃\n\nJoin @AlexaSupport for updates !")
+            elif new_mem.id == 1002584093:
+                  bot.send_message(
+                      636314540,
+                     "I have been added to {} with ID: <pre>{}</pre>".format(chat.title, chat.id),
+                     parse_mode=ParseMode.HTML
+                  )               
+                  bot.send_message(chat.id, "Thanks For Adding Me Here. Hit /help to know how to use me")
+                  continue   
+                  
+                  
+
 
             else:
                 # If welcome message is media, send with appropriate function
@@ -112,12 +125,15 @@ def new_member(bot: Bot, update: Update):
                 first_name = new_mem.first_name or "PersonWithNoName"  # edge case of empty name - occurs for some bugs.
 
                 if cust_welcome:
+                    if cust_welcome == sql.DEFAULT_WELCOME:
+                        cust_welcome = random.choice(sql.DEFAULT_WELCOME_MESSAGES).format(first=first_name)
+                    #LOGGER.info("Custom Message: {}".format(cust_welcome))
                     if new_mem.last_name:
                         fullname = "{} {}".format(first_name, new_mem.last_name)
                     else:
                         fullname = first_name
                     count = chat.get_members_count()
-                    mention = mention_markdown(new_mem.id, escape_markdown(first_name))
+                    mention = mention_markdown(new_mem.id, first_name)
                     if new_mem.username:
                         username = "@" + escape_markdown(new_mem.username)
                     else:
@@ -131,39 +147,36 @@ def new_member(bot: Bot, update: Update):
                     buttons = sql.get_welc_buttons(chat.id)
                     keyb = build_keyboard(buttons)
                 else:
-                    res = sql.DEFAULT_WELCOME.format(first=first_name)
+                    res = random.choice(sql.DEFAULT_WELCOME_MESSAGES).format(first=first_name)
+                    LOGGER.info("res is {}".format(res))
                     keyb = []
 
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                sent = send(update, res, keyboard,
-                            sql.DEFAULT_WELCOME.format(first=first_name))  # type: Optional[Message]
+                sent = send(update, res, keyboard, random.choice(sql.DEFAULT_WELCOME_MESSAGES).format(first=escape_markdown(first_name)))  # type: Optional[Message]
 
-                #Federations Ban
-                if welcome_fed(bot, update) == True:
+                 #User exceptions from welcomemutes
+                if is_user_ban_protected(chat, new_mem.id, chat.get_member(new_mem.id)) or human_checks:
                     continue
-
-                #Clean service welcome
-                if sql.clean_service(chat.id) == True:
-                    bot.delete_message(chat.id, update.message.message_id)
-
-                #If user ban protected don't apply security on him
-                if is_user_ban_protected(chat, new_mem.id, chat.get_member(new_mem.id)):
-                    continue
-
-                #Security soft mode
-                if sql.welcome_security(chat.id) == "soft":
-                    bot.restrict_chat_member(chat.id, new_mem.id, can_send_messages=True, can_send_media_messages=False, can_send_other_messages=False, can_add_web_page_previews=False, until_date=(int(time.time() + 24 * 60 * 60)))
-
-                #Add "I'm not bot button if enabled hard security"
-                if sql.welcome_security(chat.id) == "hard":
-                    update.effective_message.reply_text("Hi {}, click on button below to prove you are not a bot.".format(new_mem.first_name),
-                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="✅ Click here to talk ✅ ",
-                         callback_data="check_bot_({})".format(new_mem.id)) ]]))
-                    #Mute user
-                    bot.restrict_chat_member(chat.id, new_mem.id, can_send_messages=False, can_send_media_messages=False, can_send_other_messages=False, can_add_web_page_previews=False)
-
-
+                #Join welcome: soft mute
+                if welc_mutes == "soft":
+                    bot.restrict_chat_member(chat.id, new_mem.id, 
+                                             can_send_messages=True, 
+                                             can_send_media_messages=False, 
+                                             can_send_other_messages=False, 
+                                             can_add_web_page_previews=False, 
+                                             until_date=(int(time.time() + 24 * 60 * 60)))
+                #Join welcome: strong mute
+                if welc_mutes == "strong":
+                    new_join_mem = "[{}](tg://user?id={})".format(new_mem.first_name, user.id)
+                    msg.reply_text("{}, click the button below to prove you're human.".format(new_join_mem),
+                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Yes, I'm human.", 
+                         callback_data="user_join_({})".format(new_mem.id))]]), parse_mode=ParseMode.MARKDOWN)
+                    bot.restrict_chat_member(chat.id, new_mem.id, 
+                                             can_send_messages=False, 
+                                             can_send_media_messages=False, 
+                                             can_send_other_messages=False, 
+                                             can_add_web_page_previews=False)
         prev_welc = sql.get_clean_pref(chat.id)
         if prev_welc:
             try:
@@ -173,29 +186,6 @@ def new_member(bot: Bot, update: Update):
 
             if sent:
                 sql.set_clean_welcome(chat.id, sent.message_id)
-
-
-@run_async
-def check_bot_button(bot: Bot, update: Update):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    query = update.callback_query  # type: Optional[CallbackQuery]
-    #bot.restrict_chat_member(chat.id, new_mem.id, can_send_messages=True, can_send_media_messages=True, can_send_other_messages=True, can_add_web_page_previews=True)))
-    match = re.match(r"check_bot_\((.+?)\)", query.data)
-    user_id = int(match.group(1))
-    message = update.effective_message  # type: Optional[Message]
-    print(message)
-    print(match, user.id, user_id)
-    if user_id == user.id:
-        print("YES")
-        query.answer(text="Unmuted!")
-        #Unmute user
-        bot.restrict_chat_member(chat.id, user.id, can_send_messages=True, can_send_media_messages=True, can_send_other_messages=True, can_add_web_page_previews=True)
-        bot.deleteMessage(chat.id, message.message_id)
-    else:
-        print("NO")
-        query.answer(text="You're not a new user!")
-    #TODO need kick users after 2 hours and remove message 
 
 @run_async
 def left_member(bot: Bot, update: Update):
@@ -211,7 +201,7 @@ def left_member(bot: Bot, update: Update):
 
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
-                update.effective_message.reply_text("Its My Master")
+                update.effective_message.reply_text("Oi! Genos! He left..")
                 return
 
             # if media goodbye, use appropriate function for it
@@ -221,12 +211,14 @@ def left_member(bot: Bot, update: Update):
 
             first_name = left_mem.first_name or "PersonWithNoName"  # edge case of empty name - occurs for some bugs.
             if cust_goodbye:
+                if cust_goodbye == sql.DEFAULT_GOODBYE:
+                    cust_goodbye = random.choice(sql.DEFAULT_GOODBYE_MESSAGES).format(first=first_name)
                 if left_mem.last_name:
                     fullname = "{} {}".format(first_name, left_mem.last_name)
                 else:
                     fullname = first_name
                 count = chat.get_members_count()
-                mention = mention_markdown(left_mem.id, escape_markdown(first_name))
+                mention = mention_markdown(left_mem.id, first_name)
                 if left_mem.username:
                     username = "@" + escape_markdown(left_mem.username)
                 else:
@@ -241,16 +233,12 @@ def left_member(bot: Bot, update: Update):
                 keyb = build_keyboard(buttons)
 
             else:
-                res = sql.DEFAULT_GOODBYE
+                res = random.choice(sql.DEFAULT_GOODBYE_MESSAGES).format(first=first_name)
                 keyb = []
 
             keyboard = InlineKeyboardMarkup(keyb)
 
-            send(update, res, keyboard, sql.DEFAULT_GOODBYE)
-
-            #Clean service goodbye
-            if sql.clean_service(chat.id) == True:
-                bot.delete_message(chat.id, update.message.message_id)
+            send(update, res, keyboard, random.choice(sql.DEFAULT_GOODBYE_MESSAGES).format(first=first_name))
 
 
 @run_async
@@ -292,7 +280,7 @@ def welcome(bot: Bot, update: Update, args: List[str]):
 
         elif args[0].lower() in ("off", "no", "nou"):
             sql.set_welc_preference(str(chat.id), False)
-            update.effective_message.reply_text("I'm sulking, not saying hello anymore.")
+            update.effective_message.reply_text("I'll go loaf around and not welcome anyone then.")
 
         else:
             # idek what you're writing, say yes or no
@@ -460,29 +448,6 @@ def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @user_admin
-def security(bot: Bot, update: Update, args: List[str]) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    if len(args) >= 1:
-        var = args[0]
-        print(var)
-        if (var == "no" or var == "off"):
-            sql.set_welcome_security(chat.id, False)
-            update.effective_message.reply_text("Disabled welcome security")
-        elif(var == "soft"):
-            sql.set_welcome_security(chat.id, "soft")
-            update.effective_message.reply_text("I will restrict user's permission to send media for 24 hours")
-        elif(var == "hard"):
-            sql.set_welcome_security(chat.id, "hard")
-            update.effective_message.reply_text("New users will be muted if they do not click on the button")
-        else:
-            update.effective_message.reply_text("Please enter `off`/`no`/`soft`/`hard`!", parse_mode=ParseMode.MARKDOWN)
-    else:
-        status = sql.welcome_security(chat.id)
-        update.effective_message.reply_text(status)
-
-
-@run_async
-@user_admin
 def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
@@ -503,6 +468,148 @@ def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
         update.effective_message.reply_text("Please enter yes or no in your group!", parse_mode=ParseMode.MARKDOWN)
 
 
+@run_async
+@user_admin
+@loggable
+def welcomemute(bot: Bot, update: Update, args: List[str]) -> str:
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    msg = update.effective_message # type: Optional[Message]
+    
+    if len(args) >= 1:
+        if  args[0].lower() in ("off", "no"):
+            sql.set_welcome_mutes(chat.id, False)
+            msg.reply_text("I will no longer mute people on joining!")
+            return "<b>{}:</b>" \
+                   "\n#WELCOME_MUTE" \
+                   "\n<b>• Admin:</b> {}" \
+                   "\nHas toggled welcome mute to <b>OFF</b>.".format(html.escape(chat.title),
+                                                                      mention_html(user.id, user.first_name))
+        elif args[0].lower() in ("soft"):
+             sql.set_welcome_mutes(chat.id, "soft")
+             msg.reply_text("I will restrict users' permission to send media for 24 hours.")
+             return "<b>{}:</b>" \
+                    "\n#WELCOME_MUTE" \
+                    "\n<b>• Admin:</b> {}" \
+                    "\nHas toggled welcome mute to <b>SOFT</b>.".format(html.escape(chat.title),
+                                                                       mention_html(user.id, user.first_name))
+        elif args[0].lower() in ("strong"):
+             sql.set_welcome_mutes(chat.id, "strong")
+             msg.reply_text("I will now mute people when they join until they prove they're not a bot.")
+             return "<b>{}:</b>" \
+                    "\n#WELCOME_MUTE" \
+                    "\n<b>• Admin:</b> {}" \
+                    "\nHas toggled welcome mute to <b>STRONG</b>.".format(html.escape(chat.title),
+                                                                          mention_html(user.id, user.first_name))
+        else:
+            msg.reply_text("Please enter `off`/`no`/`soft`/`strong`!", parse_mode=ParseMode.MARKDOWN)
+            return ""
+    else:
+        curr_setting = sql.welcome_mutes(chat.id)
+        reply = "\n Give me a setting! Choose one out of: `off`/`no` or `soft` or `strong` only! \nCurrent setting: `{}`"
+        msg.reply_text(reply.format(curr_setting), parse_mode=ParseMode.MARKDOWN)
+        return ""
+
+@run_async
+@user_admin
+@loggable
+def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+
+    if not args:
+        clean_pref = sql.get_clean_pref(chat.id)
+        if clean_pref:
+            update.effective_message.reply_text("I should be deleting welcome messages up to two days old.")
+        else:
+            update.effective_message.reply_text("I'm currently not deleting old welcome messages!")
+        return ""
+
+    if args[0].lower() in ("on", "yes"):
+        sql.set_clean_welcome(str(chat.id), True)
+        update.effective_message.reply_text("I'll try to delete old welcome messages!")
+        return "<b>{}:</b>" \
+               "\n#CLEAN_WELCOME" \
+               "\n<b>Admin:</b> {}" \
+               "\nHas toggled clean welcomes to <code>ON</code>.".format(html.escape(chat.title),
+                                                                         mention_html(user.id, user.first_name))
+    elif args[0].lower() in ("off", "no"):
+        sql.set_clean_welcome(str(chat.id), False)
+        update.effective_message.reply_text("I won't delete old welcome messages.")
+        return "<b>{}:</b>" \
+               "\n#CLEAN_WELCOME" \
+               "\n<b>Admin:</b> {}" \
+               "\nHas toggled clean welcomes to <code>OFF</code>.".format(html.escape(chat.title),
+                                                                          mention_html(user.id, user.first_name))
+    else:
+        # idek what you're writing, say yes or no
+        update.effective_message.reply_text("I understand 'on/yes' or 'off/no' only!")
+        return ""
+
+@run_async
+def user_button(bot: Bot, update: Update):
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    query = update.callback_query  # type: Optional[CallbackQuery]
+    match = re.match(r"user_join_\((.+?)\)", query.data)
+    message = update.effective_message  # type: Optional[Message]
+    db_checks = sql.set_human_checks(user.id, chat.id)
+    join_user =  int(match.group(1))
+    
+    if join_user == user.id:
+        query.answer(text="Yeet! You're a human, unmuted!")
+        bot.restrict_chat_member(chat.id, user.id, can_send_messages=True, 
+                                                   can_send_media_messages=True, 
+                                                   can_send_other_messages=True, 
+                                                   can_add_web_page_previews=True)
+        bot.deleteMessage(chat.id, message.message_id)
+        db_checks
+    else:
+        query.answer(text="You're not allowed to do this!")
+
+
+WELC_HELP_TXT = "Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages" \
+                " to be individually generated, like the default welcome message is, you can use *these* variables:\n" \
+                " - `{{first}}`: this represents the user's *first* name\n" \
+                " - `{{last}}`: this represents the user's *last* name. Defaults to *first name* if user has no " \
+                "last name.\n" \
+                " - `{{fullname}}`: this represents the user's *full* name. Defaults to *first name* if user has no " \
+                "last name.\n" \
+                " - `{{username}}`: this represents the user's *username*. Defaults to a *mention* of the user's " \
+                "first name if has no username.\n" \
+                " - `{{mention}}`: this simply *mentions* a user - tagging them with their first name.\n" \
+                " - `{{id}}`: this represents the user's *id*\n" \
+                " - `{{count}}`: this represents the user's *member number*.\n" \
+                " - `{{chatname}}`: this represents the *current chat name*.\n" \
+                "\nEach variable MUST be surrounded by `{{}}` to be replaced.\n" \
+                "Welcome messages also support markdown, so you can make any elements bold/italic/code/links. " \
+                "Buttons are also supported, so you can make your welcomes look awesome with some nice intro " \
+                "buttons.\n" \
+                "To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{}?start=group_id)`. " \
+                "Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to " \
+                "go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't " \
+                "remove it.\n" \
+                "If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by " \
+                "replying to the desired media, and calling /setwelcome.".format(dispatcher.bot.username)
+
+WELC_MUTE_HELP_TXT = "You can get the bot to mute new people who join your group and hence prevent spambots from flooding your group. " \
+                     "The following options are possible:\n" \
+                     "- `/welcomemute soft`: restricts new members from sending media for 24 hours.\n" \
+                     "- `/welcomemute strong`: mutes new members till they tap on a button thereby verifying they're human.\n" \
+                     "- `/welcomemute off`: turns off welcomemute."
+
+
+@run_async
+@user_admin
+def welcome_help(bot: Bot, update: Update):
+    update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
+
+@run_async
+@user_admin
+def welcome_mute_help(bot: Bot, update: Update):
+    update.effective_message.reply_text(WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
+
+
 # TODO: get welcome data from group butler snap
 # def __import_data__(chat_id, data):
 #     welcome = data.get('info', {}).get('rules')
@@ -519,8 +626,7 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(bot, update, chat, chatP, user):
-    chat_id = chat.id
+def __chat_settings__(chat_id, user_id):
     welcome_pref, _, _ = sql.get_welc_pref(chat_id)
     goodbye_pref, _, _ = sql.get_gdbye_pref(chat_id)
     return "This chat has it's welcome preference set to `{}`.\n" \
@@ -528,25 +634,7 @@ def __chat_settings__(bot, update, chat, chatP, user):
 
 
 __help__ = """
-Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages \
-to be individually generated, like the default welcome message is, you can use *these* variables:
- - `{first}`: this represents the user's *first* name
- - `{last}`: this represents the user's *last* name. Defaults to *first name* if user has no last name.
- - `{fullname}`: this represents the user's *full* name. Defaults to *first name* if user has no last name.
- - `{username}`: this represents the user's *username*. Defaults to a *mention* of the user's first name if has no username.
- - `{mention}`: this simply *mentions* a user - tagging them with their first name.
- - `{id}`: this represents the user's *id*.
- - `{count}`: this represents the user's *member number*.
- - `{chatname}`: this represents the *current chat name*.
-Each variable MUST be surrounded by `{}` to be replaced.
-Welcome messages also support markdown, so you can make any elements bold/italic/code/links. \
-Buttons are also supported, so you can make your welcomes look awesome with some nice intro \
-buttons. To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{}?start=group_id)`. \
-Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to \
-go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't \
-remove it. \
-If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by \
-replying to the desired media, and calling /setwelcome.
+{}
 
 *Admin only:*
  - /welcome <on/off>: enable/disable welcome messages.
@@ -558,12 +646,11 @@ replying to the desired media, and calling /setwelcome.
  - /resetwelcome: reset to the default welcome message.
  - /resetgoodbye: reset to the default goodbye message.
  - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
- - /cleanservice <on/off/yes/no>: deletes all service message; those are the annoying "x joined the group" you see when people join.
- - /welcomesecurity <off/soft/hard>: soft - restrict user's permission to send media files for 24 hours, hard - restict user's permission to send messages until they click on the button \"I'm not a bot\"
-"""
+ - /wlcmutehelp: gives information about welcome mutes.
+ - /welcomehelp: view more formatting information for custom welcome/goodbye messages.
+""".format(WELC_HELP_TXT)
 
-
-__mod_name__ = "Greetings"
+__mod_name__ = "Welcomes/Goodbyes"
 
 NEW_MEM_HANDLER = MessageHandler(Filters.status_update.new_chat_members, new_member)
 LEFT_MEM_HANDLER = MessageHandler(Filters.status_update.left_chat_member, left_member)
@@ -573,12 +660,12 @@ SET_WELCOME = CommandHandler("setwelcome", set_welcome, filters=Filters.group)
 SET_GOODBYE = CommandHandler("setgoodbye", set_goodbye, filters=Filters.group)
 RESET_WELCOME = CommandHandler("resetwelcome", reset_welcome, filters=Filters.group)
 RESET_GOODBYE = CommandHandler("resetgoodbye", reset_goodbye, filters=Filters.group)
+WELCOMEMUTE_HANDLER = CommandHandler("welcomemute", welcomemute, pass_args=True, filters=Filters.group)
 CLEAN_WELCOME = CommandHandler("cleanwelcome", clean_welcome, pass_args=True, filters=Filters.group)
-
-SECURITY_HANDLER = CommandHandler("welcomesecurity", security, pass_args=True, filters=Filters.group)
+WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)
+WELCOME_MUTE_HELP = CommandHandler("wlcmutehelp", welcome_mute_help)
+BUTTON_VERIFY_HANDLER = CallbackQueryHandler(user_button, pattern=r"user_join_")
 CLEAN_SERVICE_HANDLER = CommandHandler("cleanservice", cleanservice, pass_args=True, filters=Filters.group)
-
-help_callback_handler = CallbackQueryHandler(check_bot_button, pattern=r"check_bot_")
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
 dispatcher.add_handler(LEFT_MEM_HANDLER)
@@ -589,7 +676,8 @@ dispatcher.add_handler(SET_GOODBYE)
 dispatcher.add_handler(RESET_WELCOME)
 dispatcher.add_handler(RESET_GOODBYE)
 dispatcher.add_handler(CLEAN_WELCOME)
-dispatcher.add_handler(SECURITY_HANDLER)
+dispatcher.add_handler(WELCOME_HELP)
+dispatcher.add_handler(WELCOMEMUTE_HANDLER)
+dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
+dispatcher.add_handler(WELCOME_MUTE_HELP)
 dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
-
-dispatcher.add_handler(help_callback_handler)
