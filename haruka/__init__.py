@@ -102,8 +102,7 @@ if ENV:
       antispam_module = True
     except ModuleNotFoundError:
       antispam_module = False
-      LOGGER.info("Note: Can't load antispam module. This is an optional.")
-
+      
     def spamfilters(text, user_id, chat_id, message):
         if user_id == 1372161900:
            return False
@@ -111,9 +110,9 @@ if ENV:
         if antispam_module:
            parsing_date = time.mktime(message.date.timetuple())
            detecting = detect_user(user_id, chat_id, message, parsing_date)
-        if detecting:
-           return True
-        antispam_restrict_user(user_id, parsing_date)
+           if detecting:
+              return True
+           antispam_restrict_user(user_id, parsing_date)
         if int(user_id) in SPAMMERS:
            print("This user is spammer!")
            return True
