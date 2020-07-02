@@ -128,15 +128,6 @@ def import_data(bot: Bot, update):
 
 				# Import blacklist sticker
 				
-				# Import disabled
-				if data.get('disabled'):
-					candisable = disabledsql.get_disableable()
-					if data['disabled'].get('disabled'):
-						for listdisabled in data['disabled'].get('disabled'):
-							if listdisabled in candisable:
-								disabledsql.disable_command(chat_id, listdisabled)
-								imp_disabled_count += 1
-
 				# Import filters
 				if data.get('filters'):
 					NOT_IMPORTED += "\n\nFilters:\n"
@@ -568,9 +559,6 @@ def export_data(bot: Bot, update: Update, chat_data):
 
 	# Backuping blacklists sticker
 	
-	# Backuping disabled
-	cmd_disabled = disabledsql.get_all_disabled(chat_id)
-	disabled = {'disabled': cmd_disabled}
 
 	# Backuping filters
 	all_filters = filtersql.get_chat_triggers(chat_id)
