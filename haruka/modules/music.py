@@ -7,18 +7,19 @@ import time
 from haruka.events import register
 import glob
 import os
-import instantmusic, subprocess
+import spotdl, subprocess
 
 @register(pattern="^/song (.*)")
 async def _(event):
     if event.fwd_from:
         return
     cmd = event.pattern_match.group(1)
+    cmnd = f'"{cmd}"'
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
-    subprocess.run(["instantmusic", "-q", "-s", cmd])
-    subprocess.run('for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done && for f in *.m4a; do      mv -- "$f" "${f%.m4a}.mp3"; done && for f in *.wav; do      mv -- "$f" "${f%.wav}.mp3"; done', shell=True)
+    subprocess.run(["spotdl", "--song", cmnd])
+    subprocess.run('for f in *.opus; do      mv -- "$f" "${f%.opus}.mp3"; done', shell=True)
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.reply("sending the song")
