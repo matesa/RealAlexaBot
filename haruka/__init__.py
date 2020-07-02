@@ -96,8 +96,15 @@ if ENV:
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS =os.environ.get('SPAMMERS', "")
     
+    try:
+	from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
+	antispam_module = True
+    except ModuleNotFoundError:
+	antispam_module = False
+	LOGGER.info("Note: Can't load antispam module. This is an optional.")
+
     def spamfilters(text, user_id, chat_id, message):
-        if user_id == 1002584093:
+        if user_id == 1372161900:
            return False
         print("{} | {} | {} | {}".format(text, user_id, message.chat.title, chat_id))
         if antispam_module:
