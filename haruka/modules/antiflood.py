@@ -6,12 +6,16 @@ from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
-from haruka import dispatcher
+
+from haruka import dispatcher, spamfilters
 from haruka.modules.helper_funcs.chat_status import is_user_admin, user_admin, can_restrict
+from haruka.modules.helper_funcs.string_handling import extract_time
 from haruka.modules.log_channel import loggable
 from haruka.modules.sql import antiflood_sql as sql
+from haruka.modules.connection import connected
 
 from haruka.modules.translations.strings import tld
+from haruka.modules.helper_funcs.alternate import send_message
 
 FLOOD_GROUP = 3
 
@@ -36,22 +40,45 @@ def check_flood(bot: Bot, update: Update) -> str:
         return ""
 
     try:
-        bot.restrict_chat_member(chat.id, user.id, can_send_messages=False)
-        msg.reply_text(tld(chat.id, "I like to leave the flooding to natural disasters. But you, you were just a "
-                       "disappointment. *Muted*!"))
+        getmode, getvalue = sql.get_flood_setting(chat.id)
+        if getmode == 1:
+            chat.kick_member(user.id)
+            execstrings = tld(update.effective_message, "Exit!")
+            tag = "BANNED"
+        elif getmode == 2:
+            chat.kick_member(user.id)
+            chat.unban_member(user.id)
+            execstrings = tld(update.effective_message, "Exit!")
+            tag = "KICKED"
+        elif getmode == 3:
+            bot.restrict_chat_member(chat.id, user.id, can_send_messages=False)
+            execstrings = tld(update.effective_message, "Now you are silent!")
+            tag = "MUTED"
+        elif getmode == 4:
+            bantime = extract_time(msg, getvalue)
+            chat.kick_member(user.id, until_date=bantime)
+            execstrings = tld(update.effective_message, "Out as long {}!").format(getvalue)
+            tag = "TBAN"
+        elif getmode == 5:
+            mutetime = extract_time(msg, getvalue)
+            bot.restrict_chat_member(chat.id, user.id, until_date=mutetime, can_send_messages=False)
+            execstrings = tld(update.effective_message, "Now you stay silent for {}!").format(getvalue)
+            tag = "TMUTE"
+        send_message(update.effective_message, tld(update.effective_message, "I don't like people who send successive messages. But you made me "
+                       "dissapointed. {}").format(execstrings))
 
         return "<b>{}:</b>" \
-               "\n#MUTED" \
+               "\n#{}" \
                "\n<b>User:</b> {}" \
-               "\nFlooded the group.".format(html.escape(chat.title),
+               "\nFlooded the group.".format(tag, html.escape(chat.title),
                                              mention_html(user.id, user.first_name))
 
     except BadRequest:
-        msg.reply_text(tld(chat.id, "I can't mute people here, give me permissions first! Until then, I'll disable antiflood."))
+        send_message(update.effective_message, tld(update.effective_message, "Does not have kick permission, so automatically disables antiflood."))
         sql.set_flood(chat.id, 0)
         return "<b>{}:</b>" \
                "\n#INFO" \
-               "\nDon't have mute permissions, so automatically disabled antiflood.".format(chat.title)
+               "\n{}".format(chat.title, tld(update.effective_message, "Does not have kick permission, so automatically disables antiflood."))
 
 
 @run_async
@@ -93,8 +120,90 @@ def set_flood(bot: Bot, update: Update, args: List[str]) -> str:
                                                                     mention_html(user.id, user.first_name), amount)
 
         else:
-            message.reply_text(tld(chat.id, "Unrecognized argument - please use a number, 'off', or 'no'."))
+            message.reply_text(tld(chat.id, "Unrecognised argument - please use a number, 'off', or 'no'."))
 
+    return ""
+
+@run_async
+@user_admin
+def set_flood_mode(bot: Bot, update: Update, args: List[str]):
+    spam = spamfilters(update.effective_message.text, update.effective_message.from_user.id, update.effective_chat.id, update.effective_message)
+    if spam == True:
+        return
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    msg = update.effective_message  # type: Optional[Message]
+
+    conn = connected(bot, update, chat, user.id, need_admin=True)
+    if conn:
+        chat = dispatcher.bot.getChat(conn)
+        chat_id = conn
+        chat_name = dispatcher.bot.getChat(conn).title
+    else:
+        if update.effective_message.chat.type == "private":
+            send_message(update.effective_message, tld(update.effective_message, "You can do this command in the group, not the PM"))
+            return ""
+        chat = update.effective_chat
+        chat_id = update.effective_chat.id
+        chat_name = update.effective_message.chat.title
+
+    if args:
+        if args[0].lower() == 'ban':
+            settypeflood = tld(update.effective_message, 'block')
+            sql.set_flood_strength(chat_id, 1, "0")
+        elif args[0].lower() == 'kick':
+            settypeflood = tld(update.effective_message, 'kick')
+            sql.set_flood_strength(chat_id, 2, "0")
+        elif args[0].lower() == 'mute':
+            settypeflood = tld(update.effective_message, 'mute')
+            sql.set_flood_strength(chat_id, 3, "0")
+        elif args[0].lower() == 'tban':
+            if len(args) == 1:
+                text = tld(update.effective_message, """It looks like you are trying to set a temporary value for anti-flood, but have not determined the time yet; use `/ setfloodmode tban <timevalue> `.
+
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""")
+                send_message(update.effective_message, text, parse_mode="markdown")
+                return
+            settypeflood = tld(update.effective_message, "block while for {}").format(args[1])
+            sql.set_flood_strength(chat_id, 4, str(args[1]))
+        elif args[0].lower() == 'tmute':
+            if len(args) == 1:
+                text = tld(update.effective_message, """It looks like you are trying to set a temporary value for anti-flood, but have not determined the time yet; use `/ setfloodmode tmute <timevalue>`.
+
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""")
+                send_message(update.effective_message, text, parse_mode="markdown")
+                return
+            settypeflood = tld(update.effective_message, 'block while for {}').format(args[1])
+            sql.set_flood_strength(chat_id, 5, str(args[1]))
+        else:
+            send_message(update.effective_message, tld(update.effective_message, "I only understand ban/kick/mute/tban/tmute!"))
+            return
+        if conn:
+            text = tld(update.effective_message, "Sending too many messages now will result in `{}` in * {} *! ").format(settypeflood, chat_name)
+        else:
+            text = tld(update.effective_message, "Sending too many messages will now result in `{}`!").format(settypeflood)
+        send_message(update.effective_message, text, parse_mode="markdown")
+        return "<b>{}:</b>\n" \
+                "<b>Admin:</b> {}\n" \
+                "Has changed antiflood mode. User will {}.".format(settypeflood, html.escape(chat.title),
+                                                                            mention_html(user.id, user.first_name))
+    else:
+        getmode, getvalue = sql.get_flood_setting(chat.id)
+        if getmode == 1:
+            settypeflood = tld(update.effective_message, 'block')
+        elif getmode == 2:
+            settypeflood = tld(update.effective_message, 'kick')
+        elif getmode == 3:
+            settypeflood = tld(update.effective_message, 'mute')
+        elif getmode == 4:
+            settypeflood = tld(update.effective_message, 'block while for {}').format(getvalue)
+        elif getmode == 5:
+            settypeflood = tld(update.effective_message, 'block while for {}').format(getvalue)
+        if conn:
+            text = tld(update.effective_message, "If a member sends successive messages, he will *{}* in *{}*.").format(settypeflood, chat_name)
+        else:
+            text = tl(update.effective_message, "If a member sends successive messages, he will be *{}*.").format(settypeflood)
+        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
     return ""
 
 
@@ -131,6 +240,7 @@ Antiflood allows you to take action on users that send more than x messages in a
 Available commands are:
  - /flood: gets the current antiflood settings.
  - /setflood <number/off>: sets the number of messages at which to take action on a user.
+ - /setfloodmode <mute/ban/kick/tban/tmute>: Select the valid action ex. /setfloodmode tmute 5m.
 """
 
 __mod_name__ = "AntiFlood"
@@ -138,7 +248,9 @@ __mod_name__ = "AntiFlood"
 FLOOD_BAN_HANDLER = MessageHandler(Filters.all & ~Filters.status_update & Filters.group, check_flood)
 SET_FLOOD_HANDLER = CommandHandler("setflood", set_flood, pass_args=True, filters=Filters.group)
 FLOOD_HANDLER = CommandHandler("flood", flood, filters=Filters.group)
+SET_FLOOD_MODE_HANDLER = CommandHandler("setfloodmode", set_flood_mode, pass_args=True)#, filters=Filters.group)
 
 dispatcher.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)
 dispatcher.add_handler(SET_FLOOD_HANDLER)
 dispatcher.add_handler(FLOOD_HANDLER)
+dispatcher.add_handler(SET_FLOOD_MODE_HANDLER)
