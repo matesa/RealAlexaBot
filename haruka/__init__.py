@@ -89,12 +89,13 @@ if ENV:
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
+
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    SPAMMERS =os.environ.get('SPAMMERS', "")
+    SPAMMERS = os.environ.get('SPAMMERS', "")
     
     try:
 	from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
