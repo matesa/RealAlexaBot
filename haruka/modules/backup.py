@@ -663,7 +663,7 @@ def export_data(bot: Bot, update: Update, chat_data):
 	
 
 	# Parsing backups
-	backup = {"bot_id": bot_id, "bot_base": bot_base, "antiflood": antiflood, "blacklists": blacklists, "disabled": disabled, "filters": filters, "locks": locks, "notes": notes, "report": report, "rules": rules, "version": backup_ver}
+	backup = {"bot_id": bot_id, "bot_base": bot_base, "antiflood": antiflood, "blacklists": blacklists, "filters": filters, "locks": locks, "notes": notes, "report": report, "rules": rules, "version": backup_ver}
 
 
 	all_backups = json.dumps(backup, indent=4, cls=SetEncoder)
