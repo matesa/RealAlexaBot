@@ -98,11 +98,11 @@ if ENV:
     SPAMMERS = os.environ.get('SPAMMERS', "")
     
     try:
-	from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
-	antispam_module = True
+      from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
+      antispam_module = True
     except ModuleNotFoundError:
-	antispam_module = False
-	LOGGER.info("Note: Can't load antispam module. This is an optional.")
+      antispam_module = False
+      LOGGER.info("Note: Can't load antispam module. This is an optional.")
 
     def spamfilters(text, user_id, chat_id, message):
         if user_id == 1372161900:
