@@ -80,7 +80,7 @@ def import_data(bot: Bot, update):
 
 		try:
 			# If backup is from Emilia
-			if data.get('bot_base') == "Kanna":
+			if data.get('bot_base') == "Alexa":
 				imp_antiflood = False
 				imp_blacklist = False
 				imp_blacklist_count = 0
@@ -680,7 +680,7 @@ def export_data(bot: Bot, update: Update, chat_data):
 
 
 	all_backups = json.dumps(backup, indent=4, cls=SetEncoder)
-	f = open("{}-Kanna.backup".format(chat_id), "w")
+	f = open("{}-Alexa.backup".format(chat_id), "w")
 	f.write(str(all_backups))
 	f.close()
 	bot.sendChatAction(current_chat_id, "upload_document")
@@ -689,13 +689,13 @@ def export_data(bot: Bot, update: Update, chat_data):
 		bot.sendMessage(TEMPORARY_DATA, "*Successfully backed up for:*\nChat Name: `{}`\nChat ID: `{}`\nOn: `{}`".format(chat.title, chat_id, tgl), parse_mode=ParseMode.MARKDOWN)
 	except BadRequest:
 		pass
-	send = bot.sendDocument(current_chat_id, document=open('{}-Kanna.backup'.format(chat_id), 'rb'), caption=tld(update.effective_message, "*Successfully backed up for:*\nChat Name: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This backup is specific to this bot.").format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
+	send = bot.sendDocument(current_chat_id, document=open('{}-Alexa.backup'.format(chat_id), 'rb'), caption=tld(update.effective_message, "*Successfully backed up for:*\nChat Name: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This backup is specific to this bot.").format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
 	try:
 		# Send to temp data for prevent unexpected issue
 		bot.sendDocument(TEMPORARY_DATA, document=send.document.file_id, caption=tld(update.effective_message, "*Successfully backed up for:*\nChat Name: `{}`\nVhat ID: `{}`\nOn: `{}`\n\nNote: This backup is specific to this bo").format(chat.title, chat_id, tgl), timeout=360, parse_mode=ParseMode.MARKDOWN)
 	except BadRequest:
 		pass
-	os.remove("{}-Kanna.backup".format(chat_id)) # Cleaning file
+	os.remove("{}-Alexa.backup".format(chat_id)) # Cleaning file
 
 
 class SetEncoder(json.JSONEncoder):
@@ -726,11 +726,10 @@ def get_chat(chat_id, chat_data):
 __mod_name__ = "Import/Export"
 
 __help__ = """
-Chat admins only can use;
+*Admins Only*
 
-- /import: <for> importing the exported file to get chat data like notes.
-
-- /export: <for> Export ur Chat data this will help u to restore ur chat data.
+ - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
+ - /import: Type in reply to the backup file to restore your chat data
 """
 
 IMPORT_HANDLER = CommandHandler("import", import_data, filters=Filters.group)
