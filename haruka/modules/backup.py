@@ -715,8 +715,6 @@ __mod_name__ = "Import/Export"
 __help__ = """
 *Admins Only*
 
-*NOTE:* The backup file can be imported from this bot only, no other bots can import it !
-
  - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
  - /import: Type in reply to the backup file to restore your chat data
 """
