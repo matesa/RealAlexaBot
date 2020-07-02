@@ -480,7 +480,7 @@ def import_data(bot: Bot, update):
 		# Check if backup is from self
 		try:
 			if str(bot.id) != str(data[str(chat_id)]['bot']):
-				return send_message(update.effective_message, tld(update.effective_message, "Backup comes from another bot🙂"))
+				return send_message(update.effective_message, tld(update.effective_message, "Sorry, Backup comes from another bot 😜"))
 		except:
 			pass
 		# Select data source
