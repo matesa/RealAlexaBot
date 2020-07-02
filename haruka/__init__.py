@@ -5,21 +5,12 @@ from pymongo import MongoClient
 from telethon import TelegramClient
 import telegram.ext as tg
 
-print("haruka")
-print("Starting...")
-
-
 # enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO)
 
 LOGGER = logging.getLogger(__name__)
-
-# if version < 3.6, stop bot.
-#if sys.version_info[0] < 3 or sys.version_info[1] < 6:
-#    LOGGER.error("You MUST have a python version of at least 3.6! Multiple features depend on this. Bot quitting.")
-#``````````````    quit(1)
 
 ENV = bool(os.environ.get('ENV', True))
 
@@ -96,7 +87,8 @@ if ENV:
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = os.environ.get('SPAMMERS', "")
-    
+    SPAMMERS = list(SPAMMERS)
+
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
