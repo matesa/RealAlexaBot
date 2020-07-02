@@ -95,6 +95,23 @@ if ENV:
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    
+ 
+def spamfilters(text, user_id, chat_id, message):
+	# If msg from self, return True
+	if user_id == 1002584093:
+		return False
+	print("{} | {} | {} | {}".format(text, user_id, message.chat.title, chat_id))
+	if antispam_module:
+		parsing_date = time.mktime(message.date.timetuple())
+		detecting = detect_user(user_id, chat_id, message, parsing_date)
+		if detecting:
+			return True
+		antispam_restrict_user(user_id, parsing_date)
+	if int(user_id) in SPAMMERS:
+		print("This user is spammer!")
+		return True
+	else:
+		return False
+
 else:
    quit(1)
