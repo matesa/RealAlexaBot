@@ -1,20 +1,3 @@
-#    Haruka Aya (A telegram bot project)
-#    Copyright (C) 2017-2019 Paul Larsen
-#    Copyright (C) 2019-2020 Akito Mizukito (Haruka Network Development)
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 from functools import wraps
 from typing import List, Dict
 
@@ -64,13 +47,13 @@ def paginate_modules(chat_id,
                      chat=None) -> List:
     if not chat:
         modules = sorted([
-            EqInlineKeyboardButton(tld(chat_id, "modname_" + x),
+            EqInlineKeyboardButton(chat_id, "__mod_name__" + x),
                                    callback_data="{}_module({})".format(
                                        prefix, x)) for x in module_dict.keys()
         ])
     else:
         modules = sorted([
-            EqInlineKeyboardButton(tld(chat_id, "modname_" + x),
+            EqInlineKeyboardButton(chat_id, "__mod_name__" + x),
                                    callback_data="{}_module({},{})".format(
                                        prefix, chat, x))
             for x in module_dict.keys()
@@ -86,19 +69,6 @@ def paginate_modules(chat_id,
         pairs.append((modules[-1], ))
     elif calc == 2:
         pairs.append((modules[-1], ))
-
-    # max_num_pages = ceil(len(pairs) / 28)
-    # modulo_page = page_n % max_num_pages
-
-    # can only have a certain amount of buttons side by side
-
-    #if len(pairs) > 21:
-    #    pairs = pairs[modulo_page * 28:28]
-    # else:
-    #     pairs += [[
-    #         EqInlineKeyboardButton(chat_id, 'btn_go_back'),
-    #                                callback_data="bot_start")
-    #     ]]
 
     return pairs
 
