@@ -46,18 +46,15 @@ def paginate_modules(chat_id,
                      prefix,
                      chat=None) -> List:
     if not chat:
-        modules = sorted([
-            EqInlineKeyboardButton(chat_id, "__mod_name__" + x),
-                                   callback_data="{}_module({})".format(
-                                       prefix, x)) for x in module_dict.keys()
-        ])
+        modules = sorted(
+            [EqInlineKeyboardButton(tld(chat_id, x.__mod_name__),
+                                    callback_data="{}_module({})".format(prefix, x.__mod_name__.lower())) for x
+             in module_dict.values()])
     else:
-        modules = sorted([
-            EqInlineKeyboardButton(chat_id, "__mod_name__" + x),
-                                   callback_data="{}_module({},{})".format(
-                                       prefix, chat, x))
-            for x in module_dict.keys()
-        ])
+        modules = sorted(
+            [EqInlineKeyboardButton(tld(chat_id, x.__mod_name__),
+                                    callback_data="{}_module({},{})".format(prefix, chat, x.__mod_name__.lower())) for x
+             in module_dict.values()])
 
     pairs = [
         modules[i * 3:(i + 1) * 3] for i in range((len(modules) + 3 - 1) // 3)
