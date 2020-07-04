@@ -1577,7 +1577,7 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    async for user in tbot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+    async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
         if not event.from_id in str(user.id) or event.id in str(user.id) or SUDO_USERS in str(user.id) or OWNER_ID in str(user.id):
            await event.reply("`You are not admin here !`")
            return
