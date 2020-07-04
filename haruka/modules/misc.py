@@ -1577,10 +1577,10 @@ async def _(event):
         return
 
     mentions = "" 
+    userisadmin = str(event.id)
     async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
         mentions += f"\n{user.id}"
-        print(mentions) #optional
-        userisadmin = str(event.id)
+        print(mentions) #optional 
         print(userisadmin) #optional
         if not mentions.count(f"{userisadmin}") > 0:
            await event.reply("`You are not admin here !`")
