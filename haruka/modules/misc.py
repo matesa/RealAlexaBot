@@ -1575,19 +1575,14 @@ async def _(event):
     if event.is_private:
         await event.reply("You can use this command in groups but not in PM's")
         return
-    mentions = "List of admins:" # let it be
+
+    mentions = "List of admins:" 
     async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
         mentions += f"\n{user.id}"
         if not str(event.id) in str(mentions):
            await event.reply("`You are not admin here !`")
            return
-      
-        async for user in show.client.iter_participants(show.chat_id):
-                  if not user.deleted:
-                     mentions += f"\n[{user.first_name}](tg://user?id={user.id}) {user.id}"
-                  else:
-                      mentions += f"\nDeleted Account {user.id}"
-        file = open("userslist.txt", "w+")
+
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
