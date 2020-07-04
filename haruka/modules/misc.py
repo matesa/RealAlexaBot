@@ -1572,14 +1572,21 @@ from telethon.tl.functions.channels import (EditAdminRequest,
 async def _(event):
     if event.fwd_from:
         return
-    chat = await event.get_chat()
+    chat = await show.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
-    if not event.chat.admin_rights.ban_users:
-        return
+
     if not admin and not creator:
-        await event.reply("I am not admin here !")
+        await show.reply("`I am not an admin here!`")
         return
+    
+    if event.is_private:
+        await event.reply("You can use in command in groups but not in PM's")
+        return
+
+    async for user in tbot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+        if not user == event.id or user in SUDO_USERS:
+           return
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
