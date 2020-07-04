@@ -1577,7 +1577,7 @@ async def _(event):
         return
 
     async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-        if not str(event.from_id) in str(user.id) or str(event.id) in str(user.id) or str(SUDO_USERS) in str(user.id) or str(OWNER_ID) in str(user.id):
+        if not str(event.from_id) in str(user.id):
            await event.reply("`You are not admin here !`")
            return
     c = 0
