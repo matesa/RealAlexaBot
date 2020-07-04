@@ -1554,7 +1554,7 @@ async def phone(event):
     d = "Location: " +str(location)
     e = "Carrier: " +str(carrier)
     f = "Device: " +str(line_type)
-    g = f"{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
+    g = f"{aa}\n{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
     await event.reply(g)
 
 
