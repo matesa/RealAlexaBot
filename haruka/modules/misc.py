@@ -1578,7 +1578,7 @@ async def _(event):
         return
 
     async for user in tbot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-        if not event.from_id in user or SUDO_USERS in user or OWNER_ID in user:
+        if not event.from_id in user.id or event.id in user.id or SUDO_USERS in user.id or OWNER_ID in user.id:
            await event.reply("`You are not admin here !`")
            return
     c = 0
