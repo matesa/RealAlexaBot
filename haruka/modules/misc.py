@@ -1576,10 +1576,12 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    mentions = "List of admins:" 
+    mentions = "" 
     async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
         mentions += f"\n{user.id}"
-        if not str(event.id) in str(mentions):
+        print(mentions) #optional
+        userisadmin = event.id
+        if not members.count(f"{userisadmin}") > 0:
            await event.reply("`You are not admin here !`")
            return
 
