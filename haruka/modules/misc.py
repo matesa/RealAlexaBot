@@ -894,8 +894,7 @@ async def get_users(show):
                   if not user.deleted:
                      mentions += f"\n[{user.first_name}](tg://user?id={user.id}) {user.id}"
                   else:
-                      mentions += f"\nDeleted Account `{user.id}`"
-        subprocess.run("touch", "userslist.txt")
+                      mentions += f"\nDeleted Account {user.id}"
         file = open("userslist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -1578,7 +1577,7 @@ async def _(event):
         return
 
     async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-        if not event.from_id in str(user.id) or event.id in str(user.id) or SUDO_USERS in str(user.id) or OWNER_ID in str(user.id):
+        if not str(event.from_id) in str(user.id) or str(event.id) in str(user.id) or str(SUDO_USERS) in str(user.id) or str(OWNER_ID) in str(user.id):
            await event.reply("`You are not admin here !`")
            return
     c = 0
