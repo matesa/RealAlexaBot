@@ -1537,7 +1537,7 @@ async def phone(event):
     carrier = obj['carrier']
     line_type = obj['line_type']	
     validornot = obj['valid']	
-    aa = "Valid : "+str(validornot)
+    aa = "Valid: "+str(validornot)
     a = "Phone number: "+str(number)
     b = "Country: " +str(country_code)
     c = "Country Name: " +str(country_name)
@@ -1578,7 +1578,7 @@ async def _(event):
         return
 
     async for user in tbot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-        if not event.from_id in user.id or event.id in user.id or SUDO_USERS in user.id or OWNER_ID in user.id:
+        if not event.from_id in str(user.id) or event.id in str(user.id) or SUDO_USERS in str(user.id) or OWNER_ID in str(user.id):
            await event.reply("`You are not admin here !`")
            return
     c = 0
