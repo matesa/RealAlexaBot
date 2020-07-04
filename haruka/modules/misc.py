@@ -74,16 +74,6 @@ from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
 from googleapiclient.discovery import build
 import requests 
-PP_TOO_SMOL = "`The image is too small`"
-PP_ERROR = "`Failure while processing the image`"
-NO_ADMIN = "`I am not an admin!`"
-NO_PERM = "`I don't have sufficient permissions!`"
-NO_SQL = "`Running on Non-SQL mode!`"
-CHAT_PP_CHANGED = "`Chat Picture Changed`"
-CHAT_PP_ERROR = "`Some issue with updating the pic,`" \
-                "`maybe coz I'm not an admin,`" \
-                "`or don't have enough rights.`"
-INVALID_MEDIA = "`Invalid Extension`"
 import urllib.request
 from haruka.modules.helper_funcs.chat_status import user_admin, is_user_admin
 
