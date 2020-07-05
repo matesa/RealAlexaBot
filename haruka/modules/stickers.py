@@ -14,10 +14,12 @@ from telegram.ext import CommandHandler, run_async
 from telegram.utils.helpers import escape_markdown
 
 from haruka import dispatcher
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 from haruka.modules.disable import DisableAbleCommandHandler
 
 @run_async
+@user_admin
 def stickerid(bot: Bot, update: Update):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:
@@ -29,6 +31,7 @@ def stickerid(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def getsticker(bot: Bot, update: Update):
     msg = update.effective_message
     chat_id = update.effective_chat.id
@@ -43,6 +46,7 @@ def getsticker(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def kang(bot: Bot, update: Update, args: List[str]):
     if os.path.isfile("kangsticker.png"):
         os.remove("kangsticker.png")
