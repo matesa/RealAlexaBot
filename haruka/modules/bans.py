@@ -21,7 +21,6 @@ from haruka.modules.translations.strings import tld
 @run_async
 @bot_admin
 @can_restrict
-@user_admin
 @user_can_ban
 @loggable
 def ban(bot: Bot, update: Update, args: List[str]) -> str:
@@ -90,7 +89,6 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @can_restrict
 @user_can_ban
-@user_admin
 @loggable
 def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -181,7 +179,6 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @user_can_ban
 @can_restrict
-@user_admin
 @loggable
 def kick(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -290,7 +287,6 @@ def banme(bot: Bot, update: Update):
 @bot_admin
 @user_can_ban
 @can_restrict
-@user_admin
 @loggable
 def unban(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message  # type: Optional[Message]
@@ -343,7 +339,6 @@ def unban(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @can_restrict
 @user_can_ban
-@user_admin
 @loggable
 def sban(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
