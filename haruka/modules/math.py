@@ -6,82 +6,98 @@ from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
 import pynewtonmath as newton
 import math
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 def join(args):
     x = ''.join(map(str, args))
     return x
 
 @run_async
+@user_admin
 def simplify(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.simplify('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def factor(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.factor('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def derive(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.derive('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def integrate(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.integrate('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def zeroes(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.zeroes('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def tangent(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.tangent('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def area(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     message.reply_text(newton.area('{}'.format(join(args))))
 
 @run_async
+@user_admin
 def cos(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.cos(int(args[0])))
 
 @run_async
+@user_admin
 def sin(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.sin(int(args[0])))
 
 @run_async
+@user_admin
 def tan(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.tan(int(args[0])))
 
 @run_async
+@user_admin
 def arccos(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.acos(int(args[0])))
 
 @run_async
+@user_admin
 def arcsin(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.asin(int(args[0])))
 
 @run_async
+@user_admin
 def arctan(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.atan(int(args[0])))
 
 @run_async
+@user_admin
 def abs(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.fabs(int(args[0])))
 
 @run_async
+@user_admin
 def log(bot: Bot, update: Update, args):
     message = update.effective_message
     message.reply_text(math.log(int(args[0])))
