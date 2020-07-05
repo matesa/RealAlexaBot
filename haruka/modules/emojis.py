@@ -5,7 +5,7 @@ from telegram import Message, Update, Bot, User
 from pathlib import Path
 import glob
 import os
-
+from haruka.modules.helper_funcs.chat_status import user_admin
 from typing import Optional, List
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
@@ -23,6 +23,7 @@ from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHa
 
 # based on https://github.com/wrxck/mattata/blob/master/plugins/copypasta.mattata
 @run_async
+@user_admin
 def copypasta(bot: Bot, update: Update):
     message = update.effective_message
     emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏", "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
@@ -46,6 +47,7 @@ def copypasta(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def bmoji(bot: Bot, update: Update):
     message = update.effective_message
     b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
@@ -54,6 +56,7 @@ def bmoji(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def clapmoji(bot: Bot, update: Update):
     message = update.effective_message
     reply_text = "👏 "
@@ -63,6 +66,7 @@ def clapmoji(bot: Bot, update: Update):
     
     
 @run_async
+@user_admin
 def angrymoji(bot: Bot, update: Update):
     message = update.effective_message
     reply_text = "😡 "
@@ -76,6 +80,7 @@ def angrymoji(bot: Bot, update: Update):
     
     
 @run_async
+@user_admin
 def crymoji(bot: Bot, update: Update):
     message = update.effective_message
     reply_text = "😭 "
@@ -89,6 +94,7 @@ def crymoji(bot: Bot, update: Update):
     
 
 @run_async
+@user_admin
 def me_too(bot: Bot, update: Update):
     message = update.effective_message
     if random.randint(0, 100) > 60:
@@ -97,7 +103,7 @@ def me_too(bot: Bot, update: Update):
         
         
 __help__ = """
-- Reply to a text with /🅱️ or /😂 or /👏
+- Reply to a text with /🅱️ or /😂 or /👏 or /😭 or /😡
 - You can also use the text version of these : /bmoji or /copypasta or /clapmoji
 """
 
