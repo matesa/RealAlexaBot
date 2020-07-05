@@ -3,6 +3,9 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from haruka.events import register
 import random
+from haruka import LOGGER, tbot
+from telethon import types
+from telethon.tl import functions
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
