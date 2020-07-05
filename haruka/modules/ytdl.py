@@ -43,7 +43,6 @@ async def is_register_admin(chat, user):
 async def download_video(v_url):
     if v_url.is_group:
      if not (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
-       await v_url.reply("I only respond to admins so go get some permissions !")
        return
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
