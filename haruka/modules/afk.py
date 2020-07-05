@@ -29,7 +29,7 @@ def afk(bot: Bot, update: Update):
     fname = update.effective_user.first_name
     update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
 
-@user_admin
+
 @run_async
 def no_longer_afk(bot: Bot, update: Update):
     user = update.effective_user  # type: Optional[User]
@@ -43,7 +43,6 @@ def no_longer_afk(bot: Bot, update: Update):
         firstname = update.effective_user.first_name
         update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK!"))
 
-@user_admin
 @run_async
 def reply_afk(bot: Bot, update: Update):
     message = update.effective_message  # type: Optional[Message]
