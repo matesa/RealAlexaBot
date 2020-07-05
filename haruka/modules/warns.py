@@ -175,6 +175,7 @@ def reset_warns(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
+@user_admin
 def warns(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -265,6 +266,7 @@ def remove_warn_filter(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def list_warn_filters(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     all_handlers = sql.get_chat_warn_triggers(chat.id)
@@ -399,8 +401,6 @@ def __chat_settings__(chat_id, user_id):
 __help__ = """
  - /warns <userhandle>: get a user's number, and reason, of warnings.
  - /warnlist: list of all current warning filters
-
-*Admin only:*
  - /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
  - /resetwarn <userhandle>: reset the warnings for a user. Can also be used as a reply.
  - /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to \
