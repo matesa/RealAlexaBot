@@ -10,9 +10,11 @@ import haruka.modules.sql.userinfo_sql as sql
 from haruka import dispatcher, SUDO_USERS, OWNER_ID
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.extraction import extract_user
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async
+@user_admin
 def about_me(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message  # type: Optional[Message]
     user_id = extract_user(message, args)
@@ -35,6 +37,7 @@ def about_me(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
+@user_admin
 def set_about_me(bot: Bot, update: Update):
     message = update.effective_message  # type: Optional[Message]
     user_id = message.from_user.id
@@ -50,6 +53,7 @@ def set_about_me(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def about_bio(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message  # type: Optional[Message]
 
@@ -72,6 +76,7 @@ def about_bio(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
+@user_admin
 def set_about_bio(bot: Bot, update: Update):
     message = update.effective_message  # type: Optional[Message]
     sender = update.effective_user  # type: Optional[User]
