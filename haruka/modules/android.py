@@ -3,10 +3,12 @@ import urllib
 from hurry.filesize import size as sizee
 from telethon import custom
 from haruka.events import register
-from haruka import LOGGER
+from haruka import LOGGER, tbot
 from haruka.modules.translations.strings import tld
 import re
 import json
+
+from haruka import LOGGER, tbot
 from telethon import types
 
 from bs4 import BeautifulSoup
