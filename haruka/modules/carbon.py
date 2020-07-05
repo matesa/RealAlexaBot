@@ -56,7 +56,6 @@ async def is_register_admin(chat, user):
 async def carbon_api(e):
     if e.is_group:
      if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-       await e.reply("I only respond to admins so go get some permissions !")
        return
     """ A Wrapper for carbon.now.sh """
     jj = "`Processing..`"
