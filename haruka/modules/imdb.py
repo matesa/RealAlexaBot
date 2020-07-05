@@ -31,7 +31,8 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/imdb (.*)") 
 async def imdb(e):
- if not (await is_register_admin(e.input_chat, e.message.sender_id)):
+ if e.is_group:
+  if not (await is_register_admin(e.input_chat, e.message.sender_id)):
        await e.reply("I only respond to admins so go get some permissions !")
        return
  try:
