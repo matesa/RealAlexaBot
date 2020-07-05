@@ -39,7 +39,7 @@ async def parseqr(qr_e):
 
     if qr_e.is_group:
        if not (await is_register_admin(qr_e.input_chat, qr_e.message.sender_id)):
-          await event.reply("I only respond to admins so go get some permissions !")
+          await qr_e.reply("I only respond to admins so go get some permissions !")
           return
 
     start = datetime.now()
@@ -63,6 +63,10 @@ async def make_qr(qrcode):
     """ For .makeqr command, make a QR Code containing the given content. """
     if qrcode.fwd_from:
         return
+    if qrcode.is_group:
+       if not (await is_register_admin(qrcode.input_chat, qrcode.message.sender_id)):
+          await qrcode.reply("I only respond to admins so go get some permissions !")
+          return
     start = datetime.now()
     input_str = qrcode.pattern_match.group(1)
     message = "SYNTAX: `.makeqr <long text to include>`"
