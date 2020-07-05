@@ -3,19 +3,45 @@ from asyncio import sleep
 from datetime import datetime
 from requests import get, post
 from haruka.events import register
+from haruka import LOGGER, tbot
+from telethon import types
+from telethon.tl import functions
 
 
 def progress(current, total):
     """ Calculate and return the download progress with given arguments. """
     print("Downloaded {} of {}\nCompleted {}".format(current, total,
                                                      (current / total) * 100))
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
+        return isinstance(
+            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
+        )
+    elif isinstance(chat, types.InputPeerChat):
+
+        ui = await tbot.get_peer_id(user)
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
+            .full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator)
+        )
+    else:
+        return None
 
 @register(pattern=r"^/getqr$")
 async def parseqr(qr_e):
     """ For .getqr command, get QR Code content from the replied photo. """
     if qr_e.fwd_from:
         return
+
+    if qr_e.is_group:
+       if not (await is_register_admin(qr_e.input_chat, qr_e.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
+
     start = datetime.now()
     downloaded_file_name = await qr_e.client.download_media(
         await qr_e.get_reply_message(), progress_callback=progress)
