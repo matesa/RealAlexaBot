@@ -17,10 +17,30 @@ from haruka import YOUTUBE_API_KEY
 from html import unescape
 import requests
 
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
+        return isinstance(
+            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
+        )
+    elif isinstance(chat, types.InputPeerChat):
+
+        ui = await tbot.get_peer_id(user)
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
+            .full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator)
+        )
+    else:
+        return None
 
 @register(pattern="^/yt(audio|video) (.*)")
 async def download_video(v_url):
+    if not (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
+       await v_url.reply("I only respond to admins so go get some permissions !")
+       return
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
     type = v_url.pattern_match.group(1).lower()
