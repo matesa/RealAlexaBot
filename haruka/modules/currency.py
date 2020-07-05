@@ -1,10 +1,11 @@
 import requests
 from telegram import Bot, Update
 from telegram.ext import CommandHandler, run_async
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
 
 from haruka import dispatcher, CASH_API_KEY
 
-
+@user_admin
 @run_async
 def convert(bot: Bot, update: Update):
     args = update.effective_message.text.split(" ", 3)
