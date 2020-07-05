@@ -16,6 +16,9 @@ from haruka.events import register
 from haruka import YOUTUBE_API_KEY
 from html import unescape
 import requests
+from haruka import LOGGER, tbot
+from telethon import types
+from telethon.tl import functions
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
