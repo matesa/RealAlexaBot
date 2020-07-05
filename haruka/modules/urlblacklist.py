@@ -119,6 +119,7 @@ def del_blacklist_url(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def get_blacklisted_urls(bot: Bot, update: Update):
     chat = update.effective_chat
     message = update.effective_message
