@@ -1,5 +1,3 @@
-""" command: .compress """
-
 from telethon import events
 import asyncio
 import zipfile
@@ -33,11 +31,12 @@ async def is_register_admin(chat, user):
 async def _(event):
     if event.fwd_from:
         return
+
     if not event.is_reply:
         await event.reply("Reply to a file to compress it.")
-        return
-
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+        return 
+    if event.is_group:
+     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
        await event.reply("I only respond to admins so go get some permissions !")
        return
    
