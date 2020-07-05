@@ -212,6 +212,7 @@ def clear(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
+@user_admin
 def list_notes(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
