@@ -27,6 +27,9 @@ from selenium.webdriver.chrome.options import Options
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from telethon import events
+from haruka import LOGGER, tbot
+from telethon import types
+from telethon.tl import functions
 
 CARBONLANG = "en"
 
