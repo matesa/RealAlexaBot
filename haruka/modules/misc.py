@@ -259,6 +259,27 @@ from haruka.modules.translations.strings import tld
 from requests import get
 
 
+
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+
+        return isinstance(
+            (await bot(functions.channels.GetParticipantRequest(chat, user))).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
+        )
+    elif isinstance(chat, types.InputPeerChat):
+
+        ui = await bot.get_peer_id(user)
+        ps = (await bot(functions.messages.GetFullChatRequest(chat.chat_id))) \
+            .full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator)
+        )
+    else:
+        return None
+
+
 @run_async
 def runs(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1585,11 +1606,9 @@ async def _(event):
        await event.reply("I don't have sufficient permissions")
        return
 
-    async for user in event.client.iter_participants(event.chat_id,
-                                             filter=ChannelParticipantsAdmins):
-        if str(sender.id) in str(user.id):
-            await event.reply("You don't have sufficient permissions")
-            return
+    if not (await is_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I don't have sufficient permissions")
+       return
 
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
