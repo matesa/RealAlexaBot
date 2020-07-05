@@ -39,7 +39,6 @@ async def parseqr(qr_e):
 
     if qr_e.is_group:
        if not (await is_register_admin(qr_e.input_chat, qr_e.message.sender_id)):
-          await qr_e.reply("I only respond to admins so go get some permissions !")
           return
 
     start = datetime.now()
@@ -65,7 +64,6 @@ async def make_qr(qrcode):
         return
     if qrcode.is_group:
        if not (await is_register_admin(qrcode.input_chat, qrcode.message.sender_id)):
-          await qrcode.reply("I only respond to admins so go get some permissions !")
           return
     start = datetime.now()
     input_str = qrcode.pattern_match.group(1)
