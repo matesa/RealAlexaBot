@@ -3,7 +3,7 @@ from random import randint
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async
-
+from haruka.modules.helper_funcs.chat_status import user_admin
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
 
@@ -204,6 +204,7 @@ TOSS = (
 )
 
 @run_async
+@user_admin
 def roll(bot: Bot, update: Update):
     update.message.reply_text(random.choice(range(1, 7)))
 	
@@ -211,18 +212,21 @@ def toss(bot: Bot, update: Update):
     update.message.reply_text(random.choice(TOSS))
 
 @run_async
+@user_admin
 def abuse(bot: Bot, update: Update):
     # reply to correct message
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
     reply_text(random.choice(ABUSE_STRINGS))
 	
 @run_async
+@user_admin
 def bluetext(bot: Bot, update: Update):
     # reply to correct message
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
     reply_text("```BLUE TEXT\n MUST CLICK\n I AM A STUPID ANIMAL THAT IS ATTRACTED TO COLORS```")		
 
 @run_async
+@user_admin
 def rlg(bot: Bot, update: Update):
     # reply to correct message
     eyes = random.choice(EYES)
@@ -263,7 +267,7 @@ __mod_name__ = "Extras"
 ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
 ROLL_HANDLER = DisableAbleCommandHandler("roll", roll)
 TOSS_HANDLER = DisableAbleCommandHandler("toss", toss)
-BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext)
+#BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext)
 RLG_HANDLER = DisableAbleCommandHandler("rlg", rlg)
 DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
@@ -271,7 +275,7 @@ TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 dispatcher.add_handler(ABUSE_HANDLER)
 dispatcher.add_handler(ROLL_HANDLER)
 dispatcher.add_handler(TOSS_HANDLER)
-dispatcher.add_handler(BLUETEXT_HANDLER)
+#dispatcher.add_handler(BLUETEXT_HANDLER)
 dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
