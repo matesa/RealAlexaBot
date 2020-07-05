@@ -619,6 +619,9 @@ def get_paste_stats(bot: Bot, update: Update, args: List[str]):
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     input_str = event.pattern_match.group(1)
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
@@ -656,6 +659,9 @@ async def _(event):
 @register(pattern=r"^/wiki (.*)")
 async def wiki(wiki_q):
     """ For .google command, fetch content from Wikipedia. """
+    if not (await is_register_admin(wiki_q.input_chat, wiki_q.message.sender_id)):
+       await wiki_q.reply("I only respond to admins so go get some permissions !")
+       return
     match = wiki_q.pattern_match.group(1)
     try:
         summary(match)
@@ -696,6 +702,9 @@ import html2text
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     # SHOW_DESCRIPTION = False
     input_str = event.pattern_match.group(1) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
     input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
@@ -720,6 +729,9 @@ from datetime import tzinfo, datetime
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     sample_url = "https://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric"
     input_str = event.pattern_match.group(1)
     async with aiohttp.ClientSession() as session:
@@ -762,6 +774,9 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     sample_url = "https://wttr.in/{}.png"
     # logger.info(sample_url)
     input_str = event.pattern_match.group(1)
@@ -779,6 +794,9 @@ async def _(event):
 async def figlet(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     input_str = event.pattern_match.group(1)
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
@@ -791,6 +809,9 @@ from glob import glob
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("I only respond to admins so go get some permissions !")
+       return
     await event.reply("Processing...")
     query = event.pattern_match.group(1)
     lim = findall(r"lim=\d+", query)
@@ -838,6 +859,9 @@ def ud(bot: Bot, update: Update, args):
 @register(pattern="^/yt (.*)")
 async def yts_search(video_q):
     # For .yts command, do a YouTube search from Telegram.
+    if not (await is_register_admin(video_q.input_chat, video_q.message.sender_id)):
+       await video_q.reply("I only respond to admins so go get some permissions !")
+       return
     query = video_q.pattern_match.group(1)
     result = ''
 
@@ -908,6 +932,9 @@ async def get_users(show):
         if not show.is_group:
             await show.reply("Are you sure this is a group?")
             return
+        if not (await is_register_admin(show.input_chat, show.message.sender_id)):
+          await show.reply("I only respond to admins so go get some permissions !")
+          return
         info = await show.client.get_entity(show.chat_id)
         title = info.title if info.title else "this chat"
         mentions = "Users in {}: \n".format(title)
@@ -935,6 +962,9 @@ from telethon import *
 
 @register(pattern="^/app (.*)")
 async def apk(e):
+    if not (await is_register_admin(e.input_chat, e.message.sender_id)):
+          await e.reply("I only respond to admins so go get some permissions !")
+          return
     try:
         app_name = e.pattern_match.group(1)
         remove_space = app_name.split(' ')
@@ -967,6 +997,9 @@ from cowpy import cow
 
 @register(pattern=r"^/(\w+)say (.*)")
 async def univsaye(cowmsg):
+    if not (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
+          await cowmsg.reply("I only respond to admins so go get some permissions !")
+          return
     """ For .cowsay module, uniborg wrapper for cow which says things. """
     if not cowmsg.text[0].isalpha() and cowmsg.text[0] not in ("#", "@"):
         arg = cowmsg.pattern_match.group(1).lower()
@@ -995,7 +1028,9 @@ async def rm_deletedacc(show):
     if not show.chat.admin_rights.ban_users:
         await show.reply("I don't have sufficient permissions")
         return
-        
+    if not (await is_register_admin(show.input_chat, show.message.sender_id)):
+          await show.reply("I only respond to admins so go get some permissions !")
+          return
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
         async for user in show.client.iter_participants(show.chat_id):
@@ -1085,6 +1120,9 @@ def progress(current, total):
 async def get_ocr_languages(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     languages = {}
     languages["English"] = "eng"
     languages["Arabic"] = "ara"
@@ -1118,6 +1156,9 @@ async def get_ocr_languages(event):
 async def parse_ocr_space_api(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -1168,6 +1209,9 @@ import datetime
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     start = datetime.datetime.now()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -1228,6 +1272,9 @@ async def _(event):
      return
   if event.fwd_from:
      return
+  if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
   news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
   Client=urlopen(news_url)
   xml_page=Client.read()
@@ -1250,6 +1297,9 @@ from telethon.tl.types import InputMediaDice
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice(''))
     if input_str:
@@ -1265,6 +1315,9 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     input_str = print(randrange(6))
     r = await event.reply(file=InputMediaDice('🏀'))
     if input_str:
@@ -1281,6 +1334,9 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice('🎯'))
     if input_str:
@@ -1415,6 +1471,9 @@ from haruka import WOLFRAM_ID
 async def _(event):
     if event.fwd_from:
         return
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     if not event.reply_to_msg_id:
        app_id =  WOLFRAM_ID
        client = wolframalpha.Client(app_id) 
@@ -1503,6 +1562,9 @@ telegraph.create_account(short_name='Alexa')
 async def tor_search(event):
    if event.fwd_from:
       return 
+   if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
    str = event.pattern_match.group(1)
    let = f'"{str}"'
    jit = subprocess.check_output(["we-get", "-s", let, "-J"])   
@@ -1545,6 +1607,9 @@ import os
 
 @register(pattern=r'^/phone (.*)')
 async def phone(event): 
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     information = event.pattern_match.group(1)
     number = information
     key = "fe65b94e78fc2e3234c1c6ed1b771abd" 
@@ -1571,6 +1636,9 @@ async def phone(event):
 
 @register(pattern="^/ping")
 async def pingme(pong):
+    if not (await is_register_admin(pong.input_chat, pong.message.sender_id)):
+          await pong.reply("I only respond to admins so go get some permissions !")
+          return
     """ FOr .pingme command, ping the userbot from any chat.  """
     start = datetime.datetime.now()
     up = await pong.reply("`Pong!`")
@@ -1665,6 +1733,10 @@ if LYDIA_API_KEY:
 async def chat_bot(event):
          if event.fwd_from:
              return  
+         if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+            await event.reply("I only respond to admins so go get some permissions !")
+            return
+
          if MONGO_DB_URI is None:
              await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
              return
@@ -1684,6 +1756,10 @@ async def chat_bot(event):
 async def chat_bot(event):
       if event.fwd_from:
           return  
+      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
+
       if MONGO_DB_URI is None:
           await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
           return
@@ -1727,6 +1803,9 @@ async def asciiart(event):
   if not event.from_id:
      await event.reply("Reply To A Image Plox..")
      return
+  if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
   directory = "./"
   test = os.listdir(directory)
   for item in test:
