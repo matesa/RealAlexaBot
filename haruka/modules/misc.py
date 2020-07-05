@@ -1606,8 +1606,8 @@ async def _(event):
        await event.reply("I don't have sufficient permissions")
        return
 
-    if not (await is_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("I don't have sufficient permissions")
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       await event.reply("You don't have sufficient permissions")
        return
 
     c = 0
