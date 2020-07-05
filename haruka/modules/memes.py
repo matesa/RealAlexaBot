@@ -20,6 +20,7 @@ from deeppyer import deepfry
 
 from haruka import dispatcher, DEEPFRY_TOKEN, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 WIDE_MAP = dict((i, i + 0xFEE0) for i in range(0x21, 0x7F))
 WIDE_MAP[0x20] = 0x3000
@@ -28,6 +29,7 @@ WIDE_MAP[0x20] = 0x3000
 
 
 @run_async
+@user_admin
 def owo(bot: Bot, update: Update):
     message = update.effective_message
     if not message.reply_to_message:
@@ -50,6 +52,7 @@ def owo(bot: Bot, update: Update):
         message.reply_to_message.reply_text(reply_text)
 
 @run_async
+@user_admin
 def copypasta(bot: Bot, update: Update):
     message = update.effective_message
     if not message.reply_to_message:
@@ -76,6 +79,7 @@ def copypasta(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def bmoji(bot: Bot, update: Update):
     message = update.effective_message
     if not message.reply_to_message:
@@ -87,6 +91,7 @@ def bmoji(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def clapmoji(bot: Bot, update: Update):
     message = update.effective_message
     if not message.reply_to_message:
@@ -100,6 +105,7 @@ def clapmoji(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def stretch(bot: Bot, update: Update):
     message = update.effective_message
     if not message.reply_to_message:
@@ -111,6 +117,7 @@ def stretch(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def vapor(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     if not message.reply_to_message:
@@ -136,6 +143,7 @@ def vapor(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
+@user_admin
 def zalgotext(bot: Bot, update: Update):
     message = update.effective_message
     if message.reply_to_message:
@@ -150,6 +158,7 @@ def zalgotext(bot: Bot, update: Update):
 # shitty maymay modules made by @divadsn vvv
 
 @run_async
+@user_admin
 def forbesify(bot: Bot, update: Update):
     message = update.effective_message
     if message.reply_to_message:
@@ -178,6 +187,7 @@ def forbesify(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def deepfryer(bot: Bot, update: Update):
     message = update.effective_message
     if message.reply_to_message:
@@ -228,6 +238,7 @@ async def process_deepfry(image: Image, reply: Message, bot: Bot):
 
 
 @run_async
+@user_admin
 def shout(bot: Bot, update: Update, args):
     if len(args) == 0:
         update.effective_message.reply_text("Where is text?")
