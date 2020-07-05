@@ -12,11 +12,12 @@ from haruka.modules.helper_funcs.chat_status import user_admin, can_delete
 from haruka.modules.log_channel import loggable
 
 from haruka.modules.translations.strings import tld
+from haruka.modules.helper_funcs.chat_status import user_can_delete
 
 
 @run_async
-@user_admin
 @loggable
+@user_can_delete
 def purge(bot: Bot, update: Update, args: List[str]) -> str:
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -66,7 +67,7 @@ def purge(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@user_can_delete
 @loggable
 def del_message(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
