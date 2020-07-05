@@ -7,6 +7,7 @@ from haruka import LOGGER
 from haruka.modules.translations.strings import tld
 import re
 import json
+from telethon import types
 
 from bs4 import BeautifulSoup
 from requests import get
