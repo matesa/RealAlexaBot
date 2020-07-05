@@ -1587,7 +1587,7 @@ async def _(event):
 
     async for user in event.client.iter_participants(event.chat_id,
                                              filter=ChannelParticipantsAdmins):
-        if sender.id in user.id:
+        if str(sender.id) in str(user.id):
             await event.reply("You don't have sufficient permissions")
             return
 
