@@ -45,7 +45,6 @@ async def magisk(event):
         return
     if event.is_group:
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("I only respond to admins so go get some permissions !")
           return
     url = 'https://raw.githubusercontent.com/topjohnwu/magisk_files/'
     releases = '**Latest Magisk Releases:**\n'
@@ -88,8 +87,7 @@ async def magisk(event):
 async def device_info(request):
     if request.is_group:
      if not (await is_register_admin(request.input_chat, request.message.sender_id)):
-       await request.reply("I only respond to admins so go get some permissions !")
-       return
+        return
     """ get android device basic info from its codename """
     textx = await request.get_reply_message()
     codename = request.pattern_match.group(1)
@@ -119,7 +117,6 @@ async def device_info(request):
 async def codename_info(request):
     if request.is_group:
      if not (await is_register_admin(request.input_chat, request.message.sender_id)):
-       await request.reply("I only respond to admins so go get some permissions !")
        return
     """ search for android codename """
     textx = await request.get_reply_message()
@@ -162,7 +159,6 @@ async def codename_info(request):
 async def devices_specifications(request):
     if request.is_group:
      if not (await is_register_admin(request.input_chat, request.message.sender_id)):
-       await request.reply("I only respond to admins so go get some permissions !")
        return
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
@@ -219,7 +215,6 @@ async def devices_specifications(request):
 async def twrp(request):
     if request.is_group:
      if not (await is_register_admin(request.input_chat, request.message.sender_id)):
-       await request.reply("I only respond to admins so go get some permissions !")
        return
     """ get android device twrp """
     textx = await request.get_reply_message()
