@@ -9,9 +9,11 @@ from telegram.ext import run_async
 
 from haruka import dispatcher, WALL_API
 from haruka.modules.disable import DisableAbleCommandHandler
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async
+@user_admin
 def wall(bot: Bot, update: Update, args):
     chat_id = update.effective_chat.id
     msg = update.effective_message
