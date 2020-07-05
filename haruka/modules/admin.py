@@ -20,7 +20,6 @@ from haruka.modules.connection import connected
 
 @run_async
 @bot_admin
-@user_admin
 @user_can_restrict
 @loggable
 @can_promote
@@ -77,7 +76,6 @@ def promote(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
-@user_admin
 @user_can_restrict
 @can_promote
 @loggable
@@ -142,7 +140,6 @@ def demote(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @can_pin
-@user_admin
 @user_can_pin
 @loggable
 def pin(bot: Bot, update: Update, args: List[str]) -> str:
@@ -175,7 +172,6 @@ def pin(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @can_pin
-@user_admin
 @user_can_pin
 @loggable
 def unpin(bot: Bot, update: Update) -> str:
@@ -227,6 +223,7 @@ def invite(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def adminlist(bot, update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -279,8 +276,6 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
  - /users: List all the users in the chat
-
-*Admin only:*
  - /pin: silently pins the message replied to - add 'loud' or 'notify' to give notifs to users.
  - /unpin: unpins the currently pinned message
  - /invitelink: gets invitelink
