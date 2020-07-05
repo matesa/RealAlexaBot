@@ -10,11 +10,12 @@ from haruka.modules.sql import afk_sql as sql
 from haruka.modules.users import get_user_id
 
 from haruka.modules.translations.strings import tld
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
-
+@user_admin
 @run_async
 def afk(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -28,7 +29,7 @@ def afk(bot: Bot, update: Update):
     fname = update.effective_user.first_name
     update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
 
-
+@user_admin
 @run_async
 def no_longer_afk(bot: Bot, update: Update):
     user = update.effective_user  # type: Optional[User]
@@ -42,7 +43,7 @@ def no_longer_afk(bot: Bot, update: Update):
         firstname = update.effective_user.first_name
         update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK!"))
 
-
+@user_admin
 @run_async
 def reply_afk(bot: Bot, update: Update):
     message = update.effective_message  # type: Optional[Message]
