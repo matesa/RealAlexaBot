@@ -21,7 +21,6 @@ from haruka.modules.disable import DisableAbleCommandHandler
 
 @run_async
 @bot_admin
-@user_admin
 @user_can_ban
 @loggable
 def mute(bot: Bot, update: Update, args: List[str]) -> str:
@@ -79,7 +78,6 @@ def mute(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
-@user_admin
 @user_can_ban
 @loggable
 def unmute(bot: Bot, update: Update, args: List[str]) -> str:
@@ -135,7 +133,6 @@ def unmute(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @user_can_ban
 @can_restrict
-@user_admin
 @loggable
 def temp_mute(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -224,7 +221,6 @@ def temp_mute(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
-@user_admin
 @user_can_ban
 @loggable
 def nomedia(bot: Bot, update: Update, args: List[str]) -> str:
@@ -283,7 +279,6 @@ def nomedia(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_can_ban
-@user_admin
 @loggable
 def media(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -337,7 +332,6 @@ def media(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @user_can_ban
 @can_restrict
-@user_admin
 @loggable
 def temp_nomedia(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
