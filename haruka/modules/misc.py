@@ -1585,10 +1585,12 @@ async def _(event):
        await event.reply("I don't have sufficient permissions")
        return
 
-    if not sender.is_admin:
-       await event.reply("You don't have sufficient permissions")
-       return
-    
+    async for user in event.client.iter_participants(event.chat_id,
+                                             filter=ChannelParticipantsAdmins):
+        if sender.id in user.id:
+            await event.reply("You don't have sufficient permissions")
+            return
+
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
