@@ -285,7 +285,7 @@ def runs(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(random.choice(tld(chat.id, "RUNS-K")))
 
-
+@user_admin
 @run_async
 def slap(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -327,7 +327,7 @@ def slap(bot: Bot, update: Update, args: List[str]):
 
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
     
-
+@user_admin
 @run_async
 def get_id(bot: Bot, update: Update, args: List[str]):
     user_id = extract_user(update.effective_message, args)
@@ -360,6 +360,7 @@ def get_id(bot: Bot, update: Update, args: List[str]):
 def stats(bot: Bot, update: Update):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
+@user_admin
 @run_async
 def info(bot: Bot, update: Update, args: List[str]):
     msg = update.effective_message  # type: Optional[Message]
@@ -415,6 +416,7 @@ def info(bot: Bot, update: Update, args: List[str]):
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
+@user_admin
 @run_async
 def echo(bot: Bot, update: Update):
     args = update.effective_message.text.split(None, 1)
@@ -425,6 +427,7 @@ def echo(bot: Bot, update: Update):
         message.reply_text(args[1], quote=False)
     message.delete()
 
+@user_admin
 @run_async
 def reply_keyboard_remove(bot: Bot, update: Update):
     reply_keyboard = []
@@ -447,7 +450,7 @@ def reply_keyboard_remove(bot: Bot, update: Update):
         message_id=old_message.message_id
     )
 
-
+@user_admin
 @run_async
 def gdpr(bot: Bot, update: Update):
     update.effective_message.reply_text(tld(update.effective_chat.id, "Deleting identifiable data..."))
@@ -456,7 +459,7 @@ def gdpr(bot: Bot, update: Update):
 
     update.effective_message.reply_text(tld(update.effective_chat.id, "send_gdpr"), parse_mode=ParseMode.MARKDOWN)
 
-
+@user_admin
 @run_async
 def markdown_help(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -494,7 +497,7 @@ def github(bot: Bot, update: Update):
     message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
 
 
-
+@user_admin
 @run_async
 def repo(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
@@ -510,7 +513,7 @@ def repo(bot: Bot, update: Update, args: List[str]):
 
 BASE_URL = 'https://del.dog'
 
-
+@user_admin
 @run_async
 def paste(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
@@ -542,7 +545,7 @@ def paste(bot: Bot, update: Update, args: List[str]):
         reply = f'{BASE_URL}/{key}'
     update.effective_message.reply_text(reply, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
-
+@user_admin
 @run_async
 def get_paste_content(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
@@ -576,7 +579,7 @@ def get_paste_content(bot: Bot, update: Update, args: List[str]):
 
     update.effective_message.reply_text('```' + escape_markdown(r.text) + '```', parse_mode=ParseMode.MARKDOWN)
 
-
+@user_admin
 @run_async
 def get_paste_stats(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
@@ -1374,7 +1377,6 @@ from telegram.ext import run_async
 from haruka import dispatcher, TIME_API_KEY
 from haruka.modules.disable import DisableAbleCommandHandler
 
-
 def generate_time(to_find: str, findtype: List[str]) -> str:
     data = requests.get(f"http://api.timezonedb.com/v2.1/list-time-zone"
                         f"?key={TIME_API_KEY}"
@@ -1419,6 +1421,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 
 
 @run_async
+@user_admin
 def gettime(bot: Bot, update: Update):
     message = update.effective_message
 
@@ -1453,6 +1456,7 @@ from haruka.modules.disable import DisableAbleCommandHandler
 
 
 @run_async
+@user_admin
 def lyrics(bot: Bot, update: Update, args):
     msg = update.effective_message
     query = " ".join(args)
@@ -1717,7 +1721,7 @@ async def _(event):
             else:
                c = c + 1                 
 
-        if isinstance(i.status, None):
+        if i.status is None::
             status = await event.client(EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
             if not status:
                return
