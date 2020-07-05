@@ -1579,25 +1579,15 @@ async def _(event):
 
     chat = await event.get_chat()
     admin = chat.admin_rights
-    creator = chat.creator
+    sender = await event.get_sender()
+    
     if not event.chat.admin_rights.ban_users:
        await event.reply("I don't have sufficient permissions")
        return
 
-    mentions = "List of admins: "
-    try:
-       async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-            if not user.deleted:
-                userid = user.id
-                mentions += userid
-            else:
-                mentions += "Deleted Account"
-            print(mentions) #optional 
-            if not mentions.count('1009655116') > 0:
-                await event.reply("`You are not admin here !`")
-                return
-    except ChatAdminRequiredError as err:
-        return
+    if not event.sender.admin_rights.ban_users:
+       await event.reply("You don't have sufficient permissions")
+       return
     
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
