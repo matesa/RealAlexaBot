@@ -613,17 +613,6 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return "This chat is enforcing *gbans*: `{}`.".format(sql.does_chat_gban(chat_id))
 
 
-__help__ = """
-*Admin only:*
- - /antispam <on/off/yes/no>: Will disable antispam security in group, or return your current settings.
-
-Antispam are used by the bot owners to ban spammers across all groups. This helps protect \
-you and your groups by removing spam flooders as quickly as possible. They can be disabled for you group by calling \
-/antispam
-"""
-
-__mod_name__ = "Antispam"
-
 ANTISPAM_STATUS = CommandHandler("antispam", antispam, pass_args=True, filters=Filters.group)
 
 GBAN_HANDLER = CommandHandler("gban", gban, pass_args=True,
