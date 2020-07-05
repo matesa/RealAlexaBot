@@ -279,7 +279,7 @@ async def is_register_admin(chat, user):
     else:
         return None
 
-
+@user_admin
 @run_async
 def runs(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
