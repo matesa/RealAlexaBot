@@ -19,7 +19,6 @@ from haruka.modules.translations.strings import tld
 
 BLACKLIST_GROUP = 11
 
-@user_admin
 @run_async
 def blacklist(bot: Bot, update: Update, args: List[str]):
     msg = update.effective_message  # type: Optional[Message]
@@ -148,7 +147,7 @@ def unblacklist(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_not_admin
 def del_blacklist(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
