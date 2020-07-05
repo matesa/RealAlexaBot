@@ -3,6 +3,7 @@ from telegram.ext import run_async, Filters
 from telegram import Message, Chat, Update, Bot, MessageEntity
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 SFW_STRINGS = (
    "Owww ... Such a stupid idiot.",
@@ -75,6 +76,7 @@ SFW_STRINGS = (
 )
 
 @run_async
+@user_admin
 def insult(bot: Bot, update: Update):
     bot.sendChatAction(update.effective_chat.id, "typing") # Bot typing before send messages
     message = update.effective_message
