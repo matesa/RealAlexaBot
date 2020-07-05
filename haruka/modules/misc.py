@@ -1693,12 +1693,13 @@ async def _(event):
     chat = await event.get_chat()
     admin = chat.admin_rights
     sender = await event.get_sender()
-    if event.is_group:
-     if not event.chat.admin_rights.ban_users:
+    
+    if not event.chat.admin_rights.ban_users:
        await event.reply("I don't have sufficient permissions")
        return
 
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
        await event.reply("You don't have sufficient permissions")
        return
 
@@ -1706,7 +1707,7 @@ async def _(event):
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
     async for i in event.client.iter_participants(event.chat_id):
-
+        print(i) #optional
         if isinstance(i.status, UserStatusLastMonth):
             status = await event.client(EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
             if not status:
