@@ -23,7 +23,7 @@ from haruka.modules.connection import connected
 
 HANDLER_GROUP = 10
 
-
+@user_admin
 @run_async
 def list_handlers(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
