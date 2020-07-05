@@ -1583,14 +1583,15 @@ async def _(event):
     if not event.chat.admin_rights.ban_users:
        await event.reply("I don't have sufficient permissions")
        return
+
     mentions = "List of admins: "
     try:
        async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
             if not user.deleted:
-                userid = f"{user.id}"
-                mentions += f"\n{userid}"
+                userid = user.id
+                mentions += userid
             else:
-                mentions += f"\nDeleted Account"
+                mentions += "Deleted Account"
             print(mentions) #optional 
             if not mentions.count('1009655116') > 0:
                 await event.reply("`You are not admin here !`")
