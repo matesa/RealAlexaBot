@@ -13,6 +13,7 @@ from haruka.modules.helper_funcs.string_handling import extract_time
 from haruka.modules.log_channel import loggable
 from haruka.modules.sql import antiflood_sql as sql
 from haruka.modules.connection import connected
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
 
 from haruka.modules.translations.strings import tld
 from haruka.modules.helper_funcs.alternate import send_message
@@ -22,6 +23,7 @@ FLOOD_GROUP = 3
 
 @run_async
 @loggable
+@user_admin
 def check_flood(bot: Bot, update: Update) -> str:
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -208,6 +210,7 @@ Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
 
 
 @run_async
+@user_admin
 def flood(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
 
