@@ -36,8 +36,7 @@ async def is_register_admin(chat, user):
 async def imdb(e):
  if e.is_group:
   if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-       await e.reply("I only respond to admins so go get some permissions !")
-       return
+     return
  try:
     movie_name = e.pattern_match.group(1)
     remove_space = movie_name.split(' ')
