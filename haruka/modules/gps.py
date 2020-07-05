@@ -9,7 +9,8 @@ from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
-                                                                   
+from haruka.modules.helper_funcs.chat_status import user_admin
+                                                      
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.extraction import extract_user
@@ -23,6 +24,7 @@ GMAPS_LOC = "https://maps.googleapis.com/maps/api/geocode/json"
 
 
 @run_async
+@user_admin
 def gps(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     if len(args) == 0:
