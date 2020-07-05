@@ -192,3 +192,16 @@ def user_can_pin(func):
         return func(bot, update, *args, **kwargs)
     
     return user_pin_can
+
+
+def user_can_delete(func):
+    @wraps(func)
+    def user_delete(bot: Bot, update: Update, *args, **kwargs):
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+        if not (member.can_delete_messages or member.status == "creator") and not user in SUDO_USERS:
+            update.effective_message.reply_text("Sorry you don't have sufficient rights !")
+            return ""
+        return func(bot, update, *args, **kwargs)
+    
+    return user_delete
