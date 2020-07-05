@@ -31,7 +31,8 @@ async def _(event):
     HELP_STR = "use `/rmbg` as reply to a media"
     if event.fwd_from:
         return
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
        await event.reply("I only respond to admins so go get some permissions !")
        return
     if REM_BG_API_KEY is None:
