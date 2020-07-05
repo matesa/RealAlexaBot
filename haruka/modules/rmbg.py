@@ -6,6 +6,9 @@ import requests
 from telethon import events
 from haruka.events import register
 from haruka import REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY
+from haruka import LOGGER, tbot
+from telethon import types
+from telethon.tl import functions
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
