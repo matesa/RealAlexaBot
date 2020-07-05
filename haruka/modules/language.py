@@ -84,10 +84,10 @@ def locale_button(bot, update):
     bot.answer_callback_query(query.id)
 
 
-LOCALE_HANDLER = CommandHandler(["set_locale", "locale", "lang", "setlang"], locale, pass_args=True)
-locale_handler = CallbackQueryHandler(locale_button, pattern="chng_lang")
-set_locale_handler = CallbackQueryHandler(locale_button, pattern=r"set_lang_")
+#LOCALE_HANDLER = CommandHandler(["set_locale", "locale", "lang", "setlang"], locale, pass_args=True)
+#locale_handler = CallbackQueryHandler(locale_button, pattern="chng_lang")
+#set_locale_handler = CallbackQueryHandler(locale_button, pattern=r"set_lang_")
 
-dispatcher.add_handler(LOCALE_HANDLER)
-dispatcher.add_handler(locale_handler)
-dispatcher.add_handler(set_locale_handler)
+#dispatcher.add_handler(LOCALE_HANDLER)
+#dispatcher.add_handler(locale_handler)
+#dispatcher.add_handler(set_locale_handler)
