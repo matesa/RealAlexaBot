@@ -4,6 +4,7 @@ from pprint import pprint
 import requests
 from telegram import Update, Bot
 from telegram.ext import CommandHandler
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 from haruka import dispatcher
 
@@ -11,7 +12,7 @@ from haruka import dispatcher
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
 URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
 
-
+@user_admin
 def translate(bot: Bot, update: Update):
     if update.effective_message.reply_to_message:
         msg = update.effective_message.reply_to_message
