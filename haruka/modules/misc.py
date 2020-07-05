@@ -1039,6 +1039,10 @@ async def rm_deletedacc(show):
     admin = chat.admin_rights
     creator = chat.creator
     
+    if event.is_private:
+        await event.reply("You can use this command in groups but not in PM's")
+        return
+
     if not show.chat.admin_rights.ban_users:
         await show.reply("I don't have sufficient permissions")
         return
@@ -1700,7 +1704,6 @@ async def _(event):
 
     if event.is_group:
      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("You don't have sufficient permissions")
        return
 
     c = 0
