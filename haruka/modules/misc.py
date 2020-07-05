@@ -1585,7 +1585,7 @@ async def _(event):
        await event.reply("I don't have sufficient permissions")
        return
 
-    if not sender.admin_rights.ban_users:
+    if not sender.is_admin:
        await event.reply("You don't have sufficient permissions")
        return
     
