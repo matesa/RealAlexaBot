@@ -37,7 +37,6 @@ async def _(event):
         return
     if event.is_group:
      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("I only respond to admins so go get some permissions !")
        return
     cmd = event.pattern_match.group(1)
     cmnd = f'"{cmd}"'
