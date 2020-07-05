@@ -39,9 +39,10 @@ async def is_register_admin(chat, user):
 async def magisk(event):
     if event.from_id == None:
         return
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("I only respond to admins so go get some permissions !")
-       return
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("I only respond to admins so go get some permissions !")
+          return
     url = 'https://raw.githubusercontent.com/topjohnwu/magisk_files/'
     releases = '**Latest Magisk Releases:**\n'
     variant = [
@@ -81,7 +82,8 @@ async def magisk(event):
 
 @register(pattern=r"^/device(?: |$)(\S*)")
 async def device_info(request):
-    if not (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if not (await is_register_admin(request.input_chat, request.message.sender_id)):
        await request.reply("I only respond to admins so go get some permissions !")
        return
     """ get android device basic info from its codename """
@@ -111,7 +113,8 @@ async def device_info(request):
 
 @register(pattern=r"^/codename(?: |)([\S]*)(?: |)([\s\S]*)")
 async def codename_info(request):
-    if not (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if not (await is_register_admin(request.input_chat, request.message.sender_id)):
        await request.reply("I only respond to admins so go get some permissions !")
        return
     """ search for android codename """
@@ -153,7 +156,8 @@ async def codename_info(request):
 
 @register(pattern=r"^/specs(?: |)([\S]*)(?: |)([\s\S]*)")
 async def devices_specifications(request):
-    if not (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if not (await is_register_admin(request.input_chat, request.message.sender_id)):
        await request.reply("I only respond to admins so go get some permissions !")
        return
     """ Mobile devices specifications """
@@ -209,7 +213,8 @@ async def devices_specifications(request):
 
 @register(pattern=r"^/twrp(?: |$)(\S*)")
 async def twrp(request):
-    if not (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if not (await is_register_admin(request.input_chat, request.message.sender_id)):
        await request.reply("I only respond to admins so go get some permissions !")
        return
     """ get android device twrp """
