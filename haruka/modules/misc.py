@@ -1566,7 +1566,7 @@ from telethon import *
 from telethon.tl.functions.channels import (EditAdminRequest,
                                             EditBannedRequest,
                                             EditPhotoRequest)
-                                            
+                                           
 @register(pattern="^/kickthefools")
 async def _(event):
     if event.fwd_from:
@@ -1576,16 +1576,21 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    mentions = "" 
-    userisadmin = str(event.id)
-    async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
-        mentions += f"\n{user.id}"
-        print(mentions) #optional 
-        print(userisadmin) #optional
-        if not mentions.count(f"{userisadmin}") > 0:
-           await event.reply("`You are not admin here !`")
-           return
-
+    mentions = "List of admins: "
+    try:
+       async for user in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+            if not user.deleted:
+                userid = f"{user.id}"
+                mentions += f"\n{userid}"
+            else:
+                mentions += f"\nDeleted Account"
+                print(mentions) #optional 
+                if not mentions.count('1009655116') > 0:
+                   await event.reply("`You are not admin here !`")
+                   return
+    except ChatAdminRequiredError as err:
+        return
+    
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
