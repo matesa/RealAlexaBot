@@ -3,9 +3,11 @@ from telegram import Bot, Message, Update, ParseMode
 from telegram.ext import CommandHandler, run_async
 
 from haruka import dispatcher
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async
+@user_admin
 def define(bot: Bot, update: Update, args):
     msg = update.effective_message
     word = " ".join(args)
