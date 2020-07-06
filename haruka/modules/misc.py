@@ -1010,7 +1010,7 @@ from cowpy import cow
 
 @register(pattern=r"^/(\w+)say (.*)")
 async def univsaye(cowmsg):
-    if event.is_group:
+    if cowmsg.is_group:
      if not (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
           await cowmsg.reply("")
           return
@@ -1039,13 +1039,14 @@ async def rm_deletedacc(show):
     admin = chat.admin_rights
     creator = chat.creator
     
-    if event.is_private:
-        await event.reply("You can use this command in groups but not in PM's")
+    if show.is_private:
+        await show.reply("You can use this command in groups but not in PM's")
         return
 
     if not show.chat.admin_rights.ban_users:
         await show.reply("I don't have sufficient permissions")
         return
+
     if event.is_group:
      if not (await is_register_admin(show.input_chat, show.message.sender_id)):
           await show.reply("")
