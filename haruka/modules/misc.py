@@ -1932,7 +1932,7 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /twrp <codename>: Get the latest TWRP download for an Android device
 """
 
-__mod_name__ = "Utilities 👨‍💻"
+__mod_name__ = "Utilities ⚡"
 
 
 ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True, admin_ok=True)
