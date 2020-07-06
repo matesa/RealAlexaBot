@@ -307,6 +307,12 @@ __help__ = """
  - /unlock <item(s)>: unlock "item". Everyone can use them again.
  - /locks: list the lock status in the chat.
  - /locktypes: gets a list of all things that can be locked. (have a look at this!)
+ - /save <word> <sentence>: Save that sentence to the note called "word". Replying to a message will save that message. Even works on media!
+ - /get <word>: get the note registered to that word.
+ - #<word>: same as /get word
+ - /clear <word>: delete the note called "word"
+ - /notes: List all notes in the current chat
+ - /saved: same as /notes
 """
 
 __mod_name__ = "Admins"
