@@ -363,7 +363,7 @@ Setting the log channel is done by:
 
 """
 
-__mod_name__ = "Admins"
+__mod_name__ = "Admin Command"
 
 PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
 UNPIN_HANDLER = DisableAbleCommandHandler("unpin", unpin, filters=Filters.group)
