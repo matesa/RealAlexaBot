@@ -235,19 +235,6 @@ def __chat_settings__(bot, update, chat, chatP, user):
         return "Antiflood is set to `{}` messages.".format(limit)
 
 
-__help__ = """
- You know how sometimes, people join, send 100 messages, and ruin your chat? With antiflood, that happens no more!
-
-Antiflood allows you to take action on users that send more than x messages in a row. Actions are: ban/kick/mute/tban/tmute
-
-Available commands are:
- - /flood: gets the current antiflood settings.
- - /setflood <number/off>: sets the number of messages at which to take action on a user.
- - /setfloodmode <mute/ban/kick/tban/tmute>: Select the valid action ex. /setfloodmode tmute 5m.
-"""
-
-__mod_name__ = "AntiFlood"
-
 FLOOD_BAN_HANDLER = MessageHandler(Filters.all & ~Filters.status_update & Filters.group, check_flood)
 SET_FLOOD_HANDLER = CommandHandler("setflood", set_flood, pass_args=True, filters=Filters.group)
 FLOOD_HANDLER = CommandHandler("flood", flood, filters=Filters.group)
