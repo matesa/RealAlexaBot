@@ -353,6 +353,14 @@ This would match bit.ly/abc, but not bit.ly/abcd.
  - /addblacklist "bit.ly/*" We dont like shorteners!
 If you wanted to only match bit.ly/ links followed by three characters, you could use:
  - /geturl: View the current blacklisted urls
+ - /setlog: set a log channel.
+ - /unsetlog: unset the log channel.
+ - /logchannel: get the log channel info
+Setting the log channel is done by:
+- adding the bot to the desired channel (as an admin!)
+- sending /setlog in the channel
+- forwarding the /setlog to the group
+
 """
 
 __mod_name__ = "Admins"
