@@ -270,6 +270,12 @@ Some memes command, find it all out yourself!
 /forbesify: Correct your punctuations better use the advanged spell module 
 /shout: Write anything that u want it to should
 /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
+/table : get flip/unflip :v.
+/decide : Randomly answers yes/no/maybe
+/toss : Tosses A coin
+/abuse : Abuses the cunt
+/roll : Roll a dice.
+/rlg : Join ears,nose,mouth and create an emo ;-;
 """
 
 __mod_name__ = "Memes"
