@@ -1886,7 +1886,6 @@ __help__ = """
  - /removebotkeyboard: Got a nasty bot keyboard stuck in your group?
  - /shrug: try and check it out yourself.
  - /datetime <city>: Get the present date and time information
- - /insult: Reply to a text with /insult for insults.
  - /camscanner: Reply to a image to scan and improve it's clarity.
 *Instructions*
 ▪️The image should be a page with some written text on it (screenshots aren't permitted)
@@ -1933,7 +1932,7 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /twrp <codename>: Get the latest TWRP download for an Android device
 """
 
-__mod_name__ = "Misc"
+__mod_name__ = "Utilities 👨‍💻"
 
 
 ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True, admin_ok=True)
