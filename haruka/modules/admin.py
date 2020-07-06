@@ -336,6 +336,9 @@ be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is
  - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
  - /wlcmutehelp: gives information about welcome mutes.
  - /welcomehelp: view more formatting information for custom welcome/goodbye messages.
+ - /connection <chatid>: Connect to remote chat
+ - /disconnect: Disconnect from chat
+ - /allowconnect on/yes/off/no: Allow connect users to group
 """
 
 __mod_name__ = "Admins"
