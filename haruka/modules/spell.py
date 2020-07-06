@@ -51,7 +51,7 @@ __help__ = """
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
 """
 
-__mod_name__ = "AutoCorrect"
+__mod_name__ = "Common Helper"
 
 
 TRANSLATE_HANDLER = CommandHandler('spell', translate)
