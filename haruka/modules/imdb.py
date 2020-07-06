@@ -114,9 +114,3 @@ async def imdb(e):
     			)
  except IndexError:
      await e.reply("Please enter a valid movie name !")
-
-__help__ = """
- - /imdb - Get full info about a movie with imdb.com
-"""
-
-__mod_name__ = "IMDB"
