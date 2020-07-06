@@ -1880,9 +1880,9 @@ __help__ = """
  - /info: get information about a user.
  - /gdpr: deletes your information from the bot's database. Private chats only.
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
- - /paste: Create a paste or a shortened url using [dogbin](https://del.dog)
- - /getpaste: Get the content of a paste or shortened url from [dogbin](https://del.dog)
- - /pastestats: Get stats of a paste or shortened url from [dogbin](https://del.dog)
+ - /paste: Create a paste or a shortened url using del.dog
+ - /getpaste: Get the content of a paste or shortened url from del.dog
+ - /pastestats: Get stats of a paste or shortened url from del.dog
  - /removebotkeyboard: Got a nasty bot keyboard stuck in your group?
  - /shrug: try and check it out yourself.
  - /datetime <city>: Get the present date and time information
