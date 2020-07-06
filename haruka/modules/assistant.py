@@ -7,4 +7,4 @@ __help__ = """
 *NOTE*
 The question should be a meaningful one otherwise you will get no response !
 """
-__mod_name__ = "Assistant"
+__mod_name__ = "Assistant 🌐"
