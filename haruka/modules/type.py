@@ -59,9 +59,3 @@ async def typewriter(typew):
         await asyncio.sleep(2)
         await now.edit(old_text)
         await asyncio.sleep(2)
-
-
-__help__ = """
- - /type <text>: Make the bot type something for you in a professional way
-"""
-__mod_name__ = "Typewriter"
