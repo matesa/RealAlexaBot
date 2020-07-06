@@ -1922,7 +1922,7 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /ytaudio <link> or /ytvideo <link>: Downlods a video or audio from a youtube video to the bots local server
  - /zip: reply to a telegram file to compressing in .zip format
  - /unzip: reply to a telegram file to decompress it from the .zip format
-  - /git <username>: Returns info about a GitHub user or organization.
+ - /git <username>: Returns info about a GitHub user or organization.
  - /repo <username>: Return the GitHub user or organization repository list 
 """
 
