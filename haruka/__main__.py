@@ -17,15 +17,8 @@ from haruka.modules.translations.strings import tld, tld_help
 from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
 
-PM_START = """Hello my name is *Alexa* 👩‍🔧
-
-I'mma group management bot 🤖
-
-I have all the possible commands that you need to control your group 😊
-
-Take me to your group, and start giving me commands I am always at your service ♥️
-
-[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
+PM_START = """
+[  ](https://telegra.ph/ALEXA-05-19)
 """
 
 IMPORTED = {}
