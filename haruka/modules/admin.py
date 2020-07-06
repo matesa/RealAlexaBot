@@ -351,20 +351,20 @@ This would match bit.ly/abc, but not bit.ly/abcd.
  - /addurl <urls>: Add a domain to the blacklist. The bot will automatically parse the url.
  - /delurl <urls>: Remove urls from the blacklist
  - /addblacklist "bit.ly/*" We dont like shorteners!
-If you wanted to only match bit.ly/ links followed by three characters, you could use:
+If you want to only match bit.ly/ links followed by three characters, you could use:
  - /geturl: View the current blacklisted urls
  - /setlog: set a log channel.
  - /unsetlog: unset the log channel.
  - /logchannel: get the log channel info
 Setting the log channel is done by:
-- adding the bot to the desired channel (as an admin!)
-- sending /setlog in the channel
-- forwarding the /setlog to the group
+▪️ adding the bot to the desired channel (as an admin!)
+▪️ sending /setlog in the channel
+▪️ forwarding the /setlog to the group
  - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
  - /import: Type in reply to the backup file to restore your chat data
 """
 
-__mod_name__ = "Admin Command"
+__mod_name__ = "Admin ⚡"
 
 PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
 UNPIN_HANDLER = DisableAbleCommandHandler("unpin", unpin, filters=Filters.group)
