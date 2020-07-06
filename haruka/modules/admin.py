@@ -316,6 +316,15 @@ __help__ = """
  - /purge: deletes all messages from the message you replied to, to the current message.
  - /purge X: deletes X messages after the message you replied to (including the replied message)
  - /del: deletes the message you replied to.
+ - /warns <userhandle>: get a user's number, and reason, of warnings.
+ - /warnlist: list of all current warning filters
+ - /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
+ - /resetwarn <userhandle>: reset the warnings for a user. Can also be used as a reply.
+ - /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to \
+be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`. 
+ - /nowarn <keyword>: stop a warning filter
+ - /warnlimit <num>: set the warning limit
+ - /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just kick.
 """
 
 __mod_name__ = "Admins"
