@@ -339,6 +339,20 @@ be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is
  - /connection <chatid>: Connect to remote chat
  - /disconnect: Disconnect from chat
  - /allowconnect on/yes/off/no: Allow connect users to group
+ - /addblacklist <blacklist trigger> <blacklist reason>: blacklists the trigger. You can set sentences by putting quotes around the reason.
+ - /unblacklist <blacklist trigger>: stop blacklisting a certain blacklist trigger.
+ - /rmblacklist <blacklist trigger>: same as /unblacklist
+ - /blacklist: list all active blacklist filters
+ - /addblacklist "the admins suck" Respect your admins!
+This would delete any message containing 'the admins suck'.
+If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mute a user with a message specifying the reason.
+ - /addblacklist "bit.ly/???" We dont like shorteners!
+This would match bit.ly/abc, but not bit.ly/abcd.
+ - /addurl <urls>: Add a domain to the blacklist. The bot will automatically parse the url.
+ - /delurl <urls>: Remove urls from the blacklist
+ - /addblacklist "bit.ly/*" We dont like shorteners!
+If you wanted to only match bit.ly/ links followed by three characters, you could use:
+ - /geturl: View the current blacklisted urls
 """
 
 __mod_name__ = "Admins"
