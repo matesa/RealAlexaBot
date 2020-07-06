@@ -229,11 +229,6 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-__help__ = """ 
-/slist: List my sudo users & support users [These People have rights to gban/gmute/gkick anyone]
-/wlist: List my whitelist users [These people are immortal I can never mute/kick/ban them]
-"""
-__mod_name__ = "SUDO"
 
 BROADCAST_HANDLER = CommandHandler("broadcast", broadcast, filters=Filters.user(OWNER_ID))
 USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
