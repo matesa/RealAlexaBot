@@ -272,7 +272,6 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
         else:
             update.effective_message.reply_text("Reaction on admin commands for users now `enabled`!", parse_mode=ParseMode.MARKDOWN)
         
-
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
  - /users: List all the users in the chat
@@ -287,8 +286,8 @@ __help__ = """
  - /report <reason>: reply to a message to report it to admins.
  - @admin: reply to a message to report it to admins [Non-Admins Only]
  - /reports <on/off>: change report setting, or view current status.
-   - If done in pm, toggles your status.
-   - If in chat, toggles that chat's status.
+If done in pm, toggles your status.
+If in chat, toggles that chat's status.
  - /rules: get the rules for this chat.
  - /setrules <your rules here>: set the rules for this chat.
  - /clearrules: clear the rules for this chat.
