@@ -57,9 +57,3 @@ async def sticklet(event):
     image.save(image_stream, "WebP")
     image_stream.seek(0)
     await event.client.send_file(event.chat_id, image_stream)
-
-
-__help__ = """
- - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours) !
-"""
-__mod_name__ = "Sticklet"
