@@ -125,14 +125,8 @@ def start(bot: Bot, update: Update, args: List[str]):
         update.effective_message.reply_text("I'm alive")
 
 def send_start(bot, update):
-    #Try to remove old message
-    try:
-        query = update.callback_query
-        query.message.delete()
-    except:
-        pass
+    chat = update.effective_chat
 
-    chat = update.effective_chat  # type: Optional[Chat]
     first_name = update.effective_user.first_name 
     text = PM_START
     
@@ -141,7 +135,35 @@ def send_start(bot, update):
     keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/AlexaSupport")]]
     keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
     
-    update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
+
+    try:
+        query = update.callback_query
+        # query.message.delete()
+        bot.edit_message_text(chat_id=query.message.chat_id,
+                              message_id=query.message.message_id,
+                              text=text,
+                              parse_mode=ParseMode.MARKDOWN,
+                              reply_markup=InlineKeyboardMarkup(keyboard),
+                              disable_web_page_preview=False)
+    except Exception:
+        pass
+
+    if query:
+        try:
+            bot.edit_message_text(chat_id=query.message.chat_id,
+                                  message_id=query.message.message_id,
+                                  text=text,
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=InlineKeyboardMarkup(keyboard),
+                                  disable_web_page_preview=False)
+        except Exception:
+            return
+    else:
+        update.effective_message.reply_text(
+            text,
+            reply_markup=InlineKeyboardMarkup(keyboard),
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=False)
 
 
 def control_panel(bot, update):
