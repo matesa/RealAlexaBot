@@ -882,8 +882,7 @@ async def yts_search(video_q):
         )
         return
 
-    await video_q.reply("```Processing...```")
-
+   
     full_response = await youtube_search(query)
     videos_json = full_response[1]
 
@@ -1047,7 +1046,7 @@ async def rm_deletedacc(show):
         await show.reply("I don't have sufficient permissions")
         return
 
-    if event.is_group:
+    if show.is_group:
      if not (await is_register_admin(show.input_chat, show.message.sender_id)):
           await show.reply("")
           return
