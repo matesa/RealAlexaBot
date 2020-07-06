@@ -399,7 +399,7 @@ def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message
     user = update.effective_user
 
-    if user.id not in OWNER_ID:
+    if user.id not in OWNER_ID or user.id in SUDO_USERS;
         return
 
     try:
@@ -465,7 +465,7 @@ UNBAN_HANDLER = DisableAbleCommandHandler("unban", unban, pass_args=True, filter
 KICKME_HANDLER = DisableAbleCommandHandler("kickme", kickme, filters=Filters.group)
 SBAN_HANDLER = DisableAbleCommandHandler("sban", sban, pass_args=True, filters=Filters.group, admin_ok=True)
 BANME_HANDLER = DisableAbleCommandHandler("banme", banme, filters=Filters.group)
-SELF_UNBAN_HANDLER = DisableAbleCommandHandler("selfunban", selfunban, filters=Filters.group)
+SELF_UNBAN_HANDLER = DisableAbleCommandHandler("selfunban", selfunban, pass_args=True, admin_ok=True)
 
 dispatcher.add_handler(SELF_UNBAN_HANDLER)
 dispatcher.add_handler(BAN_HANDLER)
