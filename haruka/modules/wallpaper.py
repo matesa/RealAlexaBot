@@ -41,12 +41,7 @@ def wall(bot: Bot, update: Update, args):
                 bot.send_document(chat_id, document=wallpaper,
                 filename='wallpaper', caption=caption, reply_to_message_id=msg_id,
                 timeout=60)
-                    
-__help__ = """
- - /wall <topic>: Searches best wallpaper on the given topic and returns them 
-"""
-__mod_name__ = "Wallpaper"
-
+ 
 
 WALLPAPER_HANDLER = DisableAbleCommandHandler("wall", wall, pass_args=True)
 dispatcher.add_handler(WALLPAPER_HANDLER)
