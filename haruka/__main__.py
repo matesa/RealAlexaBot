@@ -18,7 +18,7 @@ from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
-[  ](https://telegra.ph/ALEXA-05-19)
+[.](https://telegra.ph/ALEXA-05-19)
 """
 
 IMPORTED = {}
