@@ -633,24 +633,6 @@ def __chat_settings__(chat_id, user_id):
            "It's goodbye preference is `{}`.".format(welcome_pref, goodbye_pref)
 
 
-__help__ = """
-{}
-
-*Admin only:*
- - /welcome <on/off>: enable/disable welcome messages.
- - /welcome: shows current welcome settings.
- - /welcome noformat: shows current welcome settings, without the formatting - useful to recycle your welcome messages!
- - /goodbye -> same usage and args as /welcome.
- - /setwelcome <sometext>: set a custom welcome message. If used replying to media, uses that media.
- - /setgoodbye <sometext>: set a custom goodbye message. If used replying to media, uses that media.
- - /resetwelcome: reset to the default welcome message.
- - /resetgoodbye: reset to the default goodbye message.
- - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
- - /wlcmutehelp: gives information about welcome mutes.
- - /welcomehelp: view more formatting information for custom welcome/goodbye messages.
-""".format(WELC_HELP_TXT)
-
-__mod_name__ = "Greetings"
 
 NEW_MEM_HANDLER = MessageHandler(Filters.status_update.new_chat_members, new_member)
 LEFT_MEM_HANDLER = MessageHandler(Filters.status_update.left_chat_member, left_member)
