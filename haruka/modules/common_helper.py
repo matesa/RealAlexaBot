@@ -48,11 +48,11 @@ def translate(bot: Bot, update: Update):
         update.effective_message.reply_text(curr_string)
 
 __help__ = """
+ - /afk <reason>: mark yourself as AFK(Away From Keyboard)
+ - brb <reason>: same as the afk command
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
  - /tr (language code) as reply to a long message.
-*URBAN DICTIONARY*
- - /ud <text>: Type the word or expression you want to search/nFor example /ud Gay
-*ORIGINAL DICTIONARY*
+ - /ud <text>: Urban Dictionary, type the word or expression you want to search/nFor example /ud Gay
  - /define <text>: Advanced dictionary use it instead of /ud
 """
 
