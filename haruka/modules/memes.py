@@ -274,6 +274,8 @@ Some memes command, find it all out yourself!
 /decide : Randomly answers yes/no/maybe
 /toss : Tosses A coin
 /abuse : Abuses the cunt
+/insult : Insult the cunt
+/slap : Slaps the cunt
 /roll : Roll a dice.
 /rlg : Join ears,nose,mouth and create an emo ;-;
 /🅱️ : Check on your own
