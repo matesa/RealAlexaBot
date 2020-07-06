@@ -253,16 +253,6 @@ def table(bot: Bot, update: Update):
             else:
                 update.message.reply_text("Go do some work instead of flippin tables you helpless fagit.")
 		
-__help__ = """
- - /table : get flip/unflip :v.
- - /decide : Randomly answers yes/no/maybe
- - /toss : Tosses A coin
- - /abuse : Abuses the cunt
- - /roll : Roll a dice.
- - /rlg : Join ears,nose,mouth and create an emo ;-;
-"""
-
-__mod_name__ = "Extras"
 
 ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
 ROLL_HANDLER = DisableAbleCommandHandler("roll", roll)
