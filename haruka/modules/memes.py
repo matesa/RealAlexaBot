@@ -276,6 +276,12 @@ Some memes command, find it all out yourself!
 /abuse : Abuses the cunt
 /roll : Roll a dice.
 /rlg : Join ears,nose,mouth and create an emo ;-;
+/🅱️ : Check on your own
+/😂 : Check on your own
+/👏 : Check on your own
+/😭 : Check on your own
+/😡 : Check on your own
+
 """
 
 __mod_name__ = "Memes"
