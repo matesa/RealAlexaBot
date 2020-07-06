@@ -294,6 +294,10 @@ Some memes command, find it all out yourself!
 /basketball: Try your luck if you can enter the ball in the ring
 /type <text>: Make the bot type something for you in a professional way
 /carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
+/stickerid: Gives the ID of the sticker you've replied to
+/getsticker: Uploads the .png of the sticker you've replied to
+/kang: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
+/sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
 """
 
 __mod_name__ = "Memes"
