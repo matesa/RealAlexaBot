@@ -15,6 +15,7 @@ from haruka.modules.helper_funcs.chat_status import is_user_admin
 from haruka.modules.helper_funcs.misc import *
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """Hello my name is *Alexa* 👩‍🔧
 
@@ -98,6 +99,7 @@ def test(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def start(bot: Bot, update: Update, args: List[str]):
     LOGGER.info("Start")
     chat = update.effective_chat  # type: Optional[Chat]
@@ -432,7 +434,7 @@ def send_settings(chat_id, user_id, user=False):
                                                  "in a group chat you're admin in to find its current settings!",
                                         parse_mode=ParseMode.MARKDOWN)
 
-
+@user_admin
 @run_async
 def settings_button(bot: Bot, update: Update):
     query = update.callback_query
@@ -550,22 +552,22 @@ def main():
     start_callback_handler = CallbackQueryHandler(send_start, pattern=r"bot_start")
     dispatcher.add_handler(start_callback_handler)
 
-    cntrl_panel = CommandHandler("controlpanel", control_panel)
-    cntrl_panel_callback_handler = CallbackQueryHandler(control_panel, pattern=r"cntrl_panel")
-    dispatcher.add_handler(cntrl_panel_callback_handler)
-    dispatcher.add_handler(cntrl_panel)
+    #cntrl_panel = CommandHandler("controlpanel", control_panel)
+    #cntrl_panel_callback_handler = CallbackQueryHandler(control_panel, pattern=r"cntrl_panel")
+    #dispatcher.add_handler(cntrl_panel_callback_handler)
+    #dispatcher.add_handler(cntrl_panel)
 
-    settings_handler = CommandHandler("settings", get_settings)
-    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
+    #settings_handler = CommandHandler("settings", get_settings)
+    #settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
    
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(settings_handler)
+    #dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
-    dispatcher.add_handler(settings_callback_handler)
+    #dispatcher.add_handler(settings_callback_handler)
     dispatcher.add_handler(migrate_handler)
 
 
