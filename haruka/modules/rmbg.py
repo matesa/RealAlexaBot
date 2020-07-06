@@ -97,10 +97,3 @@ def ReTrieveFile(input_file_name):
         stream=True
     )
     return r
-
-
-__help__ = """
- - /rmbg: Type in reply to a media to remove it's background 
-"""
-
-__mod_name__ = "Remove BG"
