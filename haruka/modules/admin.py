@@ -320,8 +320,7 @@ __help__ = """
  - /warnlist: list of all current warning filters
  - /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
  - /resetwarn <userhandle>: reset the warnings for a user. Can also be used as a reply.
- - /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to \
-be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`. 
+ - /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`. 
  - /nowarn <keyword>: stop a warning filter
  - /warnlimit <num>: set the warning limit
  - /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just kick.
@@ -346,12 +345,12 @@ be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is
  - /addblacklist "the admins suck" Respect your admins!
 This would delete any message containing 'the admins suck'.
 If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mute a user with a message specifying the reason.
+ - /addblacklist "bit.ly/*" We dont like shorteners!
+If you want to only match bit.ly/ links followed by three characters, you could use:
  - /addblacklist "bit.ly/???" We dont like shorteners!
 This would match bit.ly/abc, but not bit.ly/abcd.
  - /addurl <urls>: Add a domain to the blacklist. The bot will automatically parse the url.
  - /delurl <urls>: Remove urls from the blacklist
- - /addblacklist "bit.ly/*" We dont like shorteners!
-If you want to only match bit.ly/ links followed by three characters, you could use:
  - /geturl: View the current blacklisted urls
  - /setlog: set a log channel.
  - /unsetlog: unset the log channel.
