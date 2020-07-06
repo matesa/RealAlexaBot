@@ -183,41 +183,6 @@ def __stats__():
                                                             sql.num_blacklist_filter_chats())
 
 
-__mod_name__ = "Blacklists"
-
-__help__ = """
-You can set blacklist filters to take automatic action on people when they say certain things. This is done using:
- - /addblacklist <blacklist trigger> <blacklist reason>: blacklists the trigger. You can set sentences by putting quotes around the reason.
- - /unblacklist <blacklist trigger>: stop blacklisting a certain blacklist trigger.
- - /rmblacklist <blacklist trigger>: same as /unblacklist
- - /blacklist: list all active blacklist filters
-
-/addblacklist "the admins suck" Respect your admins!
-This would delete any message containing 'the admins suck'.
-If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mute a user with a message specifying the reason.
-
-Top tip:
-Blacklists allow you to use some modifiers to match "unknown" characters. For example, you can use the ? character to match a single occurence of any non-whitespace character.
-You could also use the * modifier, which matches any number of any character. If you want to blacklist urls, this will allow you to match the full thing. It matches every character except spaces. This is cool if you want to stop, for example, url shorteners.
-For example, the following will ban any bit.ly link:
-/addblacklist "bit.ly/*" We dont like shorteners!
-If you wanted to only match bit.ly/ links followed by three characters, you could use:
-/addblacklist "bit.ly/???" We dont like shorteners!
-This would match bit.ly/abc, but not bit.ly/abcd.
-
-Domain blacklisting is used to stop certain domains from being mentioned in a group, Any time an url on that domain is mentioned, /
-the message will immediately be deleted.
-
-*NOTE:* domain blacklisting do not affect group admins.
-
-- /geturl: View the current blacklisted urls
-
-*Admin only:*
-
-- /addurl <urls>: Add a domain to the blacklist. The bot will automatically parse the url.
-- /delurl <urls>: Remove urls from the blacklist
-"""
-
 BLACKLIST_HANDLER = DisableAbleCommandHandler("blacklist", blacklist, pass_args=True, admin_ok=True)
 ADD_BLACKLIST_HANDLER = CommandHandler("addblacklist", add_blacklist)
 UNBLACKLIST_HANDLER = CommandHandler(["unblacklist", "rmblacklist"], unblacklist)
