@@ -300,7 +300,7 @@ Some memes command, find it all out yourself!
 /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
 """
 
-__mod_name__ = "Memes"
+__mod_name__ = "Memes 💢"
 COPYPASTA_HANDLER = DisableAbleCommandHandler("copypasta", copypasta, admin_ok=True)
 CLAPMOJI_HANDLER = DisableAbleCommandHandler("clapmoji", clapmoji, admin_ok=True)
 BMOJI_HANDLER = DisableAbleCommandHandler("bmoji", bmoji, admin_ok=True)
