@@ -392,6 +392,47 @@ def sban(bot: Bot, update: Update, args: List[str]) -> str:
     return ""
 
 
+@run_async
+@bot_admin
+@can_restrict
+def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
+    message = update.effective_message
+    user = update.effective_user
+
+    if user.id not in OWNER_ID:
+        return
+
+    try:
+        chat_id = int(args[0])
+    except:
+        message.reply_text("Give a valid chat ID.")
+        return
+
+    chat = bot.getChat(chat_id)
+
+    try:
+        member = chat.get_member(user.id)
+    except BadRequest as excp:
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user.")
+            return
+        else:
+            raise
+
+    if is_user_in_chat(chat, user.id):
+        message.reply_text("Aren't you already in the chat??")
+        return
+
+    chat.unban_member(user.id)
+    message.reply_text("Yep, I have unbanned you.")
+
+    log = (f"<b>{html.escape(chat.title)}:</b>\n"
+           f"#UNBANNED\n"
+           f"<b>User:</b> {mention_html(member.user.id, member.user.first_name)}")
+
+    return log
+
+
 __help__ = """
 Some people need to be publicly banned; spammers, annoyances, or just trolls.
 
@@ -414,6 +455,7 @@ An example of temporarily muting someone:
  - /tmute @username 2h; this mutes a user for 2 hours.
 """
 
+
 __mod_name__ = "Bans"
 
 BAN_HANDLER = DisableAbleCommandHandler("ban", ban, pass_args=True, filters=Filters.group, admin_ok=True)
@@ -423,7 +465,9 @@ UNBAN_HANDLER = DisableAbleCommandHandler("unban", unban, pass_args=True, filter
 KICKME_HANDLER = DisableAbleCommandHandler("kickme", kickme, filters=Filters.group)
 SBAN_HANDLER = DisableAbleCommandHandler("sban", sban, pass_args=True, filters=Filters.group, admin_ok=True)
 BANME_HANDLER = DisableAbleCommandHandler("banme", banme, filters=Filters.group)
+SELF_UNBAN_HANDLER = DisableAbleCommandHandler("selfunban", selfunban, filters=Filters.group)
 
+dispatcher.add_handler(SELF_UNBAN_HANDLER)
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
