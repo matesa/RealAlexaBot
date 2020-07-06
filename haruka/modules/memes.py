@@ -289,6 +289,7 @@ Some memes command, find it all out yourself!
 /dice: Roll A dice	
 /dart: Throw a dart and try your luck
 /basketball: Try your luck if you can enter the ball in the ring
+/type <text>: Make the bot type something for you in a professional way
 """
 
 __mod_name__ = "Memes"
