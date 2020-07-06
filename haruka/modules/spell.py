@@ -49,6 +49,11 @@ def translate(bot: Bot, update: Update):
 
 __help__ = """
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
+ - /tr (language code) as reply to a long message.
+*URBAN DICTIONARY*
+ - /ud <text>: Type the word or expression you want to search/nFor example /ud Gay
+*ORIGINAL DICTIONARY*
+ - /define <text>: Advanced dictionary use it instead of /ud
 """
 
 __mod_name__ = "Common Helper"
