@@ -290,6 +290,7 @@ Some memes command, find it all out yourself!
 /dart: Throw a dart and try your luck
 /basketball: Try your luck if you can enter the ball in the ring
 /type <text>: Make the bot type something for you in a professional way
+/carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
 """
 
 __mod_name__ = "Memes"
