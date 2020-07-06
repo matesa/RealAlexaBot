@@ -292,6 +292,17 @@ __help__ = """
  - /rules: get the rules for this chat.
  - /setrules <your rules here>: set the rules for this chat.
  - /clearrules: clear the rules for this chat.
+ - /ban: bans a user from your chat.
+ - /banme: ban yourself
+ - /tban: temporarily bans a user from your chat. set time using int<d/h/m> (days hours minutes)
+ - /unban: unbans a user from your chat.
+ - /sban: silently bans a user. (via handle, or reply)
+ - /mute: mute a user in your chat.
+ - /tmute: temporarily mute a user in your chat. set time using int<d/h/m> (days hours minutes)
+ - /unmute: unmutes a user from your chat.
+ - /kick: kicks a user from your chat.
+ - /kickme: users who use this, kick themselves!
+ - /unbanall: unbans everyone in the chat
 """
 
 __mod_name__ = "Admins"
