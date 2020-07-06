@@ -1042,20 +1042,17 @@ async def rm_deletedacc(show):
         await show.reply("You can use this command in groups but not in PM's")
         return
 
-    if not show.chat.admin_rights.ban_users:
-        await show.reply("I don't have sufficient permissions")
-        return
-
     if show.is_group:
      if not (await is_register_admin(show.input_chat, show.message.sender_id)):
           await show.reply("")
           return
+
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
         async for user in show.client.iter_participants(show.chat_id):
             if user.deleted:
                 del_u += 1
-                await sleep(1)
+         
         if del_u > 0:
             del_status = f"Found **{del_u}** deleted account(s) in this group,\
             \nclean them by using `/zombies clean`"
