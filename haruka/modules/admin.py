@@ -367,7 +367,7 @@ Setting the log channel is done by:
  - /import: Type in reply to the backup file to restore your chat data
 """
 
-__mod_name__ = "Admin ⚡"
+__mod_name__ = "Admin 🚫"
 
 PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
 UNPIN_HANDLER = DisableAbleCommandHandler("unpin", unpin, filters=Filters.group)
