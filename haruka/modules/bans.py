@@ -399,7 +399,7 @@ def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message
     user = update.effective_user
 
-    if user.id not in OWNER_ID or user.id in SUDO_USERS;
+    if user.id not in OWNER_ID or user.id in SUDO_USERS:
         return
 
     try:
