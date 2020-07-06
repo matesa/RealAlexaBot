@@ -283,33 +283,6 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return "There are `{}` notes in this chat.".format(len(notes))
 
 
-__help__ = """
-Save data for future users with notes!
-
-Notes are great to save random tidbits of information; a phone number, a nice gif, a funny picture - anything!
-
-Available commands are:
- - /save <word> <sentence>: Save that sentence to the note called "word". Replying to a message will save that message. Even works on media!
- - /get <word>: get the note registered to that word.
- - #<word>: same as /get word
- - /clear <word>: delete the note called "word"
- - /notes: List all notes in the current chat
- - /saved: same as /notes
-
-An example of how to save a note would be via:
-/save data This is some data!
-
-Now, anyone using "/get data", or "#data" will be replied to with "This is some data!".
-
-If you want to save an image, gif, or sticker, or any other data, do the following:
-/save word while replying to a sticker or whatever data you'd like. Now, the note at "#word" contains a sticker which will be sent as a reply.
-
-Tip: to retrieve a note without the formatting, use /get <notename> noformat
-This will retrieve the note and send it without formatting it; getting you the raw markdown, allowing you to make easy edits
-"""
-
-__mod_name__ = "Notes"
-
 GET_HANDLER = DisableAbleCommandHandler("get", cmd_get, pass_args=True)
 HASH_GET_HANDLER = RegexHandler(r"^#[^\s]+", hash_get)
 
