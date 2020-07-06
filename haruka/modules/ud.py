@@ -32,10 +32,5 @@ def define(bot: Bot, update: Update, args):
 DEFINE_HANDLER = CommandHandler("define", define, pass_args=True)
 dispatcher.add_handler(DEFINE_HANDLER)
 
-__help__ = """
-*URBAN DICTIONARY*
- - /ud <text>: Type the word or expression you want to search/nFor example /ud Gay
-*ORIGINAL DICTIONARY*
- - /define <text>: Advanced dictionary use it instead of /ud
-"""
+
 __mod_name__ = "Dictionary"
