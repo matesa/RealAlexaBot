@@ -60,5 +60,6 @@ async def _(event):
 
 __help__ = """
  - /song <name>: search download and return a song in the best format
+ - /lyrics <song and artist(optional)>: Returns the lyrics of the song name provided
 """
 __mod_name__ = "Songs" 
