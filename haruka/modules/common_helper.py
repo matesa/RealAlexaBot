@@ -56,7 +56,7 @@ __help__ = """
  - /define <text>: Advanced dictionary use it instead of /ud
 """
 
-__mod_name__ = "Common Helper"
+__mod_name__ = "Commons 💬"
 
 
 TRANSLATE_HANDLER = CommandHandler('spell', translate)
