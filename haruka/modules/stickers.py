@@ -172,14 +172,6 @@ def imresize(kangsticker):
     return im
 
 
-__help__ = """
-- /stickerid: Gives the ID of the sticker you've replied to
-- /getsticker: Uploads the .png of the sticker you've replied to
-- /kang: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
-- /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
-"""
-
-__mod_name__ = "Stickers"
 STICKERID_HANDLER = DisableAbleCommandHandler("stickerid", stickerid)
 GETSTICKER_HANDLER = DisableAbleCommandHandler("getsticker", getsticker)
 KANG_HANDLER = DisableAbleCommandHandler("kang", kang, pass_args=True, admin_ok=True)
