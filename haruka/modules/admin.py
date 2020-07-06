@@ -313,6 +313,9 @@ __help__ = """
  - /clear <word>: delete the note called "word"
  - /notes: List all notes in the current chat
  - /saved: same as /notes
+ - /purge: deletes all messages from the message you replied to, to the current message.
+ - /purge X: deletes X messages after the message you replied to (including the replied message)
+ - /del: deletes the message you replied to.
 """
 
 __mod_name__ = "Admins"
