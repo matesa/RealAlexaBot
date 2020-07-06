@@ -107,9 +107,3 @@ async def carbon_api(e):
         force_document=True)
     os.remove('./carbon.png')
     driver.quit()
-
-__help__ = """
- - /carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
-"""
-
-__mod_name__ = "Carbon"
