@@ -284,6 +284,11 @@ __help__ = """
  - /zombies: Searches the number of deleted account in your group 
  - /zombies clean: Removes all deleted account from your group 
  - /kickthefools: Kicks all members who are inactive since 1 week
+ - /report <reason>: reply to a message to report it to admins.
+ - @admin: reply to a message to report it to admins [Non-Admins Only]
+ - /reports <on/off>: change report setting, or view current status.
+   - If done in pm, toggles your status.
+   - If in chat, toggles that chat's status.
 """
 
 __mod_name__ = "Admin"
