@@ -294,9 +294,6 @@ __help__ = """
  - /clearrules: clear the rules for this chat.
 """
 
-__mod_name__ = "Rules"
-"""
-
 __mod_name__ = "Admins"
 
 PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
