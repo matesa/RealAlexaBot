@@ -1924,6 +1924,13 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /unzip: reply to a telegram file to decompress it from the .zip format
  - /git <username>: Returns info about a GitHub user or organization.
  - /repo <username>: Return the GitHub user or organization repository list 
+ - /magisk: Get latest magisk updates 
+ - /app <appname>: Search for an app in playstore 
+ - /magisk: Get the latest Magisk releases
+ - /device <codename>: Get info about an Android device
+ - /codename <brand> <device>: Search for Android device codename
+ - /specs <brand> <device>: Get device specifications info
+ - /twrp <codename>: Get the latest TWRP download for an Android device
 """
 
 __mod_name__ = "Misc"
