@@ -242,15 +242,3 @@ async def twrp(request):
             f'**Updated:** __{date}__\n'
     await request.reply(reply)
 
-
-__help__ = """
- - /magisk: Get latest magisk updates 
- - /app <appname>: Search for an app in playstore 
- - /magisk: Get the latest Magisk releases
- - /device <codename>: Get info about an Android device
- - /codename <brand> <device>: Search for Android device codename
- - /specs <brand> <device>: Get device specifications info
- - /twrp <codename>: Get the latest TWRP download for an Android device
-"""
-
-__mod_name__ = "Android"
