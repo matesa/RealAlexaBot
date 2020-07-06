@@ -283,6 +283,9 @@ Some memes command, find it all out yourself!
 /👏 : Check on your own
 /😭 : Check on your own
 /😡 : Check on your own
+/react : Check on your own
+/happy : Check on your own
+/amgery : Check on your own
 /cowsay | /tuxsay | /milksay | /kisssay | /wwwsay | /defaultsay | /bunnysay | /moosesay | /sheepsay | /rensay | /cheesesay | /ghostbusterssay | /skeletonsay <text>: Returns a stylish art text from the given text	
 /deepfry: Type this in reply to an image/sticker to roast the image/sticker	
 /figlet: Another Style art	
