@@ -303,6 +303,10 @@ __help__ = """
  - /kick: kicks a user from your chat.
  - /kickme: users who use this, kick themselves!
  - /unbanall: unbans everyone in the chat
+ - /lock <item(s)>: lock the usage of "item". Now, only admins will be able to use this type!
+ - /unlock <item(s)>: unlock "item". Everyone can use them again.
+ - /locks: list the lock status in the chat.
+ - /locktypes: gets a list of all things that can be locked. (have a look at this!)
 """
 
 __mod_name__ = "Admins"
