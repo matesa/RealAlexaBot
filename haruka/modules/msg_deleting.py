@@ -88,17 +88,6 @@ def del_message(bot: Bot, update: Update) -> str:
     return ""
 
 
-__help__ = """
-Need to delete lots of messages? That's what purges are for!
-
-Available commands are:
- - /purge: deletes all messages from the message you replied to, to the current message.
- - /purge X: deletes X messages after the message you replied to (including the replied message)
- - /del: deletes the message you replied to.
-"""
-
-__mod_name__ = "Purges"
-
 DELETE_HANDLER = CommandHandler("del", del_message, filters=Filters.group)
 PURGE_HANDLER = CommandHandler("purge", purge, filters=Filters.group, pass_args=True)
 
