@@ -289,9 +289,15 @@ __help__ = """
  - /reports <on/off>: change report setting, or view current status.
    - If done in pm, toggles your status.
    - If in chat, toggles that chat's status.
+ - /rules: get the rules for this chat.
+ - /setrules <your rules here>: set the rules for this chat.
+ - /clearrules: clear the rules for this chat.
 """
 
-__mod_name__ = "Admin"
+__mod_name__ = "Rules"
+"""
+
+__mod_name__ = "Admins"
 
 PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
 UNPIN_HANDLER = DisableAbleCommandHandler("unpin", unpin, filters=Filters.group)
