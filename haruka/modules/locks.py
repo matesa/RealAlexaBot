@@ -293,23 +293,6 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return build_lock_message(chat, chatP, user, chatname)
 
 
-__help__ = """
-Do stickers annoy you? or want to avoid people sharing links? or pictures? You're in the right place!
-
-The locks module allows you to lock away some common items in the telegram world; the bot will automatically delete them!
-
-Available commands are:
- - /lock <item(s)>: lock the usage of "item". Now, only admins will be able to use this type!
- - /unlock <item(s)>: unlock "item". Everyone can use them again.
- - /locks: list the lock status in the chat.
- - /locktypes: gets a list of all things that can be locked. (have a look at this!)
-
-eg: lock stickers with:
-/lock sticker
-"""
-
-__mod_name__ = "Locks"
-
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler("lock", lock, pass_args=True, filters=Filters.group)
 UNLOCK_HANDLER = CommandHandler("unlock", unlock, pass_args=True, filters=Filters.group)
