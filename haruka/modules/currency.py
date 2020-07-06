@@ -46,7 +46,7 @@ __help__ = """
  - /cash : currency converter
  example syntax: /cash 1 USD INR
 """
-__mod_name__ = "Currency"
+__mod_name__ = "Currency 💰"
 
 
 CONVERTER_HANDLER = CommandHandler('cash', convert)
