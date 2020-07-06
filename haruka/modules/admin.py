@@ -360,6 +360,9 @@ Setting the log channel is done by:
 ▪️ adding the bot to the desired channel (as an admin!)
 ▪️ sending /setlog in the channel
 ▪️ forwarding the /setlog to the group
+ - /filter <keyword> <reply message>: Every time someone says "word", the bot will reply with "sentence". For multiple word filters, quote the first word.
+ - /stop <filter keyword>: stop that filter.
+ - /filters: list all active filters in this chat.
  - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
  - /import: Type in reply to the backup file to restore your chat data
 """
