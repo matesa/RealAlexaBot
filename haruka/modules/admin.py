@@ -360,7 +360,8 @@ Setting the log channel is done by:
 - adding the bot to the desired channel (as an admin!)
 - sending /setlog in the channel
 - forwarding the /setlog to the group
-
+ - /export: Takes a backup of your notes, filters, etc.. and sends the data as a backup file 
+ - /import: Type in reply to the backup file to restore your chat data
 """
 
 __mod_name__ = "Admin Command"
