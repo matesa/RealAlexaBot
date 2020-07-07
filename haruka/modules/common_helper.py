@@ -54,6 +54,8 @@ __help__ = """
  - /tr (language code) as reply to a long message.
  - /ud <text>: Urban Dictionary, type the word or expression you want to search/nFor example /ud Gay
  - /define <text>: Advanced dictionary use it instead of /ud
+ - /banme: ban yourself from a chat
+ - /kickme: kicks yourself from a chat
 """
 
 __mod_name__ = "Helpers 🤗"
