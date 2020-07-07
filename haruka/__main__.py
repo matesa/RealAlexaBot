@@ -393,6 +393,7 @@ def help_button(bot: Bot, update: Update):
 
 
 @run_async
+@user_admin
 def get_help(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
