@@ -18,7 +18,16 @@ from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
-[.](https://telegra.ph/ALEXA-05-19)
+Alexa is a extremely modular and easy to use telegram bot loaded with all the essential commands that a group administrator needs 
+
+**NOTE :**
+Most of the commands of  @RealAlexaBot are available for admins so dont panic if some command isn't working (that's probably because you are not admin in the chat), However irrespective of this anyone can use the bot in PM
+
+**Basic Commands :**
+/start: starts the bot
+/help: gives the available list of commands
+/runs: check if bot is alive or not
+/ping: check ping response
 """
 
 IMPORTED = {}
