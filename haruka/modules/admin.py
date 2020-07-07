@@ -298,6 +298,30 @@ If in chat, toggles that chat's status.
  - /unmute: unmutes a user from your chat.
  - /kick: kicks a user from your chat.
  - /kickme: users who use this, kick themselves!
+ - /flood: gets the current antiflood settings.
+ - /setflood <number/off>: sets the number of messages at which to take action on a user.
+ - /setfloodmode <mute/ban/kick/tban/tmute>: Select the valid action ex. /setfloodmode tmute 5m.
+ - /addblacklist <blacklist trigger> <blacklist reason>: blacklists the trigger. You can set sentences by putting quotes around the reason.
+ - /unblacklist <blacklist trigger>: stop blacklisting a certain blacklist trigger.
+ - /rmblacklist <blacklist trigger>: same as /unblacklist
+ - /blacklist: list all active blacklist filters
+ - /addblacklist "the admins suck" Respect your admins!
+This would delete any message containing 'the admins suck'.
+If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mute a user with a message specifying the reason.
+Top tip:
+Blacklists allow you to use some modifiers to match "unknown" characters. For example, you can use the ? character to match a single occurence of any non-whitespace character.
+You could also use the * modifier, which matches any number of any character. If you want to blacklist urls, this will allow you to match the full thing. It matches every character except spaces. This is cool if you want to stop, for example, url shorteners.
+For example, the following will ban any bit.ly link:
+ - /addblacklist "bit.ly/*" We dont like shorteners!
+If you wanted to only match bit.ly/ links followed by three characters, you could use:
+ - /addblacklist "bit.ly/???" We dont like shorteners!
+This would match bit.ly/abc, but not bit.ly/abcd.
+ - /filter <keyword> <reply message>: Every time someone says "word", the bot will reply with "sentence". For multiple word filters, quote the first word.
+ - /stop <filter keyword>: stop that filter.
+ - /filters: list all active filters in this chat.
+ - /connection <chatid>: Connect to remote chat
+ - /disconnect: Disconnect from chat
+ - /allowconnect on/yes/off/no: Allow connect users to group
 """
 
 
