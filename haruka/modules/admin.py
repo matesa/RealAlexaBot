@@ -311,17 +311,36 @@ If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mut
 Top tip:
 Blacklists allow you to use some modifiers to match "unknown" characters. For example, you can use the ? character to match a single occurence of any non-whitespace character.
 You could also use the * modifier, which matches any number of any character. If you want to blacklist urls, this will allow you to match the full thing. It matches every character except spaces. This is cool if you want to stop, for example, url shorteners.
-For example, the following will ban any bit.ly link:
- - /addblacklist "bit.ly/*" We dont like shorteners!
-If you wanted to only match bit.ly/ links followed by three characters, you could use:
- - /addblacklist "bit.ly/???" We dont like shorteners!
-This would match bit.ly/abc, but not bit.ly/abcd.
+For example, the following will ban any `bit.ly` link:
+ - /addblacklist `"bit.ly/*"We dont like shorteners!`
+If you wanted to only match `bit.ly/` links followed by three characters, you could use:
+ - /addblacklist `"bit.ly/???" We dont like shorteners!`
+This would match `bit.ly/abc`, but not `bit.ly/abcd`
  - /filter <keyword> <reply message>: Every time someone says "word", the bot will reply with "sentence". For multiple word filters, quote the first word.
  - /stop <filter keyword>: stop that filter.
  - /filters: list all active filters in this chat.
  - /connection <chatid>: Connect to remote chat
  - /disconnect: Disconnect from chat
  - /allowconnect on/yes/off/no: Allow connect users to group
+ - /lock <item(s)>: lock the usage of "item". Now, only admins will be able to use this type!
+ - /unlock <item(s)>: unlock "item". Everyone can use them again.
+ - /locks: list the lock status in the chat.
+ - /locktypes: gets a list of all things that can be locked. (have a look at this!)
+ - /setlog: set a log channel.
+ - /unsetlog: unset the log channel.
+ - /logchannel: get the log channel info
+ - /purge: deletes all messages from the message you replied to, to the current message.
+ - /purge X: deletes X messages after the message you replied to (including the replied message)
+ - /del: deletes the message you replied to.
+ - /save <word> <sentence>: Save that sentence to the note called "word". Replying to a message will save that message. Even works on media!
+ - /get <word>: get the note registered to that word.
+ - #<word>: same as /get word
+ - /clear <word>: delete the note called "word"
+ - /notes: List all notes in the current chat
+ - /saved: same as /notes
+ - /rules: get the rules for this chat.
+ - /setrules <your rules here>: set the rules for this chat.
+ - /clearrules: clear the rules for this chat.
 """
 
 
