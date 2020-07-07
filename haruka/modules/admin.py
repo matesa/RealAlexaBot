@@ -274,75 +274,74 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
         
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
- - /users: List all the users in the chat
- - /pin: silently pins the message replied to - add 'loud' or 'notify' to give notifs to users.
- - /unpin: unpins the currently pinned message
+ - /users: list all the users in the chat
+ - /pin | /unpin: pins/unpins the message in the chat
  - /invitelink: gets invitelink
- - /promote: promotes the user replied to
- - /demote: demotes the user replied to
- - /zombies: Searches the number of deleted account in your group 
- - /zombies clean: Removes all deleted account from your group 
- - /kickthefools: Kicks all members who are inactive since 1 week
- - /report <reason>: reply to a message to report it to admins.
- - @admin: reply to a message to report it to admins [Non-Admins Only]
- - /reports <on/off>: change report setting, or view current status.
-If done in pm, toggles your status.
-If in chat, toggles that chat's status.
- - /ban: bans a user from your chat.
- - /banme: ban yourself
- - /tban: temporarily bans a user from your chat. set time using int<d/h/m> (days hours minutes)
- - /unban: unbans a user from your chat.
- - /sban: silently bans a user. (via handle, or reply)
- - /mute: mute a user in your chat.
- - /tmute: temporarily mute a user in your chat. set time using int<d/h/m> (days hours minutes)
- - /unmute: unmutes a user from your chat.
- - /kick: kicks a user from your chat.
- - /kickme: users who use this, kick themselves!
- - /flood: gets the current antiflood settings.
- - /setflood <number/off>: sets the number of messages at which to take action on a user.
- - /setfloodmode <mute/ban/kick/tban/tmute>: Select the valid action ex. /setfloodmode tmute 5m.
- - /addblacklist <blacklist trigger> <blacklist reason>: blacklists the trigger. You can set sentences by putting quotes around the reason.
- - /unblacklist <blacklist trigger>: stop blacklisting a certain blacklist trigger.
- - /rmblacklist <blacklist trigger>: same as /unblacklist
+ - /promote: promotes a user 
+ - /demote: demotes a user
+ - /zombies: count the number of deleted account in your group
+ - /kickthefools: kicks all members inactive from 1 week
+ - /report <reason> | @admin: reply to a message to report it to admins(non-admin only)
+ - /reports <on/off>: change report setting
+ - /ban: bans a user 
+ - /tban <d/h/m> : temporarily bans a user from your chat
+ - /unban: unbans a user 
+ - /sban: silently bans a user
+ - /mute: mute a user 
+ - /tmute <d/h/m>: temporarily mute a user
+ - /unmute: unmutes a user
+ - /kick: kicks a user 
+ - /setflood <number/off>: set the number of messages to take action on a user for flooding
+ - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
+ - /flood: gets the current antiflood settings
+ - /addblacklist <trigger> : blacklists the trigger
+ - /unblacklist <trigger> | rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
  - /blacklist: list all active blacklist filters
- - /addblacklist "the admins suck" Respect your admins!
-This would delete any message containing 'the admins suck'.
-If you've enabled an alternative blacklist mode, it will warn, ban, kick, or mute a user with a message specifying the reason.
-Top tip:
-Blacklists allow you to use some modifiers to match "unknown" characters. For example, you can use the ? character to match a single occurence of any non-whitespace character.
-You could also use the * modifier, which matches any number of any character. If you want to blacklist urls, this will allow you to match the full thing. It matches every character except spaces. This is cool if you want to stop, for example, url shorteners.
-For example, the following will ban any `bit.ly` link:
- - /addblacklist `"bit.ly/*"We dont like shorteners!`
-If you wanted to only match `bit.ly/` links followed by three characters, you could use:
- - /addblacklist `"bit.ly/???" We dont like shorteners!`
-This would match `bit.ly/abc`, but not `bit.ly/abcd`
- - /filter <keyword> <reply message>: Every time someone says "word", the bot will reply with "sentence". For multiple word filters, quote the first word.
- - /stop <filter keyword>: stop that filter.
+ - /addblacklist "the admins suck" respect your admins: This will remove the text everytime someone types it
+ - /addblacklist `"bit.ly/*"`: This will remove the link everytime someone sends it matching `bit.ly`
+ - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
+ - /stop <word>: stop that filter.
  - /filters: list all active filters in this chat.
  - /connection <chatid>: Connect to remote chat
  - /disconnect: Disconnect from chat
  - /allowconnect on/yes/off/no: Allow connect users to group
- - /lock <item(s)>: lock the usage of "item". Now, only admins will be able to use this type!
- - /unlock <item(s)>: unlock "item". Everyone can use them again.
- - /locks: list the lock status in the chat.
- - /locktypes: gets a list of all things that can be locked. (have a look at this!)
+ - /lock <item(s)>: lock the usage of "item" for non-admins
+ - /unlock <item(s)>: unlock "item". Everyone can use them again
+ - /locks: list the lock status in the chat
+ - /locktypes: gets a list of all things that can be locked
  - /setlog: set a log channel.
  - /unsetlog: unset the log channel.
  - /logchannel: get the log channel info
- - /purge: deletes all messages from the message you replied to, to the current message.
- - /purge X: deletes X messages after the message you replied to (including the replied message)
+ - /purge: deletes all messages from the message you replied to
+ - /purge X: deletes X messages after the message you replied to 
  - /del: deletes the message you replied to.
- - /save <word> <sentence>: Save that sentence to the note called "word". Replying to a message will save that message. Even works on media!
- - /get <word>: get the note registered to that word.
- - #<word>: same as /get word
+ - /save <word> <sentence>: Save that sentence to the note called "word"
+ - /get <word> | #<word> : get the note registered to that word
  - /clear <word>: delete the note called "word"
- - /notes: List all notes in the current chat
- - /saved: same as /notes
- - /rules: get the rules for this chat.
- - /setrules <your rules here>: set the rules for this chat.
- - /clearrules: clear the rules for this chat.
+ - /notes | /saved: List all notes in the chat
+ - /setrules <rules>: set the rules for this chat
+ - /clearrules: clear the rules for this chat
+ - /rules: get the rules for this chat
+ - /addurl <url>: Add a domain to the blacklist, the bot will automatically parse the url
+ - /delurl <url>: Remove url from the blacklist
+ - /warn <userhandle>: warn a user
+ - /resetwarn @username: reset the warnings for a user
+ - /addwarn <word> <message>: set a warning filter on a certain word
+ - /nowarn <word>: stop a warning filter
+ - /warnlimit <num>: set the max warning limit
+ - /warns <userhandle>: get a user's number, and reason, of warnings
+ - /warnlist: list of all current warning filters
+ - /strongwarn <on/yes/off/no>: exceeding warn limit will result in kick, if set to true will ban instead
+ - /welcome <on/off/yes/no>: Will the bot welcome new members ?
+ - /goodbye <on/off/yes/no>: Will the bid farewell when someone leave ?
+ - /setwelcome <message>: set the welcome message 
+ - /resetwelcome: clear the welcome message 
+ - /setgoodbye <message>: set the goodbye message
+ - /resetgoodbye: clear the goodbye message 
+ - /cleanwelcome <on/off/yes/no>: clean welcome message 
+ - /cleanservice <on/off/yes/no>: clean all service messages
+ - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not
 """
-
 
 __mod_name__ = "Admin 🚫"
 
