@@ -288,6 +288,16 @@ __help__ = """
  - /reports <on/off>: change report setting, or view current status.
 If done in pm, toggles your status.
 If in chat, toggles that chat's status.
+ - /ban: bans a user from your chat.
+ - /banme: ban yourself
+ - /tban: temporarily bans a user from your chat. set time using int<d/h/m> (days hours minutes)
+ - /unban: unbans a user from your chat.
+ - /sban: silently bans a user. (via handle, or reply)
+ - /mute: mute a user in your chat.
+ - /tmute: temporarily mute a user in your chat. set time using int<d/h/m> (days hours minutes)
+ - /unmute: unmutes a user from your chat.
+ - /kick: kicks a user from your chat.
+ - /kickme: users who use this, kick themselves!
 """
 
 
