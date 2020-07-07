@@ -212,11 +212,17 @@ or feature requests you might have :)
 If you enjoying using me and/or would like to help me survive in the wild, hit /donate to help fund/upgrade my VPS!
 """,
 
-    "send-help": """[.](https://telegra.ph/ALEXA-05-19)
-   """,
+    "send-help": """Alexa is a extremely modular and easy to use telegram bot loaded with all the essential commands that a group administrator needs 
 
-    "send-group-settings": """Hi there! There are quite a few settings for *{}* - go ahead and pick what
-you're interested in.""",
+**NOTE :**
+Most of the commands of  @RealAlexaBot are available for admins so dont panic if some command isn't working (that's probably because you are not admin in the chat), However irrespective of this anyone can use the bot in PM
+
+**Basic Commands :**
+/start: starts the bot
+/help: gives the available list of commands
+/runs: check if bot is alive or not
+/ping: check ping response
+""",
 
 #Misc
 "RUNS-K": RUN_STRINGS,
