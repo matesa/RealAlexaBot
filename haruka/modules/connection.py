@@ -38,7 +38,6 @@ def allow_connections(bot: Bot, update: Update, args: List[str]) -> str:
     else:
         update.effective_message.reply_text(tld(chat.id, "Please enter on/yes/off/no in group!"))
 
-@user_admin
 @run_async
 def connect_chat(bot, update, args):
     chat = update.effective_chat  # type: Optional[Chat]
