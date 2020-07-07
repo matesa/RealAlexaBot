@@ -1599,6 +1599,19 @@ async def tor_search(event):
    response = telegraph.create_page(seta, html_content=op)
    await event.reply('Magnet Links for {}:\n\nhttps://telegra.ph/{}'.format(str,response['path']), link_preview=False) 
 
+@register(pattern="^/fortune")
+async def fortune(event):
+   if event.fwd_from:
+      return 
+   if event.is_group:
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+   jit = subprocess.check_output(["fortune"])   
+   proc = jit.decode()   
+   await event.reply(proc)
+
+
 from haruka import *
 
 @register(pattern="^/helptorrent")
@@ -1876,6 +1889,7 @@ __help__ = """
  - /slap: slap a user, or get slapped if not a reply.
  - /info: get information about a user.
  - /gdpr: deletes your information from the bot's database. Private chats only.
+ - /fortune: gets a random fortune quote
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
  - /paste: Create a paste or a shortened url using del.dog
  - /getpaste: Get the content of a paste or shortened url from del.dog
