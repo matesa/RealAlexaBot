@@ -613,7 +613,7 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return "This chat is enforcing *gbans*: `{}`.".format(sql.does_chat_gban(chat_id))
 
 
-ANTISPAM_STATUS = CommandHandler("antispam", antispam, pass_args=True, filters=Filters.group)
+# ANTISPAM_STATUS = CommandHandler("antispam", antispam, pass_args=True, filters=Filters.group)
 
 GBAN_HANDLER = CommandHandler("gban", gban, pass_args=True,
                               filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
@@ -633,7 +633,7 @@ GMUTE_LIST = CommandHandler("gmutelist", gmutelist, filters=Filters.user(OWNER_I
 GKICK_HANDLER = CommandHandler("gkick", gkick, pass_args=True,
                               filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
 
-dispatcher.add_handler(ANTISPAM_STATUS)
+# dispatcher.add_handler(ANTISPAM_STATUS)
 
 dispatcher.add_handler(GBAN_HANDLER)
 dispatcher.add_handler(UNGBAN_HANDLER)
