@@ -352,45 +352,35 @@ def help_button(bot: Bot, update: Update):
                 help_txt = HELPABLE[module].__help__
 
             text = tld(chat.id, "Here is the help for the *{}* module:\n{}").format(mod_name, help_txt)
-            query.message.reply_text(text=text,
-                                     parse_mode=ParseMode.MARKDOWN,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton(text=tld(chat.id, "Back"), callback_data="help_back")]]))
-
-        elif prev_match:
-            curr_page = int(prev_match.group(1))
-            query.message.reply_text(tld(chat.id, "send-help").format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else tld(chat.id, "\nAll commands can either be used with `/` or `!`.\n")),
-                                     parse_mode=ParseMode.MARKDOWN,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         paginate_modules(chat.id, curr_page - 1, HELPABLE, "help")))
-
-        elif next_match:
-            next_page = int(next_match.group(1))
-            query.message.reply_text(tld(chat.id, "send-help").format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else tld(chat.id, "\nAll commands can either be used with `/` or `!`.\n")),
-                                     parse_mode=ParseMode.MARKDOWN,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         paginate_modules(chat.id, next_page + 1, HELPABLE, "help")))
+            bot.edit_message_text(chat_id=query.message.chat_id,
+                                  message_id=query.message.message_id,
+                                  text=text,
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=InlineKeyboardMarkup([[
+                                      InlineKeyboardButton(
+                                          text=tld(chat.id, "🔙 Back"),
+                                          callback_data="help_back")
+                                  ]]),
+                                  disable_web_page_preview=True)
 
         elif back_match:
-            query.message.reply_text(text=tld(chat.id, "send-help").format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else tld(chat.id, "\nAll commands can either be used with `/` or `!`.\n")),
-                                     parse_mode=ParseMode.MARKDOWN,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         paginate_modules(chat.id, 0, HELPABLE, "help")))
-
-
+            bot.edit_message_text(chat_id=query.message.chat_id,
+                                  message_id=query.message.message_id,
+                                  text=tld(chat.id, "send-help").format(
+                                      dispatcher.bot.first_name,
+                                      tld(chat.id, "cmd_multitrigger")),
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=InlineKeyboardMarkup(
+                                      paginate_modules(chat.id, 0, HELPABLE,
+                                                       "help")),
+                                  disable_web_page_preview=True)
 
         # ensure no spinny white circle
         bot.answer_callback_query(query.id)
-        query.message.delete()
-    except BadRequest as excp:
-        if excp.message == "Message is not modified":
-            pass
-        elif excp.message == "Query_id_invalid":
-            pass
-        elif excp.message == "Message can't be deleted":
-            pass
-        else:
-            LOGGER.exception("Exception in help buttons. %s", str(query.data))
+        # query.message.delete()
+
+    except BadRequest:
+        pass
 
 
 @run_async
