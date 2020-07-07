@@ -361,7 +361,7 @@ def help_button(bot: Bot, update: Update):
                                           text=tld(chat.id, "🔙 Back"),
                                           callback_data="help_back")
                                   ]]),
-                                  disable_web_page_preview=True)
+                                  disable_web_page_preview=False)
 
         elif back_match:
             bot.edit_message_text(chat_id=query.message.chat_id,
@@ -373,7 +373,7 @@ def help_button(bot: Bot, update: Update):
                                   reply_markup=InlineKeyboardMarkup(
                                       paginate_modules(chat.id, 0, HELPABLE,
                                                        "help")),
-                                  disable_web_page_preview=True)
+                                  disable_web_page_preview=False)
 
         # ensure no spinny white circle
         bot.answer_callback_query(query.id)
