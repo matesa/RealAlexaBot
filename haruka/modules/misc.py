@@ -851,20 +851,16 @@ def shrug(bot: Bot, update: Update):
     else:
         message.reply_text(default_msg)
         
-@run_async     
-def ud(bot: Bot, update: Update, args):
-        term = ' '.join(args)
-        ud_api = "http://api.urbandictionary.com/v0/define?term=" + term
-        ud_reply = json.loads(requests.get(ud_api).content)['list']
-        if len(args) == 0:
-            update.message.reply_text("USAGE: /ud <Word>")
-        elif len(ud_reply) != 0:
-            ud = ud_reply[0]
-            reply_text = "<b>{0}</b>\n<a href='{1}'>{1}</a>\n<i>By {2}</i>\n\nDefinition: {3}\n\nExample: {4}".format(
-                ud['word'], ud['permalink'], ud['author'], ud['definition'], ud['example'])
-            update.message.reply_text(reply_text, parse_mode='HTML')
-        else:
-            update.message.reply_text("Term not found")
+@run_async
+def ud(bot: Bot, update: Update):
+    message = update.effective_message
+    text = message.text[len('/ud '):]
+    if text == '':
+        text = "Give some text !"
+    results = get(
+        f'http://api.urbandictionary.com/v0/define?term={text}').json()
+    reply_text = f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
+    message.reply_text(reply_text)
 
 @register(pattern="^/yt (.*)")
 async def yts_search(video_q):
