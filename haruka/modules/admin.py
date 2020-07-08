@@ -340,7 +340,7 @@ __help__ = """
  - /resetgoodbye: clear the goodbye message 
  - /cleanwelcome <on/off/yes/no>: clean welcome message 
  - /cleanservice <on/off/yes/no>: clean all service messages
- - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not
+ - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
 """
 
 __mod_name__ = "Admin 🚫"
