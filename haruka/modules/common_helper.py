@@ -51,6 +51,7 @@ __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
  - brb <reason>: same as the afk command
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
+ - /forbesify: Correct your punctuations better use the advanged spell module 
  - /tr (language code) as reply to a long message.
  - /ud <text>: Urban Dictionary, type the word or expression you want to search/nFor example /ud Gay
  - /banme: ban yourself from a chat
