@@ -60,3 +60,4 @@ git+https://github.com/rachmadaniHaryono/we-get.git
 coffeehouse
 html2text
 spotdl
+fortune
