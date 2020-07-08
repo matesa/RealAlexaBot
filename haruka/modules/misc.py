@@ -470,6 +470,7 @@ def markdown_help(bot: Bot, update: Update):
                                         "[button2](buttonurl://google.com:same)"))
 
 @run_async
+@user_admin
 def github(bot: Bot, update: Update):
     message = update.effective_message
     text = message.text[len('/git '):]
@@ -843,6 +844,7 @@ async def img_sampler(event):
 
 
 @run_async
+@user_admin
 def shrug(bot: Bot, update: Update):
     default_msg = "¯\_(ツ)_/¯"
     message = update.effective_message
@@ -852,6 +854,7 @@ def shrug(bot: Bot, update: Update):
         message.reply_text(default_msg)
         
 @run_async
+@user_admin
 def ud(bot: Bot, update: Update):
     message = update.effective_message
     text = message.text[len('/ud '):]
