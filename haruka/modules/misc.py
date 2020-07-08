@@ -1731,13 +1731,6 @@ async def _(event):
             else:
                c = c + 1                 
 
-        if i.status is None:
-            status = await event.client(EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
-            if not status:
-               return
-            else:
-               c = c + 1                 
-
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
