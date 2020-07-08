@@ -856,14 +856,12 @@ def shrug(bot: Bot, update: Update):
 @run_async
 @user_admin
 def ud(bot: Bot, update: Update):
-    message = update.effective_message
-    text = message.text[len('/ud '):]
-    if text == '':
-        text = "Give some text !"
-    results = get(
-        f'http://api.urbandictionary.com/v0/define?term={text}').json()
-    reply_text = f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
-    message.reply_text(reply_text)
+  message = update.effective_message
+  text = message.text[len('/ud '):]
+  results = get(f'http://api.urbandictionary.com/v0/define?term={text}').json()
+  reply_text = f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
+  message.reply_text(reply_text)
+
 
 @register(pattern="^/yt (.*)")
 async def yts_search(video_q):
@@ -1954,6 +1952,8 @@ PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, p
 LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
+UD_HANDLER = CommandHandler("ud", ud)
+
 
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(TIME_HANDLER)
@@ -1967,7 +1967,7 @@ dispatcher.add_handler(LYRICS_HANDLER)
 dispatcher.add_handler(INFO_HANDLER)
 dispatcher.add_handler(ECHO_HANDLER)
 dispatcher.add_handler(SHRUG_HANDLER)
-dispatcher.add_handler(CommandHandler('ud', ud, pass_args=True))
+dispatcher.add_handler(UD_HANDLER)
 dispatcher.add_handler(MD_HELP_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
