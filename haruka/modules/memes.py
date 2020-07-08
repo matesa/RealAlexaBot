@@ -261,43 +261,42 @@ def shout(bot: Bot, update: Update, args):
 __help__ = """
 Some memes command, find it all out yourself!
 
-/owo: OWO de text
-/stretch: STRETCH de text
-/clapmoji: Type in reply to a message and see magic
-/bmoji: Type in reply to a message and see magic
-/copypasta: Type in reply to a message and see magic
-/vapor: owo vapor dis
-/forbesify: Correct your punctuations better use the advanged spell module 
-/shout: Write anything that u want it to should
-/zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
-/table : get flip/unflip :v.
-/decide : Randomly answers yes/no/maybe
-/toss : Tosses A coin
-/abuse : Abuses the cunt
-/insult : Insult the cunt
-/slap : Slaps the cunt
-/roll : Roll a dice.
-/rlg : Join ears,nose,mouth and create an emo ;-;
-/🅱️ : Check on your own
-/😂 : Check on your own
-/👏 : Check on your own
-/😭 : Check on your own
-/😡 : Check on your own
-/react : Check on your own
-/happy : Check on your own
-/amgery : Check on your own
-/cowsay | /tuxsay | /milksay | /kisssay | /wwwsay | /defaultsay | /bunnysay | /moosesay | /sheepsay | /rensay | /cheesesay | /ghostbusterssay | /skeletonsay <text>: Returns a stylish art text from the given text	
-/deepfry: Type this in reply to an image/sticker to roast the image/sticker	
-/figlet: Another Style art	
-/dice: Roll A dice	
-/dart: Throw a dart and try your luck
-/basketball: Try your luck if you can enter the ball in the ring
-/type <text>: Make the bot type something for you in a professional way
-/carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
-/stickerid: Gives the ID of the sticker you've replied to
-/getsticker: Uploads the .png of the sticker you've replied to
-/kang: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
-/sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
+ - /owo: OWO de text
+ - /stretch: STRETCH de text
+ - /clapmoji: Type in reply to a message and see magic
+ - /bmoji: Type in reply to a message and see magic
+ - /copypasta: Type in reply to a message and see magic
+ - /vapor: owo vapor dis
+ - /shout: Write anything that u want it to should
+ - /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
+ - /table : get flip/unflip :v.
+ - /decide : Randomly answers yes/no/maybe
+ - /toss : Tosses A coin
+ - /abuse : Abuses the cunt
+ - /insult : Insult the cunt
+ - /slap : Slaps the cunt
+ - /roll : Roll a dice.
+ - /rlg : Join ears,nose,mouth and create an emo ;-;
+ - /🅱️ : Check on your own
+ - /😂 : Check on your own
+ - /👏 : Check on your own
+ - /😭 : Check on your own
+ - /😡 : Check on your own
+ - /react : Check on your own
+ - /happy : Check on your own
+ - /amgery : Check on your own
+ - /cowsay | /tuxsay | /milksay | /kisssay | /wwwsay | /defaultsay | /bunnysay | /moosesay | /sheepsay | /rensay | /cheesesay | /ghostbusterssay | /skeletonsay <text>: Returns a stylish art text from the given text	
+ - /deepfry: Type this in reply to an image/sticker to roast the image/sticker	
+ - /figlet: Another Style art	
+ - /dice: Roll A dice	
+ - /dart: Throw a dart and try your luck
+ - /basketball: Try your luck if you can enter the ball in the ring
+ - /type <text>: Make the bot type something for you in a professional way
+ - /carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
+ - /stickerid: Gives the ID of the sticker you've replied to
+ - /getsticker: Uploads the .png of the sticker you've replied to
+ - /kang: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
+ - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
 """
 
 __mod_name__ = "Memes 💢"
