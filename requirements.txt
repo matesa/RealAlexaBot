@@ -61,3 +61,4 @@ coffeehouse
 html2text
 spotdl
 fortune
+chatterbot
