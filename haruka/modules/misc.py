@@ -1735,12 +1735,12 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
+global chatbot
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
 chatbot = ChatBot('Alexa') 
 trainer = ChatterBotCorpusTrainer(chatbot) 
 trainer.train("chatterbot.corpus.english")
-global chatbot
 
 from telethon import events
 from pymongo import MongoClient
