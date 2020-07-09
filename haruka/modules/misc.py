@@ -1735,20 +1735,12 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
-from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
-import asyncio
-from telethon import events
-import logging
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
-
-import coffeehouse as cf
-import asyncio
-import io
-import time
-import coffeehouse
-from haruka import LYDIA_API_KEY
+from chatterbot import ChatBot 
+from chatterbot.trainers import ChatterBotCorpusTrainer 
+chatbot = ChatBot('Alexa') 
+trainer = ChatterBotCorpusTrainer(chatbot) 
+trainer.train("chatterbot.corpus.english")
+global chatbot
 
 from telethon import events
 from pymongo import MongoClient
@@ -1758,11 +1750,6 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client['test']
 auto_chat = db.auto_chat
-
-if LYDIA_API_KEY:
-    api_key = LYDIA_API_KEY
-    api_client = API(api_key)
-    lydia = LydiaAI(api_client)
 
 @register(pattern="^/autochat")
 async def chat_bot(event):
@@ -1823,10 +1810,8 @@ async def chat_bot_update(ebent):
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              try:
                 msg = str(ebent.text)
-                session = lydia.create_session()
-                session_id = session.id
-                text_rep = session.think_thought(msg)
-                await ebent.reply(text_rep)
+                response = chatbot.get_response(msg)
+                await ebent.reply(response)
              except (KeyError, TypeError):
                 return
    if not ebent.text:
