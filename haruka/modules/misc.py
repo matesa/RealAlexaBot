@@ -1813,7 +1813,8 @@ async def chat_bot_update(ebent):
                 trainer = ChatterBotCorpusTrainer(chatbot) 
                 trainer.train("chatterbot.corpus.english")
                 response = chatbot.get_response(msg)
-                await ebent.reply(response)
+                last = str(response)
+                await ebent.reply(last)
              except (KeyError, TypeError):
                 return
    if not ebent.text:
