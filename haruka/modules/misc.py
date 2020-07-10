@@ -1760,7 +1760,8 @@ async def chat_bot(event):
           if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply("")
             return
-
+         if event.reply_to_msg_id:
+            return
          if MONGO_DB_URI is None:
              await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
              return
@@ -1785,7 +1786,8 @@ async def chat_bot(event):
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-
+      if event.reply_to_msg_id:
+         return
       if MONGO_DB_URI is None:
           await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
           return
