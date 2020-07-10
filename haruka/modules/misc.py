@@ -1810,8 +1810,8 @@ async def chat_bot_update(ebent):
    if not ebent.media:
       for ch in auto_chats:
         if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-         if event.is_group:
-          if event.reply_to_msg_id == 1372161900 or str(ebent.text).count('Alexa') > 0 or str(ebent.text).count('alexa') > 0:
+         if ebent.is_group:
+          if ebent.reply_to_msg_id == 1372161900 or str(ebent.text).count('Alexa') > 0 or str(ebent.text).count('alexa') > 0:
            try:
                 msg = str(ebent.text)
                 response = chatbot.get_response(msg)
