@@ -1817,7 +1817,7 @@ async def chat_bot_update(ebent):
                 response = chatbot.get_response(msg)
                 last = str(response)
                 await ebent.reply(last)
-            except (KeyError, TypeError):
+           except (KeyError, TypeError):
                 return
           else:
             try:
