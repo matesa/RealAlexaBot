@@ -1760,8 +1760,7 @@ async def chat_bot(event):
           if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply("")
             return
-         if not event.reply_to_msg_id == event.id:
-            return
+       
          if MONGO_DB_URI is None:
              await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
              return
@@ -1786,8 +1785,7 @@ async def chat_bot(event):
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-      if not event.reply_to_msg_id == event.id:
-         return
+     
       if MONGO_DB_URI is None:
           await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
           return
@@ -1809,23 +1807,13 @@ async def chat_bot_update(ebent):
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
-        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-         if ebent.is_group:
-          if ebent.reply_to_msg_id == 1372161900 or str(ebent.text).count('Alexa') > 0 or str(ebent.text).count('alexa') > 0:
+       if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
            try:
                 msg = str(ebent.text)
                 response = chatbot.get_response(msg)
                 last = str(response)
                 await ebent.reply(last)
            except (KeyError, TypeError):
-                return
-          else:
-            try:
-                msg = str(ebent.text)
-                response = chatbot.get_response(msg)
-                last = str(response)
-                await ebent.reply(last)
-            except (KeyError, TypeError):
                 return
    if not ebent.text:
       return
