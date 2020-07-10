@@ -1738,6 +1738,9 @@ async def _(event):
 
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
+chatbot = ChatBot('Alexa') 
+trainer = ChatterBotCorpusTrainer(chatbot) 
+trainer.train("chatterbot.corpus.english")
 
 from telethon import events
 from pymongo import MongoClient
@@ -1806,16 +1809,23 @@ async def chat_bot_update(ebent):
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
-          if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-             try:
+        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
+         if event.is_group:
+          if event.reply_to_msg_id == 1372161900 or str(ebent.text).count('Alexa') > 0 or str(ebent.text).count('alexa') > 0:
+           try:
                 msg = str(ebent.text)
-                chatbot = ChatBot('Alexa') 
-                trainer = ChatterBotCorpusTrainer(chatbot) 
-                trainer.train("chatterbot.corpus.english")
                 response = chatbot.get_response(msg)
                 last = str(response)
                 await ebent.reply(last)
-             except (KeyError, TypeError):
+            except (KeyError, TypeError):
+                return
+          else:
+            try:
+                msg = str(ebent.text)
+                response = chatbot.get_response(msg)
+                last = str(response)
+                await ebent.reply(last)
+            except (KeyError, TypeError):
                 return
    if not ebent.text:
       return
