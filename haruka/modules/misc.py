@@ -1738,9 +1738,6 @@ async def _(event):
 
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
-chatbot = ChatBot('Alexa') 
-trainer = ChatterBotCorpusTrainer(chatbot) 
-trainer.train("chatterbot.corpus.english")
 
 from telethon import events
 from pymongo import MongoClient
@@ -1812,8 +1809,10 @@ async def chat_bot_update(ebent):
           if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              try:
                 msg = str(ebent.text)
+                chatbot = ChatBot('Alexa') 
+                trainer = ChatterBotCorpusTrainer(chatbot) 
+                trainer.train("chatterbot.corpus.english")
                 response = chatbot.get_response(msg)
-                print("Alexa :"+response)
                 await ebent.reply(response)
              except (KeyError, TypeError):
                 return
