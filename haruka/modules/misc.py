@@ -1735,7 +1735,7 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
-global chatbot
+
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
 chatbot = ChatBot('Alexa') 
@@ -1813,6 +1813,7 @@ async def chat_bot_update(ebent):
              try:
                 msg = str(ebent.text)
                 response = chatbot.get_response(msg)
+                print("Alexa :"+response)
                 await ebent.reply(response)
              except (KeyError, TypeError):
                 return
