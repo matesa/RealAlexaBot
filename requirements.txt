@@ -36,7 +36,6 @@ wikipedia
 zalgo-text
 gTTs 
 gTTs-token
-search_engine_parser
 pyfiglet
 beautifulsoup4
 pytz
@@ -55,10 +54,10 @@ dnspython
 pymongo[srv]
 pybase64
 selenium
-bing_image_downloader
 git+https://github.com/rachmadaniHaryono/we-get.git
 coffeehouse
 html2text
 spotdl
 fortune
 chatterbot==1.0.4
+git+https://github.com/voins/google-images-download.git@2cd68173c961324a2c41c61e8b6f40a49663ce60
