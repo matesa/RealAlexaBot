@@ -1735,21 +1735,20 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
-
-from chatterbot import ChatBot 
-from chatterbot.trainers import ChatterBotCorpusTrainer 
-chatbot = ChatBot('Alexa', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI) 
-trainer = ChatterBotCorpusTrainer(chatbot) 
-trainer.train("chatterbot.corpus.english")
-
-from telethon import events
 from pymongo import MongoClient
 from haruka import MONGO_DB_URI
-
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client['test']
 auto_chat = db.auto_chat
+from chatterbot import ChatBot 
+from chatterbot.trainers import ChatterBotCorpusTrainer 
+cbot= ChatBot('alexa', #Prepare Bot
+		 	storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
+	    	database_uri=MONGO_DB_URI
+		)   
+trainer = ChatterBotCorpusTrainer(chatbot) 
+trainer.train("chatterbot.corpus.english")
 
 @register(pattern="^/autochat")
 async def chat_bot(event):
@@ -1811,7 +1810,7 @@ async def chat_bot_update(ebent):
        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
            try:
                 msg = str(ebent.text)
-                response = chatbot.get_response(msg)
+                response = cbot.get_response(msg)
                 last = str(response)
                 await ebent.reply(last)
            except (KeyError, TypeError):
