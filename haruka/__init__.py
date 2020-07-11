@@ -18,8 +18,8 @@ if ENV:
 
     try:
         TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
-    except ValueError:
-        raise Exception("Your token list does not contain valid integers.")
+    except Exception:
+        pass
 
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
