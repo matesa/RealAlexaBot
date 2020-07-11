@@ -1739,7 +1739,6 @@ from pymongo import MongoClient
 from haruka import MONGO_DB_URI
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
-db = client.get_default_database()
 db = client['test']
 auto_chat = db.auto_chat
 from chatterbot import ChatBot 
