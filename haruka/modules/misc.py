@@ -1803,7 +1803,6 @@ async def chat_bot(event):
 async def chat_bot_update(ebent):
    if MONGO_DB_URI is None:
       return
-   reply_msg = await event.get_reply_message()
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
