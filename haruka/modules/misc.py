@@ -1862,8 +1862,6 @@ __help__ = """
  - /slap: slap a user, or get slapped if not a reply.
  - /info: get information about a user.
  - /gdpr: deletes your information from the bot's database. Private chats only.
- - /fortune: gets a random fortune quote
- - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
  - /paste: Create a paste or a shortened url using del.dog
  - /getpaste: Get the content of a paste or shortened url from del.dog
  - /pastestats: Get stats of a paste or shortened url from del.dog
@@ -1914,6 +1912,7 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /codename <brand> <device>: Search for Android device codename
  - /specs <brand> <device>: Get device specifications info
  - /twrp <codename>: Get the latest TWRP download for an Android device
+ - /song <songname artist(optional)>: uploads the song in it's best quality available
 """
 
 __mod_name__ = "Utilities ⚡"
