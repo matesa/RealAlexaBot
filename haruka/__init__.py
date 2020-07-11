@@ -19,7 +19,7 @@ if ENV:
     try:
         TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
     except ValueError:
-        raise Exception("Your sudo users list does not contain valid integers.")
+        raise Exception("Your token list does not contain valid integers.")
 
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
