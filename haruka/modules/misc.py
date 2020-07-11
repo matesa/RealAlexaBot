@@ -1744,10 +1744,7 @@ db = client['test']
 auto_chat = db.auto_chat
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
-cbot= ChatBot('alexa', #Prepare Bot
-		 	storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
-	    	database_uri=MONGO_DB_URI
-		)   
+cbot= ChatBot('alexa')
 trainer = ChatterBotCorpusTrainer(chatbot) 
 trainer.train("chatterbot.corpus.english")
 
