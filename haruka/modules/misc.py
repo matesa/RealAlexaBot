@@ -1805,6 +1805,7 @@ async def chat_bot_update(ebent):
       return
    auto_chats = auto_chat.find({})
    if not ebent.media:
+    if ebent.is_group:
       for ch in auto_chats:
        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
            try:
@@ -1814,6 +1815,14 @@ async def chat_bot_update(ebent):
                 await ebent.reply(last)
            except (KeyError, TypeError):
                 return
+    else:
+      try:
+         msg = str(ebent.text)
+         response = chatbot.get_response(msg)
+         last = str(response)
+         await ebent.reply(last)
+      except (KeyError, TypeError):
+         return
    if not ebent.text:
       return
       
