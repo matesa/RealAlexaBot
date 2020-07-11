@@ -297,6 +297,7 @@ Some memes command, find it all out yourself!
  - /getsticker: Uploads the .png of the sticker you've replied to
  - /kang: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
  - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
+ - /fortune: gets a random fortune quote
 """
 
 __mod_name__ = "Memes 💢"
