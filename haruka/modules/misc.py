@@ -173,7 +173,6 @@ from shutil import rmtree
 from urllib.error import HTTPError
 from wikipedia import summary
 import asyncio
-from haruka import LYDIA_API_KEY
 from telethon.errors import FloodWaitError
 from haruka import tbot
 from haruka.events import register
@@ -811,19 +810,16 @@ async def figlet(event):
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
 
-from bing_image_downloader import downloader
-
+from google_images_download import google_images_download
 from os.path import join
 from glob import glob
+import os
+from re import findall
+from shutil import rmtree
 
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
-       return
-    await event.reply("Processing...")
     query = event.pattern_match.group(1)
     lim = findall(r"lim=\d+", query)
     try:
@@ -832,16 +828,23 @@ async def img_sampler(event):
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
         lim = 5
-    
+    response = google_images_download.googleimagesdownload()
+
     # creating list of arguments
-    downloader.download(query, limit=lim)
-    files = []
-    for ext in ('*.jpg', '*.png', '*.jpeg'):
-        files.extend(glob(join(f"dataset/bing/{query}", ext)))
-    await event.client.send_file(event.chat_id, files)
-    subprocess.run("rm", "-rf", "dataset")
+    arguments = {
+        "keywords": query,
+        "limit": lim,
+        "format": "jpg",
+        "no_directory": "no_directory"
+    }
 
-
+    # passing the arguments to the function
+    paths = response.download(arguments)
+    lst = paths[0][query]
+    await event.client.send_file(
+        await event.client.get_input_entity(event.chat_id), lst)
+    rmtree(os.path.dirname(os.path.abspath(lst[0])))
+    
 
 @run_async
 @user_admin
