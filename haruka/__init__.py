@@ -16,11 +16,8 @@ ENV = bool(os.environ.get('ENV', True))
 
 if ENV:
 
-    try:
-        TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
-    except Exception:
-        pass
-
+    TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
+    
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
     except ValueError:
