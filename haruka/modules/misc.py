@@ -1754,7 +1754,8 @@ trainer.train("chatterbot.corpus.english")
 async def chat_bot(event):
          if event.fwd_from:
              return  
-             
+         if event.is_private:
+            return
          if event.is_group:
           if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply("")
@@ -1779,12 +1780,13 @@ async def chat_bot(event):
 async def chat_bot(event):
       if event.fwd_from:
           return  
-          
+      if event.is_private:
+           return
       if event.is_group:
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-     
+      
       if MONGO_DB_URI is None:
           await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
           return
