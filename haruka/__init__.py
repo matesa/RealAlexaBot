@@ -16,7 +16,7 @@ ENV = bool(os.environ.get('ENV', True))
 
 if ENV:
 
-    TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
+    TOKEN = os.environ.get('TOKEN', None)
     
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
@@ -54,7 +54,6 @@ if ENV:
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
     STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', True))
     DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN', "")
-    LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
