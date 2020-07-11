@@ -15,7 +15,12 @@ LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get('ENV', True))
 
 if ENV:
-    TOKEN = os.environ.get('TOKEN', None)
+
+    try:
+        TOKEN = set(int(x) for x in os.environ.get("TOKEN", "").split())
+    except ValueError:
+        raise Exception("Your sudo users list does not contain valid integers.")
+
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
     except ValueError:
