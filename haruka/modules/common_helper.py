@@ -56,6 +56,7 @@ __help__ = """
  - /ud <text>: Urban Dictionary, type the word or expression you want to search/nFor example /ud Gay
  - /banme: ban yourself from a chat
  - /kickme: kicks yourself from a chat
+ - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
 """
 
 __mod_name__ = "Helpers 🤗"
