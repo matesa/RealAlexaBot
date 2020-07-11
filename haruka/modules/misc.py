@@ -1743,7 +1743,7 @@ db = client['test']
 auto_chat = db.auto_chat
 from chatterbot import ChatBot 
 from chatterbot.trainers import ChatterBotCorpusTrainer 
-cbot= ChatBot('alexa')
+chatbot = ChatBot('alexa')
 trainer = ChatterBotCorpusTrainer(chatbot) 
 trainer.train("chatterbot.corpus.english")
 
@@ -1807,7 +1807,7 @@ async def chat_bot_update(ebent):
        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
            try:
                 msg = str(ebent.text)
-                response = cbot.get_response(msg)
+                response = chatbot.get_response(msg)
                 last = str(response)
                 await ebent.reply(last)
            except (KeyError, TypeError):
