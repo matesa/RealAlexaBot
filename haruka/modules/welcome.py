@@ -10,7 +10,7 @@ from telegram.utils.helpers import mention_markdown, mention_html, escape_markdo
 
 import haruka.modules.sql.welcome_sql as sql
 from haruka import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from haruka.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
+from haruka.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change
 from haruka.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from haruka.modules.helper_funcs.msg_types import get_welcome_type
 from haruka.modules.helper_funcs.string_handling import markdown_parser, \
@@ -254,7 +254,7 @@ def left_member(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def welcome(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
     # if no args, show current replies.
@@ -300,7 +300,7 @@ def welcome(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@user_can_change
 def goodbye(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
 
@@ -346,7 +346,7 @@ def goodbye(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def set_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -370,7 +370,7 @@ def set_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def reset_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -385,7 +385,7 @@ def reset_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def set_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -407,7 +407,7 @@ def set_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def reset_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -422,7 +422,7 @@ def reset_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -459,7 +459,7 @@ def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 def security(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if len(args) >= 1:
@@ -482,7 +482,7 @@ def security(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
