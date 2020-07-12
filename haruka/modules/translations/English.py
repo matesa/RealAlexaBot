@@ -217,6 +217,8 @@ If you enjoying using me and/or would like to help me survive in the wild, hit /
 *NOTE :*
 Most of the commands of  @RealAlexaBot are available for admins so dont panic if some command isn't working (that's probably because you are not admin in the chat). However irrespective of this anyone can use the bot in PM
 
+@RealAlexaBot depends completely on admin permission rather than it's own so if you are missing any certain rights then it will simply ignore you !
+
 *Basic Commands :*
 /start: starts the bot
 /help: gives the available list of commands
