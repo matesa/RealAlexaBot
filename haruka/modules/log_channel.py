@@ -14,7 +14,7 @@ if is_module_loaded(FILENAME):
     from telegram.utils.helpers import escape_markdown
 
     from haruka import dispatcher, LOGGER
-    from haruka.modules.helper_funcs.chat_status import user_admin
+    from haruka.modules.helper_funcs.chat_status import user_admin, user_can_change
     from haruka.modules.sql import log_channel_sql as sql
 
 
@@ -58,7 +58,7 @@ if is_module_loaded(FILENAME):
 
 
     @run_async
-    @user_admin
+    @user_can_change
     def logging(bot: Bot, update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
@@ -76,7 +76,7 @@ if is_module_loaded(FILENAME):
 
 
     @run_async
-    @user_admin
+    @user_can_change
     def setlog(bot: Bot, update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
@@ -113,7 +113,7 @@ if is_module_loaded(FILENAME):
 
 
     @run_async
-    @user_admin
+    @user_can_change
     def unsetlog(bot: Bot, update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
