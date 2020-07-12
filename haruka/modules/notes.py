@@ -12,7 +12,7 @@ from telegram.utils.helpers import escape_markdown
 import haruka.modules.sql.notes_sql as sql
 from haruka import dispatcher, MESSAGE_DUMP, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from haruka.modules.helper_funcs.chat_status import user_admin, user_can_change
 from haruka.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from haruka.modules.helper_funcs.msg_types import get_note_type
 
@@ -141,7 +141,7 @@ def hash_get(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def save(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -187,7 +187,7 @@ def save(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def clear(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -212,7 +212,7 @@ def clear(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@user_can_change
 def list_notes(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
