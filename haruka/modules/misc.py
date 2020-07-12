@@ -810,25 +810,35 @@ async def figlet(event):
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
 
-from google_images_download import google_images_download
-from os.path import join
-from glob import glob
-import os
-from re import findall
-from shutil import rmtree
+"""Download & Upload Images on Telegram\n
+Syntax: `.img <Name>` or `.img (replied message)`
+\n Upgraded and Google Image Error Fixed
+"""
 
-@register(pattern="^/img (.*)")
+from haruka.google_imgs import googleimagesdownload
+import os
+import shutil
+from re import findall
+
+@register(pattern="^/img ?(.*)")
 async def img_sampler(event):
-    """ For .img command, search and return images matching the query. """
-    query = event.pattern_match.group(1)
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
+    elif reply:
+        query = reply.message
+    else:
+    	return
+        
     lim = findall(r"lim=\d+", query)
+    # lim = event.pattern_match.group(1)
     try:
         lim = lim[0]
         lim = lim.replace("lim=", "")
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
         lim = 5
-    response = google_images_download.googleimagesdownload()
+    response = googleimagesdownload()
 
     # creating list of arguments
     arguments = {
@@ -841,10 +851,8 @@ async def img_sampler(event):
     # passing the arguments to the function
     paths = response.download(arguments)
     lst = paths[0][query]
-    await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst)
-    rmtree(os.path.dirname(os.path.abspath(lst[0])))
-    
+    await event.client.send_file(await event.client.get_input_entity(event.chat_id), lst)
+    shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
 
 @run_async
 @user_admin
