@@ -10,7 +10,7 @@ from telegram.utils.helpers import escape_markdown
 
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from haruka.modules.helper_funcs.chat_status import user_admin, user_can_change
 from haruka.modules.helper_funcs.extraction import extract_text
 from haruka.modules.helper_funcs.filters import CustomFilters
 from haruka.modules.helper_funcs.misc import build_keyboard
@@ -23,7 +23,7 @@ from haruka.modules.connection import connected
 
 HANDLER_GROUP = 10
 
-@user_admin
+@user_can_change
 @run_async
 def list_handlers(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -60,7 +60,7 @@ def list_handlers(bot: Bot, update: Update):
     update.effective_message.reply_text(filter_list.format(chat_name), parse_mode=telegram.ParseMode.MARKDOWN)
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@user_admin
+@user_can_change
 def filters(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -146,7 +146,7 @@ def filters(bot: Bot, update: Update):
 
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@user_admin
+@user_can_change
 def stop_filter(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
