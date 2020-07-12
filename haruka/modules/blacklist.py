@@ -9,7 +9,7 @@ from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 import haruka.modules.sql.blacklist_sql as sql
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin
+from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
 from haruka.modules.helper_funcs.extraction import extract_text
 from haruka.modules.helper_funcs.misc import split_message
 
@@ -56,7 +56,7 @@ def blacklist(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@user_can_change
 def add_blacklist(bot: Bot, update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -93,7 +93,7 @@ def add_blacklist(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def unblacklist(bot: Bot, update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
