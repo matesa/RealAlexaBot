@@ -7,12 +7,12 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 import tldextract
 from haruka import LOGGER, dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin
+from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
 from haruka.modules.sql import urlblacklist_sql as sql
 
 
 @run_async
-@user_admin
+@user_can_change
 def add_blacklist_url(bot: Bot, update: Update):
     chat = update.effective_chat
     message = update.effective_message
@@ -50,7 +50,7 @@ def add_blacklist_url(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def rm_blacklist_url(bot: Bot, update: Update):
     chat = update.effective_chat
     message = update.effective_message
@@ -119,7 +119,7 @@ def del_blacklist_url(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def get_blacklisted_urls(bot: Bot, update: Update):
     chat = update.effective_chat
     message = update.effective_message
