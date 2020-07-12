@@ -13,7 +13,7 @@ import haruka.modules.sql.locks_sql as sql
 from haruka import dispatcher, SUDO_USERS, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
-    bot_can_delete, is_bot_admin
+    bot_can_delete, is_bot_admin, user_can_change
 from haruka.modules.log_channel import loggable
 from haruka.modules.sql import users_sql
 
