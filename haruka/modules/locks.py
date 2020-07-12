@@ -97,7 +97,7 @@ def locktypes(bot: Bot, update: Update):
     update.effective_message.reply_text("\n - ".join(["Locks: "] + list(LOCK_TYPES) + list(RESTRICTION_TYPES)))
 
 
-@user_admin
+@user_can_change
 @bot_can_delete
 @loggable
 def lock(bot: Bot, update: Update, args: List[str]) -> str:
@@ -139,7 +139,7 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@user_can_change
 @loggable
 def unlock(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -273,7 +273,7 @@ def build_lock_message(chat, chatP, user, chatname):
 
 
 @run_async
-@user_admin
+@user_can_change
 def list_locks(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
