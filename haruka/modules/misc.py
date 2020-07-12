@@ -822,6 +822,12 @@ from re import findall
 
 @register(pattern="^/img ?(.*)")
 async def img_sampler(event):
+    if event.fwd_from:
+        return
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
     reply = await event.get_reply_message()
     if event.pattern_match.group(1):
         query = event.pattern_match.group(1)
@@ -1890,6 +1896,10 @@ from telethon import events
 async def _(event):
     if event.fwd_from:
         return
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
     start = datetime.now()
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `.barcode <long text to include>`"
