@@ -1788,7 +1788,7 @@ async def chat_bot(event):
                    await event.reply("This User is Already in Auto-Chat List.")
                    return 
          auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-         await event.reply("Coffeehouse AI turned on For User: "+str(reply_msg.from_id)+" in this chat.")
+         await event.reply("AI mode turned on For User: "+str(reply_msg.from_id)+" in this chat.")
         
 @register(pattern="^/stopchat")
 async def chat_bot(event):
@@ -1812,7 +1812,7 @@ async def chat_bot(event):
       for c in chats:
         if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
            auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-           await event.reply("Coffeehouse AI turned off For User: "+str(reply_msg.from_id)+" in this chat.")
+           await event.reply("AI mode turned off For User: "+str(reply_msg.from_id)+" in this chat.")
 
 
 @register(pattern="")
@@ -1821,8 +1821,7 @@ async def chat_bot_update(ebent):
       return
    auto_chats = auto_chat.find({})
    if not ebent.media:
-    if ebent.is_group:
-      for ch in auto_chats:
+     for ch in auto_chats:
        if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
            try:
                 msg = str(ebent.text)
@@ -1831,14 +1830,6 @@ async def chat_bot_update(ebent):
                 await ebent.reply(last)
            except (KeyError, TypeError):
                 return
-    else:
-      try:
-         msg = str(ebent.text)
-         response = chatbot.get_response(msg)
-         last = str(response)
-         await ebent.reply(last)
-      except (KeyError, TypeError):
-         return
    if not ebent.text:
       return
       
@@ -1990,6 +1981,9 @@ if 1 == 1:
         """Quote a message.
         Usage: .quote [template]
         If template is missing, possible templates are fetched."""
+        if message.is_group:
+         if not (await is_register_admin(message.input_chat, message.message.sender_id)):
+          return
         args = message.raw_text.split(" ")[1:]
         if args == []:
             args = ["default"]
@@ -2208,7 +2202,8 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /specs <brand> <device>: Get device specifications info
  - /twrp <codename>: Get the latest TWRP download for an Android device
  - /song <songname artist(optional)>: uploads the song in it's best quality available
- - /barcode <text>: Makes a barcode out of the text
+ - /barcode <text>: makes a barcode out of the text, crop the barcode if you don't want to reveal the text
+ - /quotly <text> / reply to a message: an alternative to @QuotLyBot
 """
 
 __mod_name__ = "Utilities ⚡"
