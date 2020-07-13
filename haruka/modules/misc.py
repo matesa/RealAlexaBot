@@ -231,7 +231,6 @@ MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 # ==================================#
-from pyowm import *
 from random import randint
 from datetime import datetime
 from typing import Optional, List
