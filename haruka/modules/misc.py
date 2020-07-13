@@ -4,7 +4,6 @@ import json
 import random
 from random import randrange
 import time
-import pyowm
 from telethon.tl.types import ChannelParticipantsAdmins
 import re
 import html
@@ -143,8 +142,6 @@ import os
 from gtts import gTTS, gTTSError
 import requests
 from requests import get
-import pyowm
-from pyowm import *
 from telegram import Message, Chat, Update, Bot
 from telegram.ext import run_async
 from haruka import dispatcher, updater
@@ -1782,53 +1779,41 @@ if LYDIA_API_KEY:
 
 
 @register(pattern="^/autochat")
-async def chat_bot(event):
-         if event.fwd_from:
-             return  
-         
-         if event.is_group:
-          if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-            await event.reply("")
-            return
-       
-         if MONGO_DB_URI is None:
-             await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
-             return
-         if not event.from_id:
-             await event.reply("Reply To Someone's Message To add User in AutoChats..")
-             return
-         reply_msg = await event.get_reply_message()
-         chats = auto_chat.find({})
-         for c in chats:
-               if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
-                   await event.reply("This User is Already in Auto-Chat List.")
-                   return 
-         auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-         await event.reply("AI mode turned on For User: "+str(reply_msg.from_id)+" in this chat.")
-        
-@register(pattern="^/stopchat")
-async def chat_bot(event):
-      if event.fwd_from:
-          return  
-   
-      if event.is_group:
+async def addcf(event):
+    if event.fwd_from:
+        return
+    if event.is_group:
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-      
-      if MONGO_DB_URI is None:
-          await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
-          return
-      if not event.from_id:
-          await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
-          return
-      reply_msg = await event.get_reply_message()
-      chats = auto_chat.find({})
-      for c in chats:
-        if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
-           auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-           await event.reply("AI mode turned off For User: "+str(reply_msg.from_id)+" in this chat.")
+    reply_msg = await event.get_reply_message()
+    sender = event.sender_id
+    if reply_msg:
+        session = lydia.create_session()
+        session_id = session.id
+        if reply_msg.from_id is None:
+            return 
+        if not reply_msg.from_id == sender:
+            return 
+        ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
+        await event.reply("Coffeehouse AI successfully enabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
+    else:
+        return
 
+@register(pattern="^/stopchat")
+async def remcf(event):
+    if event.fwd_from:
+        return
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    reply_msg = await event.get_reply_message()
+    try:
+        del ACC_LYDIA[event.chat_id & reply_msg.from_id]
+        await event.reply("Coffeehouse AI successfully disabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
+    except Exception:
+        return
 
 @register(pattern="")
 async def user(event):
