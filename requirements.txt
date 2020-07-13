@@ -50,8 +50,6 @@ hachoir
 tswift
 pySmartDL
 wolframalpha
-dnspython
-pymongo[srv]
 pybase64
 selenium
 git+https://github.com/rachmadaniHaryono/we-get.git
