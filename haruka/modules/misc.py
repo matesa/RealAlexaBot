@@ -1768,8 +1768,7 @@ trainer.train("chatterbot.corpus.english")
 async def chat_bot(event):
          if event.fwd_from:
              return  
-         if event.is_private:
-            return
+         
          if event.is_group:
           if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply("")
@@ -1794,8 +1793,7 @@ async def chat_bot(event):
 async def chat_bot(event):
       if event.fwd_from:
           return  
-      if event.is_private:
-           return
+   
       if event.is_group:
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
