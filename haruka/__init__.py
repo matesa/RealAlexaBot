@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-from pymongo import MongoClient
 from telethon import TelegramClient
 import telegram.ext as tg
 
@@ -63,6 +62,7 @@ if ENV:
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', True)
     SUDO_USERS.add(OWNER_ID)
     GBAN_LOGS = os.environ.get('GBAN_LOGS', None)
+    LYDIA_API_KEY = os.environ.get('LYDIA_API_KEY', None)
     tbot = TelegramClient("haruka", API_KEY, API_HASH)
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
