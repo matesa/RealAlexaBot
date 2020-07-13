@@ -24,7 +24,6 @@ nltk
 Pillow
 psycopg2-binary
 pynewtonmath
-pyowm
 python-rapidjson
 PyYAML
 requests
