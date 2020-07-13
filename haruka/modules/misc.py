@@ -1870,7 +1870,7 @@ import barcode
 import os
 import time
 from barcode.writer import ImageWriter
-from datetime import datetime
+import datetime
 from haruka.events import register
 from telethon import events
 
