@@ -1752,17 +1752,34 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
-from pymongo import MongoClient
-from haruka import MONGO_DB_URI
-client = MongoClient()
-client = MongoClient(MONGO_DB_URI)
-db = client['test']
-auto_chat = db.auto_chat
-from chatterbot import ChatBot 
-from chatterbot.trainers import ChatterBotCorpusTrainer 
-chatbot = ChatBot('alexa')
-trainer = ChatterBotCorpusTrainer(chatbot) 
-trainer.train("chatterbot.corpus.english")
+
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
+import asyncio
+from telethon import events
+import logging
+logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+                    level=logging.WARNING)
+
+import coffeehouse as cf
+
+import asyncio
+import io
+import coffeehouse
+from haruka import LYDIA_API_KEY
+from telethon import events
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
+
+
+# Non-SQL Mode
+ACC_LYDIA = {}
+
+if LYDIA_API_KEY:
+    api_key = LYDIA_API_KEY
+    api_client = API(api_key)
+    lydia = LydiaAI(api_client)
+
 
 @register(pattern="^/autochat")
 async def chat_bot(event):
@@ -1814,22 +1831,15 @@ async def chat_bot(event):
 
 
 @register(pattern="")
-async def chat_bot_update(ebent):
-   if MONGO_DB_URI is None:
-      return
-   auto_chats = auto_chat.find({})
-   if not ebent.media:
-     for ch in auto_chats:
-       if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-           try:
-                msg = str(ebent.text)
-                response = chatbot.get_response(msg)
-                last = str(response)
-                await ebent.reply(last)
-           except (KeyError, TypeError):
-                return
-   if not ebent.text:
-      return
+async def user(event):
+    user_text = event.text
+    try:
+        session = ACC_LYDIA[event.chat_id & event.from_id]
+        msg = event.text
+        text_rep = session.think_thought(msg)
+        await event.reply(text_rep)
+    except (KeyError, TypeError):
+        return
       
 import os
 import sys
