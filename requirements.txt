@@ -59,5 +59,6 @@ coffeehouse
 html2text
 spotdl
 fortune
-chatterbot==1.0.4
+ChatterBot
+chatterbot-corpus
 python-barcode
