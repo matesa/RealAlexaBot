@@ -1617,9 +1617,8 @@ async def fortune(event):
     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-   jit = subprocess.check_output("fortune ./notes")   
-   proc = jit.decode()   
-   await event.reply(proc)
+   jit = subprocess.check_output("fortune")
+   await event.reply(jit)
 
 
 from haruka import *
