@@ -77,6 +77,7 @@ if ENV:
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
     TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
+    FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "./notes")
     # Load at end to ensure all prev variables have been set
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
