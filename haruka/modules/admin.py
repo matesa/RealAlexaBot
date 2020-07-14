@@ -224,30 +224,22 @@ def invite(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def adminlist(bot, update):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id, need_admin=False)
-    if not conn == False:
-        chatP = dispatcher.bot.getChat(conn)
-    else:
-        chatP = update.effective_chat
-        if chat.type == "private":
-            exit(1)
-    
-    administrators = chatP.get_administrators()
-
-    text = tld(chat.id, "Admins in") + " *{}*:".format(chatP.title or tld(chat.id, "this chat"))
+def adminlist(bot: Bot, update: Update):
+    chat = update.effective_chat
+    administrators = update.effective_chat.get_administrators()
+    text = tld(chat.id, "Admins in *{}*:").format(
+        update.effective_chat.title
+        or tld(chat.id, "This chat").lower())
     for admin in administrators:
         user = admin.user
-        status = admin.status
-        if status == "creator":
-            name = user.first_name + (user.last_name or "") + tld(chat.id, " (Creator)")
-        else:
-            name = user.first_name + (user.last_name or "")
-        text += f"\n• `{name}`"
+        name = "[{}](tg://user?id={})".format(user.first_name, user.id)
+        if user.username:
+            esc = escape_markdown("@" + user.username)
+            name = "[{}](tg://user?id={})".format(esc, user.id)
+        text += "\n - {}".format(name)
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
+
 
 
 @user_admin
