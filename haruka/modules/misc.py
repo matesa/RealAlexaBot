@@ -699,7 +699,7 @@ import shutil
 from re import findall
 import html2text
 
-@register(pattern="^/google (.*)") # pylint:disable=E0602
+@register(pattern="^/google (.*)") 
 async def _(event):
     if event.fwd_from:
         return
@@ -1624,9 +1624,9 @@ async def fortune(event):
     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-   jit = subprocess.check_output("fortune")
-   await event.reply(jit)
-
+   jit = subprocess.check_output(["python", "fortune"])
+   pit = str(jit)
+   await event.reply(pit)
 
 from haruka import *
 
