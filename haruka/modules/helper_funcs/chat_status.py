@@ -60,9 +60,7 @@ def bot_can_delete(func):
         if can_delete(update.effective_chat, bot.id):
             return func(bot, update, *args, **kwargs)
         else:
-            update.effective_message.reply_text("I can't delete messages here! "
-                                                "Make sure I'm admin and can delete other user's messages.")
-
+            return
     return delete_rights
 
 
@@ -72,9 +70,7 @@ def can_pin(func):
         if update.effective_chat.get_member(bot.id).can_pin_messages:
             return func(bot, update, *args, **kwargs)
         else:
-            update.effective_message.reply_text("I can't pin messages here! "
-                                                "Make sure I'm admin and can pin messages.")
-
+            return
     return pin_rights
 
 
@@ -84,9 +80,7 @@ def can_promote(func):
         if update.effective_chat.get_member(bot.id).can_promote_members:
             return func(bot, update, *args, **kwargs)
         else:
-            update.effective_message.reply_text("I can't promote/demote people here! "
-                                                "Make sure I'm admin and can appoint new admins.")
-
+            return
     return promote_rights
 
 
@@ -96,9 +90,7 @@ def can_restrict(func):
         if update.effective_chat.get_member(bot.id).can_restrict_members:
             return func(bot, update, *args, **kwargs)
         else:
-            update.effective_message.reply_text("I can't restrict people here! "
-                                                "Make sure I'm admin and can appoint new admins.")
-
+            return
     return promote_rights
 
 
@@ -108,8 +100,7 @@ def bot_admin(func):
         if is_bot_admin(update.effective_chat, bot.id):
             return func(bot, update, *args, **kwargs)
         else:
-            update.effective_message.reply_text("I'm not admin!")
-
+            return
     return is_admin
 
 def user_admin(func):
@@ -127,8 +118,7 @@ def user_admin(func):
             update.effective_message.delete()
 
         elif (admin_sql.command_reaction(chat.id) == True):
-            update.effective_message.reply_text("Who dis non-admin telling me what to do?")
-
+            return
     return is_admin
 
 def user_admin_no_reply(func):
@@ -162,7 +152,7 @@ def user_can_ban(func):
     def user_is_banhammer(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
-        if not (member.can_restrict_members or member.status == "creator") and not user in SUDO_USERS:            
+        if not (member.can_restrict_members or member.status == "creator"):          
             return ""
         return func(bot, update, *args, **kwargs)
     
@@ -173,7 +163,7 @@ def user_can_restrict(func):
     def user_is_restrict(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
-        if not (member.can_promote_members or member.status == "creator") and not user in SUDO_USERS:            
+        if not (member.can_promote_members or member.status == "creator"):          
             return ""
         return func(bot, update, *args, **kwargs)
     
@@ -184,7 +174,7 @@ def user_can_pin(func):
     def user_pin_can(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
-        if not (member.can_pin_messages or member.status == "creator") and not user in SUDO_USERS:           
+        if not (member.can_pin_messages or member.status == "creator"):      
             return ""
         return func(bot, update, *args, **kwargs)
     
@@ -196,7 +186,7 @@ def user_can_delete(func):
     def user_delete(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
-        if not (member.can_delete_messages or member.status == "creator") and not user in SUDO_USERS:            
+        if not (member.can_delete_messages or member.status == "creator"):        
             return ""
         return func(bot, update, *args, **kwargs)
     
@@ -207,7 +197,7 @@ def user_can_change(func):
     def user_change(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
-        if not (member.can_change_info or member.status == "creator") and not user in SUDO_USERS:
+        if not (member.can_change_info or member.status == "creator"):
             return ""
         return func(bot, update, *args, **kwargs)
     
