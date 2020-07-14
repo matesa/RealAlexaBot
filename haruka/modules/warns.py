@@ -12,7 +12,7 @@ from telegram.utils.helpers import mention_html
 from haruka import dispatcher, BAN_STICKER
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import is_user_admin, bot_admin, user_admin_no_reply, user_admin, \
-    user_can_restrict
+    user_can_restrict, user_can_ban
 from haruka.modules.helper_funcs.extraction import extract_text, extract_user_and_text, extract_user
 from haruka.modules.helper_funcs.filters import CustomFilters
 from haruka.modules.helper_funcs.misc import split_message
@@ -127,8 +127,7 @@ def button(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
-@user_can_restrict
+@user_can_ban
 @loggable
 def warn_user(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message  # type: Optional[Message]
@@ -148,7 +147,7 @@ def warn_user(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_can_restrict
+@user_can_ban
 @bot_admin
 @loggable
 def reset_warns(bot: Bot, update: Update, args: List[str]) -> str:
@@ -175,7 +174,7 @@ def reset_warns(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_can_restrict
+@user_can_ban
 def warns(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -202,7 +201,7 @@ def warns(bot: Bot, update: Update, args: List[str]):
 
 
 # Dispatcher handler stop - do not async
-@user_can_restrict
+@user_can_ban
 def add_warn_filter(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
@@ -232,7 +231,7 @@ def add_warn_filter(bot: Bot, update: Update):
     update.effective_message.reply_text("Warn handler added for '{}'!".format(keyword))
     raise DispatcherHandlerStop
 
-@user_can_restrict
+@user_can_ban
 def remove_warn_filter(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
@@ -265,7 +264,7 @@ def remove_warn_filter(bot: Bot, update: Update):
 
 
 @run_async
-@user_can_restrict
+@user_can_ban
 def list_warn_filters(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     all_handlers = sql.get_chat_warn_triggers(chat.id)
@@ -308,7 +307,7 @@ def reply_filter(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_can_restrict
+@user_can_ban
 @loggable
 def set_warn_limit(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -337,7 +336,7 @@ def set_warn_limit(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_can_restrict
+@user_can_ban
 def set_warn_strength(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
