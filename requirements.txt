@@ -58,3 +58,4 @@ spotdl
 fortune
 coffeehouse
 python-barcode
+PyDictionary
