@@ -10,7 +10,7 @@ from telegram.utils.helpers import escape_markdown, mention_html
 
 from haruka import dispatcher, updater
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import bot_admin, user_can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
 from haruka.modules.helper_funcs.extraction import extract_user
 from haruka.modules.log_channel import loggable
 from haruka.modules.sql import admin_sql as sql
@@ -22,7 +22,6 @@ from haruka.modules.connection import connected
 @bot_admin
 @user_can_restrict
 @loggable
-@user_can_promote
 def promote(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -77,7 +76,6 @@ def promote(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_can_restrict
-@user_can_promote
 @loggable
 def demote(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -139,7 +137,6 @@ def demote(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
-@can_pin
 @user_can_pin
 @loggable
 def pin(bot: Bot, update: Update, args: List[str]) -> str:
@@ -171,7 +168,6 @@ def pin(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
-@can_pin
 @user_can_pin
 @loggable
 def unpin(bot: Bot, update: Update) -> str:
