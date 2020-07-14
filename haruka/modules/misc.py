@@ -866,14 +866,21 @@ def shrug(bot: Bot, update: Update):
     else:
         message.reply_text(default_msg)
         
+from PyDictionary import PyDictionary
+dictionary=PyDictionary()
+
 @run_async
 @user_admin
-def ud(bot: Bot, update: Update):
+def define(bot: Bot, update: Update):
   message = update.effective_message
-  text = message.text[len('/ud '):]
-  results = get(f'http://api.urbandictionary.com/v0/define?term={text}').json()
-  reply_text = f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
-  message.reply_text(reply_text)
+  text = message.text[len('/define '):]
+  word = f'"{text}"'
+  let = dictionary.meaning(word)
+  set = str(let)
+  jet = set.replace("{","")
+  net = jet.replace("}","")
+  got = net.replace("'", "")
+  message.reply_text(got)
 
 
 @register(pattern="^/yt (.*)")
@@ -2216,7 +2223,7 @@ PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, p
 LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
-UD_HANDLER = CommandHandler("ud", ud)
+UD_HANDLER = CommandHandler("define", define)
 
 
 dispatcher.add_handler(STATS_HANDLER)
