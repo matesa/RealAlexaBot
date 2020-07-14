@@ -132,7 +132,6 @@ def unmute(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_can_ban
-@can_restrict
 @loggable
 def temp_mute(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -331,7 +330,6 @@ def media(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_can_ban
-@can_restrict
 @loggable
 def temp_nomedia(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
