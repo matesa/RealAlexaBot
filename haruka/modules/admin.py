@@ -10,7 +10,7 @@ from telegram.utils.helpers import escape_markdown, mention_html
 
 from haruka import dispatcher, updater
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
+from haruka.modules.helper_funcs.chat_status import bot_admin, user_can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
 from haruka.modules.helper_funcs.extraction import extract_user
 from haruka.modules.log_channel import loggable
 from haruka.modules.sql import admin_sql as sql
@@ -22,7 +22,7 @@ from haruka.modules.connection import connected
 @bot_admin
 @user_can_restrict
 @loggable
-@can_promote
+@user_can_promote
 def promote(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -77,7 +77,7 @@ def promote(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_can_restrict
-@can_promote
+@user_can_promote
 @loggable
 def demote(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -193,7 +193,7 @@ def unpin(bot: Bot, update: Update) -> str:
 
 @run_async
 @bot_admin
-@user_admin
+@user_can_change
 def invite(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -345,7 +345,7 @@ INVITE_HANDLER = CommandHandler("invitelink", invite)
 PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, pass_args=True)
 DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, pass_args=True)
 
-REACT_HANDLER = DisableAbleCommandHandler("reaction", reaction, pass_args=True, filters=Filters.group)
+# REACT_HANDLER = DisableAbleCommandHandler("reaction", reaction, pass_args=True, filters=Filters.group)
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler(["adminlist", "admins"], adminlist)
 
@@ -355,4 +355,4 @@ dispatcher.add_handler(INVITE_HANDLER)
 dispatcher.add_handler(PROMOTE_HANDLER)
 dispatcher.add_handler(DEMOTE_HANDLER)
 dispatcher.add_handler(ADMINLIST_HANDLER)
-dispatcher.add_handler(REACT_HANDLER)
+# dispatcher.add_handler(REACT_HANDLER)
