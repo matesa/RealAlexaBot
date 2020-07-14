@@ -63,8 +63,8 @@ def promote(bot: Bot, update: Update, args: List[str]) -> str:
                           can_delete_messages=bot_member.can_delete_messages,
                           #can_invite_users=bot_member.can_invite_users,
                           can_restrict_members=bot_member.can_restrict_members,
-                          can_pin_messages=bot_member.can_pin_messages,
-                          can_promote_members=bot_member.can_promote_members)
+                          can_pin_messages=bot_member.can_pin_messages)
+                    
 
     message.reply_text(tld(chat.id, f"Successfully promoted in *{chatD.title}*!"), parse_mode=ParseMode.MARKDOWN)
     return f"<b>{html.escape(chatD.title)}:</b>" \
