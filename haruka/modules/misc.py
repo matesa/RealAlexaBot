@@ -1889,7 +1889,7 @@ async def _(event):
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-    start = datetime.now()
+    start = datetime.datetime.now()
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `.barcode <long text to include>`"
     reply_msg_id = event.message.id
