@@ -1625,7 +1625,7 @@ async def fortune(event):
           await event.reply("")
           return
    jit = subprocess.check_output(["python", "fortune"])
-   pit = str(jit)
+   pit = jit.decode()
    await event.reply(pit)
 
 from haruka import *
