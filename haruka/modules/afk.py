@@ -33,15 +33,13 @@ def afk(bot: Bot, update: Update):
 def no_longer_afk(bot: Bot, update: Update):
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
-    elapsed_time = time.time() - start_time 
-    final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
     if not user:  # ignore channels
         return
 
     res = sql.rm_afk(user.id)
     if res:
         firstname = update.effective_user.first_name
-        update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}"))
+        update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK !"))
 
 
 @run_async
