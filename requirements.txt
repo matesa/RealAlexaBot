@@ -21,7 +21,7 @@ googletrans
 hurry.filesize
 markdown2
 nltk
-Pillow
+pillow
 psycopg2-binary
 pynewtonmath
 python-rapidjson
