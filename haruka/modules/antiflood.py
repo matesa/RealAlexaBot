@@ -23,7 +23,6 @@ FLOOD_GROUP = 3
 
 @run_async
 @loggable
-@user_can_change
 def check_flood(bot: Bot, update: Update) -> str:
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -126,7 +125,6 @@ def set_flood(bot: Bot, update: Update, args: List[str]) -> str:
     return ""
 
 @run_async
-@user_admin
 @user_can_change
 def set_flood_mode(bot: Bot, update: Update, args: List[str]):
     spam = spamfilters(update.effective_message.text, update.effective_message.from_user.id, update.effective_chat.id, update.effective_message)
@@ -210,7 +208,6 @@ Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
 
 
 @run_async
-@user_admin
 @user_can_change
 def flood(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
