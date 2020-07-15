@@ -39,7 +39,7 @@ async def _(event):
      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
        return
     cmd = event.pattern_match.group(1)
-    cmnd = f'"{cmd}"'
+    cmnd = f'{cmd}'
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
