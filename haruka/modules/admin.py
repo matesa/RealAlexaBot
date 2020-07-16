@@ -282,10 +282,10 @@ __help__ = """
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
  - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
  - /flood: gets the current antiflood settings
- - /addblacklist <trigger> : blacklists the trigger
- - /unblacklist <trigger> | rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
+ - /addblacklist <trigger> : blacklists the trigger it will get removed everytime someone types it
+ - /unblacklist <trigger> | /rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
  - /blacklist: list all active blacklist filters
- - /addblacklist "the admins suck" respect your admins: This will remove the text everytime someone types it
+ - /addblacklist "the admins suck": This will remove the text everytime someone types it
  - /addblacklist `"bit.ly/*"`: This will remove the link everytime someone sends it matching `bit.ly`
  - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
  - /stop <word>: stop that filter.
@@ -327,8 +327,10 @@ __help__ = """
  - /setgoodbye <message>: set the goodbye message
  - /resetgoodbye: clear the goodbye message 
  - /cleanwelcome <on/off/yes/no>: clean welcome message 
- - /cleanservice <on/off/yes/no>: clean all service messages
+ - /cleanservice <on/off/yes/no>: clean all service messages [join/left]
  - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
+ - /welcomehelp: detailed help about how to set welcome message
+ - /unbanall: unbans all users in the chat
 """
 
 __mod_name__ = "Admin 🚫"
