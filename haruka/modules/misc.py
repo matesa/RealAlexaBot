@@ -2168,7 +2168,7 @@ async def _(event):
                 await event.reply(str(ex))
             else:
                 p += 1
-        await event.reply("{}: {} unbanned".format(event.chat_id, p))
+            await event.reply("{}: {} unbanned".format(event.chat_id, p))
 
 
 __help__ = """
