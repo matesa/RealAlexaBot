@@ -89,16 +89,16 @@ if ENV:
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = os.environ.get('SPAMMERS', "")
     SPAMMERS = list(SPAMMERS)
+    if STRING_SESSION:
+       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+    else:
+      quit(1)
     async def check_botlog_chatid():
      if not MESSAGE_DUMP:
         return
      entity = await ubot.get_entity(MESSAGE_DUMP)
      if entity.default_banned_rights.send_messages:
-        return
-    if STRING_SESSION:
-       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
-    else:
-       return
+        quit(1)
     with ubot:
      try:
         ubot.loop.run_until_complete(check_botlog_chatid())
