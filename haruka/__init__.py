@@ -3,7 +3,6 @@ import os
 import sys
 from telethon import TelegramClient
 import telegram.ext as tg
-from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
@@ -90,21 +89,6 @@ if ENV:
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = os.environ.get('SPAMMERS', "")
     SPAMMERS = list(SPAMMERS)
-    if STRING_SESSION:
-       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
-    else:
-      quit(1)
-    async def check_botlog_chatid():
-     if not MESSAGE_DUMP:
-        return
-     entity = await ubot.get_entity(MESSAGE_DUMP)
-     if entity.default_banned_rights.send_messages:
-        quit(1)
-    with ubot:
-     try:
-        ubot.loop.run_until_complete(check_botlog_chatid())
-     except:
-        quit(1)
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
