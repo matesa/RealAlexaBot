@@ -103,7 +103,7 @@ if ENV:
      try:
         ubot.loop.run_until_complete(check_botlog_chatid())
      except:
-        return
+        quit(1)
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
