@@ -2141,6 +2141,36 @@ def get_markdown(reply):
         markdown.append(md_item)
     return markdown
 
+
+@register(pattern="^/unbanall")
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+       return 
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    await event.reply("Searching Participant Lists.")
+    p = 0
+    async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
+            rights = ChatBannedRights(
+                until_date=0,
+                view_messages=False
+            )
+            try:
+                await tbot(functions.channels.EditBannedRequest(event.chat_id, i, rights))
+            except FloodWaitError as ex:
+                logger.warn("sleeping for {} seconds".format(ex.seconds))
+                sleep(ex.seconds)
+            except Exception as ex:
+                await event.reply(str(ex))
+            else:
+                p += 1
+        await event.reply("{}: {} unbanned".format(event.chat_id, p))
+
+
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
  - /runs: reply a random string from an array of replies.
