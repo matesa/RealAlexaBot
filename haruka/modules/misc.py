@@ -423,7 +423,7 @@ def echo(bot: Bot, update: Update):
     message.delete()
 
 @user_admin
-@run_async
+@run_async 
 def reply_keyboard_remove(bot: Bot, update: Update):
     reply_keyboard = []
     reply_keyboard.append([
@@ -874,7 +874,7 @@ dictionary=PyDictionary()
 def define(bot: Bot, update: Update):
   message = update.effective_message
   text = message.text[len('/define '):]
-  word = f'"{text}"'
+  word = f"{text}"
   let = dictionary.meaning(word)
   set = str(let)
   jet = set.replace("{","")
