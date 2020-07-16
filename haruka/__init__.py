@@ -81,7 +81,7 @@ if ENV:
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
-
+    STRING_SESSION = os.environ.get("STRING_SESSION", None)
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
@@ -89,7 +89,21 @@ if ENV:
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = os.environ.get('SPAMMERS', "")
     SPAMMERS = list(SPAMMERS)
-
+    async def check_botlog_chatid():
+     if not MESSAGE_DUMP:
+        return
+     entity = await ubot.get_entity(MESSAGE_DUMP)
+     if entity.default_banned_rights.send_messages:
+        return
+    if STRING_SESSION:
+       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+    else:
+       return
+    with ubot:
+     try:
+        ubot.loop.run_until_complete(check_botlog_chatid())
+     except:
+        return
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
