@@ -459,11 +459,7 @@ def gdpr(bot: Bot, update: Update):
 def markdown_help(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(tld(chat.id, "MARKDOWN_HELP-K"), parse_mode=ParseMode.HTML)
-    update.effective_message.reply_text(tld(chat.id, "Try forwarding the following message to me, and you'll see!"))
-    update.effective_message.reply_text(tld(chat.id, "/save test This is a markdown test. _italics_, *bold*, `code`, "
-                                        "[URL](example.com) [button](buttonurl:github.com) "
-                                        "[button2](buttonurl://google.com:same)"))
-
+    
 @run_async
 @user_admin
 def github(bot: Bot, update: Update):
@@ -637,7 +633,7 @@ async def _(event):
     lan = lan.strip()
     try:
         tts = gTTS(text, tld='com', lang=lan)
-        tts.save("k.mp3")
+        tts.save("k.mp3") 
     except AssertionError:
         await event.reply('The text is empty.\n'
                          'Nothing left to speak after pre-precessing, '
@@ -2152,7 +2148,7 @@ async def _(event):
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-    await event.reply("Searching Participant Lists.")
+    done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
             rights = ChatBannedRights(
@@ -2168,7 +2164,7 @@ async def _(event):
                 await event.reply(str(ex))
             else:
                 p += 1
-            await event.reply("{}: {} unbanned".format(event.chat_id, p))
+            await done.edit("{}: {} unbanned".format(event.chat_id, p))
 
 
 __help__ = """
@@ -2230,25 +2226,25 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /song <songname artist(optional)>: uploads the song in it's best quality available
  - /lyrics <songname artist (optional)>: get the lyrics of a song 
  - /barcode <text>: makes a barcode out of the text, crop the barcode if you don't want to reveal the text
- - /quotly <text> / reply to a message: an alternative to @QuotLyBot
+ - /quotly <text> / reply to a message: an alternative to @QuotLyBot(coming soon)
 """
 
 __mod_name__ = "Utilities ⚡"
 
 
-ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True, admin_ok=True)
-RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, admin_ok=True)
-SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug, admin_ok=True)
-SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, pass_args=True, admin_ok=True)
-INFO_HANDLER = DisableAbleCommandHandler("info", info, pass_args=True, admin_ok=True)
-GITHUB_HANDLER = DisableAbleCommandHandler("git", github)
-REPO_HANDLER = DisableAbleCommandHandler("repo", repo, pass_args=True, admin_ok=True)
+ID_HANDLER = CommandHandler("id", get_id, pass_args=True, admin_ok=True)
+RUNS_HANDLER = CommandHandler("runs", runs, admin_ok=True)
+SHRUG_HANDLER = CommandHandler("shrug", shrug, admin_ok=True)
+SLAP_HANDLER = CommandHandler("slap", slap, pass_args=True, admin_ok=True)
+INFO_HANDLER = CommandHandler("info", info, pass_args=True, admin_ok=True)
+GITHUB_HANDLER = CommandHandler("git", github)
+REPO_HANDLER =CommandHandler("repo", repo, pass_args=True, admin_ok=True)
 ECHO_HANDLER = CommandHandler("echo", echo)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
-PASTE_HANDLER = DisableAbleCommandHandler("paste", paste, pass_args=True)
-GET_PASTE_HANDLER = DisableAbleCommandHandler("getpaste", get_paste_content, pass_args=True)
-PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, pass_args=True)
+PASTE_HANDLER = CommandHandler("paste", paste, pass_args=True)
+GET_PASTE_HANDLER = CommandHandler("getpaste", get_paste_content, pass_args=True)
+PASTE_STATS_HANDLER = CommandHandler("pastestats", get_paste_stats, pass_args=True)
 LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
@@ -2272,4 +2268,4 @@ dispatcher.add_handler(MD_HELP_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
-dispatcher.add_handler(DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove))
+dispatcher.add_handler(CommandHandler("removebotkeyboard", reply_keyboard_remove))
