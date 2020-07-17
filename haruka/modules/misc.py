@@ -2231,14 +2231,13 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
 
 __mod_name__ = "Utilities ⚡"
 
-
-ID_HANDLER = CommandHandler("id", get_id, pass_args=True, admin_ok=True)
-RUNS_HANDLER = CommandHandler("runs", runs, admin_ok=True)
-SHRUG_HANDLER = CommandHandler("shrug", shrug, admin_ok=True)
-SLAP_HANDLER = CommandHandler("slap", slap, pass_args=True, admin_ok=True)
-INFO_HANDLER = CommandHandler("info", info, pass_args=True, admin_ok=True)
+ID_HANDLER = CommandHandler("id", get_id, pass_args=True)
+RUNS_HANDLER = CommandHandler("runs", runs)
+SHRUG_HANDLER = CommandHandler("shrug", shrug)
+SLAP_HANDLER = CommandHandler("slap", slap, pass_args=True)
+INFO_HANDLER = CommandHandler("info", info, pass_args=True)
 GITHUB_HANDLER = CommandHandler("git", github)
-REPO_HANDLER =CommandHandler("repo", repo, pass_args=True, admin_ok=True)
+REPO_HANDLER =CommandHandler("repo", repo, pass_args=True)
 ECHO_HANDLER = CommandHandler("echo", echo)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
@@ -2249,7 +2248,6 @@ LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 UD_HANDLER = CommandHandler("define", define)
-
 
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(TIME_HANDLER)
