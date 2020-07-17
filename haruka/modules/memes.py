@@ -302,17 +302,17 @@ Some memes command, find it all out yourself!
 
 __mod_name__ = "Memes 💢"
 
-COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta, admin_ok=True)
-CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji, admin_ok=True)
-BMOJI_HANDLER = CommandHandler("bmoji", bmoji, admin_ok=True)
-OWO_HANDLER = CommandHandler("owo", owo, admin_ok=True)
+COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta)
+CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji)
+BMOJI_HANDLER = CommandHandler("bmoji", bmoji)
+OWO_HANDLER = CommandHandler("owo", owo)
 STRETCH_HANDLER = CommandHandler("stretch", stretch)
-VAPOR_HANDLER = CommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
+VAPOR_HANDLER = CommandHandler("vapor", vapor, pass_args=True)
 ZALGO_HANDLER = CommandHandler("zalgofy", zalgotext)
-FORBES_HANDLER = CommandHandler("forbes", forbesify, admin_ok=True)
-DEEPFRY_HANDLER = CommandHandler("deepfry", deepfryer, admin_ok=True)
+FORBES_HANDLER = CommandHandler("forbes", forbesify)
+DEEPFRY_HANDLER = CommandHandler("deepfry", deepfryer)
 SHOUT_HANDLER = CommandHandler("shout", shout, pass_args=True)
-FORBES_HANDLER = CommandHandler("forbesify", forbesify, admin_ok=True)
+FORBES_HANDLER = CommandHandler("forbesify", forbesify)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
