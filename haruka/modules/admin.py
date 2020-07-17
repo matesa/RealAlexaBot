@@ -7,7 +7,7 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown, mention_html
-
+from telegram.ext import MessageHandler, Filters, CommandHandler
 from haruka import dispatcher, updater
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
@@ -335,17 +335,17 @@ __help__ = """
 
 __mod_name__ = "Admin 🚫"
 
-PIN_HANDLER = DisableAbleCommandHandler("pin", pin, pass_args=True, filters=Filters.group)
-UNPIN_HANDLER = DisableAbleCommandHandler("unpin", unpin, filters=Filters.group)
+PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.group)
+UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.group)
 
 INVITE_HANDLER = CommandHandler("invitelink", invite)
 
-PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, pass_args=True)
-DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, pass_args=True)
+PROMOTE_HANDLER = CommandHandler("promote", promote, pass_args=True)
+DEMOTE_HANDLER = CommandHandler("demote", demote, pass_args=True)
 
-# REACT_HANDLER = DisableAbleCommandHandler("reaction", reaction, pass_args=True, filters=Filters.group)
+# REACT_HANDLER = CommandHandler("reaction", reaction, pass_args=True, filters=Filters.group)
 
-ADMINLIST_HANDLER = DisableAbleCommandHandler(["adminlist", "admins"], adminlist)
+ADMINLIST_HANDLER = CommandHandler(["adminlist", "admins"], adminlist)
 
 dispatcher.add_handler(PIN_HANDLER)
 dispatcher.add_handler(UNPIN_HANDLER)
