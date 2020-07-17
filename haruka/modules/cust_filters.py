@@ -249,9 +249,9 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return "There are `{}` custom filters here.".format(len(cust_filters))
 
 
-FILTER_HANDLER = DisableAbleCommandHandler("filter", filters)
-STOP_HANDLER = DisableAbleCommandHandler("stop", stop_filter)
-LIST_HANDLER = DisableAbleCommandHandler("filters", list_handlers, admin_ok=True)
+FILTER_HANDLER = CommandHandler("filter", filters)
+STOP_HANDLER = CommandHandler("stop", stop_filter)
+LIST_HANDLER = CommandHandler("filters", list_handlers)
 CUST_FILTER_HANDLER = MessageHandler(CustomFilters.has_text, reply_filter)
 
 dispatcher.add_handler(FILTER_HANDLER)
