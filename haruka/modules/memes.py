@@ -15,7 +15,7 @@ nltk.download('averaged_perceptron_tagger')
 from typing import Optional, List
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 from deeppyer import deepfry
 
 from haruka import dispatcher, DEEPFRY_TOKEN, LOGGER
@@ -301,18 +301,18 @@ Some memes command, find it all out yourself!
 """
 
 __mod_name__ = "Memes 💢"
-COPYPASTA_HANDLER = DisableAbleCommandHandler("copypasta", copypasta, admin_ok=True)
-CLAPMOJI_HANDLER = DisableAbleCommandHandler("clapmoji", clapmoji, admin_ok=True)
-BMOJI_HANDLER = DisableAbleCommandHandler("bmoji", bmoji, admin_ok=True)
-OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
-STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
-VAPOR_HANDLER = DisableAbleCommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
-ZALGO_HANDLER = DisableAbleCommandHandler("zalgofy", zalgotext)
-FORBES_HANDLER = DisableAbleCommandHandler("forbes", forbesify, admin_ok=True)
-DEEPFRY_HANDLER = DisableAbleCommandHandler("deepfry", deepfryer, admin_ok=True)
-SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, pass_args=True)
-FORBES_HANDLER = DisableAbleCommandHandler("forbesify", forbesify, admin_ok=True)
 
+COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta, admin_ok=True)
+CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji, admin_ok=True)
+BMOJI_HANDLER = CommandHandler("bmoji", bmoji, admin_ok=True)
+OWO_HANDLER = CommandHandler("owo", owo, admin_ok=True)
+STRETCH_HANDLER = CommandHandler("stretch", stretch)
+VAPOR_HANDLER = CommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
+ZALGO_HANDLER = CommandHandler("zalgofy", zalgotext)
+FORBES_HANDLER = CommandHandler("forbes", forbesify, admin_ok=True)
+DEEPFRY_HANDLER = CommandHandler("deepfry", deepfryer, admin_ok=True)
+SHOUT_HANDLER = CommandHandler("shout", shout, pass_args=True)
+FORBES_HANDLER = CommandHandler("forbesify", forbesify, admin_ok=True)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
