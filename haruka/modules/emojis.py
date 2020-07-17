@@ -9,7 +9,7 @@ from haruka.modules.helper_funcs.chat_status import user_admin
 from typing import Optional, List
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 
 import nltk # shitty lib, but it does work
 nltk.download('punkt')
@@ -102,16 +102,16 @@ def me_too(bot: Bot, update: Update):
         message.reply_text(reply)   
         
         
-COPYPASTA_HANDLER = DisableAbleCommandHandler("copypasta", copypasta)
-COPYPASTA_ALIAS_HANDLER = DisableAbleCommandHandler("😂", copypasta)
-CLAPMOJI_HANDLER = DisableAbleCommandHandler("clapmoji", clapmoji)
-CLAPMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("👏", clapmoji)
-ANGRYMOJI_HANDLER = DisableAbleCommandHandler("angrymoji", angrymoji)
-ANGRYMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("😡", angrymoji)
-CRYMOJI_HANDLER = DisableAbleCommandHandler("crymoji", crymoji)
-CRYMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("😭", crymoji)
-BMOJI_HANDLER = DisableAbleCommandHandler("🅱️", bmoji)
-BMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("bmoji", bmoji)
+COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta)
+COPYPASTA_ALIAS_HANDLER = CommandHandler("😂", copypasta)
+CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji)
+CLAPMOJI_ALIAS_HANDLER = CommandHandler("👏", clapmoji)
+ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
+ANGRYMOJI_ALIAS_HANDLER = CommandHandler("😡", angrymoji)
+CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
+CRYMOJI_ALIAS_HANDLER = CommandHandler("😭", crymoji)
+BMOJI_HANDLER = CommandHandler("🅱️", bmoji)
+BMOJI_ALIAS_HANDLER = CommandHandler("bmoji", bmoji)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(COPYPASTA_ALIAS_HANDLER)
