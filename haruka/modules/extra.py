@@ -2,7 +2,7 @@ import random, re
 from random import randint
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 from haruka.modules.helper_funcs.chat_status import user_admin
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
