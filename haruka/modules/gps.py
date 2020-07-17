@@ -44,5 +44,5 @@ def gps(bot: Bot, update: Update, args: List[str]):
         update.message.reply_text("I can't find that")
 
 
-GPS_HANDLER = DisableAbleCommandHandler("gps", gps, pass_args=True)
+GPS_HANDLER = CommandHandler("gps", gps, pass_args=True)
 dispatcher.add_handler(GPS_HANDLER)
