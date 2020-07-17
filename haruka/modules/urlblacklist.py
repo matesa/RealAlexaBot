@@ -136,12 +136,11 @@ def get_blacklisted_urls(bot: Bot, update: Update):
     message.reply_text(base_string, parse_mode=ParseMode.HTML)
 
 
-URL_BLACKLIST_HANDLER = DisableAbleCommandHandler(
+URL_BLACKLIST_HANDLER = CommandHandler(
     "blacklist",
     add_blacklist_url,
     filters=Filters.group,
-    pass_args=True,
-    admin_ok=True)
+    pass_args=True)
 ADD_URL_BLACKLIST_HANDLER = CommandHandler(
     "addurl", add_blacklist_url, filters=Filters.group)
 
