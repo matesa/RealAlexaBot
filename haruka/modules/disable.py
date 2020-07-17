@@ -95,7 +95,7 @@ if is_module_loaded(FILENAME):
             else:
                 #update.effective_message.reply_text(tld(chat.id, "That command can't be disabled"))
 
-        else:
+        #else:
             #update.effective_message.reply_text(tld(chat.id, "What should I disable?"))
 
 
