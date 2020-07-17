@@ -5,7 +5,7 @@ from random import randint
 from time import sleep
 
 from telegram import Message, Chat, Update, Bot
-from telegram.ext import run_async
+from telegram.ext import run_async, CommandHandler
 
 from haruka import dispatcher, WALL_API
 from haruka.modules.disable import DisableAbleCommandHandler
@@ -43,5 +43,5 @@ def wall(bot: Bot, update: Update, args):
                 timeout=60)
  
 
-WALLPAPER_HANDLER = DisableAbleCommandHandler("wall", wall, pass_args=True)
+WALLPAPER_HANDLER = CommandHandler("wall", wall, pass_args=True)
 dispatcher.add_handler(WALLPAPER_HANDLER)
