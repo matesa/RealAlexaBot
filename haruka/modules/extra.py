@@ -254,13 +254,13 @@ def table(bot: Bot, update: Update):
                 update.message.reply_text("Go do some work instead of flippin tables you helpless fagit.")
 		
 
-ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
-ROLL_HANDLER = DisableAbleCommandHandler("roll", roll)
-TOSS_HANDLER = DisableAbleCommandHandler("toss", toss)
-#BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext)
-RLG_HANDLER = DisableAbleCommandHandler("rlg", rlg)
-DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
-TABLE_HANDLER = DisableAbleCommandHandler("table", table)
+ABUSE_HANDLER = CommandHandler("abuse", abuse)
+ROLL_HANDLER = CommandHandler("roll", roll)
+TOSS_HANDLER = CommandHandler("toss", toss)
+#BLUETEXT_HANDLER = CommandHandler("bluetext", bluetext)
+RLG_HANDLER = CommandHandler("rlg", rlg)
+DECIDE_HANDLER = CommandHandler("decide", decide)
+TABLE_HANDLER = CommandHandler("table", table)
 
 dispatcher.add_handler(ABUSE_HANDLER)
 dispatcher.add_handler(ROLL_HANDLER)
