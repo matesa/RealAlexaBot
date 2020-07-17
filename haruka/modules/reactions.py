@@ -40,9 +40,9 @@ def rangry(bot : Bot, update: Update):
         message.reply_text(rangry)
         
 
-REACT_HANDLER = DisableAbleCommandHandler("react", react)
-RHAPPY_HANDLER = DisableAbleCommandHandler("happy", rhappy)
-RANGRY_HANDLER = DisableAbleCommandHandler("amgery", rangry)
+REACT_HANDLER = CommandHandler("react", react)
+RHAPPY_HANDLER = CommandHandler("happy", rhappy)
+RANGRY_HANDLER = CommandHandler("amgery", rangry)
 
 dispatcher.add_handler(REACT_HANDLER)
 dispatcher.add_handler(RHAPPY_HANDLER)
