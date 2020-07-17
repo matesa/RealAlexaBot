@@ -90,13 +90,13 @@ if is_module_loaded(FILENAME):
 
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chatD.id, disable_cmd)
-                update.effective_message.reply_text(tld(chat.id, "Disabled the use of `{}` in *{}*").format(disable_cmd, chatD.title),
+                #update.effective_message.reply_text(tld(chat.id, "Disabled the use of `{}` in *{}*").format(disable_cmd, chatD.title),
                                                     parse_mode=ParseMode.MARKDOWN)
             else:
-                update.effective_message.reply_text(tld(chat.id, "That command can't be disabled"))
+                #update.effective_message.reply_text(tld(chat.id, "That command can't be disabled"))
 
         else:
-            update.effective_message.reply_text(tld(chat.id, "What should I disable?"))
+            #update.effective_message.reply_text(tld(chat.id, "What should I disable?"))
 
 
     @run_async
@@ -120,13 +120,13 @@ if is_module_loaded(FILENAME):
                 enable_cmd = enable_cmd[1:]
 
             if sql.enable_command(chatD.id, enable_cmd):
-                update.effective_message.reply_text(tld(chat.id, "Enabled the use of `{}` in *{}*").format(enable_cmd, chatD.title),
+                #update.effective_message.reply_text(tld(chat.id, "Enabled the use of `{}` in *{}*").format(enable_cmd, chatD.title),
                                                     parse_mode=ParseMode.MARKDOWN)
             else:
-                update.effective_message.reply_text(tld(chat.id, "Is that even disabled?"))
+                #update.effective_message.reply_text(tld(chat.id, "Is that even disabled?"))
 
         else:
-            update.effective_message.reply_text(tld(chat.id, "What should I enable?"))
+            #update.effective_message.reply_text(tld(chat.id, "What should I enable?"))
 
 
     @run_async
@@ -137,10 +137,10 @@ if is_module_loaded(FILENAME):
             result = ""
             for cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 result += " • `{}`\n".format(escape_markdown(cmd))
-            update.effective_message.reply_text(tld(chat.id, "The following commands are toggleable:\n{}").format(result),
+            #update.effective_message.reply_text(tld(chat.id, "The following commands are toggleable:\n{}").format(result),
                                                 parse_mode=ParseMode.MARKDOWN)
         else:
-            update.effective_message.reply_text(tld(chat.id, "No commands can be disabled."))
+            #update.effective_message.reply_text(tld(chat.id, "No commands can be disabled."))
 
 
     # do not async
@@ -174,11 +174,11 @@ if is_module_loaded(FILENAME):
 
         disabled = sql.get_all_disabled(chatD.id)
         if not disabled:
-            update.effective_message.reply_text(tld(chat.id, "No commands are disabled! in *{}*!").format(chatD.title))
+            #update.effective_message.reply_text(tld(chat.id, "No commands are disabled! in *{}*!").format(chatD.title))
 
         text = build_curr_disabled(chatD.id, chat.id)
 
-        update.effective_message.reply_text(tld(chat.id, "The following commands are currently restricted in *{}*:\n{}").format(chatD.title, text), parse_mode=ParseMode.MARKDOWN)
+        #update.effective_message.reply_text(tld(chat.id, "The following commands are currently restricted in *{}*:\n{}").format(chatD.title, text), parse_mode=ParseMode.MARKDOWN)
 
 
    # def __stats__():
