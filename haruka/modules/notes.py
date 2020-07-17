@@ -283,13 +283,13 @@ def __chat_settings__(bot, update, chat, chatP, user):
     return "There are `{}` notes in this chat.".format(len(notes))
 
 
-GET_HANDLER = DisableAbleCommandHandler("get", cmd_get, pass_args=True)
+GET_HANDLER = CommandHandler("get", cmd_get, pass_args=True)
 HASH_GET_HANDLER = RegexHandler(r"^#[^\s]+", hash_get)
 
-SAVE_HANDLER = DisableAbleCommandHandler("save", save)
-DELETE_HANDLER = DisableAbleCommandHandler("clear", clear, pass_args=True)
+SAVE_HANDLER = CommandHandler("save", save)
+DELETE_HANDLER = CommandHandler("clear", clear, pass_args=True)
 
-LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, admin_ok=True)
+LIST_HANDLER = CommandHandler(["notes", "saved"], list_notes, admin_ok=True)
 
 dispatcher.add_handler(GET_HANDLER)
 dispatcher.add_handler(SAVE_HANDLER)
