@@ -174,7 +174,7 @@ def imresize(kangsticker):
 
 STICKERID_HANDLER = CommandHandler("stickerid", stickerid)
 GETSTICKER_HANDLER = CommandHandler("getsticker", getsticker)
-KANG_HANDLER = CommandHandler("kang", kang, pass_args=True, admin_ok=True)
+KANG_HANDLER = CommandHandler("kang", kang, pass_args=True)
 
 dispatcher.add_handler(STICKERID_HANDLER)
 dispatcher.add_handler(GETSTICKER_HANDLER)
