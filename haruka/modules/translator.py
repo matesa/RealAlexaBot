@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
@@ -29,4 +29,4 @@ def do_translate(bot: Bot, update: Update, args: List[str]):
         msg.reply_text("Error")
 
 
-dispatcher.add_handler(DisableAbleCommandHandler("tr", do_translate, pass_args=True))
+dispatcher.add_handler(CommandHandler("tr", do_translate, pass_args=True))
