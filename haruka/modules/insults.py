@@ -1,5 +1,5 @@
 import random
-from telegram.ext import run_async, Filters
+from telegram.ext import run_async, Filters, CommandHandler
 from telegram import Message, Chat, Update, Bot, MessageEntity
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
@@ -86,6 +86,6 @@ def insult(bot: Bot, update: Update):
       message.reply_text(random.choice(SFW_STRINGS))
 
 
-INSULT_HANDLER = DisableAbleCommandHandler("insult", insult)
+INSULT_HANDLER = CommandHandler("insult", insult)
 
 dispatcher.add_handler(INSULT_HANDLER)
