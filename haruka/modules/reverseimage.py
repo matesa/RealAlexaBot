@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 from typing import List
 from telegram import ParseMode, InputMediaPhoto, Update, Bot, TelegramError
-from telegram.ext import run_async
+from telegram.ext import run_async, CommandHandler
 
 from haruka import dispatcher
 
@@ -181,6 +181,6 @@ def scam(imgspage, lim):
     return imglinks
 
 
-REVERSE_HANDLER = DisableAbleCommandHandler("reverse", reverse, pass_args=True, admin_ok=True)
+REVERSE_HANDLER = CommandHandler("reverse", reverse, pass_args=True)
 
 dispatcher.add_handler(REVERSE_HANDLER)
