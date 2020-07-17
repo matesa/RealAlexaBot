@@ -90,12 +90,11 @@ if is_module_loaded(FILENAME):
 
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chatD.id, disable_cmd)
-                #update.effective_message.reply_text(tld(chat.id, "Disabled the use of `{}` in *{}*").format(disable_cmd, chatD.title),
-                                                    #parse_mode=ParseMode.MARKDOWN)
+                #update.effective_message.reply_text(tld(chat.id, "Disabled the use of `{}` in *{}*").format(disable_cmd, chatD.title), parse_mode=ParseMode.MARKDOWN)
             else:
                 #update.effective_message.reply_text(tld(chat.id, "That command can't be disabled"))
 
-        #else:
+        else:
             #update.effective_message.reply_text(tld(chat.id, "What should I disable?"))
 
 
@@ -120,8 +119,7 @@ if is_module_loaded(FILENAME):
                 enable_cmd = enable_cmd[1:]
 
             if sql.enable_command(chatD.id, enable_cmd):
-                #update.effective_message.reply_text(tld(chat.id, "Enabled the use of `{}` in *{}*").format(enable_cmd, chatD.title),
-                                                    #parse_mode=ParseMode.MARKDOWN)
+                #update.effective_message.reply_text(tld(chat.id, "Enabled the use of `{}` in *{}*").format(enable_cmd, chatD.title), parse_mode=ParseMode.MARKDOWN)
             else:
                 #update.effective_message.reply_text(tld(chat.id, "Is that even disabled?"))
 
@@ -137,8 +135,7 @@ if is_module_loaded(FILENAME):
             result = ""
             for cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 result += " • `{}`\n".format(escape_markdown(cmd))
-            #update.effective_message.reply_text(tld(chat.id, "The following commands are toggleable:\n{}").format(result),
-                                                #parse_mode=ParseMode.MARKDOWN)
+            #update.effective_message.reply_text(tld(chat.id, "The following commands are toggleable:\n{}").format(results), parse_mode=ParseMode.MARKDOWN)
         else:
             #update.effective_message.reply_text(tld(chat.id, "No commands can be disabled."))
 
