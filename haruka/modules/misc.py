@@ -2226,7 +2226,6 @@ If you are still messed up send `/helptorrent` in pm for the tutorial !
  - /song <songname artist(optional)>: uploads the song in it's best quality available
  - /lyrics <songname artist (optional)>: get the lyrics of a song 
  - /barcode <text>: makes a barcode out of the text, crop the barcode if you don't want to reveal the text
- - /quotly <text> / reply to a message: an alternative to @QuotLyBot(coming soon)
 """
 
 __mod_name__ = "Utilities ⚡"
