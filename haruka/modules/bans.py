@@ -391,6 +391,46 @@ def sban(bot: Bot, update: Update, args: List[str]) -> str:
             LOGGER.exception("ERROR banning person %s in chat %s (%s) due to %s", user_id, chat.title, chat.id, excp.message)       
     return ""
 
+@run_async
+@bot_admin
+@can_restrict
+def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
+    message = update.effective_message
+    user = update.effective_user
+
+    if user.id not in OWNER_ID:
+        return
+
+    try:
+        chat_id = int(args[0])
+    except:
+        message.reply_text("Give a valid chat ID.")
+        return
+
+    chat = bot.getChat(chat_id)
+
+    try:
+        member = chat.get_member(user.id)
+    except BadRequest as excp:
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user.")
+            return
+        else:
+            raise
+
+    if is_user_in_chat(chat, user.id):
+        message.reply_text("Aren't you already in the chat??")
+        return
+
+    chat.unban_member(user.id)
+    message.reply_text("Yep, I have unbanned you.")
+
+    log = (f"<b>{html.escape(chat.title)}:</b>\n"
+           f"#UNBANNED\n"
+           f"<b>User:</b> {mention_html(member.user.id, member.user.first_name)}")
+
+    return log
+
 
 BAN_HANDLER = CommandHandler("ban", ban, pass_args=True, filters=Filters.group)
 TEMPBAN_HANDLER = CommandHandler(["tban", "tempban"], temp_ban, pass_args=True, filters=Filters.group)
@@ -399,7 +439,7 @@ UNBAN_HANDLER = CommandHandler("unban", unban, pass_args=True, filters=Filters.g
 KICKME_HANDLER = CommandHandler("kickme", kickme, filters=Filters.group)
 SBAN_HANDLER = CommandHandler("sban", sban, pass_args=True, filters=Filters.group)
 BANME_HANDLER = CommandHandler("banme", banme, filters=Filters.group)
-
+ROAR_HANDLER = CommandHandler("selfunban", selfunban, pass_args=True)
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
@@ -407,3 +447,4 @@ dispatcher.add_handler(UNBAN_HANDLER)
 dispatcher.add_handler(KICKME_HANDLER)
 dispatcher.add_handler(BANME_HANDLER)
 dispatcher.add_handler(SBAN_HANDLER)
+dispatcher.add_handler(ROAR_HANDLER)
