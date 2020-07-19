@@ -398,9 +398,6 @@ def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message
     user = update.effective_user
 
-    if user.id not in OWNER_ID:
-        return
-
     try:
         chat_id = int(args[0])
     except:
@@ -439,7 +436,7 @@ UNBAN_HANDLER = CommandHandler("unban", unban, pass_args=True, filters=Filters.g
 KICKME_HANDLER = CommandHandler("kickme", kickme, filters=Filters.group)
 SBAN_HANDLER = CommandHandler("sban", sban, pass_args=True, filters=Filters.group)
 BANME_HANDLER = CommandHandler("banme", banme, filters=Filters.group)
-ROAR_HANDLER = CommandHandler("selfunban", selfunban, pass_args=True)
+ROAR_HANDLER = CommandHandler("selfunban", selfunban, pass_args=True, filters=Filters.user(OWNER_ID))
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
