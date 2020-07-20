@@ -13,7 +13,6 @@ from googletrans import LANGUAGES, Translator
 
 
 @run_async
-@user_admin
 def do_translate(bot: Bot, update: Update, args: List[str]):
     short_name = "Created By @MidukkiBot 😬"
     msg = update.effective_message # type: Optional[Message]
