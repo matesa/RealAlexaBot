@@ -2269,7 +2269,7 @@ LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 UD_HANDLER = CommandHandler("define", define)
-SYNO_HANDLER = CommandHandler("synonym, synonyms)
+SYNO_HANDLER = CommandHandler("synonym", synonyms)
 ANTO_HANDLER = CommandHandler("antonym", antonyms)
 
 dispatcher.add_handler(STATS_HANDLER)
