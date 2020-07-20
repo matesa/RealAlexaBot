@@ -866,7 +866,6 @@ from PyDictionary import PyDictionary
 dictionary=PyDictionary()
 
 @run_async
-@user_admin
 def define(bot: Bot, update: Update):
   message = update.effective_message
   text = message.text[len('/define '):]
@@ -878,6 +877,29 @@ def define(bot: Bot, update: Update):
   got = net.replace("'", "")
   message.reply_text(got)
 
+@run_async
+def synonyms(bot: Bot, update: Update):
+  message = update.effective_message
+  text = message.text[len('/define '):]
+  word = f"{text}"
+  let = dictionary.synonym(word)
+  set = str(let)
+  jet = set.replace("{","")
+  net = jet.replace("}","")
+  got = net.replace("'", "")
+  message.reply_text(got)
+
+@run_async
+def antonyms(bot: Bot, update: Update):
+  message = update.effective_message
+  text = message.text[len('/define '):]
+  word = f"{text}"
+  let = dictionary.antonym(word)
+  set = str(let)
+  jet = set.replace("{","")
+  net = jet.replace("}","")
+  got = net.replace("'", "")
+  message.reply_text(got)
 
 @register(pattern="^/yt (.*)")
 async def yts_search(video_q):
@@ -2247,6 +2269,8 @@ LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
 TIME_HANDLER = CommandHandler("datetime", gettime)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 UD_HANDLER = CommandHandler("define", define)
+SYNO_HANDLER = CommandHandler("synonym, synonyms)
+ANTO_HANDLER = CommandHandler("antonym", antonyms)
 
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(TIME_HANDLER)
@@ -2266,3 +2290,5 @@ dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
 dispatcher.add_handler(CommandHandler("removebotkeyboard", reply_keyboard_remove))
+dispatcher.add_handler(SYNO_HANDLER)
+dispatcher.add_handler(ANTO_HANDLER)
