@@ -219,7 +219,6 @@ def invite(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
 def adminlist(bot: Bot, update: Update):
     chat = update.effective_chat
     administrators = update.effective_chat.get_administrators()
