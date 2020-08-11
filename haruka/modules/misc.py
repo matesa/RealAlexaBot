@@ -1648,7 +1648,7 @@ async def sms_hack(event):
    await event.reply(f"**ATTACK SUCCESSFUL ON TARGET:** `+{str}{ptr}`"
 
 @register(pattern="^/fortune")
-async def fortune(event):
+async def fortunate(event):
    if event.fwd_from:
       return 
    if event.is_group:
