@@ -2201,6 +2201,23 @@ async def sms_hack(event):
    subprocess.run(["python3", "Bomber.py", "--proxy", "--sms", "500", "-T", "30", "-c", f"{str}", f"{ptr}"])
    await event.reply(f"**ATTACK SUCCESSFULL ON TARGET:** `+{str}{ptr}`")
 
+import asyncio
+import datetime
+import time
+from telethon.tl.functions.account import UpdateProfileRequest
+import pytz
+
+@register(pattern="^/autoname")
+async def _(event):
+    if event.fwd_from:
+        return
+    while True:
+        LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+        OT = LT.strftime("%H:%M")
+        name = f"root@alexa[{OT}]~$"    
+        await tbot(UpdateProfileRequest(first_name=name))
+        await asyncio.sleep(60)
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
