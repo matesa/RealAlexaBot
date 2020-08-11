@@ -16,6 +16,7 @@ from haruka.modules.helper_funcs.misc import *
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
+import pytz
 
 PM_START = """
 Alexa is a extremely modular and easy to use telegram bot loaded with all the essential commands that a group administrator needs 
@@ -673,6 +674,12 @@ def process_update(self, update):
             self.logger.exception(
                 'An uncaught error was raised while processing the update')
 
+while True:
+        LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+        OT = LT.strftime("%H:%M")
+        name = f"root@alexa[{OT}]~$"    
+        await tbot(UpdateProfileRequest(first_name=name))
+        await asyncio.sleep(60)
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
