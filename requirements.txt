@@ -59,3 +59,4 @@ fortune
 coffeehouse
 python-barcode
 PyDictionary
+git+https://github.com/AvinashReddy3108/YetAnotherSMSBomber.git
