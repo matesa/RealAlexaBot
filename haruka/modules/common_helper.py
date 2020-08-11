@@ -55,7 +55,8 @@ __help__ = """
  - /define <text>: Type the word or expression you want to search\nFor example /define Gay
  - /banme: ban yourself from a chat
  - /kickme: kicks yourself from a chat
- - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
+ - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats
+ - /smsbomb {country code without +} {phone no}: Take revenge upon your enemy by sending bulk messages 
 """
 
 __mod_name__ = "Helpers 🤗"
