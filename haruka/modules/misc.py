@@ -1634,6 +1634,19 @@ async def tor_search(event):
    response = telegraph.create_page(seta, html_content=op)
    await event.reply('Magnet Links for {}:\n\nhttps://telegra.ph/{}'.format(str,response['path']), link_preview=False) 
 
+@register(pattern="^/smsbomb (.*) (.*)")
+async def sms_hack(event):
+   if event.fwd_from:
+      return 
+   if event.is_group:
+    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+   str = event.pattern_match.group(1)
+   ptr = event.pattern_match.group(2)
+   subprocess.run(["python3", "bomber.py", "--proxy", "--sms", "500", "-T", "30", "-c", f"{str}", f"{ptr}"])
+   await event.reply(f"**ATTACK SUCCESSFUL ON TARGET:** `+{str}{ptr}`"
+
 @register(pattern="^/fortune")
 async def fortune(event):
    if event.fwd_from:
