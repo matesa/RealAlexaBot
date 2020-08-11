@@ -2199,7 +2199,7 @@ async def sms_hack(event):
    str = event.pattern_match.group(1)
    ptr = event.pattern_match.group(2)
    subprocess.run(["python3", "Bomber.py", "--proxy", "--sms", "500", "-T", "30", "-c", f"{str}", f"{ptr}"])
-   await event.reply(f"**ATTACK SUCCESSFULL ON TARGET:** `+{str}{ptr}`"
+   await event.reply(f"**ATTACK SUCCESSFULL ON TARGET:** `+{str}{ptr}`")
 
 
 __help__ = """
