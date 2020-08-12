@@ -1,5 +1,6 @@
 from functools import wraps
 from typing import Optional
+from haruka.ptbupdate import CallbackContext
 from telegram import User, Chat, ChatMember, Update, Bot
 from haruka import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 import haruka.modules.sql.admin_sql as admin_sql
