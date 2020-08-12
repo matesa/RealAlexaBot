@@ -589,7 +589,7 @@ def main():
 
 
     # add antiflood processor
-    #dispatcher.process_update = process_update
+    Dispatcher.process_update = process_update
 
     LOGGER.info("Using long polling.")
 
