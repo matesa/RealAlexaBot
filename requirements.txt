@@ -9,7 +9,7 @@ opencv-python-headless
 scikit-image
 argparse
 imutils
-git+https://gitlab.com/HarukaNetwork/OSS/PTB.git
+python-telegram-bot
 telethon
 aiohttp
 bleach
