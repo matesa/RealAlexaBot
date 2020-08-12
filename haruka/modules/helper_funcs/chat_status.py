@@ -106,18 +106,22 @@ def bot_admin(func):
 
 def user_admin(func):
     @wraps(func)
-    def is_admin(update: Update, context: CallbackContext, *args, **kwargs):
-        bot = context.bot
-        user = update.effective_user
-        chat = update.effective_chat
+    def is_admin(bot: Bot, update: Update, *args, **kwargs):
+        user = update.effective_user  # type: Optional[User]
+        chat = update.effective_chat  # type: Optional[Chat]
+        if user and is_user_admin(update.effective_chat, user.id):
+            return func(bot, update, *args, **kwargs)
 
-        if user and is_user_admin(chat, user.id):
-            return func(update, context, *args, **kwargs)
         elif not user:
             pass
+
         elif DEL_CMDS and " " not in update.effective_message.text:
             update.effective_message.delete()
+
+        elif (admin_sql.command_reaction(chat.id) == True):
+            return
     return is_admin
+
 
 def user_admin_no_reply(func):
     @wraps(func)
