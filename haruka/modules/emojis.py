@@ -103,14 +103,14 @@ def me_too(bot: Bot, update: Update):
         
         
 COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta)
-COPYPASTA_ALIAS_HANDLER = CommandHandler("😂", copypasta)
+#COPYPASTA_ALIAS_HANDLER = CommandHandler("😂", copypasta)
 CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji)
-CLAPMOJI_ALIAS_HANDLER = CommandHandler("👏", clapmoji)
+#CLAPMOJI_ALIAS_HANDLER = CommandHandler("👏", clapmoji)
 ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
-ANGRYMOJI_ALIAS_HANDLER = CommandHandler("😡", angrymoji)
+#ANGRYMOJI_ALIAS_HANDLER = CommandHandler("😡", angrymoji)
 CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
-CRYMOJI_ALIAS_HANDLER = CommandHandler("😭", crymoji)
-BMOJI_HANDLER = CommandHandler("🅱️", bmoji)
+#CRYMOJI_ALIAS_HANDLER = CommandHandler("😭", crymoji)
+#BMOJI_HANDLER = CommandHandler("🅱️", bmoji)
 BMOJI_ALIAS_HANDLER = CommandHandler("bmoji", bmoji)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
