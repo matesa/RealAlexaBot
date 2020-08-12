@@ -55,7 +55,6 @@ def getsticker(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
 def kang(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = update.effective_user
