@@ -98,7 +98,7 @@ def import_data(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def export_data(bot: Bot, update: Update, bot: Callbackbot):
+def export_data(bot: Bot, update: Update):
 	chat_data = bot.chat_data
 	msg = update.effective_message  # type: Optional[Message]
 	user = update.effective_user  # type: Optional[User]
