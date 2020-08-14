@@ -16,10 +16,11 @@ import haruka.modules.sql.rules_sql as rulessql
 # import haruka.modules.sql.welcome_sql as welcsql
 import haruka.modules.sql.locks_sql as locksql
 from haruka.modules.connection import connected
+from haruka.ptbupdate import CallbackContext
 
 @run_async
 @user_admin
-def import_data(update, context):
+def import_data(update: Update, context: CallbackContext):
 	msg = update.effective_message
 	chat = update.effective_chat
 	user = update.effective_user
@@ -99,7 +100,7 @@ def import_data(update, context):
 
 @run_async
 @user_admin
-def export_data(update, context):
+def export_data(update: Update, context: CallbackContext):
 	chat_data = context.chat_data
 	msg = update.effective_message  # type: Optional[Message]
 	user = update.effective_user  # type: Optional[User]
