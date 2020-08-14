@@ -96,17 +96,16 @@ def import_data(bot: Bot, update: Update):
 			text = "Backup fully restored"
 		msg.reply_text(text, parse_mode="markdown")
 
-
 @run_async
 @user_admin
-def export_data(bot: Bot, update: Update, context: CallbackContext):
-	chat_data = context.chat_data
+def export_data(bot: Bot, update: Update, bot: Callbackbot):
+	chat_data = bot.chat_data
 	msg = update.effective_message  # type: Optional[Message]
 	user = update.effective_user  # type: Optional[User]
 	chat_id = update.effective_chat.id
 	chat = update.effective_chat
 	current_chat_id = update.effective_chat.id
-	conn = connected(context.bot, update, chat, user.id, need_admin=True)
+	conn = connected(bot, update, chat, user.id, need_admin=True)
 	if conn:
 		chat = dispatcher.bot.getChat(conn)
 		chat_id = conn
@@ -255,18 +254,18 @@ def export_data(bot: Bot, update: Update, context: CallbackContext):
 	# Warns (TODO)
 	# warns = warnssql.get_warns(chat_id)
 	# Backing up
-	backup[chat_id] = {'bot': context.bot.id, 'hashes': {'info': {'rules': rules}, 'extra': notes, 'locks': locks}}
+	backup[chat_id] = {'bot': bot.id, 'hashes': {'info': {'rules': rules}, 'extra': notes, 'locks': locks}}
 	baccinfo = json.dumps(backup, indent=4)
 	f=open("Alexa{}.backup".format(chat_id), "w")
 	f.write(str(baccinfo))
 	f.close()
-	context.bot.sendChatAction(current_chat_id, "upload_document")
+	bot.sendChatAction(current_chat_id, "upload_document")
 	tgl = time.strftime("%H:%M:%S - %d/%m/%Y", time.localtime(time.time()))
 	try:
-		context.bot.sendMessage(MESSAGE_DUMP, "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(chat.title, chat_id, tgl), parse_mode=ParseMode.MARKDOWN)
+		bot.sendMessage(MESSAGE_DUMP, "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(chat.title, chat_id, tgl), parse_mode=ParseMode.MARKDOWN)
 	except BadRequest:
 		pass
-	context.bot.sendDocument(current_chat_id, document=open('Alexa{}.backup'.format(chat_id), 'rb'), caption="*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `haruka-Backup` is specially made for notes.".format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
+	bot.sendDocument(current_chat_id, document=open('Alexa{}.backup'.format(chat_id), 'rb'), caption="*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `haruka-Backup` is specially made for notes.".format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
 	os.remove("Alexa{}.backup".format(chat_id)) # Cleaning file
 
 
