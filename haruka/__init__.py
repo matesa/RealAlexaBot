@@ -22,6 +22,11 @@ if ENV:
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
 
+    try:
+        SPAMMERS = {int(x) for x in os.environ.get("SPAMMERS", "").split()}
+    except ValueError:
+        raise Exception("Your spammers users list does not contain valid integers.")
+
     MESSAGE_DUMP = os.environ.get('MESSAGE_DUMP', None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
 
@@ -87,7 +92,7 @@ if ENV:
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    SPAMMERS = os.environ.get('SPAMMERS', "")
+    
     SPAMMERS = list(SPAMMERS)
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
