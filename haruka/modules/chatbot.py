@@ -24,6 +24,9 @@ api_client = LydiaAI(CoffeeHouseAPI)
 def add_chat(_bot: Bot, update: Update):
     global api_client
     chat_id = update.effective_chat.id
+    if update.effective_message.chat.type == "private":
+	update.effective_message.reply_text("This command can only be used on group, not PM")
+	return 
     msg = update.effective_message
     is_chat = sql.is_chat(chat_id)
     if not is_chat:
@@ -43,6 +46,9 @@ def remove_chat(_bot: Bot, update: Update):
     msg = update.effective_message
     chat_id = update.effective_chat.id
     is_chat = sql.is_chat(chat_id)
+    if update.effective_message.chat.type == "private":
+	update.effective_message.reply_text("This command can only be used on group, not PM")
+	return ""
     if not is_chat:
         msg.reply_text("AI isn't enabled here in the first place!")
     else:
