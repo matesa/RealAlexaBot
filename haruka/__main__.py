@@ -8,7 +8,7 @@ from telegram.error import Unauthorized, BadRequest, TimedOut, NetworkError, Cha
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop, Dispatcher
 from telegram.utils.helpers import escape_markdown
-from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, ALLOW_EXCL, tbot, MESSAGE_DUMP
+from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, ALLOW_EXCL, tbot, MESSAGE_DUMP, ubot
 from haruka.modules import ALL_MODULES
 from sys import argv
 from haruka.modules.helper_funcs.chat_status import is_user_admin
@@ -602,7 +602,11 @@ def main():
         tbot.run_until_disconnected()
 
     updater.idle()
-
+    SEM_TEST = os.environ.get("SEMAPHORE", None)
+    if SEM_TEST:
+       ubot.disconnect()
+     else:
+       ubot.run_until_disconnected()
 
 
 
@@ -673,7 +677,11 @@ def process_update(self, update):
             self.logger.exception(
                 'An uncaught error was raised while processing the update')
 
+
+# DUAL BOOT WITH USERBOT
+
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     tbot.start(bot_token=TOKEN)
+    ubot.start()
     main()
