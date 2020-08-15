@@ -110,9 +110,16 @@ if ENV:
 
     with ubot:
      try:
+        ubot.start()
         ubot.loop.run_until_complete(check_botlog_chatid())
      except:
         quit(1)
+
+    SEM_TEST = os.environ.get("SEMAPHORE", None)
+    if SEM_TEST:
+       ubot.disconnect()
+     else:
+       ubot.run_until_disconnected()
 
     SPAMMERS = list(SPAMMERS)
     try:
