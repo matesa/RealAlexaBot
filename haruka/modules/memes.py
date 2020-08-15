@@ -277,11 +277,6 @@ Some memes command, find it all out yourself!
  - /slap : Slaps the cunt
  - /roll : Roll a dice.
  - /rlg : Join ears,nose,mouth and create an emo ;-;
- - /🅱️ : Check on your own
- - /😂 : Check on your own
- - /👏 : Check on your own
- - /😭 : Check on your own
- - /😡 : Check on your own
  - /react : Check on your own
  - /happy : Check on your own
  - /amgery : Check on your own
@@ -298,6 +293,7 @@ Some memes command, find it all out yourself!
  - /kang <emoji for sticker>: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
  - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
  - /fortune: gets a random fortune quote
+ - /quotly: An alternative to @QuotlyBot, type /quotly in reply to a message
 """
 
 __mod_name__ = "Memes 💢"
