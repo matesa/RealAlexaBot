@@ -14,7 +14,7 @@ import haruka.modules.sql.chatbot_sql as sql
 from haruka.modules.helper_funcs.chat_status import user_admin
 from haruka.modules.helper_funcs.filters import CustomFilters
 
-CoffeeHouseAPI = API(AI_API_KEY)
+CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
 
 
