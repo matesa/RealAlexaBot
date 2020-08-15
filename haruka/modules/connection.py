@@ -284,7 +284,7 @@ def help_connect_chat(_bot: Bot, update: Update):
         send_message(msg, "PM me with that command to get help.")
         return
     else:
-        send_message(msg, "All commands", parse_mode="markdown")
+        send_message(msg, "Actions are available with connected groups:\n • View and edit Notes.\n • View and edit Filters.\n • Get invite link of chat.\n • Set and control AntiFlood settings.\n • Set and control Blacklist settings.\n • Set Locks and Unlocks in chat.\n • Enable and Disable commands in chat.\n • Export and Imports of chat backup", parse_mode="markdown")
 
 
 @run_async
