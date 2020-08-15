@@ -118,7 +118,7 @@ if ENV:
     SEM_TEST = os.environ.get("SEMAPHORE", None)
     if SEM_TEST:
        ubot.disconnect()
-     else:
+    else:
        ubot.run_until_disconnected()
 
     SPAMMERS = list(SPAMMERS)
