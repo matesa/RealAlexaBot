@@ -1,6 +1,6 @@
 # AI module using Intellivoid's Coffeehouse API by @TheRealPhoenix
 from time import time, sleep
-
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
@@ -20,6 +20,7 @@ api_client = LydiaAI(CoffeeHouseAPI)
 
 @run_async
 @user_admin
+@user_can_change
 def add_chat(_bot: Bot, update: Update):
     global api_client
     chat_id = update.effective_chat.id
@@ -37,6 +38,7 @@ def add_chat(_bot: Bot, update: Update):
 
 @run_async
 @user_admin
+@user_can_change
 def remove_chat(_bot: Bot, update: Update):
     msg = update.effective_message
     chat_id = update.effective_chat.id
