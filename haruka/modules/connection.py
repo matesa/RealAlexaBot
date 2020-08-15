@@ -127,7 +127,7 @@ def connect_chat(bot: Bot, update: Update, args: List[str]):
                     send_message(
                         msg,
                         "Successfully connected to *{chat_name}*."
-                        " Use /connection for see current available commands.",
+                        " Use /helpconnect for see current available commands.",
                         parse_mode=ParseMode.MARKDOWN)
                     sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
                 else:
@@ -206,7 +206,7 @@ def connect_chat(bot: Bot, update: Update, args: List[str]):
                     bot.send_message(
                         msg.from_user.id,
                         f"You have connected with *{chat_name}*."
-                        f" Use /connection for see current available commands.",
+                        f" Use /helpconnect for see current available commands.",
                         parse_mode="markdown")
                 except BadRequest:
                     pass
