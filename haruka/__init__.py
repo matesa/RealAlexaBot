@@ -3,7 +3,6 @@ import os
 import sys
 from telethon import TelegramClient
 import telegram.ext as tg
-from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
@@ -11,48 +10,37 @@ logging.basicConfig(
     level=logging.INFO)
 
 LOGGER = logging.getLogger(__name__)
-
 ENV = bool(os.environ.get('ENV', True))
-
 if ENV:
-
     TOKEN = os.environ.get('TOKEN', None)
-    
     try:
         OWNER_ID = int(os.environ.get('OWNER_ID', None))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
-
     try:
         SPAMMERS = {int(x) for x in os.environ.get("SPAMMERS", "").split()}
     except ValueError:
         raise Exception("Your spammers users list does not contain valid integers.")
-
     MESSAGE_DUMP = os.environ.get('MESSAGE_DUMP', None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
-
     try:
         SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     except ValueError:
         raise Exception("Your sudo users list does not contain valid integers.")
-
     try:
         SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
     except ValueError:
         raise Exception("Your support users list does not contain valid integers.")
-
     try:
         WHITELIST_USERS = set(int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
-
     WEBHOOK = bool(os.environ.get('WEBHOOK', False))
     URL = os.environ.get('URL', "")  # Does not contain token
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
     PORT = int(os.environ.get('PORT', 5432))
     CERT_PATH = os.environ.get("CERT_PATH")
-    BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID", None)
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
     DB_URI = os.environ.get('DATABASE_URL')
     LOAD = os.environ.get("LOAD", "").split()
@@ -88,39 +76,11 @@ if ENV:
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
-    STRING_SESSION = os.environ.get("STRING_SESSION", None)
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    BOTLOG = os.environ.get("BOTLOG", "True")
-
-    if STRING_SESSION:
-      ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
-    else:
-      quit(1)
-
-    async def check_botlog_chatid():
-      if not BOTLOG:
-         return
-      entity = await ubot.get_entity(BOTLOG_CHATID)
-      if entity.default_banned_rights.send_messages:
-         quit(1)
-
-    with ubot:
-     try:
-        ubot.start()
-        ubot.loop.run_until_complete(check_botlog_chatid())
-     except:
-        quit(1)
-
-    SEM_TEST = os.environ.get("SEMAPHORE", None)
-    if SEM_TEST:
-       ubot.disconnect()
-    else:
-       ubot.run_until_disconnected()
-
     SPAMMERS = list(SPAMMERS)
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
