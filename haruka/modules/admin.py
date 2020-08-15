@@ -260,6 +260,8 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
             update.effective_message.reply_text("Reaction on admin commands for users now `enabled`!", parse_mode=ParseMode.MARKDOWN)
         
 __help__ = """
+Here is the help for the Admin 🚫 module:
+
  - /adminlist | /admins: list of admins in the chat
  - /users: list all the users in the chat
  - /pin | /unpin: pins/unpins the message in the chat
@@ -285,13 +287,14 @@ __help__ = """
  - /unblacklist <trigger> | /rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
  - /blacklist: list all active blacklist filters
  - /addblacklist "the admins suck": This will remove the text everytime someone types it
- - /addblacklist `"bit.ly/*"`: This will remove the link everytime someone sends it matching `bit.ly`
+ - /addblacklist "bit.ly/*": This will remove the link everytime someone sends it matching bit.ly
  - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
  - /stop <word>: stop that filter.
  - /filters: list all active filters in this chat.
- - /connection <chatid>: Connect to remote chat
- - /disconnect: Disconnect from chat
- - /allowconnect on/yes/off/no: Allow connect users to group
+ - /connect: connect a chat (Can be done in a group by /connect or /connect <chat id> in PM) 
+ - /connection: list connected chats 
+ - /disconnect: disconnect from a chat
+ - /helpconnect: list available commands that can be done remotely 
  - /lock <item(s)>: lock the usage of "item" for non-admins
  - /unlock <item(s)>: unlock "item". Everyone can use them again
  - /locks: list the lock status in the chat
@@ -326,7 +329,7 @@ __help__ = """
  - /setgoodbye <message>: set the goodbye message
  - /resetgoodbye: clear the goodbye message 
  - /cleanwelcome <on/off/yes/no>: clean welcome message 
- - /cleanservice <on/off/yes/no>: clean all service messages [join/left]
+ - /cleanservice <on/off/yes/no>: clean all service messages join/left
  - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
  - /welcomehelp: detailed help about how to set welcome message
  - /unbanall: unbans all users in the chat
