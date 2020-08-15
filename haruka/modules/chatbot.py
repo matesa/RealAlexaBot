@@ -9,7 +9,7 @@ from telegram import Update, Bot
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.error import BadRequest, Unauthorized, RetryAfter
 
-from haruka import dispatcher, AI_API_KEY, OWNER_ID
+from haruka import dispatcher, LYDIA_API_KEY, OWNER_ID
 import haruka.modules.sql.chatbot_sql as sql
 from haruka.modules.helper_funcs.chat_status import user_admin
 from haruka.modules.helper_funcs.filters import CustomFilters
