@@ -3,6 +3,7 @@ import os
 import sys
 from telethon import TelegramClient
 import telegram.ext as tg
+from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
@@ -51,6 +52,7 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     PORT = int(os.environ.get('PORT', 5432))
     CERT_PATH = os.environ.get("CERT_PATH")
+    BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID", None)
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
     DB_URI = os.environ.get('DATABASE_URL')
     LOAD = os.environ.get("LOAD", "").split()
@@ -92,14 +94,33 @@ if ENV:
     tg.CommandHandler = GbanLockHandler
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
-    
+    BOTLOG = os.environ.get("BOTLOG", "True")
+
+    if STRING_SESSION:
+      ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+    else:
+      quit(1)
+
+    async def check_botlog_chatid():
+      if not BOTLOG:
+         return
+      entity = await ubot.get_entity(BOTLOG_CHATID)
+      if entity.default_banned_rights.send_messages:
+         quit(1)
+
+    with ubot:
+     try:
+        ubot.loop.run_until_complete(check_botlog_chatid())
+     except:
+        quit(1)
+
     SPAMMERS = list(SPAMMERS)
     try:
       from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
     except ModuleNotFoundError:
       antispam_module = False
-      
+
     def spamfilters(_text, user_id, _chat_id):
      if int(user_id) in SPAMMERS:
         print("This user is a spammer!")
