@@ -7,7 +7,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CommandHandler, CallbackQueryHandler, run_async
 
 import haruka.modules.sql.connection_sql as sql
-from haruka import dispatcher, SUDO_USERS
+from haruka import dispatcher, SUDO_USERS, spamfilters
 from haruka.modules.helper_funcs import chat_status
 from haruka.modules.helper_funcs.alternate import send_message
 
