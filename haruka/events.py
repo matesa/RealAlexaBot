@@ -196,12 +196,7 @@ def alexabot(**args):
                             caption=text,
                         )
                     else:
-                        await check.client.send_file(
-                            check.chat_id,
-                            "error.log",
-                            caption=text,
-                        )
-
+                        return
                     remove("error.log")
             else:
                 pass
