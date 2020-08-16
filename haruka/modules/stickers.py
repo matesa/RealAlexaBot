@@ -13,7 +13,6 @@ from html import escape
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram import TelegramError, Update
 from telegram.ext import run_async
-from haruka.ptbupdate import CallbackContext
 from telegram.utils.helpers import mention_html
 from typing import Optional, List
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
