@@ -2592,7 +2592,7 @@ async def stickerizer(event):
     newtext = event.pattern_match.group(1)
     loader()
     print("sticker downloaded successfully")
-    await event.client.send_file(animu.chat_id, store, reply_to=event.id)
+    await event.client.send_file(event.chat_id, store, reply_to=event.id)
     os.system(f'rm -rf {store}')
 
 def loader():
