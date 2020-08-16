@@ -42,10 +42,11 @@ def deEmojify(inputString: str) -> str:
 
 
 @register(pattern="^/waifu (.*)")
-async def final(event):
+async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     loader()
+    print("sticker downloaded successfully")
     await event.client.send_file(animu.chat_id, store, reply_to=event.id)
     os.system(f'rm -rf {store}')
 
@@ -56,4 +57,5 @@ def loader():
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
     local = await sticcers[0].click(BOTLOG_CHATID) # dump the shit there
+    global store
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)     
