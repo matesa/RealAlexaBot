@@ -9,12 +9,8 @@ import os
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
 from sys import version_info
-
 from dotenv import load_dotenv
 from pyDownload import Downloader
-from pylast import LastFMNetwork, md5
-from pymongo import MongoClient
-from redis import StrictRedis
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 
