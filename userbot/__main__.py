@@ -13,6 +13,10 @@ from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from userbot import LOGS, ubot
 from userbot.modules import ALL_MODULES
 
+# DUAL BOOT
+os.system('cp ./haruka/__init__.py ./userbot')
+os.system('cp ./haruka/__main__.py ./userbot') 
+
 INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
              '\n  Tip: Use country code (eg +44) along with num.' \
              '\n       Recheck your phone number'
