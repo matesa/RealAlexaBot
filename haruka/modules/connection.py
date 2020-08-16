@@ -8,11 +8,9 @@ from telegram.ext import CommandHandler, CallbackQueryHandler, run_async
 
 import haruka.modules.sql.connection_sql as sql
 from haruka import dispatcher, SUDO_USERS, spamfilters
-from haruka.modules.helper_funcs import chat_status
+from haruka.modules.helper_funcs.chat_status import user_can_change, user_can_change
 from haruka.modules.helper_funcs.alternate import send_message
 
-user_admin = chat_status.user_admin
-user_can_change = chat_status.user_can_change
 ADMIN_STATUS = ('administrator', 'creator')
 MEMBER_STAUS = ('member',)
 
@@ -63,10 +61,6 @@ def connection_chat(bot: Bot, update: Update):
     user = update.effective_user
     msg = update.effective_message
 
-    spam = spamfilters(msg.text, msg.from_user.id, update.effective_chat.id)
-    if spam is True:
-        return
-
     conn = connected(bot, update, chat, user.id, need_admin=True)
 
     if conn:
@@ -88,10 +82,6 @@ def connect_chat(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
-
-    spam = spamfilters(msg.text, msg.from_user.id, chat.id)
-    if spam is True:
-        return
 
     if chat.type == 'private':
         if len(args) >= 1:
@@ -241,9 +231,6 @@ def connected(bot, update, chat, user_id, need_admin=True):
     msg = update.effective_message
     spam = spamfilters(msg.text, msg.from_user.id, update.effective_chat.id)
 
-    if spam is True:
-        return
-
     if chat.type == chat.PRIVATE and sql.get_connected_chat(user_id):
 
         conn_id = sql.get_connected_chat(user_id).chat_id
@@ -276,10 +263,6 @@ def connected(bot, update, chat, user_id, need_admin=True):
 @run_async
 def help_connect_chat(_bot: Bot, update: Update):
     msg = update.effective_message
-    spam = spamfilters(msg.text, msg.from_user.id, update.effective_chat.id)
-    if spam is True:
-        return
-
     if msg.chat.type != "private":
         send_message(msg, "PM me with that command to get help.")
         return
