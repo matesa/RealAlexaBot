@@ -15,7 +15,7 @@ from traceback import format_exc
 
 from telethon import events
 
-from userbot import bot, BOTLOG, BOTLOG_CHATID, LOGS
+from userbot import ubot, BOTLOG, BOTLOG_CHATID, LOGS
 from userbot.modules.dbhelper import get_exclude
 
 
@@ -142,8 +142,8 @@ def alexabot(**args):
                 pass
 
         if not disable_edited:
-            bot.add_event_handler(wrapper, events.MessageEdited(**args))
-        bot.add_event_handler(wrapper, events.NewMessage(**args))
+            ubot.add_event_handler(wrapper, events.MessageEdited(**args))
+        ubot.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
 
     return decorator
