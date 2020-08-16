@@ -94,5 +94,22 @@ if ENV:
         return True
      else:
         return False
+
+    INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
+             '\n  Tip: Use country code (eg +44) along with num.' \
+             '\n       Recheck your phone number'
+
+    try:
+       ubot.start()
+    except PhoneNumberInvalidError:
+       print(INVALID_PH)
+       exit(1)
+      
+    SEM_TEST = os.environ.get("SEMAPHORE", None)
+    if SEM_TEST:
+        ubot.disconnect()
+    else:
+        ubot.run_until_disconnected()
+
 else:
    quit(1)
