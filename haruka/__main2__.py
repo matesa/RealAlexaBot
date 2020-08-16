@@ -11,7 +11,7 @@ import os
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
-from haruka.__init__2 import LOGS, ubot
+from haruka.__init2__ import LOGS, ubot
 
 
 INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
