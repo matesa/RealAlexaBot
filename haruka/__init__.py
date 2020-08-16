@@ -3,6 +3,15 @@ import os
 import sys
 from telethon import TelegramClient
 import telegram.ext as tg
+import os
+from distutils.util import strtobool as sb
+from logging import DEBUG, INFO, basicConfig, getLogger
+from sys import version_info
+from dotenv import load_dotenv
+from pyDownload import Downloader
+from telethon import TelegramClient
+from telethon.sessions import StringSession
+
 
 # enable logging
 logging.basicConfig(
@@ -95,16 +104,54 @@ if ENV:
      else:
         return False
 
-    INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
-             '\n  Tip: Use country code (eg +44) along with num.' \
-             '\n       Recheck your phone number'
+    # Bot Logs setup:
+    CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
 
+    if CONSOLE_LOGGER_VERBOSE:
+      basicConfig(
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        level=DEBUG,
+      )
+    else:
+      basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                level=INFO)
+    LOGS = getLogger(__name__)
+    BOTLOG = (os.environ.get("BOTLOG") == 'True')
+    # pylint: disable=invalid-name
+    if STRING_SESSION:
+      ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+    else:
+      quit(1)
+    async def check_botlog_chatid():
+      if not BOTLOG:
+        return
+      entity = await ubot.get_entity(BOTLOG_CHATID)
+      if entity.default_banned_rights.send_messages:
+        LOGS.error(
+            "Your account doesn't have rights to send messages to BOTLOG_CHATID "
+            "group. Check if you typed the Chat ID correctly. Halting!")
+        quit(1)
+    with ubot:
+     try:
+        ubot.loop.run_until_complete(check_botlog_chatid())
+     except:
+        LOGS.error("BOTLOG_CHATID environment variable isn't a "
+                   "valid entity. Check your config.env file. Halting!")
+        quit(1)
+    if not os.path.exists('bin'):
+      os.mkdir('bin')
+    url1 = 'https://raw.githubusercontent.com/yshalsager/megadown/master/megadown'
+    url2 = 'https://raw.githubusercontent.com/yshalsager/cmrudl.py/master/cmrudl.py'
+    dl1 = Downloader(url=url1, filename="bin/megadown")
+    dl1 = Downloader(url=url1, filename="bin/cmrudl")
+    os.chmod('bin/megadown', 0o755)
+    os.chmod('bin/cmrudl', 0o755)
+    INVALID_PH = '\nERROR: The phone no. entered is incorrect'
     try:
        ubot.start()
     except PhoneNumberInvalidError:
        print(INVALID_PH)
        exit(1)
-      
     SEM_TEST = os.environ.get("SEMAPHORE", None)
     if SEM_TEST:
         ubot.disconnect()
