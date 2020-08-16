@@ -2559,9 +2559,8 @@ import io
 import html
 import json
 from PIL import ImageEnhance, ImageOps
-from userbot.events import alexabot
-from haruka import TEMP_DOWNLOAD_DIRECTORY
 from haruka.events import alexabot
+from haruka import TEMP_DOWNLOAD_DIRECTORY
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
 
 
