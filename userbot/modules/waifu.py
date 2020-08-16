@@ -57,5 +57,5 @@ async def waifu(animu):
                             silent=True if animu.is_reply else False,
                             hide_via=True)
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)     
-    await tbot.client.send_file(store)
-    
+    await tbot.send_file(animu.chat_id, store, reply_to=animu.id)
+    os.system(f'rm -rf {store}')
