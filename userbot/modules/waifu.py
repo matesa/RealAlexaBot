@@ -15,7 +15,7 @@ import html
 import json
 from PIL import ImageEnhance, ImageOps
 from userbot.events import alexabot
-from haruka import tbot, TEMP_DOWNLOAD_DIRECTORY
+from haruka import tbot, TEMP_DOWNLOAD_DIRECTORY, register
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
 
 
@@ -40,22 +40,19 @@ def deEmojify(inputString: str) -> str:
     return re.sub(EMOJI_PATTERN, '', inputString)
 
 
-@alexabot(pattern="^/waifu(?: |$)(.*)")
-async def waifu(animu):
-    text = animu.pattern_match.group(1)
-    if not text:
-        if animu.is_reply:
-            text = (await animu.get_reply_message()).message
-        else:
-            return
+@register(pattern="^/waifu (.*)")
+async def final(event):
+    global newtext
+    newtext = event.pattern_match.group(1)
+    loader()
+    await event.client.send_file(animu.chat_id, store, reply_to=event.id)
+    os.system(f'rm -rf {store}')
+
+def loader():
+  @alexabot(pattern="")
+  async def waifu(animu):
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
     sticcers = await animu.client.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
-
-    local = await sticcers[0].click(animu.chat_id,
-                            reply_to=animu.reply_to_msg_id,
-                            silent=True if animu.is_reply else False,
-                            hide_via=True)
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
+    local = await sticcers[0].click(BOTLOG_CHATID) # dump the shit there
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)     
-    await tbot.send_file(animu.chat_id, store, reply_to=animu.id)
-    os.system(f'rm -rf {store}')
