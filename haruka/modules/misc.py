@@ -2593,7 +2593,7 @@ async def stickerizer(event):
     newtext = event.pattern_match.group(1)
     stickloader()
     await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
-    os.system(f'rm -rf {null}')
+    os.system(f'rm -rf {ll}')
 
 def stickloader(firstTime = []):
  if firstTime == []:   
@@ -2607,9 +2607,8 @@ def stickloader(firstTime = []):
     ll = str(null)
     print("sticker downloaded successfully")
     firstTime.append('Not Empty')
-    return null
  else:
-    print('NICE TRY!')
+    return
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
