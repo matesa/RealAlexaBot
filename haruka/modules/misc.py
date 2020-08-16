@@ -2591,8 +2591,8 @@ async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     loader()
-    #  await event.client.send_file(event.chat_id, store, reply_to=event.id)
-    #  os.system(f'rm -rf {store}')
+    await event.client.send_file(event.chat_id, null, reply_to=event.id)
+    os.system(f'rm -rf {null}')
 
 def loader():
   @alexabot(pattern="")
@@ -2600,17 +2600,10 @@ def loader():
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-    local = await sticcers[0].click(animu.chat_id,
-                            reply_to=animu.reply_to_msg_id,
-                            silent=True if animu.is_reply else False,
-                            hide_via=True)
-
     null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-    global filename
-    #   store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)
-    print(store)
+    print(null)
     print("sticker downloaded successfully")
-
+    return null
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
