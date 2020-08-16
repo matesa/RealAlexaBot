@@ -10,7 +10,7 @@ import os
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
-from userbot import LOGS, bot
+from userbot import LOGS, ubot
 from userbot.modules import ALL_MODULES
 
 INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
@@ -18,7 +18,7 @@ INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
              '\n       Recheck your phone number'
 
 try:
-    bot.start()
+    ubot.start()
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     exit(1)
@@ -31,6 +31,6 @@ LOGS.info("Paperplane is alive! Test it by typing .alive on any chat."
 
 SEM_TEST = os.environ.get("SEMAPHORE", None)
 if SEM_TEST:
-    bot.disconnect()
+    ubot.disconnect()
 else:
-    bot.run_until_disconnected()
+    ubot.run_until_disconnected()
