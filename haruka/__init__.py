@@ -141,25 +141,12 @@ if ENV:
         LOGS.error("BOTLOG_CHATID environment variable isn't a "
                    "valid entity. Check your config.env file. Halting!")
         quit(1)
-    if not os.path.exists('bin'):
-      os.mkdir('bin')
-    url1 = 'https://raw.githubusercontent.com/yshalsager/megadown/master/megadown'
-    url2 = 'https://raw.githubusercontent.com/yshalsager/cmrudl.py/master/cmrudl.py'
-    dl1 = Downloader(url=url1, filename="bin/megadown")
-    dl1 = Downloader(url=url1, filename="bin/cmrudl")
-    os.chmod('bin/megadown', 0o755)
-    os.chmod('bin/cmrudl', 0o755)
     INVALID_PH = '\nERROR: The phone no. entered is incorrect'
     try:
        ubot.start()
     except PhoneNumberInvalidError:
        print(INVALID_PH)
        exit(1)
-    SEM_TEST = os.environ.get("SEMAPHORE", None)
-    if SEM_TEST:
-        ubot.disconnect()
-    else:
-        ubot.run_until_disconnected()
 
 else:
    quit(1)
