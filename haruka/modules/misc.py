@@ -2585,25 +2585,31 @@ def deEmojify(inputString: str) -> str:
     """Remove emojis and other non-safe characters from string"""
     return re.sub(EMOJI_PATTERN, '', inputString)
 
+# Made by @AyushChatterjee
 
 @register(pattern="^/waifu (.*)")
 async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
-    loader()
-    await event.client.send_file(event.chat_id, null, reply_to=event.id)
+    stickloader()
+    await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
     os.system(f'rm -rf {null}')
 
-def loader():
+def stickloader(firstTime = []):
+ if firstTime == []:   
   @alexabot(pattern="")
   async def waifu(animu):
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
     null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-    print(null)
+    global ll
+    ll = str(null)
     print("sticker downloaded successfully")
+    firstTime.append('Not Empty')
     return null
+ else:
+    print('NICE TRY!')
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
