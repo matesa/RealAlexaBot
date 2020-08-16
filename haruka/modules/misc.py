@@ -2591,9 +2591,8 @@ async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     loader()
-    print("sticker downloaded successfully")
-    await event.client.send_file(event.chat_id, store, reply_to=event.id)
-    os.system(f'rm -rf {store}')
+    #  await event.client.send_file(event.chat_id, store, reply_to=event.id)
+    #  os.system(f'rm -rf {store}')
 
 def loader():
   @alexabot(pattern="")
@@ -2601,9 +2600,13 @@ def loader():
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-    local = await sticcers[0].click(BOTLOG_CHATID) # dump the shit there
-    global store
+    local = await sticcers[0].click(BOTLOG_CHATID,
+                            silent=False,
+                            hide_via=True)
+    global filename
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)
+    print(store)
+    print("sticker downloaded successfully")
 
 
 __help__ = """
