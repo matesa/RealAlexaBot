@@ -2112,6 +2112,32 @@ async def _(event):
                 p += 1
             await done.edit("{}: {} unbanned".format(event.chat_id, p))
 
+@register(pattern="^/unmuteall")
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+       return 
+    if event.is_group:
+       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    done = await event.reply("Searching Participant Lists.")
+    p = 0
+    async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
+            rights = ChatBannedRights(MUTE_RIGHTS)
+            try:
+                await tbot(functions.channels.EditBannedRequest(event.chat_id, i, rights))
+            except FloodWaitError as ex:
+                logger.warn("sleeping for {} seconds".format(ex.seconds))
+                sleep(ex.seconds)
+            except Exception as ex:
+                await event.reply(str(ex))
+            else:
+                p += 1
+            await done.edit("{}: {} unbanned".format(event.chat_id, p))
+
+
 @register(pattern="^/smsbomb (.*) (.*)")
 async def sms_hack(event):
    if event.fwd_from:
