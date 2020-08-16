@@ -15,7 +15,7 @@ import html
 import json
 from PIL import ImageEnhance, ImageOps
 from userbot.events import alexabot
-from haruka import tbot, TEMP_DOWNLOAD_DIRECTORY
+from haruka import tbot, TEMP_DOWNLOAD_DIRECTORY, BOTLOG_CHATID
 
 
 EMOJI_PATTERN = re.compile(
@@ -51,7 +51,10 @@ async def waifu(animu):
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
 
-    local = await sticcers[0].click()
+    local = await sticcers[0].click(animu.chat_id,
+                            reply_to=animu.reply_to_msg_id,
+                            silent=True if animu.is_reply else False,
+                            hide_via=True)
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)     
     await tbot.client.send_file(store)
     
