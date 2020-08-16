@@ -2600,11 +2600,14 @@ def loader():
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
     sticcers = await animu.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-    local = await sticcers[0].click(BOTLOG_CHATID,
-                            silent=False,
+    local = await sticcers[0].click(animu.chat_id,
+                            reply_to=animu.reply_to_msg_id,
+                            silent=True if animu.is_reply else False,
                             hide_via=True)
+
+    null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
     global filename
-    store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)
+    #   store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)
     print(store)
     print("sticker downloaded successfully")
 
