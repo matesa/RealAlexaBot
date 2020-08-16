@@ -2560,8 +2560,8 @@ import html
 import json
 from PIL import ImageEnhance, ImageOps
 from userbot.events import alexabot
-from haruka import tbot, TEMP_DOWNLOAD_DIRECTORY
-from userbot.events import alexabot
+from haruka import TEMP_DOWNLOAD_DIRECTORY
+from haruka.events2 import alexabot
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
 
 
