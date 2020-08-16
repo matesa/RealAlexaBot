@@ -108,200 +108,165 @@ def import_data(bot: Bot, update: Update):
 @run_async
 @user_admin
 def export_data(bot: Bot, update: Update, chat_data):
-	msg = update.effective_message  # type: Optional[Message]
-	user = update.effective_user  # type: Optional[User]
+    msg = update.effective_message  # type: Optional[Message]
+    user = update.effective_user  # type: Optional[User]
 
-	chat_id = update.effective_chat.id
-	chat = update.effective_chat
-	current_chat_id = update.effective_chat.id
+    chat_id = update.effective_chat.id
+    chat = update.effective_chat
+    current_chat_id = update.effective_chat.id
 
-	conn = connected(bot, update, chat, user.id, need_admin=True)
-	if conn:
-		chat = dispatcher.bot.getChat(conn)
-		chat_id = conn
-		chat_name = dispatcher.bot.getChat(conn).title
-	else:
-		if update.effective_message.chat.type == "private":
-			update.effective_message.reply_text("This command can only be used on group, not PM")
-			return ""
-		chat = update.effective_chat
-		chat_id = update.effective_chat.id
-		chat_name = update.effective_message.chat.title
+    conn = connected(bot, update, chat, user.id, need_admin=True)
+    if conn:
+        chat = dispatcher.bot.getChat(conn)
+        chat_id = conn
+        chat_name = dispatcher.bot.getChat(conn).title
+    else:
+        if update.effective_message.chat.type == "private":
+            update.effective_message.reply_text("This command can only be used on group, not PM")
+            return ""
+        chat = update.effective_chat
+        chat_id = update.effective_chat.id
+        chat_name = update.effective_message.chat.title
 
-	jam = time.time()
-	new_jam = jam + 10800
-	checkchat = get_chat(chat_id, chat_data)
-	if checkchat.get('status'):
-		if jam <= int(checkchat.get('value')):
-			timeformatt = time.strftime("%H:%M:%S %d/%m/%Y", time.localtime(checkchat.get('value')))
-			update.effective_message.reply_text("You can only backup once a day!\nYou can backup again in about `{}`".format(timeformatt), parse_mode=ParseMode.MARKDOWN)
-			return
-		else:
-			if user.id != 925710749:
-				put_chat(chat_id, new_jam, chat_data)
-	else:
-		if user.id != 925710749:
-			put_chat(chat_id, new_jam, chat_data)
+    jam = time.time()
+    new_jam = jam + 10800
+    checkchat = get_chat(chat_id, chat_data)
+    if checkchat.get('status'):
+        if jam <= int(checkchat.get('value')):
+            timeformatt = time.strftime("%H:%M:%S %d/%m/%Y", time.localtime(checkchat.get('value')))
+            update.effective_message.reply_text("You can only backup once a day!\nYou can backup again in about `{}`".format(timeformatt), parse_mode=ParseMode.MARKDOWN)
+            return
+        else:
+            if user.id !=  802002142:
+                put_chat(chat_id, new_jam, chat_data)
+    else:
+        if user.id !=  802002142:
+            put_chat(chat_id, new_jam, chat_data)
 
-	note_list = sql.get_all_chat_notes(chat_id)
-	backup = {}
-	notes = {}
-	button = ""
-	buttonlist = []
-	namacat = ""
-	isicat = ""
-	rules = ""
-	count = 0
-	countbtn = 0
-	# Notes
-	for note in note_list:
-		count += 1
-		getnote = sql.get_note(chat_id, note.name)
-		namacat += '{}<###splitter###>'.format(note.name)
-		if note.msgtype == 1:
-			tombol = sql.get_buttons(chat_id, note.name)
-			keyb = []
-			for btn in tombol:
-				countbtn += 1
-				if btn.same_line:
-					buttonlist.append(('{}'.format(btn.name), '{}'.format(btn.url), True))
-				else:
-					buttonlist.append(('{}'.format(btn.name), '{}'.format(btn.url), False))
-			isicat += '###button###: {}<###button###>{}<###splitter###>'.format(note.value,str(buttonlist))
-			buttonlist.clear()
-		elif note.msgtype == 2:
-			isicat += '###sticker###:{}<###splitter###>'.format(note.file)
-		elif note.msgtype == 3:
-			isicat += '###file###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		elif note.msgtype == 4:
-			isicat += '###photo###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		elif note.msgtype == 5:
-			isicat += '###audio###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		elif note.msgtype == 6:
-			isicat += '###voice###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		elif note.msgtype == 7:
-			isicat += '###video###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		elif note.msgtype == 8:
-			isicat += '###video_note###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
-		else:
-			isicat += '{}<###splitter###>'.format(note.value)
-	for x in range(count):
-		notes['#{}'.format(namacat.split("<###splitter###>")[x])] = '{}'.format(isicat.split("<###splitter###>")[x])
-	# Rules
-	rules = rulessql.get_rules(chat_id)
-	# Blacklist
-	bl = list(blacklistsql.get_chat_blacklist(chat_id))
-	# Disabled command
-	#       disabledcmd = list(disabledsql.get_all_disabled(chat_id))
-	# Filters (TODO)
-	"""
-	all_filters = list(filtersql.get_chat_triggers(chat_id))
-	export_filters = {}
-	for filters in all_filters:
-		filt = filtersql.get_filter(chat_id, filters)
-		# print(vars(filt))
-		if filt.is_sticker:
-			tipefilt = "sticker"
-		elif filt.is_document:
-			tipefilt = "doc"
-		elif filt.is_image:
-			tipefilt = "img"
-		elif filt.is_audio:
-			tipefilt = "audio"
-		elif filt.is_voice:
-			tipefilt = "voice"
-		elif filt.is_video:
-			tipefilt = "video"
-		elif filt.has_buttons:
-			tipefilt = "button"
-			buttons = filtersql.get_buttons(chat.id, filt.keyword)
-			print(vars(buttons))
-		elif filt.has_markdown:
-			tipefilt = "text"
-		if tipefilt == "button":
-			content = "{}#=#{}|btn|{}".format(tipefilt, filt.reply, buttons)
-		else:
-			content = "{}#=#{}".format(tipefilt, filt.reply)
-		print(content)
-		export_filters[filters] = content
-	print(export_filters)
-	"""
-	# Welcome (TODO)
-	# welc = welcsql.get_welc_pref(chat_id)
-	# Locked
-	locks = locksql.get_locks(chat_id)
-	locked = []
-	if locks:
-		if locks.sticker:
-			locked.append('sticker')
-		if locks.document:
-			locked.append('document')
-		if locks.contact:
-			locked.append('contact')
-		if locks.audio:
-			locked.append('audio')
-		if locks.game:
-			locked.append('game')
-		if locks.bots:
-			locked.append('bots')
-		if locks.gif:
-			locked.append('gif')
-		if locks.photo:
-			locked.append('photo')
-		if locks.video:
-			locked.append('video')
-		if locks.voice:
-			locked.append('voice')
-		if locks.location:
-			locked.append('location')
-		if locks.forward:
-			locked.append('forward')
-		if locks.url:
-			locked.append('url')
-	        restr = locksql.get_restr(chat_id)
-                if restr.messages:
-		        locked.append('other')
-		if restr.messages:
-			locked.append('messages')
-		if restr.preview:
-			locked.append('preview')
-		if restr.media:
-			locked.append('media')
-	# Warns (TODO)
-	# warns = warnssql.get_warns(chat_id)
-	# Backing up
-	backup[chat_id] = {'bot': bot.id, 'hashes': {'info': {'rules': rules}, 'extra': notes, 'blacklist': bl, 'locks': locked}}
-	baccinfo = json.dumps(backup, indent=4)
-	f=open("Alexa{}.backup".format(chat_id), "w")
-	f.write(str(baccinfo))
-	f.close()
-	bot.sendChatAction(current_chat_id, "upload_document")
-	tgl = time.strftime("%H:%M:%S - %d/%m/%Y", time.localtime(time.time()))
-	try:
-		bot.sendMessage(MESSAGE_DUMP, "*Successfully exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(chat.title, chat_id, tgl), parse_mode=ParseMode.MARKDOWN)
-	except BadRequest:
-		pass
-	bot.sendDocument(current_chat_id, document=open('Alexa{}.backup'.format(chat_id), 'rb'), caption="*Successfully exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `backup` is specially made for notes.".format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
-	os.remove("Alexa{}.backup".format(chat_id)) # Cleaning file
+    note_list = sql.get_all_chat_notes(chat_id)
+    backup = {}
+    notes = {}
+    button = ""
+    buttonlist = []
+    namacat = ""
+    isicat = ""
+    rules = ""
+    count = 0
+    countbtn = 0
+    # Notes
+    for note in note_list:
+        count += 1
+        getnote = sql.get_note(chat_id, note.name)
+        namacat += '{}<###splitter###>'.format(note.name)
+        if note.msgtype == 1:
+            tombol = sql.get_buttons(chat_id, note.name)
+            keyb = []
+            for btn in tombol:
+                countbtn += 1
+                if btn.same_line:
+                    buttonlist.append(('{}'.format(btn.name), '{}'.format(btn.url), True))
+                else:
+                    buttonlist.append(('{}'.format(btn.name), '{}'.format(btn.url), False))
+            isicat += '###button###: {}<###button###>{}<###splitter###>'.format(note.value,str(buttonlist))
+            buttonlist.clear()
+        elif note.msgtype == 2:
+            isicat += '###sticker###:{}<###splitter###>'.format(note.file)
+        elif note.msgtype == 3:
+            isicat += '###file###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        elif note.msgtype == 4:
+            isicat += '###photo###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        elif note.msgtype == 5:
+            isicat += '###audio###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        elif note.msgtype == 6:
+            isicat += '###voice###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        elif note.msgtype == 7:
+            isicat += '###video###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        elif note.msgtype == 8:
+            isicat += '###video_note###:{}<###TYPESPLIT###>{}<###splitter###>'.format(note.file, note.value)
+        else:
+            isicat += '{}<###splitter###>'.format(note.value)
+    for x in range(count):
+        notes['#{}'.format(namacat.split("<###splitter###>")[x])] = '{}'.format(isicat.split("<###splitter###>")[x])
+    # Rules
+    rules = rulessql.get_rules(chat_id)
+    # Blacklist
+    bl = list(blacklistsql.get_chat_blacklist(chat_id))
+    # Disabled command
+    disabledcmd = list(disabledsql.get_all_disabled(chat_id))
+    # Filters (TODO)
+
+    locks = locksql.get_locks(chat_id)
+    locked = []
+    if locks:
+        if locks.sticker:
+            locked.append('sticker')
+        if locks.document:
+            locked.append('document')
+        if locks.contact:
+            locked.append('contact')
+        if locks.audio:
+            locked.append('audio')
+        if locks.game:
+            locked.append('game')
+        if locks.bots:
+            locked.append('bots')
+        if locks.gif:
+            locked.append('gif')
+        if locks.photo:
+            locked.append('photo')
+        if locks.video:
+            locked.append('video')
+        if locks.voice:
+            locked.append('voice')
+        if locks.location:
+            locked.append('location')
+        if locks.forward:
+            locked.append('forward')
+        if locks.url:
+            locked.append('url')
+        restr = locksql.get_restr(chat_id)
+        if restr.other:
+            locked.append('other')
+        if restr.messages:
+            locked.append('messages')
+        if restr.preview:
+            locked.append('preview')
+        if restr.media:
+            locked.append('media')
+    # Warns (TODO)
+    # warns = warnssql.get_warns(chat_id)
+    # Backing up
+    backup[chat_id] = {'bot': bot.id, 'hashes': {'info': {'rules': rules}, 'extra': notes, 'blacklist': bl, 'locks': locked}}
+    baccinfo = json.dumps(backup, indent=4)
+    f=open("Alexa{}.backup".format(chat_id), "w")
+    f.write(str(baccinfo))
+    f.close()
+    bot.sendChatAction(current_chat_id, "upload_document")
+    tgl = time.strftime("%H:%M:%S - %d/%m/%Y", time.localtime(time.time()))
+    try:
+        bot.sendMessage(MESSAGE_DUMP, "*Successfully exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(chat.title, chat_id, tgl), parse_mode=ParseMode.MARKDOWN)
+    except BadRequest:
+        pass
+    bot.sendDocument(current_chat_id, document=open('Alexa{}.backup'.format(chat_id), 'rb'), caption="*Successfully exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This  is specially made for notes.".format(chat.title, chat_id, tgl), timeout=360, reply_to_message_id=msg.message_id, parse_mode=ParseMode.MARKDOWN)
+    os.remove("Alexa{}.backup".format(chat_id)) # Cleaning file
 
 
 # Temporary data
 def put_chat(chat_id, value, chat_data):
-	# print(chat_data)
-	if value == False:
-		status = False
-	else:
-		status = True
-	chat_data[chat_id] = {'backups': {"status": status, "value": value}}
+    # print(chat_data)
+    if value == False:
+        status = False
+    else:
+        status = True
+    chat_data[chat_id] = {'backups': {"status": status, "value": value}}
 
 def get_chat(chat_id, chat_data):
-	# print(chat_data)
-	try:
-		value = chat_data[chat_id]['backups']
-		return value
-	except KeyError:
-		return {"status": False, "value": False}
-
+    # print(chat_data)
+    try:
+        value = chat_data[chat_id]['backups']
+        return value
+    except KeyError:
+        return {"status": False, "value": False}
 
 IMPORT_HANDLER = CommandHandler("import", import_data)
 EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True)
