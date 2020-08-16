@@ -97,8 +97,6 @@ def import_data(bot: Bot, update: Update):
 		# TODO: some of that link logic
 		# NOTE: consider default permissions stuff?
 		if conn:
-
-
 			text = "Backup fully restored on *{}*.".format(chat_name)
 		else:
 			text = "Backup fully restored"
@@ -153,6 +151,7 @@ def export_data(bot: Bot, update: Update, chat_data):
     rules = ""
     count = 0
     countbtn = 0
+
     # Notes
     for note in note_list:
         count += 1
@@ -192,7 +191,7 @@ def export_data(bot: Bot, update: Update, chat_data):
     # Blacklist
     bl = list(blacklistsql.get_chat_blacklist(chat_id))
     # Disabled command
-    disabledcmd = list(disabledsql.get_all_disabled(chat_id))
+    #    disabledcmd = list(disabledsql.get_all_disabled(chat_id))
     # Filters (TODO)
 
     locks = locksql.get_locks(chat_id)
