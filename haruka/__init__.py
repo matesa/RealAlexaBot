@@ -11,6 +11,9 @@ from dotenv import load_dotenv
 from pyDownload import Downloader
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from importlib import import_module
+import os
+from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
 
 # enable logging
@@ -88,7 +91,7 @@ if ENV:
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
+    STRING_SESSION = os.environ.get("STRING_SESSION", None)   
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = list(SPAMMERS)
     try:
