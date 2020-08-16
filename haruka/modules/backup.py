@@ -259,8 +259,6 @@ def export_data(bot: Bot, update: Update, chat_data):
 		if locks.url:
 			locked.append('url')
 		restr = locksql.get_restr(chat_id)
-		if restr.other:
-			locked.append('other')
 		if restr.messages:
 			locked.append('messages')
 		if restr.preview:
