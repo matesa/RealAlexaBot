@@ -51,6 +51,7 @@ pySmartDL
 wolframalpha
 pybase64
 selenium
+dotenv
 git+https://github.com/rachmadaniHaryono/we-get.git
 coffeehouse
 html2text
