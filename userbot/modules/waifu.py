@@ -56,3 +56,4 @@ def loader():
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
     local = await sticcers[0].click(BOTLOG_CHATID) # dump the shit there
     store = await animu.client.download_media(local, TEMP_DOWNLOAD_DIRECTORY)     
+    return store
