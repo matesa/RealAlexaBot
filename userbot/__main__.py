@@ -6,13 +6,12 @@
 """ Userbot start point """
 
 from importlib import import_module
+
 import os
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
 from userbot import LOGS, ubot
-
-from userbot.modules import ALL_MODULES
 
 
 INVALID_PH = '\nERROR: The phone no. entered is incorrect' \
@@ -24,9 +23,6 @@ try:
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     exit(1)
-
-for module_name in ALL_MODULES:
-    imported_module = import_module("userbot.modules." + module_name)
 
 LOGS.info("Paperplane is alive! Test it by typing .alive on any chat."
           " Should you need assistance, head to https://t.me/tgpaperplane")
