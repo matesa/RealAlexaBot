@@ -2627,12 +2627,12 @@ async def savel(dudumagi):
          if not dudumagi.reply_to_msg_id:
            return
          reply_message = await dudumagi.get_reply_message() 
-         debloat = await dudumagi.client.upload_file(reply_message)  # push to memory
+         debloat = await event.client.download_media(reply_message, TEMP_DOWNLOAD_DIRECTORY)
          chat = "@FileToLinkTGbot"
          async with event.client.conversation(chat) as conv:
            try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
-              await event.client.forward_messages(chat, debloat)
+              await event.client.send_message(chat, debloat)
               response = await response 
            except YouBlockedUserError: 
               return
