@@ -2610,6 +2610,43 @@ async def stickerizer(event):
               await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
               os.remove(khankibara)
 
+import datetime
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.account import UpdateNotifySettingsRequest
+from uniborg.util import admin_cmd
+
+# Made by @AyushChatterjee
+
+@register(pattern="^/savefile")
+async def savel(dudumagi):
+    concat = []
+    if concat == []:
+       @alexabot(pattern=None)
+       async def _(event):
+         if event.fwd_from:
+           return 
+         if not event.reply_to_msg_id:
+           return
+         reply_message = await event.get_reply_message() 
+         chat = "@FileToLinkTGbot"
+         async with event.client.conversation(chat) as conv:
+           try:     
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
+              await event.client.forward_messages(chat, reply_message)
+              response = await response 
+           except YouBlockedUserError: 
+              return
+           if not response:
+              return
+           if response.text.startswith("🔗"):
+             my_string= response.text
+             p = re.compile(":(.*)")
+             let = p.findall(my_string)
+             concat.append('done')
+             if concat == ['done']:  
+                await dudumagi.reply(f"**[HERE IS YOUR PERMANENT DOWNLOAD LINK]({let})**")
+         
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
