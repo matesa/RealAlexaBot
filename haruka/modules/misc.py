@@ -2588,7 +2588,7 @@ def deEmojify(inputString: str) -> str:
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    global newtext
+    # global newtext
     newtext = event.pattern_match.group(1)
     concat = []
     if concat == []:
