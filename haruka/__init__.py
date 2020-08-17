@@ -124,7 +124,6 @@ if ENV:
    
     if STRING_SESSION:
       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
-      ubot_thread = threading.Thread(target=ubot.start)
     else:
       quit(1)
     async def check_botlog_chatid():
@@ -145,7 +144,7 @@ if ENV:
         quit(1)
     INVALID_PH = '\nERROR: The phone no. entered is incorrect'
     try:
-       ubot_thread.start()
+       ubot.start()
     except PhoneNumberInvalidError:
        print(INVALID_PH)
        exit(1)
