@@ -2588,22 +2588,12 @@ def deEmojify(inputString: str) -> str:
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    global newtext
+    # global newtext
     newtext = event.pattern_match.group(1)
-    if newtext:
-      @alexabot(incoming=True)
-      async def _(eventt):
-           sex = await eventt.client.send_message('me', '.randire')
-           time.sleep(5)
-           await sex.delete()
-           if not os.path.isfile(khankibara): 
-              return
-           else:
-             await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
-             os.remove(khankibara)
-
-@alexabot(outgoing=True, pattern=".randire")
-async def waifu(animu):
+    concat = []
+    if concat == []:
+       @alexabot(incoming=True, outgoing=False, pattern=None)
+       async def waifu(animu):
          animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
          sticcers = await animu.client.inline_query(
                      "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
@@ -2611,7 +2601,13 @@ async def waifu(animu):
          global khankibara
          khankibara = str(null)
          print("sticker downloaded successfully")
-
+         concat.append('done')
+         if concat == ['done']:
+            if not os.path.isfile(khankibara): 
+              return
+            else:
+              await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
+              os.remove(khankibara)
 
 import datetime
 from telethon import events
