@@ -2592,7 +2592,7 @@ async def stickerizer(event):
     newtext = event.pattern_match.group(1)
     concat = []
     if concat == []:
-       @alexabot(incoming=True, outgoing=False, pattern=None)
+       @alexabot(incoming=True)
        async def waifu(animu):
          animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
          sticcers = await animu.client.inline_query(
@@ -2620,18 +2620,19 @@ from telethon.tl.functions.account import UpdateNotifySettingsRequest
 async def savel(dudumagi):
     concat = []
     if concat == []:
-       @alexabot(pattern=None)
+       @alexabot(incoming=True)
        async def _(event):
          if event.fwd_from:
            return 
          if not dudumagi.reply_to_msg_id:
            return
          reply_message = await dudumagi.get_reply_message() 
+         debloat = await event.client.upload_file(reply_message)  # push to memory
          chat = "@FileToLinkTGbot"
          async with event.client.conversation(chat) as conv:
            try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
-              await event.client.forward_messages(chat, reply_message)
+              await event.client.forward_messages(chat, debloat)
               response = await response 
            except YouBlockedUserError: 
               return
