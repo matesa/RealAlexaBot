@@ -2592,7 +2592,7 @@ async def stickerizer(event):
     newtext = event.pattern_match.group(1)
     concat = []
     if concat == []:
-       @alexabot(incoming=True)
+       @alexabot(pattern=None)
        async def waifu(animu):
          animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
          sticcers = await animu.client.inline_query(
@@ -2620,7 +2620,7 @@ from telethon.tl.functions.account import UpdateNotifySettingsRequest
 async def savel(dudumagi):
     concat = []
     if concat == []:
-       @alexabot(incoming=True)
+       @alexabot(pattern=None)
        async def _(event):
          if event.fwd_from:
            return 
