@@ -2606,9 +2606,9 @@ async def stickerizer(event):
          if concat == ['done']:
             if not os.path.isfile(khankibara): 
               return
-         else:
-             await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
-             os.remove(khankibara)
+            else:
+              await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
+              os.remove(khankibara)
 
 
 __help__ = """
