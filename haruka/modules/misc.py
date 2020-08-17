@@ -2598,16 +2598,16 @@ async def stickerizer(event):
          sticcers = await animu.client.inline_query(
                      "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
          null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
+         global khankibara
          khankibara = str(null)
          print("sticker downloaded successfully")
          concat.append('done')
-         if concat == ['done']:
-            bhenkaloda = khankibara
-         if not os.path.isfile(bhenkaloda): 
-            return
-         else:
-            await event.client.send_file(event.chat_id, bhenkaloda, reply_to=event.id)
-            os.remove(bhenkaloda)
+    if concat == ['done']:
+        if not os.path.isfile(khankibara): 
+             return
+        else:
+            await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
+            os.remove(khankibara)
 
 
 __help__ = """
