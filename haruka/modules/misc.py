@@ -2588,11 +2588,8 @@ def deEmojify(inputString: str) -> str:
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    # global newtext
     newtext = event.pattern_match.group(1)
-    concat = False
-    if not concat:
-       @alexabot(pattern=None)
+    @alexabot(pattern=None)
        async def waifu(animu):
             animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
             sticcers = await animu.client.inline_query(
@@ -2601,13 +2598,11 @@ async def stickerizer(event):
             global bara
             bara = str(null)
             print("sticker downloaded successfully")
-       concat = True
-    if concat:
-        if not os.path.isfile(bara): 
-            return
-        else:
-            await event.client.send_file(event.chat_id, bara, reply_to=event.id)
-            os.remove(bara)
+            if not os.path.isfile(bara): 
+               return
+            else:
+               await event.client.send_file(event.chat_id, bara, reply_to=event.id)
+               os.remove(bara)
 
 import datetime
 from telethon import events
