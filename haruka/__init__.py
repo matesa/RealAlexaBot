@@ -14,7 +14,7 @@ from telethon.sessions import StringSession
 from importlib import import_module
 import os
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-
+import threading
 
 # enable logging
 logging.basicConfig(
@@ -121,9 +121,10 @@ if ENV:
                 level=INFO)
     LOGS = getLogger(__name__)
     BOTLOG = (os.environ.get("BOTLOG") == 'True')
-    # pylint: disable=invalid-name
+   
     if STRING_SESSION:
       ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+      ubot_thread = threading.Thread(target=ubot.start)
     else:
       quit(1)
     async def check_botlog_chatid():
@@ -144,10 +145,14 @@ if ENV:
         quit(1)
     INVALID_PH = '\nERROR: The phone no. entered is incorrect'
     try:
-       ubot.start()
+       ubot_thread.start()
     except PhoneNumberInvalidError:
        print(INVALID_PH)
        exit(1)
-
+    SEM_TEST = os.environ.get("SEMAPHORE", None)
+    if SEM_TEST:
+       ubot_thread.disconnect()
+    else:
+       ubot_thread.run_until_disconnected()
 else:
    quit(1)
