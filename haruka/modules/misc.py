@@ -2627,7 +2627,7 @@ async def savel(dudumagi):
          if not dudumagi.reply_to_msg_id:
            return
          reply_message = await dudumagi.get_reply_message() 
-         debloat = await event.client.upload_file(reply_message)  # push to memory
+         debloat = await dudumagi.client.upload_file(reply_message)  # push to memory
          chat = "@FileToLinkTGbot"
          async with event.client.conversation(chat) as conv:
            try:     
