@@ -2605,15 +2605,17 @@ async def stickerizer(event):
 
 def stickloader(firstTime = []):
  if firstTime == []:   
-   @alexabot(pattern="")
-   async def waifu(animu):
-     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
-     sticcers = await animu.client.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-     null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-     global ll
-     ll = str(null)
-     print("sticker downloaded successfully")
+    @alexabot(pattern="")
+    async def waifu(animu):
+      animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
+      sticcers = await animu.client.inline_query(
+         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
+      null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
+      global ll
+      ll = str(null)
+      print("sticker downloaded successfully")
+  # don't mess with the loops
+  print("done")
   firstTime.append('Not Empty')
  else:
     return
