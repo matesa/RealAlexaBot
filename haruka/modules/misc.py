@@ -2591,16 +2591,16 @@ async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     if newtext:
-      @alexabot(outgoing=True)
-      async def _(event):
-           sex = await event.client.send_message('me', '.randire')
+      @alexabot(incoming=True)
+      async def _(eventt):
+           sex = await eventt.client.send_message('me', '.randire')
            time.sleep(5)
            await sex.delete()
-    if not os.path.isfile(khankibara): 
-       return
-    else:
-      await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
-      os.remove(khankibara)
+           if not os.path.isfile(khankibara): 
+              return
+           else:
+             await event.client.send_file(event.chat_id, khankibara, reply_to=event.id)
+             os.remove(khankibara)
 
 @alexabot(outgoing=True, pattern=".randire")
 async def waifu(animu):
