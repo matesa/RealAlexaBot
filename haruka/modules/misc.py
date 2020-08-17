@@ -2602,7 +2602,6 @@ async def stickerizer(event):
          khankibara = str(null)
          print("sticker downloaded successfully")
          concat.append('done')
-  
          if concat == ['done']:
             if not os.path.isfile(khankibara): 
               return
@@ -2625,9 +2624,9 @@ async def savel(dudumagi):
        async def _(event):
          if event.fwd_from:
            return 
-         if not event.reply_to_msg_id:
+         if not dudumagi.reply_to_msg_id:
            return
-         reply_message = await event.get_reply_message() 
+         reply_message = await dudumagi.get_reply_message() 
          chat = "@FileToLinkTGbot"
          async with event.client.conversation(chat) as conv:
            try:     
