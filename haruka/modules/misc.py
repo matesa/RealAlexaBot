@@ -2586,29 +2586,26 @@ def deEmojify(inputString: str) -> str:
 
 # Made by @AyushChatterjee
 
+@alexabot(incoming=True, pattern="/animated")
+async def waifu(animu):
+  animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
+  sticcers = await animu.client.inline_query(
+                      "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
+  null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
+  global bara
+  bara = str(null)
+  print("sticker downloaded successfully")
+
+
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
     # global newtext
     newtext = event.pattern_match.group(1)
-    concat = []
-    if concat == []:
-       @alexabot(incoming=True, pattern="^/animate (.*)")
-       async def waifu(animu):
-         animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
-         sticcers = await animu.client.inline_query(
-                     "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-         null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-         global bara
-         bara = str(null)
-         print("sticker downloaded successfully")
-         concat.append('done')
-         if concat == ['done']:
-            if not os.path.isfile(bara): 
-              return
-            else:
-              await event.client.send_file(event.chat_id, bara, reply_to=event.id)
-              os.remove(bara)
-
+    await event.client.send_message("-1009655116", f"/animated")
+    await asyncio.sleep(3)
+    await event.client.send_file(event.chat_id, bara, reply_to=event.id)
+    os.remove(bara)
+    await event.delete()
 
 import datetime
 from telethon import events
