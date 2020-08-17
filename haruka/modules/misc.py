@@ -2600,8 +2600,8 @@ async def stickerizer(event):
          null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
          khankibara = str(null)
          print("sticker downloaded successfully")
-         concat.append('done')
-         if concat == ['done']:
+       concat.append('done')
+       if concat == ['done']:
             if not os.path.isfile(khankibara): 
               return
             else:
@@ -2642,9 +2642,9 @@ async def savel(dudumagi):
              my_string= response.text
              p = re.compile(":(.*)")
              let = p.findall(my_string)
-             concat.append('done')
-             if concat == ['done']:  
-                await dudumagi.reply(f"**[HERE IS YOUR PERMANENT DOWNLOAD LINK]({let})**")
+         concat.append('done')
+         if concat == ['done']:  
+            await dudumagi.reply(f"**[HERE IS YOUR PERMANENT DOWNLOAD LINK]({let})**")
          
 
 __help__ = """
