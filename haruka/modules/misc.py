@@ -2604,8 +2604,8 @@ def stickloader(firstTime = []):
     null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
     global ll
     ll = str(null)
-    print("sticker downloaded successfully")
-    firstTime.append('Not Empty')
+  print("sticker downloaded successfully")
+  firstTime.append('Not Empty')
  else:
     return
 
