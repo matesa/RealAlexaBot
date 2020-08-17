@@ -2614,9 +2614,8 @@ def stickloader(firstTime = []):
       global ll
       ll = str(null)
       print("sticker downloaded successfully")
-  # don't mess with the loops
-  print("done")
-  firstTime.append('Not Empty')
+   print("done")
+   firstTime.append('Not Empty')
  else:
     return
 
