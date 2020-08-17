@@ -2586,6 +2586,7 @@ def deEmojify(inputString: str) -> str:
 
 # Made by @AyushChatterjee
 
+global firstTime # here we go 
 firstTime = []
 if firstTime == []:   
   def stickloader():
@@ -2607,15 +2608,15 @@ async def stickerizer(event):
     stickloader() # run once
     time_to_wait = 10
     time_counter = 0
-    while not os.path.isfile(f'{ll}'): # wait for the file
+    while not os.path.isfile(ll): # wait for the file
          time.sleep(1)
          time_counter += 1
          if time_counter > time_to_wait:break
-    if not os.path.isfile(f'{ll}'): # even if tbe file isnt there nothing to do
+    if not os.path.isfile(ll): # even if tbe file isnt there nothing to do
        return
     else:
       await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
-      os.system(f'rm -rf {ll}')
+      os.remove(ll)
 
 
 __help__ = """
