@@ -2593,12 +2593,15 @@ async def stickerizer(event):
     stickloader() # run once
     time_to_wait = 10
     time_counter = 0
-    while not os.path.isfile(f'{ll}'):
+    while not os.path.isfile(f'{ll}'): # wait for the file
          time.sleep(1)
          time_counter += 1
          if time_counter > time_to_wait:break
-    await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
-    os.system(f'rm -rf {ll}')
+    if not os.path.isfile(f'{ll}'): # even if tbe file isnt there nothing to do
+       return
+    else:
+      await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
+      os.system(f'rm -rf {ll}')
 
 def stickloader(firstTime = []):
  if firstTime == []:   
