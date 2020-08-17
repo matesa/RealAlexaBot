@@ -2596,27 +2596,22 @@ if firstTime == []:
       sticcers = await animu.client.inline_query(
          "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
       null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-      global ll
-      ll = str(null)
+      global khankibara
+      khankibara = str(null)
       print("sticker downloaded successfully")   
-      firstTime.append('bool')
+      firstTime.append('suorerbaccha')
 
-@register(pattern="^/waifu (.*)")
+@register(pattern="^/animate (.*)")
 async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     stickloader() # run once
-    time_to_wait = 10
-    time_counter = 0
-    while not os.path.isfile(ll): # wait for the file
-         time.sleep(1)
-         time_counter += 1
-         if time_counter > time_to_wait:break
-    if not os.path.isfile(ll): # even if tbe file isnt there nothing to do
+    bhenkaloda = str(khankibara)
+    if not os.path.isfile(bhenkaloda): 
        return
     else:
-      await event.client.send_file(event.chat_id, f'{ll}', reply_to=event.id)
-      os.remove(ll)
+      await event.client.send_file(event.chat_id, bhenkaloda, reply_to=event.id)
+      os.remove(bhenkaloda)
 
 
 __help__ = """
