@@ -149,10 +149,5 @@ if ENV:
     except PhoneNumberInvalidError:
        print(INVALID_PH)
        exit(1)
-    SEM_TEST = os.environ.get("SEMAPHORE", None)
-    if SEM_TEST:
-       ubot_thread.disconnect()
-    else:
-       ubot_thread.run_until_disconnected()
 else:
    quit(1)
