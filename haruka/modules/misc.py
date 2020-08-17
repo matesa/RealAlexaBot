@@ -2598,6 +2598,7 @@ async def stickerizer(event):
          sticcers = await animu.client.inline_query(
                      "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
          null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
+         global khankibara
          khankibara = str(null)
          print("sticker downloaded successfully")
        concat.append('done')
@@ -2641,14 +2642,16 @@ async def savel(dudumagi):
            if response.text.startswith("🔗"):
              my_string= response.text
              p = re.compile(":(.*)")
-             let = p.findall(my_string)
-         concat.append('done')
-         if concat == ['done']:  
-            await dudumagi.reply(f"**[HERE IS YOUR PERMANENT DOWNLOAD LINK]({let})**")
+             global holababy
+             holababy = p.findall(my_string)
+             sexok = str(holababy)
+       concat.append('done')
+       if concat == ['done']:  
+          await dudumagi.reply(f"{sexok}**")
          
 
 __help__ = """
- - /id: get the current group id. If used by replying to a message, gets that user's id.
+ - /id: get the current group id. If replied to user's message gets that user's id.
  - /runs: reply a random string from an array of replies.
  - /slap: slap a user, or get slapped if not a reply.
  - /info: get information about a user.
