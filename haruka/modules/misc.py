@@ -2598,7 +2598,6 @@ async def stickerizer(event):
          sticcers = await animu.client.inline_query(
                      "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
          null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-         global khankibara
          khankibara = str(null)
          print("sticker downloaded successfully")
          concat.append('done')
@@ -2627,12 +2626,13 @@ async def savel(dudumagi):
          if not dudumagi.reply_to_msg_id:
            return
          reply_message = await dudumagi.get_reply_message() 
-         debloat = await event.client.download_media(reply_message, TEMP_DOWNLOAD_DIRECTORY)
+         debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
+         sexload = str(debloat)
          chat = "@FileToLinkTGbot"
          async with event.client.conversation(chat) as conv:
            try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
-              await event.client.send_message(chat, debloat)
+              await event.client.send_file(chat, sexload)
               response = await response 
            except YouBlockedUserError: 
               return
