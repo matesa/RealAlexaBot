@@ -2592,15 +2592,15 @@ async def waifu(animu):
   sticcers = await animu.client.inline_query(
                       "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
   null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-  global bara
   bara = str(null)
+  global bara
   print("sticker downloaded successfully")
 
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    global newtext
     newtext = event.pattern_match.group(1)
+    global newtext
     myid = int("-1009655116")
     entity = await event.client.get_entity('AyushChatterjee')
     randika = await event.client.send_message(entity, "/animated")
@@ -2630,9 +2630,9 @@ async def _(event):
           return
     if response.text.startswith("🔗"):
       my_string= response.text
-      p = re.compile(":(.*)")
-      global holababy
+      p = re.compile(":(.*)")      
       holababy = p.findall(my_string)
+      global holababy
 
 @register(pattern="^/savefile")
 async def savel(event):
@@ -2640,9 +2640,9 @@ async def savel(event):
     return 
   if not event.reply_to_msg_id:
     return
-  reply_message = await dudumagi.get_reply_message() 
-  global debloat
+  reply_message = await event.get_reply_message() 
   debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
+  global debloat
   entity = await event.client.get_entity('AyushChatterjee')
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
