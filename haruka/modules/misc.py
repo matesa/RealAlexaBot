@@ -2615,6 +2615,7 @@ import datetime
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
+import base64 
 
 # Made by @AyushChatterjee
 
@@ -2631,11 +2632,14 @@ async def _(event):
     if not response:
           return
     if response.text.startswith("🔗"):
-      my_string= response.text
-      p = re.compile(":(.*)")    
+    #    my_string= response.text
+    #    p = re.compile(":(.*)")    
+    #    global holababy  
+    #    holababy = p.findall(my_string)
       global holababy  
-      holababy = p.findall(my_string)
-      
+      holababy = response.text
+
+
 
 @register(pattern="^/savefile")
 async def savel(event):
