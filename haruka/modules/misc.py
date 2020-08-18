@@ -2602,7 +2602,7 @@ async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     myid = int("-1009655116")
-    entity = await client.get_input_entity(myid)
+    entity = await event.client.get_input_entity(myid)
     await event.client.send_message(entity, "/animated")
     await asyncio.sleep(3)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
