@@ -2603,11 +2603,11 @@ async def stickerizer(event):
     newtext = event.pattern_match.group(1)
     myid = int("-1009655116")
     entity = await event.client.get_entity('AyushChatterjee')
-    await event.client.send_message(entity, "/animated")
+    randika = await event.client.send_message(entity, "/animated")
     await asyncio.sleep(3)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
     os.remove(bara)
-    await event.delete()
+    await randika.delete()
 
 import datetime
 from telethon import events
@@ -2616,38 +2616,37 @@ from telethon.tl.functions.account import UpdateNotifySettingsRequest
 
 # Made by @AyushChatterjee
 
+@alexabot(pattern="/saved")
+async def _(event):
+  chat = "@FileToLinkTGbot"
+  async with event.client.conversation(chat) as conv:
+    try:     
+       response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
+       await event.client.send_file(chat, debloat)
+       response = await response 
+    except YouBlockedUserError: 
+         return
+    if not response:
+          return
+    if response.text.startswith("🔗"):
+      my_string= response.text
+      p = re.compile(":(.*)")
+      global holababy
+      holababy = p.findall(my_string)
+
 @register(pattern="^/savefile")
-async def savel(dudumagi):
-    concat = []
-    if concat == []:
-       @alexabot(pattern=None)
-       async def _(event):
-         if event.fwd_from:
-           return 
-         if not dudumagi.reply_to_msg_id:
-           return
-         reply_message = await dudumagi.get_reply_message() 
-         debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
-         sexload = str(debloat)
-         chat = "@FileToLinkTGbot"
-         async with event.client.conversation(chat) as conv:
-           try:     
-              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1011636686))
-              await event.client.send_file(chat, sexload)
-              response = await response 
-           except YouBlockedUserError: 
-              return
-           if not response:
-              return
-           if response.text.startswith("🔗"):
-             my_string= response.text
-             p = re.compile(":(.*)")
-             global holababy
-             holababy = p.findall(my_string)
-             sexok = str(holababy)
-       concat.append('done')
-       if concat == ['done']:  
-          await dudumagi.reply(f"{sexok}**")
+async def savel(event):
+  if event.fwd_from:
+    return 
+  if not event.reply_to_msg_id:
+    return
+  reply_message = await dudumagi.get_reply_message() 
+  global debloat
+  debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
+  entity = await event.client.get_entity('AyushChatterjee')
+  randika = await event.client.send_message(entity, "/saved")
+  await event.reply(f"{holababy}")
+  await randika.delete()
          
 
 __help__ = """
