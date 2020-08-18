@@ -2599,9 +2599,10 @@ async def waifu(animu):
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    # global newtext
+    global newtext
     newtext = event.pattern_match.group(1)
-    await event.client.send_message("-1009655116", f"/animated")
+    myid = int("-1009655116")
+    await event.client.send_message("myid", "/animated")
     await asyncio.sleep(3)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
     os.remove(bara)
