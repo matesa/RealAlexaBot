@@ -134,7 +134,7 @@ def send_start(bot, update):
 
     keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/RealAlexaBotSupport")]]
     keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
-    keyboard += [[InlineKeyboardButton(text="Check out my website 🌐", url="http://realalexabot.unaux.com/home-2/")]]
+    keyboard += [[InlineKeyboardButton(text="Check out my website 🌐", url="http://realalexabot.unaux.com/home")]]
     
     
 
