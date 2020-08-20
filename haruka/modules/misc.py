@@ -2616,11 +2616,12 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
 import base64 
+from pymongo import MongoClient
 
 # Made by @AyushChatterjee
 
 @alexabot(pattern="/saved")
-async def _(event):
+async def saat(event):
   chat = "@FileToLinkTGbot"
   async with event.client.conversation(chat) as conv:
     try:     
@@ -2656,6 +2657,87 @@ async def savel(event):
   await event.reply(f"{holababy}")
   await randika.delete()
          
+#--- HACK USE LYDIA WITHOUT API KEY [UNLIMITED] by @AyushChatterjee ---#
+
+# INIT MONGO
+MONGO_URI= os.environ.get("MONGO_DB_URI")
+client = MongoClient()
+client = MongoClient(MONGO_URI)
+db = client['test']
+auto_chat = db.auto_chat
+
+@register(pattern="^/autochat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_URI is None:
+		#  await event.edit("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		#  await event.edit("Reply To Someone's Message To add User in AutoChats..")
+		return	
+	reply_msg = await event.get_reply_message()	
+	chats = auto_chat.find({})
+	for c in chats:
+		if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+			await event.reply("This User is Already in Auto-Chat List.")
+			return 
+	auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned on for user: "+str(reply_msg.from_id)+"in this chat")
+	await event.delete()
+
+@register(pattern="^/stopchat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_URI is None:
+		#  await event.edit("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		#  await event.edit("Reply To Someone's Message To Remove User in AutoChats..")
+		return		
+	reply_msg = await event.get_reply_message()	
+	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned off for user: "+str(reply_msg.from_id)+"in this chat")	
+	
+
+@register(incoming=True)
+async def user(event):
+    auto_chats = auto_chat.find({})
+    if MONGO_URI is None:
+      return
+    if not event.media:
+        for ch in auto_chats:
+             if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+                      user_text = event.text
+                      global makichuure
+                      makichuure = event.text
+                      await event.reply(machudisala)
+    if not event.text:     
+       return  
+
+@alexabot(pattern=None)
+async def lodekabaal(event):
+  chat = "@LydiaChatBot"
+  if MONGO_URI is None:
+         return
+  auto_chats = auto_chat.find({})
+  if not event.media:
+     for ch in auto_chats:
+          if event.chat_id == ch['id'] and event.from_id == ch['user']:
+             async with event.client.conversation(chat) as conv:
+                 try:                               
+                   response = conv.wait_event(events.NewMessage(incoming=True,from_users=869979136))
+                   await event.client.send_message(chat, makichuure)
+                   response = await response 
+                 except YouBlockedUserError: 
+                   return
+                 if not response:
+                    return
+                 global machudisala
+                 machudisala = response.text
+
+#--- Hack ends here ---#
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
