@@ -212,10 +212,8 @@ or feature requests you might have :)
 If you enjoying using me and/or would like to help me survive in the wild, hit /donate to help fund/upgrade my VPS!
 """,
 
-    "send-help": """Alexa is a extremely modular and easy to use telegram bot loaded with all the essential commands that a group administrator needs 
-
-*NOTE :*
-[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
+    "send-help": """
+[#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
 """,
 
 #Misc
