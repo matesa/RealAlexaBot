@@ -2713,8 +2713,6 @@ async def lodekabaal(event):
                    response = conv.wait_event(events.NewMessage(incoming=True,from_users=869979136))
                    await event.client.send_message(chat, makichure) # global
                    response = await response                  
-                   if not response:
-                     return
                    global machudisala
                    machudisala = response.text
 
