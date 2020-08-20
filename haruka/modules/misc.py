@@ -2651,7 +2651,6 @@ async def savel(event):
   reply_message = await event.get_reply_message() 
   global debloat
   debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
-  
   entity = await event.client.get_entity('AyushChatterjee')
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
@@ -2700,22 +2699,6 @@ async def chat_bot(event):
 	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
 	await event.reply("Autochat mode turned off for user: "+str(reply_msg.from_id)+"in this chat")	
 	
-
-@register(pattern="")
-async def user(event):
-    auto_chats = auto_chat.find({})
-    if MONGO_URI is None:
-      return
-    if not event.media:
-        for ch in auto_chats:
-             if event.chat_id == ch['id'] and event.from_id == ch['user']:  
-                      user_text = event.text
-                      global makichuure
-                      makichuure = event.text
-                      await event.reply(machudisala)
-    if not event.text:     
-       return  
-
 @alexabot(pattern=None)
 async def lodekabaal(event):
   chat = "@LydiaChatBot"
@@ -2728,14 +2711,27 @@ async def lodekabaal(event):
              async with event.client.conversation(chat) as conv:
                  try:                               
                    response = conv.wait_event(events.NewMessage(incoming=True,from_users=869979136))
-                   await event.client.send_message(chat, makichuure)
-                   response = await response 
-                 except YouBlockedUserError: 
-                   return
-                 if not response:
-                    return
-                 global machudisala
-                 machudisala = response.text
+                   await event.client.send_message(chat, makichure) # global
+                   response = await response                  
+                   if not response:
+                     return
+                   global machudisala
+                   machudisala = response.text
+
+@register(pattern="")
+async def user(event):
+    auto_chats = auto_chat.find({})
+    if MONGO_URI is None:
+      return
+    if not event.media:
+        for ch in auto_chats:
+             if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+                      global makichure
+                      makichure = event.text
+                      await event.reply(machudisala)
+    if not event.text:     
+       return  
+
 
 #--- Hack ends here ---#
 
