@@ -2112,7 +2112,7 @@ async def _(event):
     if event.is_private:
        return 
     if event.is_group:
-       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+       if not (await is_register_banful(event.chat, event.message.sender_id)):
           await event.reply("")
           return
     done = await event.reply("Searching Participant Lists.")
