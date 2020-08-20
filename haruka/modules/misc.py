@@ -275,13 +275,13 @@ async def is_register_admin(chat, user):
         return None
 
 async def is_register_banful(chat, user):
-    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+    if isinstance(chat, (types.PeerChannel, types.Channel)):
 
         return isinstance(
             (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator, chat.admin_rights.ban_users)
         )
-    elif isinstance(chat, types.InputPeerChat):
+    elif isinstance(chat, types.PeerChat):
 
         ui = await tbot.get_peer_id(user)
         ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
@@ -2140,7 +2140,7 @@ async def _(event):
     if event.is_private:
        return 
     if event.is_group:
-       if not (await is_register_banful(event.input_chat, event.message.sender_id)):
+       if not (await is_register_banful(event.chat, event.message.sender_id)):
           await event.reply("")
           return
     done = await event.reply("Searching Participant Lists.")
@@ -2412,7 +2412,7 @@ async def process(msg, user, client, reply, replied=None):
                         font2 = ImageFont.truetype("resources/DroidSansMono.ttf", 30, encoding="utf-16")
                         textcolor = "white"
                 for offset, length in link.items():
-                    if index in range(offset, length):
+                    if index in inrange(offset, length):
                         font2 = ImageFont.truetype("resources/Roboto-Regular.ttf", 30, encoding="utf-16")
                         textcolor = "#898989"
                 if letter in emoji.UNICODE_EMOJI:
