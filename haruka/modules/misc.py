@@ -279,7 +279,7 @@ async def is_register_banful(chat, user):
 
         return isinstance(
             (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator, chat.admin_rights.ban_users)
+            (types.ChannelParticipantCreator, chat.admin_rights.ban_users)
         )
     elif isinstance(chat, types.PeerChat):
 
@@ -288,7 +288,7 @@ async def is_register_banful(chat, user):
             .full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator, chat.admin_rights.ban_users)
+            (types.ChatParticipantCreator, chat.admin_rights.ban_users)
         )
     else:
         return None
