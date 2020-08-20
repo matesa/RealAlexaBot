@@ -2701,7 +2701,7 @@ async def chat_bot(event):
 	await event.reply("Autochat mode turned off for user: "+str(reply_msg.from_id)+"in this chat")	
 	
 
-@register(pattern=None)
+@register(pattern="")
 async def user(event):
     auto_chats = auto_chat.find({})
     if MONGO_URI is None:
