@@ -2710,11 +2710,13 @@ async def lodekabaal(event):
           if event.chat_id == ch['id'] and event.from_id == ch['user']:
              async with event.client.conversation(chat) as conv:
                  try:                               
-                   response = conv.wait_event(events.NewMessage(incoming=True,from_users=869979136))
-                   await event.client.send_message(chat, makichure) # global
-                   response = await response                  
-                   global machudisala
-                   machudisala = response.text
+                    response = conv.wait_event(events.NewMessage(incoming=True,from_users=869979136))
+                    await event.client.send_message(chat, makichure) # global
+                    response = await response                  
+                    global machudisala
+                    machudisala = response.text
+                 except Exception:
+                    return
 
 @register(pattern="")
 async def user(event):
