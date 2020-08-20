@@ -2412,7 +2412,7 @@ async def process(msg, user, client, reply, replied=None):
                         font2 = ImageFont.truetype("resources/DroidSansMono.ttf", 30, encoding="utf-16")
                         textcolor = "white"
                 for offset, length in link.items():
-                    if index in inrange(offset, length):
+                    if index in range(offset, length):
                         font2 = ImageFont.truetype("resources/Roboto-Regular.ttf", 30, encoding="utf-16")
                         textcolor = "#898989"
                 if letter in emoji.UNICODE_EMOJI:
