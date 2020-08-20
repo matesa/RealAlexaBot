@@ -18,7 +18,7 @@ from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
-**[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)**
+[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
 """
 
 IMPORTED = {}
@@ -134,6 +134,8 @@ def send_start(bot, update):
 
     keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/RealAlexaBotSupport")]]
     keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
+    keyboard += [[InlineKeyboardButton(text="Check out my website 🌐", url="http://realalexabot.unaux.com/home-2/")]]
+    
     
 
     try:
