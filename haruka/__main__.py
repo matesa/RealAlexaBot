@@ -18,7 +18,7 @@ from haruka.modules.connection import connected
 from haruka.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
-[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
+[#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
 """
 
 IMPORTED = {}
@@ -662,8 +662,6 @@ def process_update(self, update):
             self.logger.exception(
                 'An uncaught error was raised while processing the update')
 
-
-# DUAL BOOT WITH USERBOT
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
