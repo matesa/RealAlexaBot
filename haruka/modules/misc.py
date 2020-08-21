@@ -252,7 +252,10 @@ from haruka.modules.rextester.langs import languages
 from haruka.modules.sql.translation import prev_locale
 from haruka.modules.translations.strings import tld
 from requests import get
-
+from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
+                               ChatAdminRights, ChatBannedRights,
+                               MessageEntityMentionName, MessageMediaPhoto,
+                               ChannelParticipantsBots)
 
 
 async def is_register_admin(chat, user):
@@ -263,7 +266,6 @@ async def is_register_admin(chat, user):
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
         )
     elif isinstance(chat, types.InputPeerChat):
-
         ui = await tbot.get_peer_id(user)
         ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
             .full_chat.participants.participants
@@ -276,11 +278,19 @@ async def is_register_admin(chat, user):
 
 async def is_register_banful(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-        return isinstance((await tbot(functions.channels.GetParticipantRequest(chat, user))).participant, (types.ChannelParticipantAdmin, types.ChannelParticipantCreator))
+
+        return isinstance(
+            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
+            (types.ChannelParticipantAdmin, types.ChatAdminRights(ban_users=True))
+        )
     elif isinstance(chat, types.InputPeerChat):
         ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))).full_chat.participants.participants
-        return isinstance(next((p for p in ps if p.user_id == ui), None), (chat.admin_rights.ban_users))
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
+            .full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatAdminRights(ban_users=True))
+        )
     else:
         return None
 
