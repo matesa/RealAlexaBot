@@ -2468,49 +2468,6 @@ async def savel(event):
   await event.reply(f"{holababy}")
   await randika.delete()
         
-
-from telethon import events, functions, types
-import asyncio
-
-from asyncio import sleep
-from os import remove
-from telethon import events
-from telethon.tl import functions, types
-from platform import python_version, uname
-from telethon.errors import (BadRequestError, ChatAdminRequiredError,
-                             ImageProcessFailedError, PhotoCropSizeSmallError,
-                             UserAdminInvalidError)
-from telethon.errors.rpcerrorlist import (UserIdInvalidError,
-                                          MessageTooLongError)
-from telethon.tl.functions.channels import (EditAdminRequest,
-                                            EditBannedRequest,
-                                            EditPhotoRequest)
-from telethon.tl.functions.messages import UpdatePinnedMessageRequest
-from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
-                               ChatAdminRights, ChatBannedRights,
-                               MessageEntityMentionName, MessageMediaPhoto,
-                               ChannelParticipantsBots)
-
-
-@register(pattern="^/listmyusernames")
-async def usernames(event):
-    if event.fwd_from:
-        return
-    result = await tbot(functions.channels.GetAdminedPublicChannelsRequest())
-    output_str = ""
-    for channel_obj in result.chats:
-        output_str += f"- {channel_obj.title} @{channel_obj.username} \n"
-    await event.reply(output_str)
-    
-@register(pattern="^/listmychatids")
-async def userid(event):
-    if event.fwd_from:
-        return
-    result = await tbot(functions.channels.GetAdminedPublicChannelsRequest())
-    output_str = ""
-    for channel_obj in result.chats:
-        output_str += f"-{channel_obj.id} \n"
-    await event.reply(output_str)
     
 
 # Random RGB Sticklet by @PhycoNinja13b
@@ -2524,7 +2481,7 @@ from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 
 
-@register(pattern="^/srgb (.*)")
+@alexabot(pattern="^/stickleted")
 async def sticklet(event):
     R = random.randint(0,256)
     G = random.randint(0,256)
@@ -2532,11 +2489,11 @@ async def sticklet(event):
 
     # get the input text
     # the text on which we would like to do the magic on
-    sticktext = event.pattern_match.group(1)
+    sticktext = stickletedtext
 
     # delete the userbot command,
     # i don't know why this is required
-    await event.delete()
+    # await event.delete()
 
     # https://docs.python.org/3/library/textwrap.html#textwrap.wrap
     sticktext = textwrap.wrap(sticktext, width=10)
@@ -2567,7 +2524,6 @@ async def sticklet(event):
     #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
     #replacing upper line with this to get reply tags
 
-    await event.client.send_file(event.chat_id, image_stream, reply_to=event.message.reply_to_msg_id)
     # cleanup
     try:
         os.remove(FONT_FILE)
@@ -2590,7 +2546,18 @@ async def get_font_file(client, channel_id):
     # download and return the file path
     return await client.download_media(font_file_message)
 
-
+@register(pattern="^/srgb (.*)")
+async def stickleter(event):
+    if event.is_group:
+      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    global stickletedtext
+    stickletedtext = event.pattern_match.group(1)
+    entity = await event.client.get_entity('AyushChatterjee')
+    await event.client.send_message(entity, "/stickleted")
+    await event.client.send_file(event.chat_id, "@Alexa.webp", reply_to=event.id)
+    os.remove("@Alexa.webp)
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
