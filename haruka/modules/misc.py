@@ -1904,14 +1904,13 @@ async def _(event):
 
 @register(pattern="^/unbanall")
 async def _(event):
-    if event.fwd_from:
-        return
     if event.is_private:
-       return 
+       return
     if event.is_group:
-       if not (await is_register_banful(event.chat, event.message.sender_id)):
-          await event.reply("")
-          return
+      chat = event.chat
+      user = event.message.sender_id
+      if not await is_register_banful(chat, user):
+           return
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
