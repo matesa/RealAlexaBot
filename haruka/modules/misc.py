@@ -2384,7 +2384,6 @@ from haruka.events import alexabot
 from haruka import TEMP_DOWNLOAD_DIRECTORY
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
 
-
 EMOJI_PATTERN = re.compile(
     "["
     "\U0001F1E0-\U0001F1FF"  # flags (iOS)
@@ -2400,7 +2399,6 @@ EMOJI_PATTERN = re.compile(
     "\U00002702-\U000027B0"  # Dingbats 
     "]+")
 
-
 def deEmojify(inputString: str) -> str:
     """Remove emojis and other non-safe characters from string"""
     return re.sub(EMOJI_PATTERN, '', inputString)
@@ -2409,7 +2407,7 @@ def deEmojify(inputString: str) -> str:
 
 @alexabot(pattern="/animated")
 async def waifu(animu):
-  animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
+  animus = [20, 32, 33, 40, 41, 42, 58]
   sticcers = await animu.client.inline_query(
                       "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
   null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
