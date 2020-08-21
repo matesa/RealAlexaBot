@@ -1893,10 +1893,10 @@ async def _(event):
 async def _(event):
     if event.is_private:
        return
-    if event.is_group:
-       if not (await is_register_banful(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    if event.is_group: 
+       sender = event.message.sender_id
+       if not sender.ChatAdminRights(ban_users=True):
+           return
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
