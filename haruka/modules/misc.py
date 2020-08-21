@@ -2546,7 +2546,7 @@ async def get_font_file(client, channel_id):
     # download and return the file path
     return await client.download_media(font_file_message)
 
-@register(pattern="^/srgb (.*)")
+@register(pattern="^/sticklet (.*)")
 async def stickleter(event):
     if event.is_group:
       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
@@ -2556,8 +2556,11 @@ async def stickleter(event):
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity('AyushChatterjee')
     await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, image_stream, reply_to=event.message.reply_to_msg_id)
+    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
+    os.remove("@Alexa.webp")
+    os.remove("@Alexa.webp.WebP")
     os.remove(image_stream)
+    await event.delete()
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
