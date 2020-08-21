@@ -278,7 +278,7 @@ __help__ = """
  - /tmute <d/h/m>: temporarily mute a user
  - /unmute: unmutes a user
  - /kick: kicks a user 
- - /connect: connect a chat (Can be done in a group by /connect or /connect <chat id> in PM) 
+ - /connect | /connect <chatid> in PM: connects a chat to PM 
  - /connection: list connected chats 
  - /disconnect: disconnect from a chat
  - /helpconnect: list available commands that can be done remotely 
@@ -321,7 +321,7 @@ __help__ = """
  - /warnlist: list of all current warning filters
  - /strongwarn <on/yes/off/no>: exceeding warn limit will result in kick, if set to true will ban instead
  - /welcome <on/off/yes/no>: Will the bot welcome new members ?
- - /goodbye <on/off/yes/no>: Will the bid farewell when someone leave ?
+ - /goodbye <on/off/yes/no>: Will the bot bid farewell when someone leave ?
  - /setwelcome <message>: set the welcome message 
  - /resetwelcome: clear the welcome message 
  - /setgoodbye <message>: set the goodbye message
