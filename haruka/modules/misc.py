@@ -2557,7 +2557,7 @@ async def stickleter(event):
     entity = await event.client.get_entity('AyushChatterjee')
     await event.client.send_message(entity, "/stickleted")
     await event.client.send_file(event.chat_id, "@Alexa.webp", reply_to=event.id)
-    os.remove("@Alexa.webp)
+    os.remove("@Alexa.webp")
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
