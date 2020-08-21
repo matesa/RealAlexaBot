@@ -2514,7 +2514,7 @@ async def sticklet(event):
 
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
-
+    global image_stream
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
@@ -2556,8 +2556,8 @@ async def stickleter(event):
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity('AyushChatterjee')
     await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, "@Alexa.webp", reply_to=event.id)
-    os.remove("@Alexa.webp")
+    await event.client.send_file(event.chat_id, image_stream, reply_to=event.message.reply_to_msg_id)
+    os.remove(image_stream)
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
