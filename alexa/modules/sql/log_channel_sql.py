@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, String, func, distinct
 
-from haruka.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class GroupLogs(BASE):

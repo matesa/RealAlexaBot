@@ -2,8 +2,8 @@ import threading
 
 from sqlalchemy import Column, UnicodeText, Integer, String, Boolean
 
-from haruka.modules.sql import BASE, SESSION
-from haruka import SUDO_USERS
+from alexa.modules.sql import BASE, SESSION
+from alexa import SUDO_USERS
 
 class SudoUsers(BASE):
     __tablename__ = "sudos"

@@ -2,8 +2,8 @@ import threading
 
 from sqlalchemy import Column, Integer, UnicodeText, String, ForeignKey, UniqueConstraint, func
 
-from haruka import dispatcher
-from haruka.modules.sql import BASE, SESSION
+from alexa import dispatcher
+from alexa.modules.sql import BASE, SESSION
 
 
 class Users(BASE):

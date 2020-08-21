@@ -4,8 +4,8 @@ from typing import List, Dict
 from telegram import MAX_MESSAGE_LENGTH, InlineKeyboardButton, Bot, ParseMode, Update
 from telegram.error import TelegramError
 
-from haruka import LOAD, NO_LOAD, OWNER_ID
-from haruka.modules.translations.strings import tld
+from alexa import LOAD, NO_LOAD, OWNER_ID
+from alexa.modules.translations.strings import tld
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):

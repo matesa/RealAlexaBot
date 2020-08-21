@@ -3,7 +3,7 @@ from typing import Union
 
 from sqlalchemy import Column, Integer, String, Boolean
 
-from haruka.modules.sql import SESSION, BASE
+from alexa.modules.sql import SESSION, BASE
 
 
 class CommandReactionChatSettings(BASE):

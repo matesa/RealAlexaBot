@@ -3,7 +3,7 @@ import threading
 
 from sqlalchemy import Column, String, Boolean
 
-from haruka.modules.sql import SESSION, BASE
+from alexa.modules.sql import SESSION, BASE
 
 
 class Permissions(BASE):

@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, String
 
-from haruka.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class ChatbotChats(BASE):

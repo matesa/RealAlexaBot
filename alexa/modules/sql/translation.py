@@ -1,6 +1,6 @@
 import threading
 from sqlalchemy import Column, String, UnicodeText
-from haruka.modules.sql import SESSION, BASE
+from alexa.modules.sql import SESSION, BASE
 
 class Locales(BASE):
     __tablename__ = "Locales"

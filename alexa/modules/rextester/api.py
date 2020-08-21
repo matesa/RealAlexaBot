@@ -1,6 +1,6 @@
 import requests
 
-from haruka.modules.rextester.langs import languages
+from alexa.modules.rextester.langs import languages
 
 ### API warper for rextester.com
 ## Author: Nitan Alexandru Marcel.

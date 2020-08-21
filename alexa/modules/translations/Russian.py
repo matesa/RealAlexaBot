@@ -1,4 +1,4 @@
-from haruka import dispatcher
+from alexa import dispatcher
 
 RUN_STRINGS = (
     "Куда ты собрался?",

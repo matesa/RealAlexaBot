@@ -1,14 +1,14 @@
 from functools import wraps
 from typing import Optional
 from telegram import User, Chat, ChatMember, Update, Bot
-from haruka import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
-import haruka.modules.sql.admin_sql as admin_sql
-from haruka.modules.translations.strings import tld
+from alexa import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
+import alexa.modules.sql.admin_sql as admin_sql
+from alexa.modules.translations.strings import tld
 import sys
 import traceback
 from telegram import error
 
-from haruka import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
+from alexa import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 
 
 def can_delete(chat: Chat, bot_id: int) -> bool:

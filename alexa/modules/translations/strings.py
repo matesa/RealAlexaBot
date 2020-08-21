@@ -1,11 +1,11 @@
-from haruka.modules.sql.translation import prev_locale
-from haruka.modules.translations.English import EnglishStrings
-from haruka.modules.translations.Russian import RussianStrings
-from haruka.modules.translations.Ukraine import UkrainianStrings
-from haruka.modules.translations.Spanish import SpanishStrings
-from haruka.modules.translations.Turkish import TurkishStrings
-from haruka.modules.translations.Indonesian import IndonesianStrings
-from haruka.modules.translations.Italian import ItalianStrings
+from alexa.modules.sql.translation import prev_locale
+from alexa.modules.translations.English import EnglishStrings
+from alexa.modules.translations.Russian import RussianStrings
+from alexa.modules.translations.Ukraine import UkrainianStrings
+from alexa.modules.translations.Spanish import SpanishStrings
+from alexa.modules.translations.Turkish import TurkishStrings
+from alexa.modules.translations.Indonesian import IndonesianStrings
+from alexa.modules.translations.Italian import ItalianStrings
 
 def tld(chat_id, t, show_none=True):
     LANGUAGE = prev_locale(chat_id)

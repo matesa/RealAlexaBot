@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, UnicodeText, Integer
 
-from haruka.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class RSS(BASE):
