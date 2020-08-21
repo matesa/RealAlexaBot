@@ -275,24 +275,30 @@ async def is_register_admin(chat, user):
         return None
 
 async def is_register_banful(chat, user):
-    if isinstance(chat, (types.PeerChannel, types.Channel)):
+    if event.is_channel:
 
-        return isinstance(
-            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantCreator, chat.admin_rights.ban_users)
+        return any(
+            isinstance(
+                (
+                    await tbot(functions.channels.GetParticipantRequest(chat, user))
+                ).participant,
+                (types.ChannelParticipantCreator, chat.admin_rights.ban_users),
+            )
         )
-    elif isinstance(chat, types.PeerChat):
+    elif event.is_group:
 
         ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
-            .full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantCreator, chat.admin_rights.ban_users)
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
+        return any(
+            isinstance(
+                next((p for p in ps if p.user_id == ui), None),
+                (types.ChatParticipantCreator, chat.admin_rights.ban_users),
+            )
         )
     else:
         return None
-
 
 
 @user_admin
