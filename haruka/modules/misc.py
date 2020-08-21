@@ -252,15 +252,10 @@ from haruka.modules.rextester.langs import languages
 from haruka.modules.sql.translation import prev_locale
 from haruka.modules.translations.strings import tld
 from requests import get
-from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
-                               ChatAdminRights, ChatBannedRights,
-                               MessageEntityMentionName, MessageMediaPhoto,
-                               ChannelParticipantsBots)
-
+from telethon.tl.types import *
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
         return isinstance(
             (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
@@ -278,7 +273,6 @@ async def is_register_admin(chat, user):
 
 async def is_register_banful(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
         return isinstance(
             (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
             (types.ChannelParticipantAdmin, types.ChatAdminRights(ban_users=True))
