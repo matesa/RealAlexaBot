@@ -275,31 +275,14 @@ async def is_register_admin(chat, user):
         return None
 
 async def is_register_banful(chat, user):
-    if isinstance(chat, (types.PeerChannel, types.Channel)):
-
-        return any(
-            isinstance(
-                (
-                    await tbot(functions.channels.GetParticipantRequest(chat, user))
-                ).participant,
-                (types.ChannelParticipantCreator, chat.admin_rights.ban_users),
-            )
-        )
-    elif isinstance(chat, types.PeerChat):
-
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+        return isinstance((await tbot(functions.channels.GetParticipantRequest(chat, user))).participant, (types.ChannelParticipantAdmin, types.ChannelParticipantCreator))
+    elif isinstance(chat, types.InputPeerChat):
         ui = await tbot.get_peer_id(user)
-        ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-        ).full_chat.participants.participants
-        return any(
-            isinstance(
-                next((p for p in ps if p.user_id == ui), None),
-                (types.ChatParticipantCreator, chat.admin_rights.ban_users),
-            )
-        )
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))).full_chat.participants.participants
+        return isinstance(next((p for p in ps if p.user_id == ui), None), (chat.admin_rights.ban_users))
     else:
         return None
-
 
 @user_admin
 @run_async
@@ -1907,10 +1890,9 @@ async def _(event):
     if event.is_private:
        return
     if event.is_group:
-      chat = event.chat
-      user = event.message.sender_id
-      if not await is_register_banful(chat, user):
-           return
+       if not (await is_register_banful(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
