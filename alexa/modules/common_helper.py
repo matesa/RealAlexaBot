@@ -4,9 +4,9 @@ from pprint import pprint
 import requests
 from telegram import Update, Bot
 from telegram.ext import CommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
 
-from haruka import dispatcher
+from alexa import dispatcher
 
 # Open API key
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"

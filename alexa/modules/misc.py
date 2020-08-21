@@ -23,20 +23,20 @@ from telegram import Message, Chat, Update, Bot, User, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import run_async, Filters
 from telegram.utils.helpers import mention_html
-from haruka import dispatcher, LOGGER, CHROME_DRIVER, GOOGLE_CHROME_BIN
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_ban_protected, can_restrict, \
+from alexa import dispatcher, LOGGER, CHROME_DRIVER, GOOGLE_CHROME_BIN
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_ban_protected, can_restrict, \
     is_user_admin, is_user_in_chat
-from haruka.modules.helper_funcs.extraction import extract_user_and_text
-from haruka.modules.helper_funcs.string_handling import extract_time
-from haruka.modules.log_channel import loggable
-from haruka.modules.translations.strings import tld
+from alexa.modules.helper_funcs.extraction import extract_user_and_text
+from alexa.modules.helper_funcs.string_handling import extract_time
+from alexa.modules.log_channel import loggable
+from alexa.modules.translations.strings import tld
 import re
 from pyDownload import Downloader
 import datetime
 import time
 import os
-from haruka.modules.helper_funcs.telethon.chat_status import user_is_ban_protectedd, user_is_adminn, is_user_adminn, haruka_is_adminn, is_user_in_chatt, can_delete_messagess, can_change_infoo, can_ban_userss, can_invite_userss, can_add_adminss, can_pin_messagess
+from alexa.modules.helper_funcs.telethon.chat_status import user_is_ban_protectedd, user_is_adminn, is_user_adminn, alexa_is_adminn, is_user_in_chatt, can_delete_messagess, can_change_infoo, can_ban_userss, can_invite_userss, can_add_adminss, can_pin_messagess
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 import pytz
@@ -50,18 +50,18 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
-from haruka.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin
+from alexa.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin
 import random
 import telegram
-import haruka.modules.sql.users_sql as sql
-from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, LOGGER, OCR_SPACE_API_KEY, IBM_WATSON_CRED_URL, IBM_WATSON_CRED_PASSWORD
-from haruka.modules.helper_funcs.filters import CustomFilters
-from haruka.modules.disable import DisableAbleCommandHandler
+import alexa.modules.sql.users_sql as sql
+from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, LOGGER, OCR_SPACE_API_KEY, IBM_WATSON_CRED_URL, IBM_WATSON_CRED_PASSWORD
+from alexa.modules.helper_funcs.filters import CustomFilters
+from alexa.modules.disable import DisableAbleCommandHandler
 USERS_GROUP = 4
 import os
 import re
 import requests
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin
+from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin
 import urllib
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
@@ -69,12 +69,12 @@ from bs4 import BeautifulSoup
 from typing import List
 from telegram import ParseMode, InputMediaPhoto, Update, Bot, TelegramError
 from telegram.ext import run_async
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
 from googleapiclient.discovery import build
 import requests 
 import urllib.request
-from haruka.modules.helper_funcs.chat_status import user_admin, is_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin, is_user_admin
 
 from telethon.errors import (BadRequestError, ChatAdminRequiredError,
                              ImageProcessFailedError, PhotoCropSizeSmallError,
@@ -144,8 +144,8 @@ import requests
 from requests import get
 from telegram import Message, Chat, Update, Bot
 from telegram.ext import run_async
-from haruka import dispatcher, updater
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa import dispatcher, updater
+from alexa.modules.disable import DisableAbleCommandHandler
 from telegram import ChatAction
 from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import Message, Update, Bot, User, Chat
@@ -154,13 +154,13 @@ from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
 
-from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, tbot, OPENWEATHERMAP_ID, YOUTUBE_API_KEY, TEMP_DOWNLOAD_DIRECTORY
-from haruka.__main__ import GDPR
-from haruka.__main__ import STATS, USER_INFO
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.extraction import extract_user
-from haruka.modules.translations.strings import tld
-from haruka.events import register
+from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, tbot, OPENWEATHERMAP_ID, YOUTUBE_API_KEY, TEMP_DOWNLOAD_DIRECTORY
+from alexa.__main__ import GDPR
+from alexa.__main__ import STATS, USER_INFO
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.translations.strings import tld
+from alexa.events import register
 from requests import get
 from telethon import events
 from telethon.errors import YouBlockedUserError
@@ -171,8 +171,8 @@ from urllib.error import HTTPError
 from wikipedia import summary
 import asyncio
 from telethon.errors import FloodWaitError
-from haruka import tbot
-from haruka.events import register
+from alexa import tbot
+from alexa.events import register
 from wikipedia.exceptions import DisambiguationError, PageError
 import os
 import time
@@ -185,12 +185,12 @@ from telegram import ParseMode, ReplyKeyboardRemove, InlineKeyboardMarkup, Inlin
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
-from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
-from haruka.__main__ import GDPR
-from haruka.__main__ import STATS, USER_INFO
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.extraction import extract_user
-from haruka.modules.translations.strings import tld
+from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
+from alexa.__main__ import GDPR
+from alexa.__main__ import STATS, USER_INFO
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.translations.strings import tld
 from requests import get
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (DownloadError, ContentTooShortError,
@@ -241,16 +241,16 @@ from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode, ReplyKeyboardRemove, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
-from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, BAN_STICKER
-from haruka.__main__ import GDPR
-from haruka.__main__ import STATS, USER_INFO
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.extraction import extract_user
-from haruka.modules.helper_funcs.filters import CustomFilters
-from haruka.modules.rextester.api import Rextester, CompilerError
-from haruka.modules.rextester.langs import languages
-from haruka.modules.sql.translation import prev_locale
-from haruka.modules.translations.strings import tld
+from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, BAN_STICKER
+from alexa.__main__ import GDPR
+from alexa.__main__ import STATS, USER_INFO
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.filters import CustomFilters
+from alexa.modules.rextester.api import Rextester, CompilerError
+from alexa.modules.rextester.langs import languages
+from alexa.modules.sql.translation import prev_locale
+from alexa.modules.translations.strings import tld
 from requests import get
 from telethon.tl.types import *
 
@@ -821,7 +821,7 @@ Syntax: `.img <Name>` or `.img (replied message)`
 \n Upgraded and Google Image Error Fixed
 """
 
-from haruka.google_imgs import googleimagesdownload
+from alexa.google_imgs import googleimagesdownload
 import os
 import shutil
 from re import findall
@@ -1262,7 +1262,7 @@ import asyncio
 from getpass import getuser
 from os import remove
 from sys import executable
-from haruka.events import register
+from alexa.events import register
 
 
 """Speech to Text
@@ -1424,8 +1424,8 @@ import requests
 from telegram import Bot, Update, ParseMode
 from telegram.ext import run_async
 
-from haruka import dispatcher, TIME_API_KEY
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa import dispatcher, TIME_API_KEY
+from alexa.modules.disable import DisableAbleCommandHandler
 
 def generate_time(to_find: str, findtype: List[str]) -> str:
     data = requests.get(f"http://api.timezonedb.com/v2.1/list-time-zone"
@@ -1501,8 +1501,8 @@ def gettime(bot: Bot, update: Update):
 from tswift import Song
 from telegram import Bot, Update, Message, Chat
 from telegram.ext import run_async
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
 
 
 @run_async
@@ -1535,7 +1535,7 @@ def lyrics(bot: Bot, update: Update, args):
 # Made by @Ayushchatterjee
 
 import wolframalpha 
-from haruka import WOLFRAM_ID
+from alexa import WOLFRAM_ID
 
 @register(pattern=r"^/alexa(?: |$)([\s\S]*)")
 async def _(event):
@@ -1622,7 +1622,7 @@ async def _(event):
 from bs4 import BeautifulSoup as bs 
 import requests
 from telethon import events
-from haruka.events import register
+from alexa.events import register
 import asyncio
 import subprocess
 import telegraph
@@ -1660,14 +1660,14 @@ async def fortunate(event):
    pit = jit.decode()
    await event.reply(pit)
 
-from haruka import *
+from alexa import *
 
 @register(pattern="^/helptorrent")
 async def helptorrent(event):
  if event.fwd_from or event.is_group:
     return 
  else:
-   topa = "./haruka/Tutorial_For_Torrent.mp4"
+   topa = "./alexa/Tutorial_For_Torrent.mp4"
    file = await event.client.upload_file(topa) 
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Torrent Module", reply_to=event.id)
    
@@ -1676,7 +1676,7 @@ async def helpcam(event):
  if event.fwd_from or event.is_group:
     return 
  else:
-   topa = "./haruka/Tutorial for Camscanner.mp4"
+   topa = "./alexa/Tutorial for Camscanner.mp4"
    file = await event.client.upload_file(topa) 
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Camscanner Module", reply_to=event.id)
    
@@ -1833,7 +1833,7 @@ import os
 import time
 from barcode.writer import ImageWriter
 import datetime
-from haruka.events import register
+from alexa.events import register
 from telethon import events
 
 
@@ -2366,8 +2366,8 @@ import io
 import html
 import json
 from PIL import ImageEnhance, ImageOps
-from haruka.events import alexabot
-from haruka import TEMP_DOWNLOAD_DIRECTORY
+from alexa.events import alexabot
+from alexa import TEMP_DOWNLOAD_DIRECTORY
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
 
 EMOJI_PATTERN = re.compile(

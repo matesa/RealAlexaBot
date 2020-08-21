@@ -12,11 +12,11 @@ from asyncio import sleep
 from telethon.tl.types import DocumentAttributeAudio
 from collections import deque
 from googleapiclient.discovery import build
-from haruka.events import register
-from haruka import YOUTUBE_API_KEY
+from alexa.events import register
+from alexa import YOUTUBE_API_KEY
 from html import unescape
 import requests
-from haruka import LOGGER, tbot
+from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
 

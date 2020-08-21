@@ -1,9 +1,9 @@
 import requests
 from telegram import Bot, Update
 from telegram.ext import CommandHandler, run_async
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
+from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin
 
-from haruka import dispatcher, CASH_API_KEY
+from alexa import dispatcher, CASH_API_KEY
 
 @user_admin
 @run_async

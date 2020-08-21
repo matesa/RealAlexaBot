@@ -1,9 +1,9 @@
 import random
 from telegram.ext import run_async, Filters, CommandHandler
 from telegram import Message, Chat, Update, Bot, MessageEntity
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 SFW_STRINGS = (
    "Owww ... Such a stupid idiot.",

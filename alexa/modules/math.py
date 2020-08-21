@@ -2,11 +2,11 @@ from typing import List
 import requests
 from telegram import Message, Update, Bot, MessageEntity
 from telegram.ext import CommandHandler, run_async
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
 import pynewtonmath as newton
 import math
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 def join(args):
     x = ''.join(map(str, args))

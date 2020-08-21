@@ -7,9 +7,9 @@ from time import sleep
 from telegram import Message, Chat, Update, Bot
 from telegram.ext import run_async, CommandHandler
 
-from haruka import dispatcher, WALL_API
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher, WALL_API
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async

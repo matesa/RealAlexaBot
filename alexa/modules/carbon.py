@@ -8,8 +8,8 @@ from time import sleep
 import asyncio
 import os
 import random
-from haruka import GOOGLE_CHROME_BIN, CHROME_DRIVER
-from haruka.events import register
+from alexa import GOOGLE_CHROME_BIN, CHROME_DRIVER
+from alexa.events import register
 import os
 import time
 import asyncio
@@ -27,7 +27,7 @@ from selenium.webdriver.chrome.options import Options
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from telethon import events
-from haruka import LOGGER, tbot
+from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
 

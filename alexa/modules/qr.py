@@ -2,8 +2,8 @@ import os
 from asyncio import sleep
 from datetime import datetime
 from requests import get, post
-from haruka.events import register
-from haruka import LOGGER, tbot
+from alexa.events import register
+from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
 

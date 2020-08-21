@@ -4,11 +4,11 @@ from typing import List, Dict
 from telegram import Bot, ParseMode, ReplyKeyboardMarkup, KeyboardButton
 from telegram.error import TelegramError
 
-from haruka import dispatcher
-from haruka.modules.translations.strings import tld
+from alexa import dispatcher
+from alexa.modules.translations.strings import tld
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 
-import haruka.modules.sql.connection_sql as con_sql
+import alexa.modules.sql.connection_sql as con_sql
 
 
 def keyboard(bot, update):

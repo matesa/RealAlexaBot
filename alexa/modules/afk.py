@@ -3,12 +3,12 @@ from telegram import Message, Update, Bot, User
 from telegram import MessageEntity, ParseMode
 from telegram.ext import Filters, MessageHandler, run_async
 import time
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from haruka.modules.sql import afk_sql as sql
-from haruka.modules.users import get_user_id
-from haruka.modules.helper_funcs.chat_status import user_admin
-from haruka.modules.translations.strings import tld
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from alexa.modules.sql import afk_sql as sql
+from alexa.modules.users import get_user_id
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.translations.strings import tld
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8

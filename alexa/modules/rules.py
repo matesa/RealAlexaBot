@@ -6,10 +6,10 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown
 
-import haruka.modules.sql.rules_sql as sql
-from haruka import dispatcher
-from haruka.modules.helper_funcs.chat_status import user_admin, user_can_change
-from haruka.modules.helper_funcs.string_handling import markdown_parser
+import alexa.modules.sql.rules_sql as sql
+from alexa import dispatcher
+from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+from alexa.modules.helper_funcs.string_handling import markdown_parser
 
 
 @run_async

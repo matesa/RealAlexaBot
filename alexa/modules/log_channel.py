@@ -1,9 +1,9 @@
 from functools import wraps
 from typing import Optional
 
-from haruka.modules.helper_funcs.misc import is_module_loaded
+from alexa.modules.helper_funcs.misc import is_module_loaded
 
-from haruka.modules.translations.strings import tld
+from alexa.modules.translations.strings import tld
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
@@ -13,9 +13,9 @@ if is_module_loaded(FILENAME):
     from telegram.ext import CommandHandler, run_async
     from telegram.utils.helpers import escape_markdown
 
-    from haruka import dispatcher, LOGGER
-    from haruka.modules.helper_funcs.chat_status import user_admin, user_can_change
-    from haruka.modules.sql import log_channel_sql as sql
+    from alexa import dispatcher, LOGGER
+    from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+    from alexa.modules.sql import log_channel_sql as sql
 
 
     def loggable(func):

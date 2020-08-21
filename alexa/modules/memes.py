@@ -18,9 +18,9 @@ from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 from deeppyer import deepfry
 
-from haruka import dispatcher, DEEPFRY_TOKEN, LOGGER
-from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher, DEEPFRY_TOKEN, LOGGER
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 WIDE_MAP = dict((i, i + 0xFEE0) for i in range(0x21, 0x7F))
 WIDE_MAP[0x20] = 0x3000

@@ -7,16 +7,16 @@ from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
 
-from haruka import dispatcher, spamfilters
-from haruka.modules.helper_funcs.chat_status import is_user_admin, user_admin, can_restrict
-from haruka.modules.helper_funcs.string_handling import extract_time
-from haruka.modules.log_channel import loggable
-from haruka.modules.sql import antiflood_sql as sql
-from haruka.modules.connection import connected
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
+from alexa import dispatcher, spamfilters
+from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin, can_restrict
+from alexa.modules.helper_funcs.string_handling import extract_time
+from alexa.modules.log_channel import loggable
+from alexa.modules.sql import antiflood_sql as sql
+from alexa.modules.connection import connected
+from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
 
-from haruka.modules.translations.strings import tld
-from haruka.modules.helper_funcs.alternate import send_message
+from alexa.modules.translations.strings import tld
+from alexa.modules.helper_funcs.alternate import send_message
 
 FLOOD_GROUP = 3
 

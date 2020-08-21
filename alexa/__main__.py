@@ -8,14 +8,14 @@ from telegram.error import Unauthorized, BadRequest, TimedOut, NetworkError, Cha
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop, Dispatcher
 from telegram.utils.helpers import escape_markdown
-from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, ALLOW_EXCL, tbot, MESSAGE_DUMP
-from haruka.modules import ALL_MODULES
+from alexa import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, ALLOW_EXCL, tbot, MESSAGE_DUMP
+from alexa.modules import ALL_MODULES
 from sys import argv
-from haruka.modules.helper_funcs.chat_status import is_user_admin
-from haruka.modules.helper_funcs.misc import *
-from haruka.modules.translations.strings import tld, tld_help 
-from haruka.modules.connection import connected
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.misc import *
+from alexa.modules.translations.strings import tld, tld_help 
+from alexa.modules.connection import connected
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
 [#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
@@ -35,7 +35,7 @@ USER_SETTINGS = {}
 GDPR = []
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("haruka.modules." + module_name)
+    imported_module = importlib.import_module("alexa.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 

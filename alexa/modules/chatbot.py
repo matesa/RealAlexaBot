@@ -1,6 +1,6 @@
 # AI module using Intellivoid's Coffeehouse API by @TheRealPhoenix
 from time import time, sleep
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
+from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
@@ -9,10 +9,10 @@ from telegram import Update, Bot
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.error import BadRequest, Unauthorized, RetryAfter
 
-from haruka import dispatcher, LYDIA_API_KEY, OWNER_ID
-import haruka.modules.sql.chatbot_sql as sql
-from haruka.modules.helper_funcs.chat_status import user_admin
-from haruka.modules.helper_funcs.filters import CustomFilters
+from alexa import dispatcher, LYDIA_API_KEY, OWNER_ID
+import alexa.modules.sql.chatbot_sql as sql
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.filters import CustomFilters
 
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)

@@ -6,11 +6,11 @@ from telegram import ParseMode, MAX_MESSAGE_LENGTH
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 
-import haruka.modules.sql.userinfo_sql as sql
-from haruka import dispatcher, SUDO_USERS, OWNER_ID
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.extraction import extract_user
-from haruka.modules.helper_funcs.chat_status import user_admin
+import alexa.modules.sql.userinfo_sql as sql
+from alexa import dispatcher, SUDO_USERS, OWNER_ID
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async

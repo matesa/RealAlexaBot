@@ -6,16 +6,16 @@ from telegram import Message, Chat, Update, Bot, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 
-import haruka.modules.sql.blacklist_sql as sql
-from haruka import dispatcher, LOGGER
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
-from haruka.modules.helper_funcs.extraction import extract_text
-from haruka.modules.helper_funcs.misc import split_message
+import alexa.modules.sql.blacklist_sql as sql
+from alexa import dispatcher, LOGGER
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
+from alexa.modules.helper_funcs.extraction import extract_text
+from alexa.modules.helper_funcs.misc import split_message
 
-from haruka.modules.connection import connected
+from alexa.modules.connection import connected
 
-from haruka.modules.translations.strings import tld
+from alexa.modules.translations.strings import tld
 
 BLACKLIST_GROUP = 11
 

@@ -6,10 +6,10 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CommandHandler, RegexHandler, run_async, Filters, CallbackQueryHandler
 from telegram.utils.helpers import mention_html
 
-from haruka import dispatcher, LOGGER
-from haruka.modules.helper_funcs.chat_status import user_not_admin, user_admin
-from haruka.modules.log_channel import loggable
-from haruka.modules.sql import reporting_sql as sql
+from alexa import dispatcher, LOGGER
+from alexa.modules.helper_funcs.chat_status import user_not_admin, user_admin
+from alexa.modules.log_channel import loggable
+from alexa.modules.sql import reporting_sql as sql
 
 REPORT_GROUP = 5
 

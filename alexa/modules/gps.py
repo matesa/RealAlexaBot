@@ -9,12 +9,12 @@ from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
                                                       
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.extraction import extract_user
-from haruka.modules.helper_funcs.filters import CustomFilters
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.filters import CustomFilters
 
 from geopy.geocoders import Nominatim
 from telegram import Location

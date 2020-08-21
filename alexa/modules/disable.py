@@ -5,22 +5,22 @@ from telegram import ParseMode, Update, Bot, Chat, User
 from telegram.ext import CommandHandler, RegexHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
-from haruka import dispatcher
-from haruka.modules.helper_funcs.handlers import CMD_STARTERS
-from haruka.modules.helper_funcs.misc import is_module_loaded
+from alexa import dispatcher
+from alexa.modules.helper_funcs.handlers import CMD_STARTERS
+from alexa.modules.helper_funcs.misc import is_module_loaded
 
-from haruka.modules.translations.strings import tld
+from alexa.modules.translations.strings import tld
 
-from haruka.modules.connection import connected
+from alexa.modules.connection import connected
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
 if is_module_loaded(FILENAME):
-    from haruka.modules.helper_funcs.chat_status import user_admin, is_user_admin
+    from alexa.modules.helper_funcs.chat_status import user_admin, is_user_admin
     from telegram.ext.dispatcher import run_async
 
-    from haruka.modules.sql import disable_sql as sql
+    from alexa.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []
     DISABLE_OTHER = []

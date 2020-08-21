@@ -71,7 +71,7 @@ if ENV:
     SUDO_USERS.add(OWNER_ID)
     GBAN_LOGS = os.environ.get('GBAN_LOGS', None)
     LYDIA_API_KEY = os.environ.get('LYDIA_API_KEY', None)
-    tbot = TelegramClient("haruka", API_KEY, API_HASH)
+    tbot = TelegramClient("alexa", API_KEY, API_HASH)
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
@@ -86,7 +86,7 @@ if ENV:
     CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
     TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
     # Load at end to ensure all prev variables have been set
-    from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
+    from alexa.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
     if ALLOW_EXCL:
@@ -96,7 +96,7 @@ if ENV:
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = list(SPAMMERS)
     try:
-      from haruka.antispam import antispam_restrict_user, antispam_cek_user, detect_user
+      from alexa.antispam import antispam_restrict_user, antispam_cek_user, detect_user
       antispam_module = True
     except ModuleNotFoundError:
       antispam_module = False

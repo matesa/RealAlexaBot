@@ -5,10 +5,10 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 
 import tldextract
-from haruka import LOGGER, dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
-from haruka.modules.sql import urlblacklist_sql as sql
+from alexa import LOGGER, dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin, user_not_admin, user_can_change
+from alexa.modules.sql import urlblacklist_sql as sql
 
 
 @run_async

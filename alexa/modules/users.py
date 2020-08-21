@@ -11,14 +11,14 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler
 from telegram.ext.dispatcher import run_async
 
-import haruka.modules.sql.users_sql as sql
-from haruka import dispatcher, OWNER_ID, LOGGER, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
+import alexa.modules.sql.users_sql as sql
+from alexa import dispatcher, OWNER_ID, LOGGER, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 from telegram.utils.helpers import escape_markdown
-from haruka.modules.helper_funcs.filters import CustomFilters
-from haruka.modules.helper_funcs.chat_status import is_user_ban_protected, bot_admin
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.filters import CustomFilters
+from alexa.modules.helper_funcs.chat_status import is_user_ban_protected, bot_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
 
-from haruka.modules.translations.strings import tld
+from alexa.modules.translations.strings import tld
 
 USERS_GROUP = 4
 

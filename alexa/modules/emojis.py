@@ -5,7 +5,7 @@ from telegram import Message, Update, Bot, User
 from pathlib import Path
 import glob
 import os
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
 from typing import Optional, List
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
@@ -16,8 +16,8 @@ nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
 
-from haruka import dispatcher
-from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 
 # D A N K modules by @deletescape vvv
 

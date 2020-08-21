@@ -4,11 +4,11 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from haruka.events import register
+from alexa.events import register
 import glob
 import os
 import spotdl, subprocess
-from haruka import LOGGER, tbot
+from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
 

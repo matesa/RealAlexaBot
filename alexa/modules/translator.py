@@ -4,9 +4,9 @@ from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 
-from haruka import dispatcher, LOGGER
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher, LOGGER
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 from googletrans import LANGUAGES, Translator
 

@@ -7,21 +7,21 @@ from telegram import Message, Chat, Update, Bot
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async, Filters
 
-import haruka.modules.sql.notes_sql as sql
-from haruka import dispatcher, LOGGER, OWNER_ID, SUDO_USERS, MESSAGE_DUMP
-from haruka.__main__ import DATA_IMPORT
-from haruka.modules.helper_funcs.chat_status import user_admin
-from haruka.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from haruka.modules.helper_funcs.msg_types import get_note_type
-from haruka.modules.rules import get_rules
-import haruka.modules.sql.rules_sql as rulessql
-from haruka.modules.sql import warns_sql as warnssql
-import haruka.modules.sql.blacklist_sql as blacklistsql
-#    from haruka.modules.sql import disable_sql as disabledsql
-from haruka.modules.sql import cust_filters_sql as filtersql
-import haruka.modules.sql.welcome_sql as welcsql
-import haruka.modules.sql.locks_sql as locksql
-from haruka.modules.connection import connected
+import alexa.modules.sql.notes_sql as sql
+from alexa import dispatcher, LOGGER, OWNER_ID, SUDO_USERS, MESSAGE_DUMP
+from alexa.__main__ import DATA_IMPORT
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from alexa.modules.helper_funcs.msg_types import get_note_type
+from alexa.modules.rules import get_rules
+import alexa.modules.sql.rules_sql as rulessql
+from alexa.modules.sql import warns_sql as warnssql
+import alexa.modules.sql.blacklist_sql as blacklistsql
+#    from alexa.modules.sql import disable_sql as disabledsql
+from alexa.modules.sql import cust_filters_sql as filtersql
+import alexa.modules.sql.welcome_sql as welcsql
+import alexa.modules.sql.locks_sql as locksql
+from alexa.modules.connection import connected
 
 @run_async
 @user_admin
@@ -72,11 +72,11 @@ def import_data(bot: Bot, update: Update):
 					text = "Backup comes from another chat, I can't return another chat to this chat"
 				return msg.reply_text(text, parse_mode="markdown")
 		except:
-			return msg.reply_text("There is problem while importing the data! Please ask in @harukaRobotSupport about why this happened.")
+			return msg.reply_text("There is problem while importing the data! Please ask in @alexaRobotSupport about why this happened.")
 		# Check if backup is from self
 		try:
 			if str(bot.id) != str(data[str(chat.id)]['bot']):
-				return msg.reply_text("Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be. However, You can still request a feature regarding this in @harukaRobotSupport !")
+				return msg.reply_text("Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be. However, You can still request a feature regarding this in @alexaRobotSupport !")
 		except:
 			pass
 		# Select data source
@@ -89,7 +89,7 @@ def import_data(bot: Bot, update: Update):
 			for mod in DATA_IMPORT:
 				mod.__import_data__(str(chat.id), data)
 		except Exception:
-			msg.reply_text("An error occurred while recovering your data. The process failed. If you experience a problem with this, please ask in @harukaAyaGroup . My owner and community will be happy to help. Also, bugs report makes me even better!\nThank you!")
+			msg.reply_text("An error occurred while recovering your data. The process failed. If you experience a problem with this, please ask in @alexaAyaGroup . My owner and community will be happy to help. Also, bugs report makes me even better!\nThank you!")
 
 			LOGGER.exception("Imprt for the chat %s with the name %s failed.", str(chat.id), str(chat.title))
 			return

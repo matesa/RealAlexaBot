@@ -1,14 +1,14 @@
-from haruka.modules.sql.translation import switch_to_locale, prev_locale
-from haruka.modules.translations.strings import tld
+from alexa.modules.sql.translation import switch_to_locale, prev_locale
+from alexa.modules.translations.strings import tld
 from telegram.ext import CommandHandler
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from haruka import dispatcher
-from haruka.modules.translations.list_locale import list_locales
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher
+from alexa.modules.translations.list_locale import list_locales
+from alexa.modules.helper_funcs.chat_status import user_admin
 from telegram.ext import CallbackQueryHandler
 import re
 
-from haruka.modules.connection import connected
+from alexa.modules.connection import connected
 
 
 @user_admin

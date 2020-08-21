@@ -21,10 +21,10 @@ from telegram import Update, Bot
 from telegram.ext import CommandHandler, run_async
 from telegram.utils.helpers import escape_markdown
 
-from haruka import dispatcher
-from haruka.modules.helper_funcs.chat_status import user_admin
+from alexa import dispatcher
+from alexa.modules.helper_funcs.chat_status import user_admin
 
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa.modules.disable import DisableAbleCommandHandler
 
 @run_async
 @user_admin

@@ -6,8 +6,8 @@ import re
 import subprocess
 import time
 from datetime import datetime
-from haruka.events import register
-from haruka import LOGGER, tbot
+from alexa.events import register
+from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
 

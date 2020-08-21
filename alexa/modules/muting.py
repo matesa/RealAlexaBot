@@ -8,15 +8,15 @@ from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, User, CallbackQuery
 
-from haruka import dispatcher, LOGGER, SUDO_USERS
-from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_admin, can_restrict, user_can_ban
-from haruka.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from haruka.modules.helper_funcs.string_handling import extract_time
-from haruka.modules.log_channel import loggable
+from alexa import dispatcher, LOGGER, SUDO_USERS
+from alexa.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_admin, can_restrict, user_can_ban
+from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from alexa.modules.helper_funcs.string_handling import extract_time
+from alexa.modules.log_channel import loggable
 
-from haruka.modules.translations.strings import tld
-from haruka.modules.connection import connected
-from haruka.modules.disable import DisableAbleCommandHandler
+from alexa.modules.translations.strings import tld
+from alexa.modules.connection import connected
+from alexa.modules.disable import DisableAbleCommandHandler
 
 
 @run_async
