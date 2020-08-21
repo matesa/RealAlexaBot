@@ -260,8 +260,6 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
             update.effective_message.reply_text("Reaction on admin commands for users now `enabled`!", parse_mode=ParseMode.MARKDOWN)
         
 __help__ = """
-Here is the help for the Admin 🚫 module:
-
  - /adminlist | /admins: list of admins in the chat
  - /users: list all the users in the chat
  - /pin | /unpin: pins/unpins the message in the chat
@@ -280,6 +278,10 @@ Here is the help for the Admin 🚫 module:
  - /tmute <d/h/m>: temporarily mute a user
  - /unmute: unmutes a user
  - /kick: kicks a user 
+ - /connect: connect a chat (Can be done in a group by /connect or /connect <chat id> in PM) 
+ - /connection: list connected chats 
+ - /disconnect: disconnect from a chat
+ - /helpconnect: list available commands that can be done remotely 
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
  - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
  - /flood: gets the current antiflood settings
