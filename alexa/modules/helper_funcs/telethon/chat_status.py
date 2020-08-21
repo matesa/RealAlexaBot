@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from haruka import tbot, SUDO_USERS, WHITELIST_USERS
+from alexa import tbot, SUDO_USERS, WHITELIST_USERS
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
@@ -54,12 +54,12 @@ async def is_user_adminn(user_id: int, chat_id):
     return status
 
 
-async def haruka_is_adminn(chat_id: int):
+async def alexa_is_adminn(chat_id: int):
     status = False
-    haruka = await tbot.get_me()
+    alexa = await tbot.get_me()
     async for user in tbot.iter_participants(chat_id,
                                              filter=ChannelParticipantsAdmins):
-        if haruka.id == user.id:
+        if alexa.id == user.id:
             status = True
             break
     return status
