@@ -275,27 +275,20 @@ async def is_register_admin(chat, user):
         return None
 
 async def is_register_banful(chat, user):
-    if event.is_channel:
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
-        return any(
-            isinstance(
-                (
-                    await tbot(functions.channels.GetParticipantRequest(chat, user))
-                ).participant,
-                (types.ChannelParticipantCreator, chat.admin_rights.ban_users),
-            )
+        return isinstance(
+            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
+            (types.ChannelParticipantAdmin, type(chat.admin_rights.ban_users))
         )
-    elif event.is_group:
+    elif isinstance(chat, types.InputPeerChat):
 
         ui = await tbot.get_peer_id(user)
-        ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-        ).full_chat.participants.participants
-        return any(
-            isinstance(
-                next((p for p in ps if p.user_id == ui), None),
-                (types.ChatParticipantCreator, chat.admin_rights.ban_users),
-            )
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
+            .full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, type(chat.admin_rights.ban_users))
         )
     else:
         return None
@@ -1909,7 +1902,7 @@ async def _(event):
     if event.is_private:
        return 
     if event.is_group:
-       if not (await is_register_banful(event.chat, event.message.sender_id)):
+       if not (await is_register_banful(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
     done = await event.reply("Searching Participant Lists.")
