@@ -2467,7 +2467,51 @@ async def savel(event):
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
   await randika.delete()
-         
+        
+
+from telethon import events, functions, types
+import asyncio
+
+from asyncio import sleep
+from os import remove
+from telethon import events
+from telethon.tl import functions, types
+from platform import python_version, uname
+from telethon.errors import (BadRequestError, ChatAdminRequiredError,
+                             ImageProcessFailedError, PhotoCropSizeSmallError,
+                             UserAdminInvalidError)
+from telethon.errors.rpcerrorlist import (UserIdInvalidError,
+                                          MessageTooLongError)
+from telethon.tl.functions.channels import (EditAdminRequest,
+                                            EditBannedRequest,
+                                            EditPhotoRequest)
+from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
+                               ChatAdminRights, ChatBannedRights,
+                               MessageEntityMentionName, MessageMediaPhoto,
+                               ChannelParticipantsBots)
+
+
+@register(pattern="^/listmyusernames")
+async def usernames(event):
+    if event.fwd_from:
+        return
+    result = await tbot(functions.channels.GetAdminedPublicChannelsRequest())
+    output_str = ""
+    for channel_obj in result.chats:
+        output_str += f"- {channel_obj.title} @{channel_obj.username} \n"
+    await event.reply(output_str)
+    
+@register(pattern="^/listmychatids")
+async def userid(event):
+    if event.fwd_from:
+        return
+    result = await tbot(functions.channels.GetAdminedPublicChannelsRequest())
+    output_str = ""
+    for channel_obj in result.chats:
+        output_str += f"-{channel_obj.id} \n"
+    await event.reply(output_str)
+    
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
