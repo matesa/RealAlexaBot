@@ -2515,8 +2515,6 @@ async def sticklet(event):
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
     global image_stream
-    os.mkdir("stickleted")
-    os.chdir("stickleted")
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
@@ -2559,8 +2557,8 @@ async def stickleter(event):
     entity = await event.client.get_entity('AyushChatterjee')
     await event.client.send_message(entity, "/stickleted")
     await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
-    os.chdir("./")
-    os.system("rm -rf stickleted")
+    f = open('image_stream', 'w')
+    f.truncate()
     await event.delete()
 
 __help__ = """
