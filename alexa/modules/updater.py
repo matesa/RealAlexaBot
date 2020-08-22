@@ -56,6 +56,12 @@ async def update_requirements():
 
 @register(pattern="^/update(?: |$)(.*)")
 async def upstream(ups):
+  check = event.message.sender_id
+  checkint = int(check)
+  print(checkint)
+  if int(check) != int(OWNER_ID):
+       return
+  else:
     "For .update command, check if the bot is up to date, update if specified"
     lol = await ups.reply("`Checking for updates, please wait....`")
     conf = ups.pattern_match.group(1)
@@ -78,7 +84,7 @@ async def upstream(ups):
         if conf != "now":
             await lol.edit(
                 f"`Unfortunately, the directory {error} does not seem to be a git repository.\
-            \nBut we can fix that by force updating the alexa using .update now.`"
+            \nBut we can fix that by force updating the alexa using /update now.`"
             )
             return
         repo = Repo.init()
