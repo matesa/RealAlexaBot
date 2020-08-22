@@ -1950,7 +1950,7 @@ async def _(event):
     except Exception as e:
         await event.reply(str(e))
         return
-    end = datetime.now()
+    end = datetime.datetime.now()
     ms = (end - start).seconds
     await event.reply("Created BarCode in {} seconds".format(ms))
 
