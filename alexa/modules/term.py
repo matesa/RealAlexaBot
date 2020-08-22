@@ -1,4 +1,5 @@
-from alexa.events import register, OWNER ID
+from alexa.events import register
+from alexa import OWNER ID
 import asyncio
 from getpass import getuser
 from os import remove
