@@ -66,3 +66,4 @@ pymongo
 dnspython
 heroku3
 gitpython
+bing_image_downloader
