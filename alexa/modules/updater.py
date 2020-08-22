@@ -63,7 +63,7 @@ async def updateme_requirements():
         return repr(e)
 
 
-@register("^/update (.*)")
+@register(pattern="^/update (.*)")
 async def upstream(ups):
  check = ups.message.sender_id
  checkint = int(check)
