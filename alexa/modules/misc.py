@@ -2557,8 +2557,9 @@ async def stickleter(event):
     entity = await event.client.get_entity('AyushChatterjee')
     await event.client.send_message(entity, "/stickleted")
     await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
-    os.remove("@Alexa.webp.WebP")
-    # os.remove(image_stream)
+    tth = str(image_stream)
+    print(tth)
+    os.remove(tth)
     await event.delete()
 
 __help__ = """
