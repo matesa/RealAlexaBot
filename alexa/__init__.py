@@ -113,6 +113,7 @@ if ENV:
     HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", None)
     GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
     HEROKU_LINK = os.environ.get("HEROKU_GIT_URL")
+    REPO_LINK = os.environ.get("UPSTREAM_REPO_URL")
     UPSTREAM_REPO_URL = os.environ.get(
         "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
