@@ -319,18 +319,6 @@ __help__ = """
  - /warnlimit <num>: set the max warning limit
  - /warns <userhandle>: get a user's number, and reason, of warnings
  - /warnlist: list of all current warning filters
- - /strongwarn <on/yes/off/no>: exceeding warn limit will result in kick, if set to true will ban instead
- - /welcome <on/off/yes/no>: Will the bot welcome new members ?
- - /goodbye <on/off/yes/no>: Will the bot bid farewell when someone leave ?
- - /setwelcome <message>: set the welcome message 
- - /resetwelcome: clear the welcome message 
- - /setgoodbye <message>: set the goodbye message
- - /resetgoodbye: clear the goodbye message 
- - /cleanwelcome <on/off/yes/no>: clean welcome message 
- - /cleanservice <on/off/yes/no>: clean all service messages join/left
- - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
- - /welcomehelp: detailed help about how to set welcome message
- - /unbanall: unbans all users in the chat
 """
 
 __mod_name__ = "Admin 🚫"
