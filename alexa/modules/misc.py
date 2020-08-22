@@ -17,7 +17,6 @@ import time
 import urllib.request
 from asyncio import sleep
 from collections import deque
-from datetime import datetime
 from datetime import timedelta
 from datetime import tzinfo
 from getpass import getuser
