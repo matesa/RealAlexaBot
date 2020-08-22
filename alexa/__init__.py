@@ -107,8 +107,12 @@ if ENV:
         tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
-    HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+    HEROKU_MEMEZ = os.environ.get("HEROKU_MEMEZ", None)
+    HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", None)
+    GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
+    HEROKU_LINK = os.environ.get("HEROKU_GIT_URL")
     UPSTREAM_REPO_URL = os.environ.get(
         "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
