@@ -1,4 +1,2 @@
-build:
-  worker: python3 -m alexa
 run:
   worker: python3 -m alexa
