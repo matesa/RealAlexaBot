@@ -816,17 +816,27 @@ async def figlet(event):
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
 
-"""Download & Upload Images on Telegram\n
-Syntax: `.img <Name>` or `.img (replied message)`
-\n Upgraded and Google Image Error Fixed
-"""
+
+# MADE BY @AyushChatterjee
 
 from alexa.google_imgs import googleimagesdownload
 import os
 import shutil
 from re import findall
+from bing_image_downloader import downloader
+import cv2
+import os
 
-@register(pattern="^/img ?(.*)")
+def load_images_from_folder():
+    images = []
+    for filename in os.listdir('outimages/{query}'):
+        img = cv2.imread(os.path.join('outimages/{query}',filename))
+        if img is not None:
+            global chutchuthi
+            chutchuthi.append(img)
+    return chutchuthi
+
+@register(pattern="^/img (.*)")
 async def img_sampler(event):
     if event.fwd_from:
         return
@@ -834,37 +844,14 @@ async def img_sampler(event):
        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-    reply = await event.get_reply_message()
-    if event.pattern_match.group(1):
-        query = event.pattern_match.group(1)
-    elif reply:
-        query = reply.message
-    else:
-    	return
-        
-    lim = findall(r"lim=\d+", query)
-    # lim = event.pattern_match.group(1)
-    try:
-        lim = lim[0]
-        lim = lim.replace("lim=", "")
-        query = query.replace("lim=" + lim[0], "")
-    except IndexError:
-        lim = 5
-    response = googleimagesdownload()
+     query = event.pattern_match.group(1)
+     hh = f'"{query}"'
+     downloader.download(hh, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
+     os.system(f'cd outimages/{query}')
+     load_images_from_folder()
+     await event.reply(chutchuthi)
+     os.system('rm -rf outimages')
 
-    # creating list of arguments
-    arguments = {
-        "keywords": query,
-        "limit": lim,
-        "format": "jpg",
-        "no_directory": "no_directory"
-    }
-
-    # passing the arguments to the function
-    paths = response.download(arguments)
-    lst = paths[0][query]
-    await event.client.send_file(await event.client.get_input_entity(event.chat_id), lst)
-    shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
 
 @run_async
 @user_admin
