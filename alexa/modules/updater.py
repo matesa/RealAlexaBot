@@ -24,6 +24,7 @@ from git.exc import NoSuchPathError
 from alexa import HEROKU_APIKEY
 from alexa import HEROKU_APPNAME
 from alexa import UPSTREAM_REPO_URL
+from alexa import OWNER_ID
 from alexa.events import register
 
 requirements_path = path.join(
