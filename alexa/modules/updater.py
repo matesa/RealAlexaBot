@@ -30,6 +30,7 @@ from telethon.tl.types import MessageEntityMentionName
 from telethon import events
 
 from alexa.events import register
+from alexa import OWNER_ID
 
 
 from contextlib import suppress
@@ -63,7 +64,7 @@ async def updateme_requirements():
         return repr(e)
 
 
-@register(pattern="^/update (.*)")
+@register(pattern="^/update(?: |$)(.*)")
 async def upstream(ups):
  check = ups.message.sender_id
  checkint = int(check)
