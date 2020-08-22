@@ -2481,6 +2481,22 @@ from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 
 
+@register(pattern="^/sticklet (.*)")
+async def stickleter(event):
+    if event.is_group:
+      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    global stickletedtext
+    stickletedtext = event.pattern_match.group(1)
+    entity = await event.client.get_entity('AyushChatterjee')
+    await event.client.send_message(entity, "/stickleted")
+    hak = await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
+    os.system('rm -rf image_stream')
+    await hak.delete()
+
+
+
 @alexabot(pattern="^/stickleted")
 async def sticklet(event):
     R = random.randint(0,256)
@@ -2546,20 +2562,6 @@ async def get_font_file(client, channel_id):
     # download and return the file path
     return await client.download_media(font_file_message)
 
-@register(pattern="^/sticklet (.*)")
-async def stickleter(event):
-    if event.is_group:
-      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
-    global stickletedtext
-    stickletedtext = event.pattern_match.group(1)
-    entity = await event.client.get_entity('AyushChatterjee')
-    await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
-    f = open('image_stream', 'w')
-    f.truncate()
-    await event.delete()
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
