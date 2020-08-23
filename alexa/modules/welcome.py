@@ -677,7 +677,7 @@ from telegram.utils.helpers import mention_markdown, mention_html, escape_markdo
 
 import alexa.modules.sql.welcome_sql as sql
 from alexa import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change, welcome_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, welcome_user_admin
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_welcome_type
 from alexa.modules.helper_funcs.string_handling import markdown_parser, \
@@ -768,7 +768,7 @@ def new_member(bot: Bot, update: Update):
                     "I have been added to {} with ID: <pre>{}</pre>".format(chat.title, chat.id),
                     parse_mode=ParseMode.HTML
                 )
-                bot.send_message(chat.id, "Thanks To Add,Give Some Commands Now 😃")
+                bot.send_message(chat.id, "Thanks To Add, Give Some Commands Now 😀\nJoin @RealAlexaBotSupport for any questions !")
 
             else:
                 # If welcome message is media, send with appropriate function
@@ -825,7 +825,7 @@ def new_member(bot: Bot, update: Update):
                 #Add "I'm not bot button if enabled hard security"
                 if sql.welcome_security(chat.id) == "hard":
                     update.effective_message.reply_text("Hi {}, click on button below to prove you not a bot.".format(new_mem.first_name),
-                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="✅ Click here to talk ✅ ",
+                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Click To Verify Human ✅",
                          callback_data="check_bot_({})".format(new_mem.id)) ]]))
                     #Mute user
                     bot.restrict_chat_member(chat.id, new_mem.id, can_send_messages=False, can_send_media_messages=False, can_send_other_messages=False, can_add_web_page_previews=False)
@@ -921,7 +921,7 @@ def left_member(bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 def welcome(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
     # if no args, show current replies.
@@ -967,7 +967,7 @@ def welcome(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 def goodbye(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
 
@@ -1013,7 +1013,7 @@ def goodbye(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 @loggable
 def set_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1037,7 +1037,7 @@ def set_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 @loggable
 def reset_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1052,7 +1052,7 @@ def reset_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 @loggable
 def set_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1074,7 +1074,7 @@ def set_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 @loggable
 def reset_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1089,7 +1089,7 @@ def reset_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 @loggable
 def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1126,7 +1126,7 @@ def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 def security(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if len(args) >= 1:
@@ -1149,7 +1149,7 @@ def security(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@user_admin
+@welcome_user_admin
 def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
@@ -1168,6 +1168,7 @@ def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
             update.effective_message.reply_text("Please enter yes or no!", parse_mode=ParseMode.MARKDOWN)
     else:
         update.effective_message.reply_text("Please enter yes or no in your group!", parse_mode=ParseMode.MARKDOWN)
+
 
 WELC_HELP_TXT = "Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages" \
                 " to be individually generated, like the default welcome message is, you can use *these* variables:\n" \
@@ -1194,9 +1195,21 @@ WELC_HELP_TXT = "Your group's welcome/goodbye messages can be personalised in mu
                 "replying to the desired media, and calling /setwelcome.".format(dispatcher.bot.username)
 
 @run_async
-@user_admin
-def welcome_help(bot: Bot, update: Update):
+@welcome_user_admin
+def welcome_hhelp(bot: Bot, update: Update):
     update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
+
+
+# TODO: get welcome data from group butler snap
+# def __import_data__(chat_id, data):
+#     welcome = data.get('info', {}).get('rules')
+#     welcome = welcome.replace('$username', '{username}')
+#     welcome = welcome.replace('$name', '{fullname}')
+#     welcome = welcome.replace('$id', '{id}')
+#     welcome = welcome.replace('$title', '{chatname}')
+#     welcome = welcome.replace('$surname', '{lastname}')
+#     welcome = welcome.replace('$rules', '{rules}')
+#     sql.set_custom_welcome(chat_id, welcome, sql.Types.TEXT)
 
 
 def __migrate__(old_chat_id, new_chat_id):
@@ -1220,7 +1233,8 @@ SET_GOODBYE = CommandHandler("setgoodbye", set_goodbye, filters=Filters.group)
 RESET_WELCOME = CommandHandler("resetwelcome", reset_welcome, filters=Filters.group)
 RESET_GOODBYE = CommandHandler("resetgoodbye", reset_goodbye, filters=Filters.group)
 CLEAN_WELCOME = CommandHandler("cleanwelcome", clean_welcome, pass_args=True, filters=Filters.group)
-WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)
+WELCOME_HELP = CommandHandler("welcomehelp", welcome_hhelp)
+
 SECURITY_HANDLER = CommandHandler("welcomesecurity", security, pass_args=True, filters=Filters.group)
 CLEAN_SERVICE_HANDLER = CommandHandler("cleanservice", cleanservice, pass_args=True, filters=Filters.group)
 
@@ -1232,11 +1246,10 @@ dispatcher.add_handler(WELC_PREF_HANDLER)
 dispatcher.add_handler(GOODBYE_PREF_HANDLER)
 dispatcher.add_handler(SET_WELCOME)
 dispatcher.add_handler(SET_GOODBYE)
-dispatcher.add_handler(WELCOME_HELP)
 dispatcher.add_handler(RESET_WELCOME)
 dispatcher.add_handler(RESET_GOODBYE)
 dispatcher.add_handler(CLEAN_WELCOME)
 dispatcher.add_handler(SECURITY_HANDLER)
 dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
-
+dispatcher.add_handler(WELCOME_HELP)
 dispatcher.add_handler(help_callback_handler)
