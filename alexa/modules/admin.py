@@ -946,14 +946,58 @@ __help__ = """
  - /unmute: unmutes a user
  - /kick: kicks a user 
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
- - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m
+ - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
  - /flood: gets the current antiflood settings
- - /addblacklist <trigger> : blacklists the trigger it will get removed everytime someone types it
- - /unblacklist <trigger> | /rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
+ - /addblacklist <trigger> : blacklists the trigger
+ - /unblacklist <trigger> | rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
  - /blacklist: list all active blacklist filters
- - /addblacklist "the admins suck": This will remove the text everytime someone types it
- - /addblacklist "bit.ly/*": This will remove the link everytime someone sends it matching bit.ly
+ - /addblacklist "the admins suck" respect your admins: This will remove the text everytime someone types it
+ - /addblacklist `"bit.ly/*"`: This will remove the link everytime someone sends it matching `bit.ly`
+ - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
+ - /stop <word>: stop that filter.
+ - /filters: list all active filters in this chat.
+ - /connection <chatid>: Connect to remote chat
+ - /disconnect: disconnects a chat from pm
+ - /allowconnect on/yes/off/no: allow connect users to group via PM
+ - /helpconnect: gets the available list commands 
+ - /lock <item(s)>: lock the usage of "item" for non-admins
+ - /unlock <item(s)>: unlock "item". Everyone can use them again
+ - /locks: list the lock status in the chat
+ - /locktypes: gets a list of all things that can be locked
+ - /setlog: set a log channel.
+ - /unsetlog: unset the log channel.
+ - /logchannel: get the log channel info
+ - /purge: deletes all messages from the message you replied to
+ - /purge X: deletes X messages after the message you replied to 
+ - /del: deletes the message you replied to.
+ - /save <word> <sentence>: Save that sentence to the note called "word"
+ - /get <word> | #<word> : get the note registered to that word
+ - /clear <word>: delete the note called "word"
+ - /notes | /saved: List all notes in the chat
+ - /setrules <rules>: set the rules for this chat
+ - /clearrules: clear the rules for this chat
+ - /rules: get the rules for this chat
+ - /addurl <url>: Add a domain to the blacklist, the bot will automatically parse the url
+ - /delurl <url>: Remove url from the blacklist
+ - /warn <userhandle>: warn a user
+ - /resetwarn @username: reset the warnings for a user
+ - /addwarn <word> <message>: set a warning filter on a certain word
+ - /nowarn <word>: stop a warning filter
+ - /warnlimit <num>: set the max warning limit
+ - /warns <userhandle>: get a user's number, and reason, of warnings
+ - /warnlist: list of all current warning filters
+ - /strongwarn <on/yes/off/no>: exceeding warn limit will result in kick, if set to true will ban instead
+ - /welcome <on/off/yes/no>: Will the bot welcome new members ?
+ - /goodbye <on/off/yes/no>: Will the bid farewell when someone leave ?
+ - /setwelcome <message>: set the welcome message 
+ - /resetwelcome: clear the welcome message 
+ - /setgoodbye <message>: set the goodbye message
+ - /resetgoodbye: clear the goodbye message 
+ - /cleanwelcome <on/off/yes/no>: clean welcome message 
+ - /cleanservice <on/off/yes/no>: clean all service messages
+ - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
 """
+
 __mod_name__ = "Admin 🚫"
 
 PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.group)
