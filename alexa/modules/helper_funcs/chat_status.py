@@ -883,7 +883,7 @@ def welcome_user_admin(func):
         elif not user:
             pass
          
-       if not (member.can_change_info or member.status == "creator"):
+        if not (member.can_change_info or member.status == "creator"):
             return
             
         elif DEL_CMDS and " " not in update.effective_message.text:
