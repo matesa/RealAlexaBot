@@ -819,7 +819,7 @@ async def figlet(event):
 
 # MADE BY @AyushChatterjee
 
-from alexa.google_imgs import googleimagesdownload
+# from alexa.google_imgs import googleimagesdownload
 import os
 import shutil
 from re import findall
@@ -845,11 +845,10 @@ async def img_sampler(event):
           await event.reply("")
           return
      query = event.pattern_match.group(1)
-     hh = f'"{query}"'
-     downloader.download(hh, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
+     downloader.download(query, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
      os.system(f'cd outimages/{query}')
      load_images_from_folder()
-     await event.reply(chutchuthi)
+     await event.client.send_file(event.chat_id, chutchuthi, reply_to=event.id)
      os.system('rm -rf outimages')
 
 
