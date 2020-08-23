@@ -824,17 +824,8 @@ import os
 import shutil
 from re import findall
 from bing_image_downloader import downloader
-import cv2
 import os
-
-def load_images_from_folder():
-    images = []
-    for filename in os.listdir('outimages/{query}'):
-        img = cv2.imread(os.path.join('outimages/{query}',filename))
-        if img is not None:
-            global chutchuthi
-            chutchuthi.append(img)
-    return chutchuthi
+import cv2
 
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
@@ -845,10 +836,14 @@ async def img_sampler(event):
           await event.reply("")
           return
      query = event.pattern_match.group(1)
-     downloader.download(query, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
-     os.system(f'cd outimages/{query}')
-     load_images_from_folder()
-     await event.client.send_file(event.chat_id, chutchuthi, reply_to=event.id)
+     jit = f'"{query}"'
+     downloader.download(jit, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
+     images = []
+     for filename in os.listdir('./outimages/{jit}'):
+        img = cv2.imread(os.path.join('./outimages/{jit}',filename))
+        if img is not None:
+            images.append(img)
+     await event.client.send_file(event.chat_id, images, reply_to=event.id)
      os.system('rm -rf outimages')
 
 
