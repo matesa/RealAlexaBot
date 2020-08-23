@@ -1511,6 +1511,7 @@ async def img_sampler(event):
         if img is not None:
             images.append(img)
      await event.client.send_file(event.chat_id, images, reply_to=event.id)
+     os.chdir('./')
      os.system('rm -rf outimages')
 
 
