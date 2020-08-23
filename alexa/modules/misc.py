@@ -837,7 +837,7 @@ async def img_sampler(event):
           return
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
-     downloader.download(jit, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
+     downloader.download(query, limit=5, output_dir='outimages', adult_filter_off=False, force_replace=False, timeout=60)
      images = []
      for filename in os.listdir('./outimages/{jit}'):
         img = cv2.imread(os.path.join('./outimages/{jit}',filename))
