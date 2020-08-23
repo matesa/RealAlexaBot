@@ -953,37 +953,7 @@ __help__ = """
  - /blacklist: list all active blacklist filters
  - /addblacklist "the admins suck": This will remove the text everytime someone types it
  - /addblacklist "bit.ly/*": This will remove the link everytime someone sends it matching bit.ly
- - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
- - /stop <word>: stop that filter.
- - /filters: list all active filters in this chat.
- - /lock <item(s)>: lock the usage of "item" for non-admins
- - /unlock <item(s)>: unlock "item". Everyone can use them again
- - /locks: list the lock status in the chat
- - /locktypes: gets a list of all things that can be locked
- - /setlog: set a log channel.
- - /unsetlog: unset the log channel.
- - /logchannel: get the log channel info
- - /purge: deletes all messages from the message you replied to
- - /purge X: deletes X messages after the message you replied to 
- - /del: deletes the message you replied to.
- - /save <word> <sentence>: Save that sentence to the note called "word"
- - /get <word> | #<word> : get the note registered to that word
- - /clear <word>: delete the note called "word"
- - /notes | /saved: List all notes in the chat
- - /setrules <rules>: set the rules for this chat
- - /clearrules: clear the rules for this chat
- - /rules: get the rules for this chat
- - /addurl <url>: Add a domain to the blacklist, the bot will automatically parse the url
- - /delurl <url>: Remove url from the blacklist
- - /warn <userhandle>: warn a user
- - /resetwarn @username: reset the warnings for a user
- - /addwarn <word> <message>: set a warning filter on a certain word
- - /nowarn <word>: stop a warning filter
- - /warnlimit <num>: set the max warning limit
- - /warns <userhandle>: get a user's number, and reason, of warnings
- - /warnlist: list of all current warning filters
 """
-
 __mod_name__ = "Admin 🚫"
 
 PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.group)
