@@ -678,19 +678,19 @@ from telegram import ParseMode, Update, Bot, Chat, User, MessageEntity
 from telegram.ext import run_async, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from alexa import dispatcher, OWNER_ID, SUDO_USERS, WHITELIST_USERS, MESSAGE_DUMP, LOGGER
-from alexa.modules.helper_funcs.handlers import CMD_STARTERS
-from alexa.modules.helper_funcs.misc import is_module_loaded, send_to_list
-from alexa.modules.helper_funcs.chat_status import is_user_admin
-from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from alexa.modules.helper_funcs.string_handling import markdown_parser
-from alexa.modules.disable import DisableAbleCommandHandler
+from haruka import dispatcher, OWNER_ID, SUDO_USERS, WHITELIST_USERS, MESSAGE_DUMP, LOGGER
+from haruka.modules.helper_funcs.handlers import CMD_STARTERS
+from haruka.modules.helper_funcs.misc import is_module_loaded, send_to_list
+from haruka.modules.helper_funcs.chat_status import is_user_admin
+from haruka.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from haruka.modules.helper_funcs.string_handling import markdown_parser
+from haruka.modules.disable import DisableAbleCommandHandler
 
-import alexa.modules.sql.feds_sql as sql
+import haruka.modules.sql.feds_sql as sql
 
-from alexa.modules.translations.strings import tld
+from haruka.modules.translations.strings import tld
 
-from alexa.modules.connection import connected
+from haruka.modules.connection import connected
 
 # Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo
 # Federation by MrYacha 2018-2019
@@ -698,7 +698,6 @@ from alexa.modules.connection import connected
 # Time spended on feds = 10h by #MrYacha
 # Time spended on reworking on the whole feds = 20+ hours by @peaktogoo
 
-LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
 
 FBAN_ERRORS = {
     "User is an administrator of the chat",
@@ -1362,7 +1361,7 @@ def __user_info__(user_id, chat_id):
     return text
 
 
-__mod_name__ = "Federation 🔗"
+__mod_name__ = "Federations"
 
 __help__ = """
 Ah, group management. It's all fun and games, until you start getting spammers in, and you need to ban them. Then you need to start banning more, and more, and it gets painful.
@@ -1385,6 +1384,7 @@ Commands:
  - /frules: Show federation rules
  - /chatfed: Show the federation the chat is in
  - /fedadmins: Show the federation admins
+
 """
 
 NEW_FED_HANDLER = CommandHandler("newfed", new_fed)
