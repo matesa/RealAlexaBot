@@ -852,7 +852,7 @@ from telegram import ParseMode, ReplyKeyboardRemove, InlineKeyboardMarkup, Inlin
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
-from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
+from alexa import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, OWNER_USERNAME
 from alexa.__main__ import GDPR
 from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
@@ -3060,7 +3060,7 @@ async def stickerizer(event):
     global newtext
     newtext = event.pattern_match.group(1)
     myid = int("-1009655116")
-    entity = await event.client.get_entity('AyushChatterjee')
+    entity = await event.client.get_entity(OWNER_USERNAME)
     randika = await event.client.send_message(entity, "/animated")
     await asyncio.sleep(3)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
@@ -3111,7 +3111,7 @@ async def savel(event):
   reply_message = await event.get_reply_message() 
   global debloat
   debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
-  entity = await event.client.get_entity('AyushChatterjee')
+  entity = await event.client.get_entity(OWNER_USERNAME)
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
   await randika.delete()
@@ -3137,7 +3137,7 @@ async def stickleter(event):
           return
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
-    entity = await event.client.get_entity('AyushChatterjee')
+    entity = await event.client.get_entity(OWNER_USERNAME)
     await event.client.send_message(entity, "/stickleted")
     hak = await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
     os.system('rm -rf image_stream')
