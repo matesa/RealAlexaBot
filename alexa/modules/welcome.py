@@ -921,7 +921,7 @@ def left_member(bot: Bot, update: Update):
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 def welcome(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
     # if no args, show current replies.
@@ -967,7 +967,7 @@ def welcome(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 def goodbye(bot: Bot, update: Update, args: List[str]):
     chat = update.effective_chat  # type: Optional[Chat]
 
@@ -1013,7 +1013,7 @@ def goodbye(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 @loggable
 def set_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1037,7 +1037,7 @@ def set_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 @loggable
 def reset_welcome(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1052,7 +1052,7 @@ def reset_welcome(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 @loggable
 def set_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1074,7 +1074,7 @@ def set_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 @loggable
 def reset_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1089,7 +1089,7 @@ def reset_goodbye(bot: Bot, update: Update) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 @loggable
 def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1126,7 +1126,7 @@ def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 def security(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if len(args) >= 1:
@@ -1149,7 +1149,7 @@ def security(bot: Bot, update: Update, args: List[str]) -> str:
 
 
 @run_async
-@welcome_user_admin
+@user_admin
 def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
@@ -1194,7 +1194,7 @@ WELC_HELP_TXT = "Your group's welcome/goodbye messages can be personalised in mu
                 "replying to the desired media, and calling /setwelcome.".format(dispatcher.bot.username)
 
 @run_async
-@welcome_user_admin
+@user_admin
 def welcome_help(bot: Bot, update: Update):
     update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
