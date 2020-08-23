@@ -945,12 +945,8 @@ __help__ = """
  - /tmute <d/h/m>: temporarily mute a user
  - /unmute: unmutes a user
  - /kick: kicks a user 
- - /connect | /connect <chatid> in PM: connects a chat to PM 
- - /connection: list connected chats 
- - /disconnect: disconnect from a chat
- - /helpconnect: list available commands that can be done remotely 
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
- - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
+ - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m
  - /flood: gets the current antiflood settings
  - /addblacklist <trigger> : blacklists the trigger it will get removed everytime someone types it
  - /unblacklist <trigger> | /rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
