@@ -987,15 +987,18 @@ __help__ = """
  - /warns <userhandle>: get a user's number, and reason, of warnings
  - /warnlist: list of all current warning filters
  - /strongwarn <on/yes/off/no>: exceeding warn limit will result in kick, if set to true will ban instead
- - /welcome <on/off/yes/no>: Will the bot welcome new members ?
- - /goodbye <on/off/yes/no>: Will the bid farewell when someone leave ?
- - /setwelcome <message>: set the welcome message 
- - /resetwelcome: clear the welcome message 
- - /setgoodbye <message>: set the goodbye message
- - /resetgoodbye: clear the goodbye message 
- - /cleanwelcome <on/off/yes/no>: clean welcome message 
- - /cleanservice <on/off/yes/no>: clean all service messages
- - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
+ - /welcome <on/off>: enable/disable welcome messages
+ - /welcome: should the bot welcome new members ?
+ - /welcome noformat: shows current welcome settings
+ - /goodbye: should the bot bid farewell to left members ?
+ - /setwelcome <text>: set a custom welcome message, you can reply to a media it too to set it 
+ - /setgoodbye <sometext>: set a custom goodbye message, you can reply to a media it too to set it 
+ - /resetwelcome: reset to the default welcome message
+ - /resetgoodbye: reset to the default goodbye message
+ - /cleanwelcome <on/off>: try to delete the previous welcome message to avoid spamming
+ - /welcomemutehelp: help for welcome mutes
+ - /welcomehelp: help for welcome message format
+ - /cleanservice <on/off>: clean telegram's join/left message
 """
 
 __mod_name__ = "Admin 🚫"
