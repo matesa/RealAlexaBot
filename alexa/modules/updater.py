@@ -704,7 +704,7 @@ from contextlib import suppress
 import os
 import sys
 import asyncio
-from alexa import UPSTREAM_REPO_URL, REPO_LINK, HEROKU_API_KEY, HEROKU_APP_NAME, HEROKU_MEMEZ, GIT_REPO_NAME
+from alexa import UPSTREAM_REPO_URL, REPO_LINK, HEROKU_API_KEY, HEROKU_APP_NAME, HEROKU_MEMEZ, GIT_REPO_NAME, HEROKU_GIT_URL
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), 'requirements.txt')
@@ -848,8 +848,7 @@ async def upstream(ups):
                        )
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
-        heroku_git_url = heroku_app.git_url.replace(
-            "https://", "https://api:" + HEROKU_API_KEY + "@")
+        heroku_git_url = HEROKU_GIT_URL
         if "heroku" in repo.remotes:
             remote = repo.remote("heroku")
             remote.set_url(heroku_git_url)
