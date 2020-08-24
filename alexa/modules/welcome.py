@@ -1383,6 +1383,40 @@ def welcome_mute_help(_bot: Bot, update: Update):
         WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
 
+
+@run_async
+@user_can_change
+def cleanservice(update: Update, context: CallbackContext) -> str:
+    args = context.args
+    chat = update.effective_chat  # type: Optional[Chat]
+    if chat.type != chat.PRIVATE:
+        if len(args) >= 1:
+            var = args[0]
+            if var in ('no', 'off'):
+                sql.set_clean_service(chat.id, False)
+                update.effective_message.reply_text(
+                    'Welcome clean service is : off')
+            elif var in ('yes', 'on'):
+                sql.set_clean_service(chat.id, True)
+                update.effective_message.reply_text(
+                    'Welcome clean service is : on')
+            else:
+                update.effective_message.reply_text(
+                    "Invalid option", parse_mode=ParseMode.MARKDOWN)
+        else:
+            update.effective_message.reply_text(
+                "Usage is on/yes or off/no", parse_mode=ParseMode.MARKDOWN)
+    else:
+        curr = sql.clean_service(chat.id)
+        if curr:
+            update.effective_message.reply_text(
+                'Welcome clean service is : on', parse_mode=ParseMode.MARKDOWN)
+        else:
+            update.effective_message.reply_text(
+                'Welcome clean service is : off', parse_mode=ParseMode.MARKDOWN)
+
+
+
 # TODO: get welcome data from group butler snap
 # def __import_data__(chat_id, data):
 #     welcome = data.get('info', {}).get('rules')
@@ -1446,6 +1480,8 @@ WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)
 WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help)
 BUTTON_VERIFY_HANDLER = CallbackQueryHandler(
     user_button, pattern=r"user_join_")
+CLEAN_SERVICE_HANDLER = CommandHandler(
+    "cleanservice", cleanservice, filters=Filters.group)
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
 dispatcher.add_handler(LEFT_MEM_HANDLER)
@@ -1460,3 +1496,4 @@ dispatcher.add_handler(WELCOME_HELP)
 dispatcher.add_handler(WELCOMEMUTE_HANDLER)
 dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
 dispatcher.add_handler(WELCOME_MUTE_HELP)
+dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
