@@ -776,7 +776,7 @@ if ENV:
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
-    HEROKU_MEMEZ = os.environ.get("HEROKU_MEMEZ", None)
+    HEROKU_MEMEZ = os.environ.get("HEROKU_MEMEZ", True)
     HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", None)
     GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", "RealAlexaBot")
     HEROKU_LINK = os.environ.get("HEROKU_GIT_URL")
