@@ -1386,35 +1386,24 @@ def welcome_mute_help(_bot: Bot, update: Update):
 
 @run_async
 @user_can_change
-def cleanservice(update: Update, context: CallbackContext) -> str:
-    args = context.args
+def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
         if len(args) >= 1:
             var = args[0]
-            if var in ('no', 'off'):
+            print(var)
+            if (var == "no" or var == "off"):
                 sql.set_clean_service(chat.id, False)
-                update.effective_message.reply_text(
-                    'Welcome clean service is : off')
-            elif var in ('yes', 'on'):
+                update.effective_message.reply_text("I'll leave service messages")
+            elif(var == "yes" or var == "on"):
                 sql.set_clean_service(chat.id, True)
-                update.effective_message.reply_text(
-                    'Welcome clean service is : on')
+                update.effective_message.reply_text("I will clean service messages")
             else:
-                update.effective_message.reply_text(
-                    "Invalid option", parse_mode=ParseMode.MARKDOWN)
+                update.effective_message.reply_text("Please enter yes or no!", parse_mode=ParseMode.MARKDOWN)
         else:
-            update.effective_message.reply_text(
-                "Usage is on/yes or off/no", parse_mode=ParseMode.MARKDOWN)
+            update.effective_message.reply_text("Please enter yes or no!", parse_mode=ParseMode.MARKDOWN)
     else:
-        curr = sql.clean_service(chat.id)
-        if curr:
-            update.effective_message.reply_text(
-                'Welcome clean service is : on', parse_mode=ParseMode.MARKDOWN)
-        else:
-            update.effective_message.reply_text(
-                'Welcome clean service is : off', parse_mode=ParseMode.MARKDOWN)
-
+        update.effective_message.reply_text("Please enter yes or no in your group!", parse_mode=ParseMode.MARKDOWN)
 
 
 # TODO: get welcome data from group butler snap
