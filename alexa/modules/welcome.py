@@ -1383,7 +1383,6 @@ def welcome_mute_help(_bot: Bot, update: Update):
         WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
 
-
 @run_async
 @user_can_change
 def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
@@ -1404,6 +1403,7 @@ def cleanservice(bot: Bot, update: Update, args: List[str]) -> str:
             update.effective_message.reply_text("Please enter yes or no!", parse_mode=ParseMode.MARKDOWN)
     else:
         update.effective_message.reply_text("Please enter yes or no in your group!", parse_mode=ParseMode.MARKDOWN)
+
 
 
 # TODO: get welcome data from group butler snap
@@ -1470,7 +1470,7 @@ WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help)
 BUTTON_VERIFY_HANDLER = CallbackQueryHandler(
     user_button, pattern=r"user_join_")
 CLEAN_SERVICE_HANDLER = CommandHandler(
-    "cleanservice", cleanservice, filters=Filters.group)
+    "cleanservice", cleanservice, pass_args=True, filters=Filters.group)
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
 dispatcher.add_handler(LEFT_MEM_HANDLER)
