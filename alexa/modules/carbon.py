@@ -721,9 +721,12 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/carbon (.*)")
 async def carbon_api(e):
+    user_id = e.message.sender_id
     if e.is_group:
      if not (await is_register_admin(e.input_chat, e.message.sender_id)):
        return
+     elif sql.is_approved(user_id):
+        pass
     """ A Wrapper for carbon.now.sh """
     jj = "`Processing..`"
     gg = await e.reply(jj)
