@@ -70,7 +70,7 @@ def unapprove(bot: Bot, update: Update, args: List[str]) -> str:
     if reply:
         message.reply_text(reply)
         return ""    
-    sql.rm_APPROVE(user_id, reason)
+    sql.rm_APPROVE(user_id)
     update.effective_message.reply_text(
         rt + "\nSuccessfully unapproved user {}".format(user_member.first_name))
     log_message = (f"#UNAPPROVE\n"
