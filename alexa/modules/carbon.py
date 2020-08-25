@@ -697,6 +697,7 @@ from telethon import events
 from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
+import alexa.modules.sql.approve_sql as sql
 
 CARBONLANG = "en"
 
