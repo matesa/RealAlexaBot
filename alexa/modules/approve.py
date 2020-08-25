@@ -706,7 +706,6 @@ def approve(bot: Bot, update: Update, args: List[str]) -> str:
     user = update.effective_user
     chat = update.effective_chat
     chat_id = chat
-    reason = ""
     user_id = extract_user(message, args)
     user_member = bot.getChat(user_id)
     rt = ""
@@ -714,7 +713,7 @@ def approve(bot: Bot, update: Update, args: List[str]) -> str:
     if reply:
         message.reply_text(reply)
         return ""    
-    sql.set_APPROVE(user_id, chat_id, reason)
+    sql.set_APPROVE(user_id, chat_id)
     update.effective_message.reply_text(
         rt + "\nSuccessfully approved user {}".format(user_member.first_name))
     log_message = (f"#APPROVE\n"
@@ -732,7 +731,6 @@ def unapprove(bot: Bot, update: Update, args: List[str]) -> str:
     user = update.effective_user
     chat = update.effective_chat
     chat_id = chat
-    reason = ""
     user_id = extract_user(message, args)
     user_member = bot.getChat(user_id)
     rt = ""
