@@ -3098,6 +3098,7 @@ async def saat(event):
       holababy = response.text
 
 
+# Made by @AyushChatterjee
 
 @register(pattern="^/savefile")
 async def savel(event):
@@ -3115,12 +3116,11 @@ async def savel(event):
   entity = await event.client.get_entity(OWNER_USERNAME)
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
+  os.remove(debloat)
   await randika.delete()
         
     
-
-# Random RGB Sticklet by @PhycoNinja13b
-# modified by @UniBorg
+# Made by @AyushChatterjee
 
 import io
 import os
@@ -3139,10 +3139,11 @@ async def stickleter(event):
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity(OWNER_USERNAME)
-    await event.client.send_message(entity, "/stickleted")
+    chia = await event.client.send_message(entity, "/stickleted")
     hak = await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
     os.system('rm -rf image_stream')
-    await hak.delete()
+    await chia.delete()
+    del stickletedtext
 
 
 
