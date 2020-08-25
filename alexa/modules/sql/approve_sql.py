@@ -678,8 +678,8 @@ class APPROVE(BASE):
     __tablename__ = "approved_users"
 
     user_id = Column(Integer, primary_key=True)
-    is_approved = Column(Boolean)
     chat_id = Column(Integer, primary_key=True)
+    is_approved = Column(Boolean)
 
     def __init__(self, user_id, chat_id, is_approved=True):
         self.user_id = user_id
@@ -701,7 +701,7 @@ def set_APPROVE(user_id, chat_id):
     with INSERTION_LOCK:
         curr = SESSION.query(APPROVE).get(user_id, chat_id)
         if not curr:
-            curr = APPROVE(user_id, chat_id)
+            curr = APPROVE(user_id, chat_id, True)
         else:
             curr.is_approved = True
         SESSION.add(curr)
