@@ -16,9 +16,6 @@ from alexa.modules.helper_funcs.chat_status import user_can_change
 from alexa.modules.helper_funcs.extraction import extract_user
 from alexa.modules.log_channel import loggable
 import alexa.modules.sql.approve_sql as sql
-import threading
-from sqlalchemy import Column, UnicodeText, Boolean, Integer
-from alexa.modules.sql import BASE, SESSION
 
 
 def check_user_id(user_id: int, bot: Bot) -> Optional[str]:
