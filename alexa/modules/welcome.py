@@ -866,7 +866,7 @@ def new_member(bot: Bot, update: Update, job_queue: JobQueue):
         # Join welcome: soft mute
         if new_mem.is_bot:
             should_mute = False
-
+        
         if user.id == new_mem.id:
             if should_mute:
                 if welc_mutes == "soft":
@@ -924,9 +924,12 @@ def new_member(bot: Bot, update: Update, job_queue: JobQueue):
                 if sent:
                     sql.set_clean_welcome(chat.id, sent.message_id)
 
+        # Clean service welcome
+        if sql.clean_service(chat.id) == True:
+           bot.delete_message(chat.id, update.message.message_id)
+
         if welcome_log:
             return welcome_log
-
         return (f"{html.escape(chat.title)}\n"
                 f"#USER_JOINED\n"
                 f"<b>User</b>: {mention_html(user.id, user.first_name)}\n"
@@ -962,7 +965,7 @@ def left_member(bot: Bot, update: Update):
 
     if user.id == bot.id:
         return
-
+    
     if should_goodbye:
         left_mem = update.effective_message.left_chat_member
         if left_mem:
@@ -975,13 +978,12 @@ def left_member(bot: Bot, update: Update):
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_text("O, no my owner, He just left..")
                 return
-
-
+           
             # if media goodbye, use appropriate function for it
             if goodbye_type not in (sql.Types.TEXT, sql.Types.BUTTON_TEXT):
                 ENUM_FUNC_MAP[goodbye_type](chat.id, cust_goodbye)
                 return
-
+            
             # edge case of empty name - occurs for some bugs.
             first_name = left_mem.first_name or "PersonWithNoName"
             if cust_goodbye:
@@ -1029,6 +1031,10 @@ def left_member(bot: Bot, update: Update):
                 update, res, keyboard, random.choice(
                     sql.DEFAULT_GOODBYE_MESSAGES).format(
                     first=first_name))
+
+            # Clean service Goodbye
+            if sql.clean_service(chat.id) == True:
+               bot.delete_message(chat.id, update.message.message_id)
 
 
 @run_async
