@@ -670,6 +670,10 @@
 #  This is made by @AyushChatterjee
 #  If you kang this without credits I swear ur mom will die 
 
+import threading
+from sqlalchemy import Column, UnicodeText, Boolean, Integer
+from alexa.modules.sql import BASE, SESSION
+
 class APPROVE(BASE):
     __tablename__ = "approved_users"
 
