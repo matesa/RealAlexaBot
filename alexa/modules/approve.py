@@ -121,7 +121,7 @@ def check_user_id(user_id: int, bot: Bot) -> Optional[str]:
 @run_async
 @user_can_change
 @loggable
-def approve(bot: Bot, update: Update):
+def approve(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -146,7 +146,7 @@ def approve(bot: Bot, update: Update):
 @run_async
 @user_can_change
 @loggable
-def unapprove(bot: Bot, update: Update):
+def unapprove(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -169,8 +169,8 @@ def unapprove(bot: Bot, update: Update):
     return log_message
 
 
-APPROVE_HANDLER = CommandHandler("approve", approve, filters=Filters.group)
-UNAPPROVE_HANDLER = CommandHandler("unapprove", unapprove, filters=Filters.group)
+APPROVE_HANDLER = CommandHandler("approve", approve, pass_args=True, filters=Filters.group)
+UNAPPROVE_HANDLER = CommandHandler("unapprove", unapprove, pass_args=True, filters=Filters.group)
 
 dispatcher.add_handler(APPROVE_HANDLER)
 dispatcher.add_handler(UNAPPROVE_HANDLER)
