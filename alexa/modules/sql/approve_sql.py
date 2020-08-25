@@ -681,13 +681,13 @@ class APPROVE(BASE):
     is_approved = Column(Boolean)
     chat_id = Column(Integer, primary_key=True)
 
-    def __init__(self, user_id, chat_id, reason="", is_approved=True):
+    def __init__(self, user_id, chat_id, is_approved=True):
         self.user_id = user_id
         self.chat_id = chat_id
         self.is_approved = is_approved
 
     def __repr__(self):
-        return "approved_status for {}".format(self.user_id)
+        return "approved_status for {} in {}".format(self.user_id, self.chat_id)
 
 APPROVE.__table__.create(checkfirst=True)
 INSERTION_LOCK = threading.RLock()
