@@ -707,7 +707,7 @@ def check_APPROVE_status(user_id, chat_id):
 
 def set_APPROVE(user_id, chat_id, reason=""):
     with INSERTION_LOCK:
-        curr = SESSION.query(APPROVE).get(user_id, chat_id)
+        curr = SESSION.query(APPROVE).get(user_id, chat_id, reason)
         if not curr:
             curr = APPROVE(user_id, chat_id, reason, True)
         else:
@@ -735,7 +735,7 @@ def rm_APPROVE(user_id, chat_id):
 
 def toggle_APPROVE(user_id, chat_id, reason=""):
     with INSERTION_LOCK:
-        curr = SESSION.query(APPROVE).get(user_id, chat_id)
+        curr = SESSION.query(APPROVE).get(user_id, chat_id, reason)
         if not curr:
             curr = APPROVE(user_id, chat_id, reason, True)
         elif curr.is_approved:
