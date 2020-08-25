@@ -727,7 +727,7 @@ async def carbon_api(e):
     if e.is_group:
      if not (await is_register_admin(e.input_chat, e.message.sender_id)):
        return
-     elif sql.is_approved(user_id) == True:
+     elif sql.is_approved(user_id, chat_id) == True:
         pass
     """ A Wrapper for carbon.now.sh """
     jj = "`Processing..`"
