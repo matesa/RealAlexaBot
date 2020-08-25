@@ -54,7 +54,7 @@ def check_APPROVE_status(user_id):
 
 def set_APPROVE(user_id, reason=""):
     with INSERTION_LOCK:
-        curr = SESSION.query(APPROVE.get(user_id)
+        curr = SESSION.query(APPROVE).get(user_id)
         if not curr:
             curr = APPROVE(user_id, reason, True)
         else:
