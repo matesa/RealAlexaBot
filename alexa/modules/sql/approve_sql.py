@@ -718,7 +718,8 @@ def rm_APPROVE(user_id, chat_id):
     with INSERTION_LOCK:
         curr = SESSION.query(APPROVE).get(user_id, chat_id)
         if curr:
-            if user_id, chat_id in APPROVED_USERS:  # sanity check
+            
+            if user_id and chat_id in APPROVED_USERS:  # sanity check
                 del APPROVED_USERS[user_id, chat_id]
 
             SESSION.delete(curr)
