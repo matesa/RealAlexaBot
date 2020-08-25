@@ -169,8 +169,8 @@ def unapprove(bot: Bot, update: Update):
     return log_message
 
 
-APPROVE_HANDLER = CommandHandler(("approve"), approve, filters=Filters.group
-UNAPPROVE_HANDLER = CommandHandler(("unapprove"), unapprove, filters=Filters.group)
+APPROVE_HANDLER = CommandHandler("approve", approve, filters=Filters.group)
+UNAPPROVE_HANDLER = CommandHandler("unapprove", unapprove, filters=Filters.group)
 
 dispatcher.add_handler(APPROVE_HANDLER)
 dispatcher.add_handler(UNAPPROVE_HANDLER)
