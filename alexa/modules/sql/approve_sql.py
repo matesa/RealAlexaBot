@@ -745,7 +745,7 @@ def __load_APPROVE_users():
     global APPROVED_USERS
     try:
         all_APPROVE = SESSION.query(APPROVE).all()
-        APPROVED_USERS = {user.user_id, user.chat_id: user.reason for user in all_APPROVE if user.is_approved}
+        APPROVED_USERS = {user.user_id and user.chat_id: user.reason for user in all_APPROVE if user.is_approved}
     finally:
         SESSION.close()
 
