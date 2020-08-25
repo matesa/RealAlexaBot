@@ -780,7 +780,7 @@ def new_member(bot: Bot, update: Update, job_queue: JobQueue):
 
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
-                update.effective_message.reply_text(
+                bot.send_message(chat.id, 
                     "Hey my owner just joined, Stay Alert!")
                 welcome_log = (f"{html.escape(chat.title)}\n"
                                f"#USER_JOINED\n"
@@ -788,13 +788,13 @@ def new_member(bot: Bot, update: Update, job_queue: JobQueue):
 
             # Welcome Sudos
             elif new_mem.id in SUDO_USERS:
-                update.effective_message.reply_text(
+                bot.send_message(chat.id,
                     "A SUDO user just joined! Stay Alert!")
 
 
             # Welcome yourself
             elif new_mem.id == bot.id:
-                update.effective_message.reply_text("Thanks for adding\nGive some commands now 😀")
+                bot.send_message(chat.id, "Thanks for adding\nGive some commands now 😀")
 
             else:
                 # If welcome message is media, send with appropriate function
