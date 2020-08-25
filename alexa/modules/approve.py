@@ -14,7 +14,7 @@ from telegram.ext import Filters
 from alexa import dispatcher,  SUDO_USERS, OWNER_ID
 from alexa.modules.helper_funcs.chat_status import user_can_change
 from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.log_channel import gloggable
+from alexa.modules.log_channel import loggable
 import threading
 from sqlalchemy import Column, UnicodeText, Boolean, Integer
 from alexa.modules.sql import BASE, SESSION
@@ -120,7 +120,7 @@ def check_user_id(user_id: int, bot: Bot) -> Optional[str]:
 
 @run_async
 @user_can_change
-@gloggable
+@loggable
 def approve(bot: Bot, update: Update):
     message = update.effective_message
     user = update.effective_user
@@ -145,7 +145,7 @@ def approve(bot: Bot, update: Update):
 
 @run_async
 @user_can_change
-@gloggable
+@loggable
 def unapprove(bot: Bot, update: Update):
     message = update.effective_message
     user = update.effective_user
