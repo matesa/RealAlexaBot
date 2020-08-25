@@ -699,17 +699,12 @@ APPROVED_USERS = {}
 def is_approved(user_id, chat_id):
     return user_id, chat_id in APPROVED_USERS
 
-def check_APPROVE_status(user_id, chat_id):
-    try:
-        return SESSION.query(APPROVE).get(user_id, chat_id)
-    finally:
-        SESSION.close()
 
 def set_APPROVE(user_id, chat_id, reason=""):
     with INSERTION_LOCK:
-        curr = SESSION.query(APPROVE).get(user_id, chat_id, reason)
+        curr = SESSION.query(APPROVE).get(user_id, chat_id)
         if not curr:
-            curr = APPROVE(user_id, chat_id, reason, True)
+            curr = APPROVE(user_id, chat_id, True)
         else:
             curr.is_approved = True
 
@@ -733,17 +728,6 @@ def rm_APPROVE(user_id, chat_id):
         SESSION.close()
         return False
 
-def toggle_APPROVE(user_id, chat_id, reason=""):
-    with INSERTION_LOCK:
-        curr = SESSION.query(APPROVE).get(user_id, chat_id, reason)
-        if not curr:
-            curr = APPROVE(user_id, chat_id, reason, True)
-        elif curr.is_approved:
-            curr.is_approved = False
-        elif not curr.is_approved:
-            curr.is_approved = True
-        SESSION.add(curr)
-        SESSION.commit()
 
 def __load_APPROVE_users():
     global APPROVED_USERS
