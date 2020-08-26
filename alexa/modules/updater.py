@@ -821,14 +821,14 @@ async def upstream(ups):
             '`Force-Syncing to latest stable bot code, please wait...`')
     else:
         await lol.edit('`Updating bot, please wait....`')
-    try:       
-      ups_rem.pull(ac_br)
-    except GitCommandError:
-      repo.git.reset("--hard", "FETCH_HEAD")
-      reqs_upgrade = await updateme_requirements()
-      await lol.edit('`Successfully Updated!\n'
+        try:       
+          ups_rem.pull(ac_br)
+        except GitCommandError:
+          repo.git.reset("--hard", "FETCH_HEAD")
+          reqs_upgrade = await updateme_requirements()
+          await lol.edit('`Successfully Updated!\n'
                      'Bot is restarting... Wait for a second!\n\nUse /start to check if bot is back or not`')
-      # Spin a new instance of bot
-      args = [sys.executable, "-m", "alexa"]
-      execle(sys.executable, *args, environ)
-      return
+          # Spin a new instance of bot
+          args = [sys.executable, "-m", "alexa"]
+          execle(sys.executable, *args, environ)
+          return
