@@ -890,6 +890,17 @@ def connected(bot, update, chat, user_id, need_admin=True):
     else:
         return False
 
+CONN_HELP = """
+ Actions are available with connected groups:
+ • View and edit Notes.
+ • View and edit Filters.
+ • Get invite link of chat.
+ • Set and control AntiFlood settings.
+ • Set and control Blacklist settings.
+ • Set Locks and Unlocks in chat.
+ • Enable and Disable commands in chat.
+ • Export and Imports of chat backup."""
+
 
 @run_async
 def help_connect_chat(bot: Bot, update: Update):
@@ -902,7 +913,7 @@ def help_connect_chat(bot: Bot, update: Update):
         send_message(update.effective_message, "PM me with that command to get help.")
         return
     else:
-        send_message(update.effective_message, "All commands", parse_mode="markdown")
+        send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
 
 @run_async
