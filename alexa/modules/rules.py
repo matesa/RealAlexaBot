@@ -666,13 +666,11 @@
 
 
 from typing import Optional
-
 from telegram import Message, Update, Bot, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown
-
 import alexa.modules.sql.rules_sql as sql
 from alexa import dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
@@ -726,7 +724,7 @@ def send_rules(update, chat_id, from_pm=False):
 
 
 @run_async
-@user_admin
+@user_can_change
 def set_rules(_bot: Bot, update: Update):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
@@ -746,7 +744,7 @@ def set_rules(_bot: Bot, update: Update):
 
 
 @run_async
-@user_admin
+@user_can_change
 def clear_rules(_bot: Bot, update: Update):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")
