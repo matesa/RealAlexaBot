@@ -704,7 +704,7 @@ from contextlib import suppress
 import os
 import sys
 import asyncio
-from alexa import UPSTREAM_REPO_URL, REPO_LINK, HEROKU_API_KEY, HEROKU_APP_NAME, HEROKU_MEMEZ, GIT_REPO_NAME, HEROKU_GIT_URL
+from alexa import UPSTREAM_REPO_URL, REPO_LINK, GIT_REPO_NAME
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), 'requirements.txt')
@@ -822,13 +822,12 @@ async def upstream(ups):
     else:
         await lol.edit('`Updating bot, please wait....`')
         try:       
-          ups_rem.pull(ac_br)
+           ups_rem.pull(ac_br)
         except GitCommandError:
-          repo.git.reset("--hard", "FETCH_HEAD")
-          reqs_upgrade = await updateme_requirements()
-          await lol.edit('`Successfully Updated!\n'
-                     'Bot is restarting... Wait for a second!\n\nUse /start to check if bot is back or not`')
-          # Spin a new instance of bot
-          args = [sys.executable, "-m", "alexa"]
-          execle(sys.executable, *args, environ)
-          return
+           repo.git.reset("--hard", "FETCH_HEAD")
+        reqs_upgrade = await updateme_requirements()
+        await lol.edit('`Successfully Updated!\n'
+                       'Bot is restarting... Wait for a second!\n\nUse /start to check if bot is back or not`')
+        args = [sys.executable, "-m", "alexa"]
+        execle(sys.executable, *args, environ)
+        return
