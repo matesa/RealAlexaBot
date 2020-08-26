@@ -821,57 +821,14 @@ async def upstream(ups):
             '`Force-Syncing to latest stable bot code, please wait...`')
     else:
         await lol.edit('`Updating bot, please wait....`')
-    # We're in a Heroku Dyno, handle it's memez.
-    if HEROKU_API_KEY is not None:
-        import heroku3
-        heroku = heroku3.from_key(HEROKU_API_KEY)
-        heroku_app = None
-        heroku_applications = heroku.apps()
-        if not HEROKU_APP_NAME:
-            await lol.edit(
-                '`[HEROKU DYNOS] Please set up the HEROKU_APP_NAME variable to be able to update bot.`'
-            )
-            repo.__del__()
-            return
-        for app in heroku_applications:
-            if app.name == HEROKU_APP_NAME:
-                heroku_app = app
-                break
-        if heroku_app is None:
-            await lol.edit(
-                f'{txt}\n`Invalid Heroku credentials for updating bot dyno.`'
-            )
-            repo.__del__()
-            return
-        await lol.edit('`[HEROKU DYNOS]\
-                        \nbot dyno build in progress, please wait for it to complete.`'
-                       )
-        ups_rem.fetch(ac_br)
-        repo.git.reset("--hard", "FETCH_HEAD")
-        heroku_git_url = heroku_app.git_url.replace("https://", "https://api:" + HEROKU_API_KEY + "@")
-        if "heroku" in repo.remotes:
-            remote = repo.remote("heroku")
-            remote.set_url(heroku_git_url)
-        else:
-            remote = repo.create_remote("heroku", heroku_git_url)
-        try:
-            remote.push(refspec="HEAD:refs/heads/stable", force=True)
-        except GitCommandError as error:
-            await lol.edit(f'{txt}\n`Here is the error log:\n{error}`')
-            repo.__del__()
-            return
-        await lol.edit('`Successfully Updated!\n'
-                       'Restarting, please wait...`')
-    else:
-        # Classic Updater, pretty straightforward.
-        try:
-            ups_rem.pull(ac_br)
-        except GitCommandError:
-            repo.git.reset("--hard", "FETCH_HEAD")
-        reqs_upgrade = await updateme_requirements()
-        await lol.edit('`Successfully Updated!\n'
-                       'Bot is restarting... Wait for a second!`')
-        # Spin a new instance of bot
-        args = [sys.executable, "-m", "alexa"]
-        execle(sys.executable, *args, environ)
-        return
+    try:       
+      ups_rem.pull(ac_br)
+    except GitCommandError:
+      repo.git.reset("--hard", "FETCH_HEAD")
+      reqs_upgrade = await updateme_requirements()
+      await lol.edit('`Successfully Updated!\n'
+                     'Bot is restarting... Wait for a second!\n\nUse /start to check if bot is back or not`')
+      # Spin a new instance of bot
+      args = [sys.executable, "-m", "alexa"]
+      execle(sys.executable, *args, environ)
+      return
