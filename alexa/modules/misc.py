@@ -3182,6 +3182,24 @@ async def get_font_file(client, channel_id):
     return await client.download_media(font_file_message)
 
 
+from telethon import events
+from uniborg.util import admin_cmd
+import asyncio
+
+
+@register(pattern="/undlt")
+async def _(event):
+    if event.fwd_from:
+        return
+    c = await event.get_chat()
+    if c.admin_rights or c.creator:
+        a = await tbot.get_admin_log(event.chat_id,limit=5, search="", edit=True, delete=True)
+        for i in a:
+          await event.reply(i.original.action.message)
+    else:
+        await event.reply("I need administrative permissions in order to do this command")
+
+
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
  - /runs: reply a random string from an array of replies.
