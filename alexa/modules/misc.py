@@ -3183,11 +3183,10 @@ async def get_font_file(client, channel_id):
 
 
 from telethon import events
-from uniborg.util import admin_cmd
 import asyncio
 
 
-@register(pattern="/undlt")
+@register(pattern="^/undlt")
 async def _(event):
     if event.fwd_from:
         return
