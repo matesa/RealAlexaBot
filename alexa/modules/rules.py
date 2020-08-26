@@ -726,7 +726,7 @@ def send_rules(update, chat_id, from_pm=False):
 
 
 @run_async
-@user_can_change
+@user_admin
 def set_rules(_bot: Bot, update: Update):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
@@ -746,7 +746,7 @@ def set_rules(_bot: Bot, update: Update):
 
 
 @run_async
-@user_can_change
+@user_admin
 def clear_rules(_bot: Bot, update: Update):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")
