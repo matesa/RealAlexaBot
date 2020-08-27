@@ -725,7 +725,7 @@ __help__ = """
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats
  - /smsbomb {country code without +} {phone no}: Take revenge upon your enemy by sending bulk messages 
  - /report <reason> | @admin: reply to a message to report it to admins(non-admin only)
- - /reports <on/off>: change report setting
+ - /reports <on/off>: change report setting (admin only)
 """
 
 __mod_name__ = "Helpers 🤗"
