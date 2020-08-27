@@ -678,7 +678,7 @@ from telegram.ext import MessageHandler, Filters, CommandHandler
 from alexa import dispatcher, updater
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
-from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import admin_sql as sql
 from alexa.modules.translations.strings import tld
@@ -982,16 +982,13 @@ def set_title(bot: Bot, update: Update, args: List[str]):
 
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
- - /users: list all the users in the chat
  - /pin | /unpin: pins/unpins the message in the chat
  - /invitelink: gets invitelink
  - /promote: promotes a user 
- - /settitle: sets a custom title for an admin
+ - /settitle <username> <title>: sets a custom title for an admin
  - /demote: demotes a user
  - /zombies: count the number of deleted account in your group
  - /kickthefools: kicks all members inactive from 1 week
- - /report <reason> | @admin: reply to a message to report it to admins(non-admin only)
- - /reports <on/off>: change report setting
  - /ban: bans a user 
  - /tban <d/h/m> : temporarily bans a user from your chat
  - /unban: unbans a user 
@@ -1001,7 +998,11 @@ __help__ = """
  - /unmute: unmutes a user
  - /kick: kicks a user 
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
- - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m.
+ - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m
+ - /connection <chatid>: Connect to remote chat
+ - /disconnect: disconnects a chat from pm
+ - /allowconnect on/yes/off/no: allow connect users to group via PM
+ - /helpconnect: gets the available list commands 
  - /flood: gets the current antiflood settings
  - /addblacklist <trigger> : blacklists the trigger
  - /unblacklist <trigger> | rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
@@ -1011,10 +1012,6 @@ __help__ = """
  - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
  - /stop <word>: stop that filter.
  - /filters: list all active filters in this chat.
- - /connection <chatid>: Connect to remote chat
- - /disconnect: disconnects a chat from pm
- - /allowconnect on/yes/off/no: allow connect users to group via PM
- - /helpconnect: gets the available list commands 
  - /lock <item(s)>: lock the usage of "item" for non-admins
  - /unlock <item(s)>: unlock "item". Everyone can use them again
  - /locks: list the lock status in the chat
