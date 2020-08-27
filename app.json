@@ -67,10 +67,6 @@
       "value": "",
       "required": false
     },
-    "MONGO_DB_URI": {
-      "description": "Get your guide from https://telegra.ph/Mongo-DB-12-24",
-      "required": false
-    },
     "OWNER_ID": {
       "description": "An integer of consisting of your ID",
       "value": "",
