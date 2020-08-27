@@ -805,7 +805,7 @@ async def upstream(ups):
         await lol.edit(
             '`Force-Syncing to latest stable userbot code, please wait...`')
     else:
-       pass
+       await lol.edit("`Still running ...`")
        
     if HEROKU_API_KEY is not None:
         import heroku3
