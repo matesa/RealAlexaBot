@@ -836,7 +836,7 @@ def leavechat(bot: Bot, update: Update, args: List[int]):
 def slist(bot: Bot, update: Update):
     message = update.effective_message
     text1 = "My sudo users are:"
-    text2 = "My support users are:"
+    text2 = ""
     for user_id in SUDO_USERS:
         try:
             user = bot.get_chat(user_id)
@@ -857,8 +857,8 @@ def slist(bot: Bot, update: Update):
         except BadRequest as excp:
             if excp.message == 'Chat not found':
                 text2 += "\n - ({}) - not found".format(user_id)
-    message.reply_text(text1 + "\n" + text2 + "\n", parse_mode=ParseMode.MARKDOWN)
-    #message.reply_text(text2 + "\n", parse_mode=ParseMode.MARKDOWN)
+    message.reply_text(text1, parse_mode=ParseMode.MARKDOWN)
+    # message.reply_text(text2 + "\n", parse_mode=ParseMode.MARKDOWN)
 
 @run_async
 def wlist(bot: Bot, update: Update):
