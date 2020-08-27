@@ -3302,3 +3302,4 @@ dispatcher.add_handler(REPO_HANDLER)
 dispatcher.add_handler(CommandHandler("removebotkeyboard", reply_keyboard_remove))
 dispatcher.add_handler(SYNO_HANDLER)
 dispatcher.add_handler(ANTO_HANDLER)
+
