@@ -798,7 +798,7 @@ async def upstream(ups):
             remove("output.txt")
         else:
             await lol.edit(changelog_str)
-        await ups.respond('`do \"/update now\" to update`')
+        await ups.respond('**do** `/update now` **to update**')
         return
 
     if force_update:
@@ -806,8 +806,7 @@ async def upstream(ups):
             '`Force-Syncing to latest stable userbot code, please wait...`')
     else:
        pass
-       # await lol.edit('`Finiding your heroku app.....`')
-    # We're in a Heroku Dyno, handle it's memez.
+       
     if HEROKU_API_KEY is not None:
         import heroku3
         heroku = heroku3.from_key(HEROKU_API_KEY)
@@ -850,7 +849,7 @@ async def upstream(ups):
         await lol.edit('Successfully Updated!\n'
                        'Restarting.......')
     else:
-        # Classic Updater, pretty straightforward.
+        
         try:
             ups_rem.pull(ac_br)
         except GitCommandError:
