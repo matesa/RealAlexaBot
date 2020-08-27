@@ -774,8 +774,8 @@ if ENV:
         tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", "") # NO NEED OF THIS
-    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "") # NO NEED OF THIS
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None) # NO NEED OF THIS
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None) # NO NEED OF THIS
     UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
