@@ -745,8 +745,8 @@ async def upstream(ups):
     except InvalidGitRepositoryError as error:
         if conf != "now":
             await lol.edit(
-                f"`Unfortunately, the directory {error} does not seem to be a git repository.\
-            \nBut we can fix that by force updating the userbot using .update now.`"
+                f"**Unfortunately, the directory {error} does not seem to be a git repository.\
+            \nBut we can fix that by force updating the bot using** `/update now`"
             )
             return
         repo = Repo.init()
