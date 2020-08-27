@@ -854,7 +854,7 @@ async def upstream(ups):
             ups_rem.pull(ac_br)
         except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
-        reqs_upgrade = await update_requirements()
+        reqs_upgrade = await updateme_requirements()
         await lol.edit('`Successfully Updated!\n'
                        'restarting......`')
         # Spin a new instance of bot
