@@ -831,7 +831,7 @@ def connect_chat(bot: Bot, update: Update, args: List[str]):
                 send_message(update.effective_message, "Successfully connected to *{}*.".format(chat_name), parse_mode=ParseMode.MARKDOWN)
                 try:
                     sql.add_history_conn(user.id, str(chat.id), chat_name)
-                    bot.send_message(update.effective_message.from_user.id, "You have connected with *{}*. Use /connection for see current available commands.".format(chat_name), parse_mode="markdown")
+                    bot.send_message(update.effective_message.from_user.id, "You have connected with *{}*. Use /helpconnect for see current available commands.".format(chat_name), parse_mode="markdown")
                 except BadRequest:
                     pass
                 except Unauthorized:
@@ -898,7 +898,6 @@ CONN_HELP = """
  • Set and control AntiFlood settings.
  • Set and control Blacklist settings.
  • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
  • Export and Imports of chat backup."""
 
 
