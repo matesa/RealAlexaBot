@@ -939,7 +939,7 @@ async def is_register_admin(chat, user):
         return None
 
 
-async def is_register_admin(chat, user):
+async def is_register_banful(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
             (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
