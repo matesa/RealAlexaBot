@@ -753,11 +753,10 @@ async def kang(args):
     emojibypass = False
     is_anim = False
     emoji = None
-
+    lol = await args.reply(f"`{random.choice(KANGING_STR)}`")
+           
     if message and message.media:
         if isinstance(message.media, MessageMediaPhoto):
-            global lol
-            lol = await args.reply(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             photo = await tbot.download_media(message.photo, photo)
         elif "image" in message.media.document.mime_type.split("/"):
