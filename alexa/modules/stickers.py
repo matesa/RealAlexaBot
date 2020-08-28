@@ -703,13 +703,13 @@ def stickerid(bot: Bot, update: Update):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:
         update.effective_message.reply_text(
-            "Sticker ID:\n```"
-            + escape_markdown(msg.reply_to_message.sticker.file_id)
-            + "```",
+            "Sticker ID:\n```" +
+            escape_markdown(msg.reply_to_message.sticker.file_id) + "```",
             parse_mode=ParseMode.MARKDOWN,
         )
     else:
-        update.effective_message.reply_text("Please reply to a sticker to get its ID.")
+        update.effective_message.reply_text(
+            "Please reply to a sticker to get its ID.")
 
 
 @run_async
@@ -725,8 +725,7 @@ def getsticker(bot: Bot, update: Update):
         os.remove("sticker.png")
     else:
         update.effective_message.reply_text(
-            "Please reply to a sticker for me to upload its PNG."
-        )
+            "Please reply to a sticker for me to upload its PNG.")
 
 
 KANGING_STR = [
@@ -764,15 +763,14 @@ async def kang(args):
             await lol.edit(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             await tbot.download_file(message.media.document, photo)
-            if (
-                DocumentAttributeFilename(file_name="sticker.webp")
-                in message.media.document.attributes
-            ):
+            if (DocumentAttributeFilename(file_name="sticker.webp") in
+                    message.media.document.attributes):
                 emoji = message.media.document.attributes[1].alt
                 emojibypass = True
         elif "tgsticker" in message.media.document.mime_type:
             await lol.edit(f"`{random.choice(KANGING_STR)}`")
-            await tbot.download_file(message.media.document, "AnimatedSticker.tgs")
+            await tbot.download_file(message.media.document,
+                                     "AnimatedSticker.tgs")
 
             attributes = message.media.document.attributes
             for attribute in attributes:
@@ -822,14 +820,11 @@ async def kang(args):
             cmd = "/newanimated"
 
         response = urllib.request.urlopen(
-            urllib.request.Request(f"http://t.me/addstickers/{packname}")
-        )
+            urllib.request.Request(f"http://t.me/addstickers/{packname}"))
         htmlstr = response.read().decode("utf8").split("\n")
 
-        if (
-            "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
-            not in htmlstr
-        ):
+        if ("  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
+                not in htmlstr):
             async with tbot.conversation("Stickers") as conv:
                 await conv.send_message("/addsticker")
                 await conv.get_response()
@@ -841,11 +836,8 @@ async def kang(args):
                     pack += 1
                     packname = f"a{user.id}_by_{user.username}_{pack}"
                     packnick = f"@{user.username}'s kang pack Vol.{pack}"
-                    await lol.edit(
-                        "`Switching to Pack "
-                        + str(pack)
-                        + " due to insufficient space`"
-                    )
+                    await lol.edit("`Switching to Pack " + str(pack) +
+                                   " due to insufficient space`")
                     await conv.send_message(packname)
                     x = await conv.get_response()
                     if x.text == "Invalid pack selected.":
