@@ -664,7 +664,6 @@ import math
 import os
 import random
 import urllib.request
-import urllib.request as urllib
 from html import escape
 from os import remove
 from typing import List
