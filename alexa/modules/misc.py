@@ -2410,7 +2410,7 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    chat = event.input_chat()
+    chat = event.chat()
     sender = event.message.sender_id
     
     if event.is_group:
