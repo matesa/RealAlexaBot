@@ -661,33 +661,23 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import os
 import math
+import os
+import urllib.request as urllib
+from html import escape
+from typing import List, Optional
+from urllib.error import HTTPError, URLError
+
 import requests
-import urllib.request as urllib
-from urllib.error import URLError, HTTPError
-from html import escape
 from PIL import Image
-import os
-import math
-import urllib.request as urllib
-from PIL import Image
-from html import escape
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram import TelegramError, Update
-from telegram.ext import run_async
-from telegram.utils.helpers import mention_html
-from typing import Optional, List
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram import TelegramError
-from telegram import Update, Bot
+from telegram import (Bot, InlineKeyboardButton, InlineKeyboardMarkup,
+                      ParseMode, TelegramError, Update)
 from telegram.ext import CommandHandler, run_async
-from telegram.utils.helpers import escape_markdown
+from telegram.utils.helpers import escape_markdown, mention_html
 
 from alexa import dispatcher
-from alexa.modules.helper_funcs.chat_status import user_admin
-
 from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 
 @run_async
