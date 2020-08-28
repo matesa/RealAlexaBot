@@ -939,18 +939,27 @@ async def is_register_admin(chat, user):
         return None
 
 async def is_register_banful(chat, user):
-    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-        return isinstance(
-            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantAdmin, types.ChatAdminRights(ban_users=True))
+    if isinstance(chat, (types.PeerChannel, types.Channel)):
+
+        return any(
+            isinstance(
+                (
+                    await tbot(functions.channels.GetParticipantRequest(chat, user))
+                ).participant,
+                (types.ChannelParticipantCreator, chat.admin_rights.ban_users),
+            )
         )
-    elif isinstance(chat, types.InputPeerChat):
+    elif isinstance(chat, types.PeerChat):
+
         ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
-            .full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatAdminRights(ban_users=True))
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
+        return any(
+            isinstance(
+                next((p for p in ps if p.user_id == ui), None),
+                (types.ChatParticipantCreator, chat.admin_rights.ban_users),
+            )
         )
     else:
         return None
@@ -2405,12 +2414,8 @@ async def _(event):
     admin = chat.admin_rights
     sender = await event.get_sender()
     
-    if not event.chat.admin_rights.ban_users:
-       await event.reply("I don't have sufficient permissions")
-       return
-
     if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+     if not (await is_register_banful(event.chat, event.message.sender_id)):
        return
 
     c = 0
