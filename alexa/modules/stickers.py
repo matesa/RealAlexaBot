@@ -659,11 +659,6 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
-
-
-
 import io
 import math
 import os
@@ -761,6 +756,7 @@ async def kang(args):
 
     if message and message.media:
         if isinstance(message.media, MessageMediaPhoto):
+            global lol
             lol = await args.reply(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             photo = await tbot.download_media(message.photo, photo)
