@@ -2410,14 +2410,12 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    chat = await event.get_chat()
-    admin = chat.admin_rights
-    sender = await event.get_sender()
+    chat = event.input_chat()
+    sender = event.message.sender_id
     
     if event.is_group:
-     if not (await is_register_banful(event.chat, event.message.sender_id)):
-       return
-
+     if not sender.chat.admin_rights.ban_users: 
+      return
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
