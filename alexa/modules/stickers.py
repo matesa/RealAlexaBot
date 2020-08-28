@@ -659,6 +659,16 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
+from telethon.tl.types import DocumentAttributeSticker
+from telethon.tl.types import InputStickerSetID
+from telethon.tl.functions.messages import GetStickerSetRequest
+from alexa.events import register
+from alexa import tbot
+from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
+import random
+from os import remove
+import urllib.request
+import io
 import math
 import os
 import urllib.request as urllib
@@ -717,19 +727,6 @@ def getsticker(bot: Bot, update: Update):
             "Please reply to a sticker for me to upload its PNG.")
 
 
-import io
-import math
-import urllib.request
-from os import remove
-from PIL import Image
-import random
-from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-from alexa import tbot
-from alexa.events import register
-from telethon.tl.functions.messages import GetStickerSetRequest
-from telethon.tl.types import InputStickerSetID
-from telethon.tl.types import DocumentAttributeSticker
-
 KANGING_STR = [
     "Using Witchery to kang this sticker...",
     "Plagiarising hehe...",
@@ -772,7 +769,7 @@ async def kang(args):
         elif "tgsticker" in message.media.document.mime_type:
             await lol.edit(f"`{random.choice(KANGING_STR)}`")
             await tbot.download_file(message.media.document,
-                                    'AnimatedSticker.tgs')
+                                     'AnimatedSticker.tgs')
 
             attributes = message.media.document.attributes
             for attribute in attributes:
@@ -838,7 +835,7 @@ async def kang(args):
                     packname = f"a{user.id}_by_{user.username}_{pack}"
                     packnick = f"@{user.username}'s kang pack Vol.{pack}"
                     await lol.edit("`Switching to Pack " + str(pack) +
-                                    " due to insufficient space`")
+                                   " due to insufficient space`")
                     await conv.send_message(packname)
                     x = await conv.get_response()
                     if x.text == "Invalid pack selected.":
@@ -881,7 +878,7 @@ async def kang(args):
                         await lol.edit(f"`Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
                             \nYour pack can be found [here](t.me/addstickers/{packname})",
-                                        parse_mode='md')
+                                       parse_mode='md')
                         return
                 if is_anim:
                     await conv.send_file('AnimatedSticker.tgs')
@@ -950,7 +947,7 @@ async def kang(args):
 
         await lol.edit(f"`Sticker kanged successfully!`\
             \nPack can be found [here](t.me/addstickers/{packname})",
-                        parse_mode='md')
+                       parse_mode='md')
 
 
 STICKERID_HANDLER = CommandHandler("stickerid", stickerid)
