@@ -659,10 +659,14 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
+import io
 import math
 import os
+import random
+import urllib.request
 import urllib.request as urllib
 from html import escape
+from os import remove
 from typing import List
 from typing import Optional
 from urllib.error import HTTPError
@@ -680,8 +684,15 @@ from telegram.ext import CommandHandler
 from telegram.ext import run_async
 from telegram.utils.helpers import escape_markdown
 from telegram.utils.helpers import mention_html
+from telethon.tl.functions.messages import GetStickerSetRequest
+from telethon.tl.types import DocumentAttributeFilename
+from telethon.tl.types import DocumentAttributeSticker
+from telethon.tl.types import InputStickerSetID
+from telethon.tl.types import MessageMediaPhoto
 
 from alexa import dispatcher
+from alexa import tbot
+from alexa.events import register
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
 
@@ -717,19 +728,6 @@ def getsticker(bot: Bot, update: Update):
             "Please reply to a sticker for me to upload its PNG.")
 
 
-import io
-import math
-import urllib.request
-from os import remove
-from PIL import Image
-import random
-from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-from alexa import tbot
-from alexa.events import register
-from telethon.tl.functions.messages import GetStickerSetRequest
-from telethon.tl.types import InputStickerSetID
-from telethon.tl.types import DocumentAttributeSticker
-
 KANGING_STR = [
     "Using Witchery to kang this sticker...",
     "Plagiarising hehe...",
@@ -761,18 +759,18 @@ async def kang(args):
             lol = await args.reply(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             photo = await tbot.download_media(message.photo, photo)
-        elif "image" in message.media.document.mime_type.split('/'):
+        elif "image" in message.media.document.mime_type.split("/"):
             await lol.edit(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             await tbot.download_file(message.media.document, photo)
-            if (DocumentAttributeFilename(file_name='sticker.webp') in
+            if (DocumentAttributeFilename(file_name="sticker.webp") in
                     message.media.document.attributes):
                 emoji = message.media.document.attributes[1].alt
                 emojibypass = True
         elif "tgsticker" in message.media.document.mime_type:
             await lol.edit(f"`{random.choice(KANGING_STR)}`")
             await tbot.download_file(message.media.document,
-                                    'AnimatedSticker.tgs')
+                                     "AnimatedSticker.tgs")
 
             attributes = message.media.document.attributes
             for attribute in attributes:
@@ -809,7 +807,7 @@ async def kang(args):
 
         packname = f"a{user.id}_by_{user.username}_{pack}"
         packnick = f"@{user.username}'s kang pack Vol.{pack}"
-        cmd = '/newpack'
+        cmd = "/newpack"
         file = io.BytesIO()
 
         if not is_anim:
@@ -819,15 +817,16 @@ async def kang(args):
         else:
             packname += "_anim"
             packnick += " (Animated)"
-            cmd = '/newanimated'
+            cmd = "/newanimated"
 
         response = urllib.request.urlopen(
-            urllib.request.Request(f'http://t.me/addstickers/{packname}'))
-        htmlstr = response.read().decode("utf8").split('\n')
+            urllib.request.Request(f"http://t.me/addstickers/{packname}"))
+        htmlstr = response.read().decode("utf8").split("\n")
 
-        if "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>." not in htmlstr:
-            async with tbot.conversation('Stickers') as conv:
-                await conv.send_message('/addsticker')
+        if ("  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
+                not in htmlstr):
+            async with tbot.conversation("Stickers") as conv:
+                await conv.send_message("/addsticker")
                 await conv.get_response()
                 # Ensure user doesn't get spamming notifications
                 await tbot.send_read_acknowledge(conv.chat_id)
@@ -838,7 +837,7 @@ async def kang(args):
                     packname = f"a{user.id}_by_{user.username}_{pack}"
                     packnick = f"@{user.username}'s kang pack Vol.{pack}"
                     await lol.edit("`Switching to Pack " + str(pack) +
-                                    " due to insufficient space`")
+                                   " due to insufficient space`")
                     await conv.send_message(packname)
                     x = await conv.get_response()
                     if x.text == "Invalid pack selected.":
@@ -851,8 +850,8 @@ async def kang(args):
                         # Ensure user doesn't get spamming notifications
                         await tbot.send_read_acknowledge(conv.chat_id)
                         if is_anim:
-                            await conv.send_file('AnimatedSticker.tgs')
-                            remove('AnimatedSticker.tgs')
+                            await conv.send_file("AnimatedSticker.tgs")
+                            remove("AnimatedSticker.tgs")
                         else:
                             file.seek(0)
                             await conv.send_file(file, force_document=True)
@@ -878,14 +877,16 @@ async def kang(args):
                         await conv.get_response()
                         # Ensure user doesn't get spamming notifications
                         await tbot.send_read_acknowledge(conv.chat_id)
-                        await lol.edit(f"`Sticker added in a Different Pack !\
+                        await lol.edit(
+                            f"`Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
                             \nYour pack can be found [here](t.me/addstickers/{packname})",
-                                        parse_mode='md')
+                            parse_mode="md",
+                        )
                         return
                 if is_anim:
-                    await conv.send_file('AnimatedSticker.tgs')
-                    remove('AnimatedSticker.tgs')
+                    await conv.send_file("AnimatedSticker.tgs")
+                    remove("AnimatedSticker.tgs")
                 else:
                     file.seek(0)
                     await conv.send_file(file, force_document=True)
@@ -899,13 +900,13 @@ async def kang(args):
                 # Ensure user doesn't get spamming notifications
                 await tbot.send_read_acknowledge(conv.chat_id)
                 await conv.get_response()
-                await conv.send_message('/done')
+                await conv.send_message("/done")
                 await conv.get_response()
                 # Ensure user doesn't get spamming notifications
                 await tbot.send_read_acknowledge(conv.chat_id)
         else:
             await lol.edit("`Brewing a new Pack...`")
-            async with tbot.conversation('Stickers') as conv:
+            async with tbot.conversation("Stickers") as conv:
                 await conv.send_message(cmd)
                 await conv.get_response()
                 # Ensure user doesn't get spamming notifications
@@ -915,8 +916,8 @@ async def kang(args):
                 # Ensure user doesn't get spamming notifications
                 await tbot.send_read_acknowledge(conv.chat_id)
                 if is_anim:
-                    await conv.send_file('AnimatedSticker.tgs')
-                    remove('AnimatedSticker.tgs')
+                    await conv.send_file("AnimatedSticker.tgs")
+                    remove("AnimatedSticker.tgs")
                 else:
                     file.seek(0)
                     await conv.send_file(file, force_document=True)
@@ -948,9 +949,11 @@ async def kang(args):
                 # Ensure user doesn't get spamming notifications
                 await tbot.send_read_acknowledge(conv.chat_id)
 
-        await lol.edit(f"`Sticker kanged successfully!`\
+        await lol.edit(
+            f"`Sticker kanged successfully!`\
             \nPack can be found [here](t.me/addstickers/{packname})",
-                        parse_mode='md')
+            parse_mode="md",
+        )
 
 
 STICKERID_HANDLER = CommandHandler("stickerid", stickerid)
