@@ -659,6 +659,11 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
+
+
+
+
+
 import io
 import math
 import os
@@ -745,7 +750,7 @@ KANGING_STR = [
 @register(pattern="^/kang")
 async def kang(args):
     """ For .kang command, kangs stickers or creates new ones. """
-    user = await tbot.get_sender()
+    user = await tbot.get_me()
     if not user.username:
         user.username = user.first_name
     message = await args.get_reply_message()
