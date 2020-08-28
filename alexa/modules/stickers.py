@@ -659,39 +659,30 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-from telethon.tl.types import DocumentAttributeSticker
-from telethon.tl.types import InputStickerSetID
-from telethon.tl.functions.messages import GetStickerSetRequest
-from alexa.events import register
-from alexa import tbot
-from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-import random
-from os import remove
-import urllib.request
 import io
 import math
 import os
+import random
+import urllib.request
 import urllib.request as urllib
 from html import escape
-from typing import List
-from typing import Optional
-from urllib.error import HTTPError
-from urllib.error import URLError
+from os import remove
+from typing import List, Optional
+from urllib.error import HTTPError, URLError
 
 import requests
 from PIL import Image
-from telegram import Bot
-from telegram import InlineKeyboardButton
-from telegram import InlineKeyboardMarkup
-from telegram import ParseMode
-from telegram import TelegramError
-from telegram import Update
-from telegram.ext import CommandHandler
-from telegram.ext import run_async
-from telegram.utils.helpers import escape_markdown
-from telegram.utils.helpers import mention_html
+from telegram import (Bot, InlineKeyboardButton, InlineKeyboardMarkup,
+                      ParseMode, TelegramError, Update)
+from telegram.ext import CommandHandler, run_async
+from telegram.utils.helpers import escape_markdown, mention_html
+from telethon.tl.functions.messages import GetStickerSetRequest
+from telethon.tl.types import (DocumentAttributeFilename,
+                               DocumentAttributeSticker, InputStickerSetID,
+                               MessageMediaPhoto)
 
-from alexa import dispatcher
+from alexa import dispatcher, tbot
+from alexa.events import register
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
 
