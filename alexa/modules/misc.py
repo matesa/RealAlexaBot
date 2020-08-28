@@ -2405,7 +2405,7 @@ async def _(event):
         return
 
     chat = event.get_chat()
-    sender = event.message.sender_id
+    sender = event.message
     
     if event.is_group:
      if not sender.chat.admin_rights.ban_users: 
