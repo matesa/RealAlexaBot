@@ -666,169 +666,204 @@
 
 
 import html
-from typing import Optional, List
-import requests
-from telegram import Message, Chat, Update, Bot, User
+import os
+from typing import Optional
+
 from telegram import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
-from telegram.utils.helpers import escape_markdown, mention_html
-from telegram.ext import MessageHandler, Filters, CommandHandler
-from alexa import dispatcher, updater, TOKEN
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, user_can_restrict, user_can_pin, user_can_change
-from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from alexa.modules.log_channel import loggable
-from alexa.modules.sql import admin_sql as sql
-from alexa.modules.translations.strings import tld
+from telegram.utils.helpers import mention_html
 
+from alexa import dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import (
+    bot_admin,
+    can_promote,
+    user_can_promote,
+    user_admin,
+    can_pin,
+    user_can_pin,
+    user_can_change
+)
+from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from alexa.modules.helper_funcs.alternate import typing_action
 from alexa.modules.connection import connected
+from alexa.modules.log_channel import loggable
+
 
 @run_async
 @bot_admin
-@user_can_restrict
+@user_can_promote
+@user_admin
 @loggable
-def promote(bot: Bot, update: Update, args: List[str]) -> str:
-    message = update.effective_message  # type: Optional[Message]
-    user = update.effective_user  # type: Optional[User]
-    chat = update.effective_chat  # type: Optional[Chat]
-    conn = connected(bot, update, chat, user.id)
-    if not conn == False:
-        chatD = dispatcher.bot.getChat(conn)
-    else:
-        chatD = update.effective_chat
-        if chat.type == "private":
-            exit(1)
+@typing_action
+def promote(update, context):
+    chat_id = update.effective_chat.id
+    message = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
+    args = context.args
 
-    if not chatD.get_member(bot.id).can_promote_members:
-        update.effective_message.reply_text("I can't promote/demote people here! "
-                                            "Make sure I'm admin and can appoint new admins.")
-        exit(1)
+    if user_can_promote(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to promote someone!")
+        return ""
 
     user_id = extract_user(message, args)
     if not user_id:
-        message.reply_text(tld(chat.id, "You don't seem to be referring to a user."))
+        message.reply_text("mention one.... 🤷🏻‍♂.")
         return ""
 
-    user_member = chatD.get_member(user_id)
-    if user_member.status == 'administrator' or user_member.status == 'creator':
-        message.reply_text(tld(chat.id, "How am I meant to promote someone that's already an admin?"))
+    user_member = chat.get_member(user_id)
+    if user_member.status == "administrator" or user_member.status == "creator":
+        message.reply_text("This person is already an admin...!")
         return ""
 
-    if user_id == bot.id:
-        message.reply_text(tld(chat.id, "I can't promote myself! Get an admin to do it for me."))
+    if user_id == context.bot.id:
+        message.reply_text("I hope, if i could promote myself!")
         return ""
 
     # set same perms as bot - bot can't assign higher perms than itself!
-    bot_member = chatD.get_member(bot.id)
+    bot_member = chat.get_member(context.bot.id)
 
-    bot.promoteChatMember(chatD.id, user_id,
-                          can_change_info=bot_member.can_change_info,
-                          can_post_messages=bot_member.can_post_messages,
-                          can_edit_messages=bot_member.can_edit_messages,
-                          can_delete_messages=bot_member.can_delete_messages,
-                          can_invite_users=bot_member.can_invite_users,
-                          can_restrict_members=bot_member.can_restrict_members,
-                          can_pin_messages=bot_member.can_pin_messages)
-                    
+    context.bot.promoteChatMember(
+        chat_id,
+        user_id,
+        can_change_info=bot_member.can_change_info,
+        can_post_messages=bot_member.can_post_messages,
+        can_edit_messages=bot_member.can_edit_messages,
+        can_delete_messages=bot_member.can_delete_messages,
+        can_invite_users=bot_member.can_invite_users,
+        can_restrict_members=bot_member.can_restrict_members,
+        can_pin_messages=bot_member.can_pin_messages,
+    )
 
-    message.reply_text(tld(chat.id, f"Successfully promoted in *{chatD.title}*!"), parse_mode=ParseMode.MARKDOWN)
-    return f"<b>{html.escape(chatD.title)}:</b>" \
-            "\n#PROMOTED" \
-           f"\n<b>Admin:</b> {mention_html(user.id, user.first_name)}" \
-           f"\n<b>User:</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
+    message.reply_text("Promoted🧡")
+    return (
+        "<b>{}:</b>"
+        "\n#PROMOTED"
+        "\n<b>Admin:</b> {}"
+        "\n<b>User:</b> {}".format(
+            html.escape(chat.title),
+            mention_html(user.id, user.first_name),
+            mention_html(user_member.user.id, user_member.user.first_name),
+        )
+    )
 
 
 @run_async
 @bot_admin
-@user_can_restrict
+@user_can_promote
+@user_admin
 @loggable
-def demote(bot: Bot, update: Update, args: List[str]) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    message = update.effective_message  # type: Optional[Message]
-    user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id)
-    if not conn == False:
-        chatD = dispatcher.bot.getChat(conn)
-    else:
-        chatD = update.effective_chat
-        if chat.type == "private":
-            exit(1)
+@typing_action
+def demote(update, context):
+    chat = update.effective_chat
+    message = update.effective_message
+    user = update.effective_user
+    args = context.args
 
-    if not chatD.get_member(bot.id).can_promote_members:
-        update.effective_message.reply_text("I can't promote/demote people here! "
-                                            "Make sure I'm admin and can appoint new admins.")
-        exit(1)
+    if user_can_promote(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to demote someone!")
+        return ""
 
     user_id = extract_user(message, args)
     if not user_id:
-        message.reply_text(tld(chat.id, "You don't seem to be referring to a user."))
+        message.reply_text("mention one.... 🤷🏻‍♂.")
         return ""
 
-    user_member = chatD.get_member(user_id)
-    if user_member.status == 'creator':
-        message.reply_text(tld(chat.id, "This person CREATED the chat, how would I demote them?"))
+    user_member = chat.get_member(user_id)
+    if user_member.status == "creator":
+        message.reply_text("I'm not gonna demote Creator this group.... 🙄")
         return ""
 
-    if not user_member.status == 'administrator':
-        message.reply_text(tld(chat.id, "Can't demote what wasn't promoted!"))
+    if not user_member.status == "administrator":
+        message.reply_text(
+            "How I'm supposed to demote someone who is not even an admin!"
+        )
         return ""
 
-    if user_id == bot.id:
-        message.reply_text(tld(chat.id, "I can't demote myself!"))
+    if user_id == context.bot.id:
+        message.reply_text("Yeahhh... Not gonna demote myself!")
         return ""
 
     try:
-        bot.promoteChatMember(int(chatD.id), int(user_id),
-                              can_change_info=False,
-                              can_post_messages=False,
-                              can_edit_messages=False,
-                              can_delete_messages=False,
-                              can_invite_users=False,
-                              can_restrict_members=False,
-                              can_pin_messages=False,
-                              can_promote_members=False)
-        message.reply_text(tld(chat.id, f"Successfully demoted in *{chatD.title}*!"), parse_mode=ParseMode.MARKDOWN)
-        return f"<b>{html.escape(chatD.title)}:</b>" \
-                "\n#DEMOTED" \
-               f"\n<b>Admin:</b> {mention_html(user.id, user.first_name)}" \
-               f"\n<b>User:</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
+        context.bot.promoteChatMember(
+            int(chat.id),
+            int(user_id),
+            can_change_info=False,
+            can_post_messages=False,
+            can_edit_messages=False,
+            can_delete_messages=False,
+            can_invite_users=False,
+            can_restrict_members=False,
+            can_pin_messages=False,
+        )
+        message.reply_text("Successfully demoted!")
+        return (
+            "<b>{}:</b>"
+            "\n#DEMOTED"
+            "\n<b>Admin:</b> {}"
+            "\n<b>User:</b> {}".format(
+                html.escape(chat.title),
+                mention_html(user.id, user.first_name),
+                mention_html(user_member.user.id, user_member.user.first_name),
+            )
+        )
 
     except BadRequest:
         message.reply_text(
-            tld(chat.id, "Could not demote. I might not be admin, or the admin status was appointed by another user, so I can't act upon them!")
-            )
+            "Failed to demote. I might not be admin, or the admin status was appointed by another "
+            "user, so I can't act upon them!"
+        )
         return ""
 
 
 @run_async
 @bot_admin
+@can_pin
 @user_can_pin
 @loggable
-def pin(bot: Bot, update: Update, args: List[str]) -> str:
-    user = update.effective_user  # type: Optional[User]
-    chat = update.effective_chat  # type: Optional[Chat]
+@typing_action
+def pin(update, context):
+    args = context.args
+    user = update.effective_user
+    chat = update.effective_chat
+    message = update.effective_message
 
     is_group = chat.type != "private" and chat.type != "channel"
 
     prev_message = update.effective_message.reply_to_message
 
+    if user_can_pin(chat, user, context.bot.id) is False:
+        message.reply_text("You are missing rights to pin a message!")
+        return ""
+
     is_silent = True
     if len(args) >= 1:
-        is_silent = not (args[0].lower() == 'notify' or args[0].lower() == 'loud' or args[0].lower() == 'violent')
+        is_silent = not (
+            args[0].lower() == "notify"
+            or args[0].lower() == "loud"
+            or args[0].lower() == "violent"
+        )
 
     if prev_message and is_group:
         try:
-            bot.pinChatMessage(chat.id, prev_message.message_id, disable_notification=is_silent)
+            context.bot.pinChatMessage(
+                chat.id, prev_message.message_id, disable_notification=is_silent
+            )
         except BadRequest as excp:
             if excp.message == "Chat_not_modified":
                 pass
             else:
                 raise
-        return f"<b>{html.escape(chat.title)}:</b>" \
-                "\n#PINNED" \
-               f"\n<b>Admin:</b> {mention_html(user.id, user.first_name)}"
+        return (
+            "<b>{}:</b>"
+            "\n#PINNED"
+            "\n<b>Admin:</b> {}".format(
+                html.escape(chat.title), mention_html(user.id, user.first_name)
+            )
+        )
 
     return ""
 
@@ -837,124 +872,127 @@ def pin(bot: Bot, update: Update, args: List[str]) -> str:
 @bot_admin
 @user_can_pin
 @loggable
-def unpin(bot: Bot, update: Update) -> str:
+@typing_action
+def unpin(update, context):
     chat = update.effective_chat
-    user = update.effective_user  # type: Optional[User]
+    user = update.effective_user
+    message = update.effective_message
+
+    if user_can_pin(chat, user, context.bot.id) is False:
+        message.reply_text("You are missing rights to unpin a message!")
+        return ""
 
     try:
-        bot.unpinChatMessage(chat.id)
+        context.bot.unpinChatMessage(chat.id)
     except BadRequest as excp:
         if excp.message == "Chat_not_modified":
             pass
         else:
             raise
 
-    return f"<b>{html.escape(chat.title)}:</b>" \
-           "\n#UNPINNED" \
-           f"\n<b>Admin:</b> {mention_html(user.id, user.first_name)}"
+    return (
+        "<b>{}:</b>"
+        "\n#UNPINNED"
+        "\n<b>Admin:</b> {}".format(
+            html.escape(chat.title), mention_html(user.id, user.first_name)
+        )
+    )
 
 
 @run_async
 @bot_admin
-@user_can_change
-def invite(bot: Bot, update: Update):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id, need_admin=False)
-    if not conn == False:
-        chatP = dispatcher.bot.getChat(conn)
-    else:
-        chatP = update.effective_chat
-        if chat.type == "private":
-            exit(1)
+@user_admin
+@typing_action
+def invite(update, context):
+    user = update.effective_user
+    msg = update.effective_message
+    chat = update.effective_chat
+    args = context.args
 
-    if chatP.username:
-        update.effective_message.reply_text(chatP.username)
-    elif chatP.type == chatP.SUPERGROUP or chatP.type == chatP.CHANNEL:
-        bot_member = chatP.get_member(bot.id)
+    conn = connected(context.bot, update, chat, user.id, need_admin=True)
+    if conn:
+        chat = dispatcher.bot.getChat(conn)
+    else:
+        if msg.chat.type == "private":
+            msg.reply_text("This command is meant to use in chat not in PM")
+            return ""
+        chat = update.effective_chat
+
+    if chat.username:
+        msg.reply_text(chat.username)
+    elif chat.type == chat.SUPERGROUP or chat.type == chat.CHANNEL:
+        bot_member = chat.get_member(context.bot.id)
         if bot_member.can_invite_users:
-            invitelink = chatP.invite_link
-            #print(invitelink)
-            if not invitelink:
-                invitelink = bot.exportChatInviteLink(chatP.id)
-
-            update.effective_message.reply_text(invitelink)
+            invitelink = context.bot.exportChatInviteLink(chat.id)
+            msg.reply_text(invitelink)
         else:
-            update.effective_message.reply_text(tld(chat.id, "I don't have access to the invite link, try changing my permissions!"))
+            msg.reply_text(
+                "I don't have access to the invite link, try changing my permissions!"
+            )
     else:
-        update.effective_message.reply_text(tld(chat.id, "I can only give you invite links for supergroups and channels, sorry!"))
+        msg.reply_text(
+            "I can only give you invite links for supergroups and channels, sorry!"
+        )
 
 
 @run_async
-def adminlist(bot: Bot, update: Update):
-    chat = update.effective_chat
+@typing_action
+@user_admin
+def adminlist(update, context):
     administrators = update.effective_chat.get_administrators()
-    text = tld(chat.id, "Admins in *{}*:").format(
-        update.effective_chat.title
-        or tld(chat.id, "This chat").lower())
+    text = "Admins in <b>{}</b>:".format(update.effective_chat.title or "this chat")
     for admin in administrators:
         user = admin.user
-        name = "[{}](tg://user?id={})".format(user.first_name, user.id)
-        if user.username:
-            esc = escape_markdown("@" + user.username)
-            name = "[{}](tg://user?id={})".format(esc, user.id)
-        text += "\n - {}".format(name)
+        status = admin.status
+        name = f"{(mention_html(user.id, user.first_name))}"
+        if status == "creator":
+            text += "\n 🦁 Creator:"
+            text += "\n • {} \n\n 🦊 Admin:".format(name)
+    for admin in administrators:
+        user = admin.user
+        status = admin.status
+        name = f"{(mention_html(user.id, user.first_name))}"
+        if status == "administrator":
+            text += "\n • {}".format(name)
+    update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
-    update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
-
-
-@user_admin
-@run_async
-def reaction(bot: Bot, update: Update, args: List[str]) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    if len(args) >= 1:
-        var = args[0]
-        print(var)
-        if var == "False":
-            sql.set_command_reaction(chat.id, False)
-            update.effective_message.reply_text("Disabled reaction on admin commands for users")
-        elif var == "True":
-            sql.set_command_reaction(chat.id, True)
-            update.effective_message.reply_text("Enabled reaction on admin commands for users")
-        else:
-            update.effective_message.reply_text("Please enter True or False!", parse_mode=ParseMode.MARKDOWN)
-    else:
-        status = sql.command_reaction(chat.id)
-        if status == False:
-            update.effective_message.reply_text("Reaction on admin commands for users now `disabled`!", parse_mode=ParseMode.MARKDOWN)
-        else:
-            update.effective_message.reply_text("Reaction on admin commands for users now `enabled`!", parse_mode=ParseMode.MARKDOWN)
-        
 @run_async
 @bot_admin
 @can_promote
 @user_can_change
-def set_title(bot: Bot, update: Update, args: List[str]):
+@typing_action
+def set_title(update, context):
+    args = context.args
     chat = update.effective_chat
     message = update.effective_message
 
     user_id, title = extract_user_and_text(message, args)
     try:
         user_member = chat.get_member(user_id)
-    except Exception as e:
-        print(e)
+    except Exception:
         return
 
     if not user_id:
         message.reply_text("You don't seem to be referring to a user.")
         return
 
-    if user_member.status == 'creator':
-        message.reply_text("This person CREATED the chat, how can i set custom title for him?")
+    if user_member.status == "creator":
+        message.reply_text(
+            "This person CREATED the chat, how can i set custom title for him?"
+        )
         return
 
-    if not user_member.status == 'administrator':
-        message.reply_text("Can't set title for non-admins!\nPromote them first to set custom title!")
+    if not user_member.status == "administrator":
+        message.reply_text(
+            "Can't set title for non-admins!\nPromote them first to set custom title!"
+        )
         return
 
-    if user_id == bot.id:
-        message.reply_text("I can't set my own title myself! Get the one who made me admin to do it for me.")
+    if user_id == context.bot.id:
+        message.reply_text(
+            "I can't set my own title myself! Get the one who made me admin to do it for me."
+        )
         return
 
     if not title:
@@ -962,23 +1000,211 @@ def set_title(bot: Bot, update: Update, args: List[str]):
         return
 
     if len(title) > 16:
-        message.reply_text("The title length is longer than 16 characters.\nTruncating it to 16 characters.")
+        message.reply_text(
+            "The title length is longer than 16 characters.\nTruncating it to 16 characters."
+        )
 
-    result = requests.post(f"https://api.telegram.org/bot{TOKEN}/setChatAdministratorCustomTitle"
-                           f"?chat_id={chat.id}"
-                           f"&user_id={user_id}"
-                           f"&custom_title={title}")
-    status = result.json()["ok"]
+    try:
+        context.bot.set_chat_administrator_custom_title(chat.id, user_id, title)
+        message.reply_text(
+            "Sucessfully set title for <b>{}</b> to <code>{}</code>!".format(
+                user_member.user.first_name or user_id, title[:16]
+            ),
+            parse_mode=ParseMode.HTML,
+        )
 
-    if status is True:
-        bot.sendMessage(chat.id, f"Sucessfully set title for <code>{user_member.user.first_name or user_id}</code> "
-                                 f"to <code>{title[:16]}</code>!", parse_mode=ParseMode.HTML)
+    except BadRequest:
+        message.reply_text("I can't set custom title for admins that I didn't promote!")
+
+
+@run_async
+@bot_admin
+@user_can_change
+@typing_action
+def setchatpic(update, context):
+    chat = update.effective_chat
+    msg = update.effective_message
+    user = update.effective_user
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        msg.reply_text("You are missing right to change group info!")
+        return
+
+    if msg.reply_to_message:
+        if msg.reply_to_message.photo:
+            pic_id = msg.reply_to_message.photo[-1].file_id
+        elif msg.reply_to_message.document:
+            pic_id = msg.reply_to_message.document.file_id
+        else:
+            msg.reply_text("You can only set some photo as chat pic!")
+            return
+        dlmsg = msg.reply_text("Just a sec...")
+        tpic = context.bot.get_file(pic_id)
+        tpic.download("gpic.png")
+        try:
+            with open("gpic.png", "rb") as chatp:
+                context.bot.set_chat_photo(int(chat.id), photo=chatp)
+                msg.reply_text("Successfully set new chatpic!")
+        except BadRequest as excp:
+            msg.reply_text(f"Error! {excp.message}")
+        finally:
+            dlmsg.delete()
+            if os.path.isfile("gpic.png"):
+                os.remove("gpic.png")
     else:
-        description = result.json()["description"]
-        if description == "Bad Request: not enough rights to change custom title of the user":
-            message.reply_text("I can't set custom title for admins that I didn't promote!")
+        msg.reply_text("Reply to some photo or file to set new chat pic!")
 
 
+@run_async
+@bot_admin
+@user_can_change
+@typing_action
+def rmchatpic(update, context):
+    chat = update.effective_chat
+    msg = update.effective_message
+    user = update.effective_user
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        msg.reply_text("You don't have enough rights to delete group photo")
+        return
+    try:
+        context.bot.delete_chat_photo(int(chat.id))
+        msg.reply_text("Successfully deleted chat's profile photo!")
+    except BadRequest as excp:
+        msg.reply_text(f"Error! {excp.message}.")
+        return
+
+
+@run_async
+@bot_admin
+@user_can_change
+@typing_action
+def setchat_title(update, context):
+    chat = update.effective_chat
+    msg = update.effective_message
+    user = update.effective_user
+    args = context.args
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        msg.reply_text("You don't have enough rights to change chat info!")
+        return
+
+    title = " ".join(args)
+    if not title:
+        msg.reply_text("Enter some text to set new title in your chat!")
+        return
+
+    try:
+        context.bot.set_chat_title(int(chat.id), str(title))
+        msg.reply_text(
+            f"Successfully set <b>{title}</b> as new chat title!",
+            parse_mode=ParseMode.HTML,
+        )
+    except BadRequest as excp:
+        msg.reply_text(f"Error! {excp.message}.")
+        return
+
+
+@run_async
+@bot_admin
+@user_can_change
+@typing_action
+def set_sticker(update, context):
+    msg = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        return msg.reply_text("You're missing rights to change chat info!")
+
+    if msg.reply_to_message:
+        if not msg.reply_to_message.sticker:
+            return msg.reply_text(
+                "You need to reply to some sticker to set chat sticker set!"
+            )
+        stkr = msg.reply_to_message.sticker.set_name
+        try:
+            context.bot.set_chat_sticker_set(chat.id, stkr)
+            msg.reply_text(f"Successfully set new group stickers in {chat.title}!")
+        except BadRequest as excp:
+            if excp.message == "Participants_too_few":
+                return msg.reply_text(
+                    "Sorry, due to telegram restrictions chat needs to have minimum 100 members before they can have group stickers!"
+                )
+            msg.reply_text(f"Error! {excp.message}.")
+    else:
+        msg.reply_text("You need to reply to some sticker to set chat sticker set!")
+
+
+@run_async
+@bot_admin
+@user_can_change
+@typing_action
+def set_desc(update, context):
+    msg = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        return msg.reply_text("You're missing rights to change chat info!")
+
+    tesc = msg.text.split(None, 1)
+    if len(tesc) >= 2:
+        desc = tesc[1]
+    else:
+        return msg.reply_text("Setting empty description won't do anything!")
+    try:
+        if len(desc) > 255:
+            return msg.reply_text("Description must needs to be under 255 characters!")
+        context.bot.set_chat_description(chat.id, desc)
+        msg.reply_text(f"Successfully updated chat description in {chat.title}!")
+    except BadRequest as excp:
+        msg.reply_text(f"Error! {excp.message}.")
+
+
+def __chat_settings__(chat_id, user_id):
+    return "You are *admin*: `{}`".format(
+        dispatcher.bot.get_chat_member(chat_id, user_id).status
+        in ("administrator", "creator")
+    )
+
+
+__mod_name__ = "Admin 🚫"
+
+PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.group)
+UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.group)
+
+INVITE_HANDLER = CommandHandler("invitelink", invite)
+CHAT_PIC_HANDLER = CommandHandler("setgpic", setchatpic, filters=Filters.group)
+DEL_CHAT_PIC_HANDLER = CommandHandler("delgpic", rmchatpic, filters=Filters.group)
+SETCHAT_TITLE_HANDLER = CommandHandler(
+    "setgtitle", setchat_title, filters=Filters.group
+)
+SETSTICKET_HANDLER = CommandHandler("setsticker", set_sticker, filters=Filters.group)
+SETDESC_HANDLER = CommandHandler("setdescription", set_desc, filters=Filters.group)
+
+PROMOTE_HANDLER = CommandHandler(
+    "promote", promote, pass_args=True, filters=Filters.group
+)
+DEMOTE_HANDLER = CommandHandler("demote", demote, pass_args=True, filters=Filters.group)
+
+SET_TITLE_HANDLER = DisableAbleCommandHandler("settitle", set_title, pass_args=True)
+ADMINLIST_HANDLER = DisableAbleCommandHandler(
+    "adminlist", adminlist, filters=Filters.group
+)
+
+dispatcher.add_handler(PIN_HANDLER)
+dispatcher.add_handler(UNPIN_HANDLER)
+dispatcher.add_handler(INVITE_HANDLER)
+dispatcher.add_handler(PROMOTE_HANDLER)
+dispatcher.add_handler(DEMOTE_HANDLER)
+dispatcher.add_handler(ADMINLIST_HANDLER)
+dispatcher.add_handler(SET_TITLE_HANDLER)
+dispatcher.add_handler(CHAT_PIC_HANDLER)
+dispatcher.add_handler(DEL_CHAT_PIC_HANDLER)
+dispatcher.add_handler(SETCHAT_TITLE_HANDLER)
+dispatcher.add_handler(SETSTICKET_HANDLER)
+dispatcher.add_handler(SETDESC_HANDLER)
 
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
@@ -1054,25 +1280,3 @@ __help__ = """
 """
 
 __mod_name__ = "Admin 🚫"
-
-PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.group)
-UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.group)
-
-INVITE_HANDLER = CommandHandler("invitelink", invite)
-
-PROMOTE_HANDLER = CommandHandler("promote", promote, pass_args=True)
-DEMOTE_HANDLER = CommandHandler("demote", demote, pass_args=True)
-
-# REACT_HANDLER = CommandHandler("reaction", reaction, pass_args=True, filters=Filters.group)
-
-ADMINLIST_HANDLER = CommandHandler(["adminlist", "admins"], adminlist)
-SET_TITLE_HANDLER = CommandHandler("settitle", set_title, pass_args=True)
-
-dispatcher.add_handler(PIN_HANDLER)
-dispatcher.add_handler(UNPIN_HANDLER)
-dispatcher.add_handler(INVITE_HANDLER)
-dispatcher.add_handler(PROMOTE_HANDLER)
-dispatcher.add_handler(DEMOTE_HANDLER)
-dispatcher.add_handler(ADMINLIST_HANDLER)
-# dispatcher.add_handler(REACT_HANDLER)
-dispatcher.add_handler(SET_TITLE_HANDLER)
