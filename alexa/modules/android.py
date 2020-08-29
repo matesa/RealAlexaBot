@@ -671,7 +671,7 @@ from hurry.filesize import size as sizee
 from telethon import custom
 from alexa.events import register
 from alexa import LOGGER, tbot
-from alexa.modules.translations.strings import tld
+
 import re
 import json
 
