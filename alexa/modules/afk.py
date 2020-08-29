@@ -671,10 +671,10 @@ import time
 from telegram import Message, User
 from telegram import MessageEntity, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
+from telegram.ext import Filters, MessageHandler, run_async
 
 from alexa import dispatcher
-
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 from alexa.modules.sql import afk_sql as sql
 from alexa.modules.users import get_user_id
 
@@ -780,8 +780,8 @@ def __gdpr__(user_id):
 __mod_name = "AFK"
 
 
-AFK_HANDLER = CommandHandler("afk", afk)
-AFK_REGEX_HANDLER = MessageHandler(
+AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
+AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex("(?i)brb"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(
