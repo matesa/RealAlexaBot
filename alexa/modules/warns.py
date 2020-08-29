@@ -851,7 +851,7 @@ def button(update, context):
 @user_can_restrict
 @can_restrict
 @loggable
-@typing_action
+
 def warn_user(update, context):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -882,7 +882,7 @@ def warn_user(update, context):
 @user_can_restrict
 @bot_admin
 @loggable
-@typing_action
+
 def reset_warns(update, context):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -914,7 +914,7 @@ def reset_warns(update, context):
 @user_can_restrict
 @bot_admin
 @loggable
-@typing_action
+
 def remove_warns(update, context):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -944,7 +944,7 @@ def remove_warns(update, context):
 
 
 @run_async
-@typing_action
+
 def warns(update, context):
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1092,7 +1092,7 @@ def reply_filter(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def set_warn_limit(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1126,7 +1126,7 @@ def set_warn_limit(update, context) -> str:
 
 @run_async
 @user_can_change
-@typing_action
+
 def set_warn_strength(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
