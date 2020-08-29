@@ -1118,7 +1118,7 @@ def __stats__():
 __mod_name__ = "Blacklists"
 
 
-BLACKLIST_HANDLER = DisableAbleCommandHandler(
+BLACKLIST_HANDLER = CommandHandler(
     "blacklist", blacklist, pass_args=True, admin_ok=True
 )
 ADD_BLACKLIST_HANDLER = CommandHandler("addblacklist", add_blacklist)
