@@ -681,6 +681,7 @@ from alexa.modules.helper_funcs.chat_status import (
     is_user_admin,
     is_user_in_chat,
     user_can_ban
+    bot_admin
 )
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
