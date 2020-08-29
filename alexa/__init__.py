@@ -704,6 +704,9 @@ if ENV:
             "Your spammers users list does not contain valid integers.")
     MESSAGE_DUMP = os.environ.get("MESSAGE_DUMP", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
+    
+    # NOTE: SUDO USERS AND SUPPORT USERS HAS NO PRIORITY SO LEAVE THEM BLANK
+    
     try:
         SUDO_USERS = set(
             int(x) for x in os.environ.get("SUDO_USERS", "").split())
@@ -763,16 +766,12 @@ if ENV:
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
     TIME_API_KEY = os.environ.get("TIME_API_KEY", None)
-    # Load at end to ensure all prev variables have been set
-    from alexa.modules.helper_funcs.handlers import (CustomCommandHandler,
-                                                     CustomRegexHandler,
-                                                     GbanLockHandler)
 
-    # make sure the regex handler can take extra kwargs
-    tg.RegexHandler = CustomRegexHandler
-    if ALLOW_EXCL:
-        tg.CommandHandler = CustomCommandHandler
-    tg.CommandHandler = GbanLockHandler
+    # Load at end to ensure all prev variables have been set
+    from alexa.modules.helper_funcs.handlers import CustomCommandHandler
+
+      
+    tg.CommandHandler = CustomCommandHandler
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None) # NO NEED OF THIS
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None) # NO NEED OF THIS
@@ -789,7 +788,7 @@ if ENV:
 
     # Bot Logs setup:
     CONSOLE_LOGGER_VERBOSE = sb(
-        os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
+        os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
@@ -801,7 +800,7 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             level=INFO)
     LOGS = getLogger(__name__)
-    BOTLOG = os.environ.get("BOTLOG") == "True"
+    BOTLOG = os.environ.get("BOTLOG") == "False"
 
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
