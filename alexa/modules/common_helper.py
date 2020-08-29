@@ -716,7 +716,42 @@ def gtrans(update, context):
     except:
         msg.reply_text("Error! invalid language code.")
 
+# Open API key
+API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
+URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
 
+
+@run_async
+@user_admin
+def spellcheck(update, context):
+    if update.effective_message.reply_to_message:
+        msg = update.effective_message.reply_to_message
+
+        params = dict(lang="US", clientVersion="2.0", apiKey=API_KEY, text=msg.text)
+
+        res = requests.get(URL, params=params)
+        changes = json.loads(res.text).get("LightGingerTheTextResult")
+        curr_string = ""
+        prev_end = 0
+
+        for change in changes:
+            start = change.get("From")
+            end = change.get("To") + 1
+            suggestions = change.get("Suggestions")
+            if suggestions:
+                sugg_str = suggestions[0].get("Text")  # should look at this list more
+                curr_string += msg.text[prev_end:start] + sugg_str
+                prev_end = end
+
+        curr_string += msg.text[prev_end:]
+        update.effective_message.reply_text(curr_string)
+    else:
+        update.effective_message.reply_text(
+            "Reply to some message to get grammar corrected text!"
+        )
+
+
+dispatcher.add_handler(CommandHandler("spell", spellcheck))
 dispatcher.add_handler(CommandHandler(["tr", "tl"], gtrans, pass_args=True))
 
 __help__ = """
