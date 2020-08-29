@@ -756,7 +756,6 @@ def ban(update, context):
 
     except BadRequest as excp:
         if excp.message == "Reply message not found":
-            # Do not reply
             message.reply_text("Banned!", quote=False)
             return log
         else:
@@ -1057,8 +1056,8 @@ TEMPBAN_HANDLER = CommandHandler(
 )
 KICK_HANDLER = CommandHandler("kick", kick, pass_args=True, filters=Filters.group)
 UNBAN_HANDLER = CommandHandler("unban", unban, pass_args=True, filters=Filters.group)
-KICKME_HANDLER = DisableAbleCommandHandler("kickme", kickme, filters=Filters.group)
-BANME_HANDLER = DisableAbleCommandHandler("banme", banme, filters=Filters.group)
+KICKME_HANDLER = CommandHandler("kickme", kickme, filters=Filters.group)
+BANME_HANDLER = CommandHandler("banme", banme, filters=Filters.group)
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
