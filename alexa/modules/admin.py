@@ -687,7 +687,7 @@ from alexa.modules.helper_funcs.chat_status import (
     user_can_change
 )
 from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from alexa.modules.helper_funcs.alternate import typing_action
+
 from alexa.modules.connection import connected
 from alexa.modules.log_channel import loggable
 
@@ -697,7 +697,7 @@ from alexa.modules.log_channel import loggable
 @user_can_promote
 @user_admin
 @loggable
-@typing_action
+
 def promote(update, context):
     chat_id = update.effective_chat.id
     message = update.effective_message
@@ -756,7 +756,7 @@ def promote(update, context):
 @user_can_promote
 @user_admin
 @loggable
-@typing_action
+
 def demote(update, context):
     chat = update.effective_chat
     message = update.effective_message
@@ -824,7 +824,7 @@ def demote(update, context):
 @can_pin
 @user_can_pin
 @loggable
-@typing_action
+
 def pin(update, context):
     args = context.args
     user = update.effective_user
@@ -872,7 +872,7 @@ def pin(update, context):
 @bot_admin
 @user_can_pin
 @loggable
-@typing_action
+
 def unpin(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -902,7 +902,7 @@ def unpin(update, context):
 @run_async
 @bot_admin
 @user_admin
-@typing_action
+
 def invite(update, context):
     user = update.effective_user
     msg = update.effective_message
@@ -936,7 +936,7 @@ def invite(update, context):
 
 
 @run_async
-@typing_action
+
 @user_admin
 def adminlist(update, context):
     administrators = update.effective_chat.get_administrators()
@@ -961,7 +961,7 @@ def adminlist(update, context):
 @bot_admin
 @can_promote
 @user_can_change
-@typing_action
+
 def set_title(update, context):
     args = context.args
     chat = update.effective_chat
@@ -1020,7 +1020,7 @@ def set_title(update, context):
 @run_async
 @bot_admin
 @user_can_change
-@typing_action
+
 def setchatpic(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -1058,7 +1058,7 @@ def setchatpic(update, context):
 @run_async
 @bot_admin
 @user_can_change
-@typing_action
+
 def rmchatpic(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -1078,7 +1078,7 @@ def rmchatpic(update, context):
 @run_async
 @bot_admin
 @user_can_change
-@typing_action
+
 def setchat_title(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -1108,7 +1108,7 @@ def setchat_title(update, context):
 @run_async
 @bot_admin
 @user_can_change
-@typing_action
+
 def set_sticker(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -1139,7 +1139,7 @@ def set_sticker(update, context):
 @run_async
 @bot_admin
 @user_can_change
-@typing_action
+
 def set_desc(update, context):
     msg = update.effective_message
     chat = update.effective_chat
