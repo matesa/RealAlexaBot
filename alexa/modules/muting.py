@@ -692,7 +692,7 @@ from alexa.modules.log_channel import loggable
 @bot_admin
 @user_admin
 @loggable
-@typing_action
+
 def mute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -750,7 +750,7 @@ def mute(update, context):
 @bot_admin
 @user_admin
 @loggable
-@typing_action
+
 def unmute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -818,7 +818,7 @@ def unmute(update, context):
 @can_restrict
 @user_admin
 @loggable
-@typing_action
+
 def temp_mute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
