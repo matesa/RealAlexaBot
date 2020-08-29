@@ -3021,7 +3021,7 @@ LEAVE_FED_HANDLER = CommandHandler("leavefed", leave_fed, pass_args=True)
 PROMOTE_FED_HANDLER = CommandHandler("fpromote", user_join_fed, pass_args=True)
 DEMOTE_FED_HANDLER = CommandHandler("fdemote", user_demote_fed, pass_args=True)
 INFO_FED_HANDLER = CommandHandler("fedinfo", fed_info, pass_args=True)
-BAN_FED_HANDLER = DisableAbleCommandHandler(["fban", "fedban"], fed_ban, pass_args=True)
+BAN_FED_HANDLER = CommandHandler(["fban", "fedban"], fed_ban, pass_args=True)
 UN_BAN_FED_HANDLER = CommandHandler("unfban", unfban, pass_args=True)
 FED_BROADCAST_HANDLER = CommandHandler("fbroadcast", fed_broadcast, pass_args=True)
 FED_SET_RULES_HANDLER = CommandHandler("setfrules", set_frules, pass_args=True)
@@ -3036,7 +3036,7 @@ FED_CHATLIST_HANDLER = CommandHandler("fedchats", fed_chats, pass_args=True)
 FED_IMPORTBAN_HANDLER = CommandHandler(
     "importfbans", fed_import_bans, pass_chat_data=True
 )
-FEDSTAT_USER = DisableAbleCommandHandler(
+FEDSTAT_USER = CommandHandler(
     ["fedstat", "fbanstat"], fed_stat_user, pass_args=True
 )
 SET_FED_LOG = CommandHandler("setfedlog", set_fed_log, pass_args=True)
