@@ -817,3 +817,111 @@ def user_not_admin(func):
 
     return is_not_admin
 
+
+def user_can_ban(func):
+    @wraps(func)
+    def user_is_banhammer(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_restrict_members or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_is_banhammer
+
+
+def user_can_promote(func):
+    @wraps(func)
+    def user_can_promotee(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_promote_members or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_can_promotee
+
+
+def user_can_pin(func):
+    @wraps(func)
+    def user_can_pinn(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_pin_messages or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_can_pinn
+
+
+def user_can_restrict(func):
+    @wraps(func)
+    def user_can_restrictt(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_restrict_members or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_can_restrictt
+
+
+
+def user_can_change(func):
+    @wraps(func)
+    def user_can_changee(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_change_info or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_can_changee
+
+
+def user_can_delete(func):
+    @wraps(func)
+    def user_can_deletee(update: Update, context: CallbackContext, *args,
+                          **kwargs):
+        bot = context.bot
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+
+        if not (member.can_delete_messages or
+                member.status == "creator") and not user in SUDO_USERS:
+     
+            return 
+
+        return func(update, context, *args, **kwargs)
+
+    return user_can_deletee
