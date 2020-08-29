@@ -671,7 +671,7 @@ import time
 from telegram import Message, User
 from telegram import MessageEntity, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
 
 from alexa import dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
@@ -679,13 +679,14 @@ from alexa.modules.sql import afk_sql as sql
 from alexa.modules.users import get_user_id
 
 from alexa.modules.helper_funcs.alternate import send_message
-
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 
 @run_async
+@user_admin
 def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     if len(args) >= 2:
@@ -780,8 +781,8 @@ def __gdpr__(user_id):
 __mod_name = "AFK"
 
 
-AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
-AFK_REGEX_HANDLER = DisableAbleMessageHandler(
+AFK_HANDLER = CommandHandler("afk", afk)
+AFK_REGEX_HANDLER = MessageHandler(
     Filters.regex("(?i)brb"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(
