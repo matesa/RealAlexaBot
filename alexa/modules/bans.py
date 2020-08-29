@@ -666,23 +666,27 @@
 
 
 import html
-from typing import Optional, List
 
-from telegram import Message, Chat, Update, Bot, User, ParseMode
+from telegram import Chat, User, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import run_async, CommandHandler, Filters
 from telegram.utils.helpers import mention_html
 
-from alexa import dispatcher, BAN_STICKER, LOGGER, OWNER_ID
+from alexa import dispatcher, LOGGER
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_ban_protected, can_restrict, \
-    is_user_admin, is_user_in_chat, is_bot_admin, user_can_ban
+from alexa.modules.helper_funcs.chat_status import (
+    user_admin,
+    is_user_ban_protected,
+    can_restrict,
+    is_user_admin,
+    is_user_in_chat,
+    user_can_ban
+)
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
+from alexa.modules.helper_funcs.admin_rights import user_can_ban
+typing_action
 from alexa.modules.log_channel import loggable
-from alexa.modules.helper_funcs.filters import CustomFilters
-
-from alexa.modules.translations.strings import tld
 
 
 @run_async
@@ -690,64 +694,81 @@ from alexa.modules.translations.strings import tld
 @can_restrict
 @user_can_ban
 @loggable
-def ban(bot: Bot, update: Update, args: List[str]) -> str:
+
+def ban(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
+    args = context.args
+
+    if user_can_ban(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to ban users!")
+        return ""
 
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text(tld(chat.id, "You don't seem to be referring to a person."))
+        message.reply_text("Dude atleast refer some user to ban!")
         return ""
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "Person not found":
-            message.reply_text(tld(chat.id, "I can't seem to find this person"))
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user")
             return ""
         else:
             raise
 
-    if user_id == bot.id:
-        message.reply_text(tld(chat.id, "I'm not gonna BAN myself, are you crazy?"))
-        return ""
-
-    if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("Sorry I can't ban another admin !")
-           return # simply return
-
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text(tld(chat.id, "Why would I ban an Admin? That sounds like a pretty dumb idea."))
+        message.reply_text("I'm not gonna ban an admin, don't make fun of yourself!")
         return ""
 
-    log = "<b>{}:</b>" \
-          "\n#BANNED" \
-          "\n<b>Admin:</b> {}" \
-          "\n<b>User:</b> {} (<code>{}</code>)".format(html.escape(chat.title),
-                                                       mention_html(user.id, user.first_name),
-                                                       mention_html(member.user.id, member.user.first_name),
-                                                       member.user.id)
+    if user_id == context.bot.id:
+        message.reply_text("I'm not gonna BAN myself, are you crazy or wot?")
+        return ""
+
+    log = (
+        "<b>{}:</b>"
+        "\n#BANNED"
+        "\n<b>Admin:</b> {}"
+        "\n<b>User:</b> {} (<code>{}</code>)".format(
+            html.escape(chat.title),
+            mention_html(user.id, user.first_name),
+            mention_html(member.user.id, member.user.first_name),
+            member.user.id,
+        )
+    )
     if reason:
         log += "\n<b>Reason:</b> {}".format(reason)
 
     try:
         chat.kick_member(user_id)
-        bot.send_sticker(chat.id, BAN_STICKER)  # Menhera Chan Ban sticker
-        message.reply_text(tld(chat.id, "Banned!"))
+        # context.bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        context.bot.sendMessage(
+            chat.id,
+            "let {} walk the plank.".format(
+                mention_html(member.user.id, member.user.first_name)
+            ),
+            parse_mode=ParseMode.HTML,
+        )
         return log
 
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
-            message.reply_text(tld(chat.id, "Banned!"), quote=False)
+            message.reply_text("Banned!", quote=False)
             return log
         else:
             LOGGER.warning(update)
-            LOGGER.exception("ERROR banning person %s in chat %s (%s) due to %s", user_id, chat.title, chat.id,
-                             excp.message)
-            message.reply_text(tld(chat.id, "Banned!"))
+            LOGGER.exception(
+                "ERROR banning user %s in chat %s (%s) due to %s",
+                user_id,
+                chat.title,
+                chat.id,
+                excp.message,
+            )
+            message.reply_text("Well damn, I can't ban that user.")
 
     return ""
 
@@ -757,40 +778,42 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
 @can_restrict
 @user_can_ban
 @loggable
-def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
+
+def temp_ban(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
+    args = context.args
+
+    if user_can_ban(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to temporarily ban someone!")
+        return ""
 
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text(tld(chat.id, "You don't seem to be referring to a person."))
+        message.reply_text("Dude! atleast refer some user to ban...")
         return ""
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text(tld(chat.id, "I can't seem to find this person"))
+            message.reply_text("I can't seem to find this user")
             return ""
         else:
             raise
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text(tld(chat.id, "This person is ban protected, meaning that you cannot ban this person!"))
+        message.reply_text("Wow! let's start banning Admins themselves?...")
         return ""
 
-    if user_id == bot.id:
-        message.reply_text(tld(chat.id, "I'm not gonna BAN myself, are you crazy?"))
+    if user_id == context.bot.id:
+        message.reply_text("I'm not gonna BAN myself, are you crazy or wot?")
         return ""
-
-    if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("Sorry I can't ban another admin !")
-           return
 
     if not reason:
-        message.reply_text(tld(chat.id, "You haven't specified a time to ban this person for!"))
+        message.reply_text("You haven't specified a time to ban this user for!")
         return ""
 
     split_reason = reason.split(None, 1)
@@ -806,51 +829,64 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
     if not bantime:
         return ""
 
-    log = "<b>{}:</b>" \
-          "\n#TEMP BANNED" \
-          "\n<b>Admin:</b> {}" \
-          "\n<b>User:</b> {} (<code>{}</code>)" \
-          "\n<b>Time:</b> {}".format(html.escape(chat.title),
-                                     mention_html(user.id, user.first_name),
-                                     mention_html(member.user.id, member.user.first_name),
-                                     member.user.id,
-                                     time_val)
+    log = (
+        "<b>{}:</b>"
+        "\n#TEMP BANNED"
+        "\n<b>Admin:</b> {}"
+        "\n<b>User:</b> {} (<code>{}</code>)"
+        "\n<b>Time:</b> {}".format(
+            html.escape(chat.title),
+            mention_html(user.id, user.first_name),
+            mention_html(member.user.id, member.user.first_name),
+            member.user.id,
+            time_val,
+        )
+    )
     if reason:
         log += "\n<b>Reason:</b> {}".format(reason)
 
     try:
         chat.kick_member(user_id, until_date=bantime)
-        keyboard = []
-        bot.send_sticker(update.effective_chat.id, BAN_STICKER)
-        reply = "{} has been temporarily banned for {}!".format(mention_html(member.user.id, member.user.first_name),time_val)
-        message.reply_text(reply, reply_markup=keyboard, parse_mode=ParseMode.HTML)
+        # context.bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        message.reply_text("Banned! User will be banned for {}.".format(time_val))
         return log
-
 
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
-            bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
-            message.reply_text(tld(chat.id, "Banned! Person will be banned for {}.").format(time_val), quote=False)
+            message.reply_text(
+                "Goodbye.. we'll meet after {}.".format(time_val), quote=False
+            )
             return log
         else:
             LOGGER.warning(update)
-            LOGGER.exception("ERROR banning person %s in chat %s (%s) due to %s", user_id, chat.title, chat.id,
-                             excp.message)
-            message.reply_text(tld(chat.id, "Banned!"))
+            LOGGER.exception(
+                "ERROR banning user %s in chat %s (%s) due to %s",
+                user_id,
+                chat.title,
+                chat.id,
+                excp.message,
+            )
+            message.reply_text("Well damn, I can't ban that user.")
 
     return ""
 
 
 @run_async
 @bot_admin
-@user_can_ban
 @can_restrict
+@user_can_ban
 @loggable
-def kick(bot: Bot, update: Update, args: List[str]) -> str:
+
+def kick(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
+    args = context.args
+
+    if user_can_ban(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to kick users!")
+        return ""
 
     user_id, reason = extract_user_and_text(message, args)
 
@@ -860,44 +896,48 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "Person not found":
-            message.reply_text("I can't seem to find this person")
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user")
             return ""
         else:
             raise
 
-    if user_id == bot.id:
-        message.reply_text("I'm not kicking myself!")
+    if is_user_ban_protected(chat, user_id):
+        message.reply_text("Yeahh... let's start kicking admins?")
         return ""
 
-    if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("Sorry I can't kick another admin !")
-           return
-
-    if is_user_ban_protected(chat, user_id):
-        message.reply_text("Why would I kick an Admin? That sounds like a pretty dumb idea.")
+    if user_id == context.bot.id:
+        message.reply_text("Yeahhh I'm not gonna do that")
         return ""
 
     res = chat.unban_member(user_id)  # unban on current user = kick
     if res:
-        keyboard = []
-        reply = "{} Kicked!".format(mention_html(member.user.id, member.user.first_name))
-        message.reply_text(reply, reply_markup=keyboard, parse_mode=ParseMode.HTML)
-         
-        log = "<b>{}:</b>" \
-              "\n#KICKED" \
-              "\n<b>Admin:</b> {}" \
-              "\n<b>User:</b> {} (<code>{}</code>)".format(html.escape(chat.title),
-                                                           mention_html(user.id, user.first_name),
-                                                           mention_html(member.user.id, member.user.first_name),
-                                                           member.user.id)
+        # context.bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        context.bot.sendMessage(
+            chat.id,
+            "Untill we meet again {}.".format(
+                mention_html(member.user.id, member.user.first_name)
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+        log = (
+            "<b>{}:</b>"
+            "\n#KICKED"
+            "\n<b>Admin:</b> {}"
+            "\n<b>User:</b> {} (<code>{}</code>)".format(
+                html.escape(chat.title),
+                mention_html(user.id, user.first_name),
+                mention_html(member.user.id, member.user.first_name),
+                member.user.id,
+            )
+        )
         if reason:
             log += "\n<b>Reason:</b> {}".format(reason)
 
         return log
 
     else:
-        message.reply_text("Kicked!")
+        message.reply_text("Get Out!.")
 
     return ""
 
@@ -905,45 +945,27 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @can_restrict
-def kickme(bot: Bot, update: Update):
-    user_id = update.effective_message.from_user.id
-    if user_id == OWNER_ID:
-        update.effective_message.reply_text("You’re strong. If I try to remove You,I will Never Be Happy In my Life")
-        return
-    elif is_user_admin(update.effective_chat, user_id):
-        update.effective_message.reply_text("Why would I kick an Admin? That sounds like a pretty dumb idea.")
-        return
-
-    res = update.effective_chat.unban_member(user_id)  # unban on current user = kick
-    if res:
-        update.effective_message.reply_text("No problem.")
-    else:
-        update.effective_message.reply_text("Huh? I can't :/")
-
-
-@run_async
-@bot_admin
-@can_restrict
 @loggable
-def banme(bot: Bot, update: Update):
+
+def banme(update, context):
     user_id = update.effective_message.from_user.id
     chat = update.effective_chat
     user = update.effective_user
-    if user_id == OWNER_ID:
-        update.effective_message.reply_text("Oof, I can't ban my master. 😶")
-        return
-    elif is_user_admin(update.effective_chat, user_id):
-        update.effective_message.reply_text("Why would I ban an Admin? That sounds like a pretty dumb idea.")
+    if is_user_admin(update.effective_chat, user_id):
+        update.effective_message.reply_text("Yeahhh.. not gonna ban an admin.")
         return
 
-    res = update.effective_chat.kick_member(user_id)  
+    res = update.effective_chat.kick_member(user_id)
     if res:
-        update.effective_message.reply_text("Kids get lost. 😏")
-        log = "<b>{}:</b>" \
-              "\n#BANME" \
-              "\n<b>User:</b> {}" \
-              "\n<b>ID:</b> <code>{}</code>".format(html.escape(chat.title),
-                                                    mention_html(user.id, user.first_name), user_id)
+        update.effective_message.reply_text("Yes, you're right! GTFO..")
+        log = (
+            "<b>{}:</b>"
+            "\n#BANME"
+            "\n<b>User:</b> {}"
+            "\n<b>ID:</b> <code>{}</code>".format(
+                html.escape(chat.title), mention_html(user.id, user.first_name), user_id
+            )
+        )
         return log
 
     else:
@@ -952,13 +974,36 @@ def banme(bot: Bot, update: Update):
 
 @run_async
 @bot_admin
-@user_can_ban
 @can_restrict
+
+def kickme(update, context):
+    user_id = update.effective_message.from_user.id
+    if is_user_admin(update.effective_chat, user_id):
+        update.effective_message.reply_text("Yeahhh.. not gonna kick an admin.")
+        return
+
+    res = update.effective_chat.unban_member(user_id)  # unban on current user = kick
+    if res:
+        update.effective_message.reply_text("Yeah, you're right Get Out!..")
+    else:
+        update.effective_message.reply_text("Huh? I can't :/")
+
+
+@run_async
+@bot_admin
+@can_restrict
+@user_can_ban
 @loggable
-def unban(bot: Bot, update: Update, args: List[str]) -> str:
+
+def unban(update, context):
     message = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
+    args = context.args
+
+    if user_can_ban(chat, user, context.bot.id) is False:
+        message.reply_text("You don't have enough rights to unban people here!")
+        return ""
 
     user_id, reason = extract_user_and_text(message, args)
 
@@ -968,147 +1013,56 @@ def unban(bot: Bot, update: Update, args: List[str]) -> str:
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "Person not found":
-            message.reply_text("I can't seem to find this person")
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user")
             return ""
         else:
             raise
 
-    if user_id == bot.id:
+    if user_id == context.bot.id:
         message.reply_text("How would I unban myself if I wasn't here...?")
         return ""
 
-    if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("Why will I unban someone who is already in the chat as admin ?")
-           return
-
     if is_user_in_chat(chat, user_id):
-        message.reply_text("Why are you trying to unban someone that's already in the chat?")
+        message.reply_text(
+            "Why are you trying to unban someone who's already in this chat?"
+        )
         return ""
 
     chat.unban_member(user_id)
-    message.reply_text("Destiny gave you second chance. Don't waste it. 🙂")
+    message.reply_text("Done, they can join again!")
 
-    log = "<b>{}:</b>" \
-          "\n#UNBANNED" \
-          "\n<b>Admin:</b> {}" \
-          "\n<b>User:</b> {} (<code>{}</code>)".format(html.escape(chat.title),
-                                                       mention_html(user.id, user.first_name),
-                                                       mention_html(member.user.id, member.user.first_name),
-                                                       member.user.id)
+    log = (
+        "<b>{}:</b>"
+        "\n#UNBANNED"
+        "\n<b>Admin:</b> {}"
+        "\n<b>User:</b> {} (<code>{}</code>)".format(
+            html.escape(chat.title),
+            mention_html(user.id, user.first_name),
+            mention_html(member.user.id, member.user.first_name),
+            member.user.id,
+        )
+    )
     if reason:
         log += "\n<b>Reason:</b> {}".format(reason)
 
     return log
 
 
-@run_async
-@bot_admin
-@can_restrict
-@user_can_ban
-@loggable
-def sban(bot: Bot, update: Update, args: List[str]) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
-
-    update.effective_message.delete()
-
-    user_id, reason = extract_user_and_text(message, args)
-
-    if not user_id:
-        return ""
-
-    try:
-        member = chat.get_member(user_id)
-    except BadRequest as excp:
-        if excp.message == "Person not found":
-            return ""
-        else:
-            raise
-
-    if is_user_ban_protected(chat, user_id, member):
-        return ""
-
-    if user_id == bot.id:
-        return ""
-
-    if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You don't have sufficient rights !")
-           return # simply return
-
-    log = "<b>{}:</b>" \
-          "\n# SILENTBAN" \
-          "\n<b>• Admin:</b> {}" \
-          "\n<b>• User:</b> {}" \
-          "\n<b>• ID:</b> <code>{}</code>".format(html.escape(chat.title), mention_html(user.id, user.first_name), 
-                                                  mention_html(member.user.id, member.user.first_name), user_id)
-    if reason:
-        log += "\n<b>• Reason:</b> {}".format(reason)
-
-    try:
-        chat.kick_member(user_id)
-        return log
-
-    except BadRequest as excp:
-        if excp.message == "Reply message not found":
-            return log
-        else:
-            LOGGER.warning(update)
-            LOGGER.exception("ERROR banning person %s in chat %s (%s) due to %s", user_id, chat.title, chat.id, excp.message)       
-    return ""
-
-@run_async
-@bot_admin
-@can_restrict
-def selfunban(bot: Bot, update: Update, args: List[str]) -> str:
-    message = update.effective_message
-    user = update.effective_user
-
-    try:
-        chat_id = int(args[0])
-    except:
-        message.reply_text("Give a valid chat ID.")
-        return
-
-    chat = bot.getChat(chat_id)
-
-    try:
-        member = chat.get_member(user.id)
-    except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
-            return
-        else:
-            raise
-
-    if is_user_in_chat(chat, user.id):
-        message.reply_text("Aren't you already in the chat??")
-        return
-
-    chat.unban_member(user.id)
-    message.reply_text("Yep, I have unbanned you.")
-
-    log = (f"<b>{html.escape(chat.title)}:</b>\n"
-           f"#UNBANNED\n"
-           f"<b>User:</b> {mention_html(member.user.id, member.user.first_name)}")
-
-    return log
-
+__mod_name__ = "Bans"
 
 BAN_HANDLER = CommandHandler("ban", ban, pass_args=True, filters=Filters.group)
-TEMPBAN_HANDLER = CommandHandler(["tban", "tempban"], temp_ban, pass_args=True, filters=Filters.group)
+TEMPBAN_HANDLER = CommandHandler(
+    ["tban", "tempban"], temp_ban, pass_args=True, filters=Filters.group
+)
 KICK_HANDLER = CommandHandler("kick", kick, pass_args=True, filters=Filters.group)
 UNBAN_HANDLER = CommandHandler("unban", unban, pass_args=True, filters=Filters.group)
-KICKME_HANDLER = CommandHandler("kickme", kickme, filters=Filters.group)
-SBAN_HANDLER = CommandHandler("sban", sban, pass_args=True, filters=Filters.group)
-BANME_HANDLER = CommandHandler("banme", banme, filters=Filters.group)
-ROAR_HANDLER = CommandHandler("selfunban", selfunban, pass_args=True, filters=Filters.user(OWNER_ID))
+KICKME_HANDLER = DisableAbleCommandHandler("kickme", kickme, filters=Filters.group)
+BANME_HANDLER = DisableAbleCommandHandler("banme", banme, filters=Filters.group)
+
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
 dispatcher.add_handler(UNBAN_HANDLER)
 dispatcher.add_handler(KICKME_HANDLER)
 dispatcher.add_handler(BANME_HANDLER)
-dispatcher.add_handler(SBAN_HANDLER)
-dispatcher.add_handler(ROAR_HANDLER)
