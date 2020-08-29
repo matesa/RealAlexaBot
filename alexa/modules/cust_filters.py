@@ -682,7 +682,7 @@ from telegram.utils.helpers import mention_html, escape_markdown
 
 from alexa import dispatcher, LOGGER
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
 from alexa.modules.helper_funcs.extraction import extract_text
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.helper_funcs.misc import build_keyboard_parser
@@ -762,7 +762,7 @@ def list_handlers(update, context):
 
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@user_admin
+@user_can_change
 
 def filters(update, context):
     chat = update.effective_chat
@@ -889,7 +889,7 @@ def filters(update, context):
 
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@user_admin
+@user_can_change
 
 def stop_filter(update, context):
     chat = update.effective_chat
@@ -1126,7 +1126,7 @@ def reply_filter(update, context):
 
 
 @run_async
-@user_admin
+@user_can_change
 
 def rmall_filters(update, context):
     chat = update.effective_chat
@@ -1203,24 +1203,6 @@ def __chat_settings__(chat_id, user_id):
     cust_filters = sql.get_chat_triggers(chat_id)
     return "There are `{}` custom filters here.".format(len(cust_filters))
 
-
-__help__ = """
- × /filters: List all active filters saved in the chat.
-
-*Admin only:*
- × /filter <keyword> <reply message>: Add a filter to this chat. The bot will now reply that message whenever 'keyword'\
-is mentioned. If you reply to a sticker with a keyword, the bot will reply with that sticker. NOTE: all filter \
-keywords are in lowercase. If you want your keyword to be a sentence, use quotes. eg: /filter "hey there" How you \
-doin?
- × /stop <filter keyword>: Stop that filter.
-
-*Chat creator only:*
- × /rmallfilter: Stop all chat filters at once.
-
-*Note*: Filters also support markdown formatters like: {first}, {last} etc.. and buttons.
-Check `/markdownhelp` to know more!
-
-"""
 
 __mod_name__ = "Filters"
 
