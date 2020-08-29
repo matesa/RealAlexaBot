@@ -685,11 +685,7 @@ class CustomFilters(BASE):
     # NOTE: Here for legacy purposes, to ensure older filters don't mess up.
     has_markdown = Column(Boolean, nullable=False, default=False)
 
-    # NEW FILTER
-    # alter table cust_filters add column reply_text text;
-    # alter table cust_filters add column file_type integer default 1;
-    # alter table cust_filters add column file_id text;
-    reply_text = Column(UnicodeText)
+    reply_text = Column(UnicodeText, nullable=False, default=False)
     file_type = Column(Integer, nullable=False, default=1)
     file_id = Column(UnicodeText, default=None)
 
