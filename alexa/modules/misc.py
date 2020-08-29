@@ -697,7 +697,7 @@ from alexa.modules.helper_funcs.chat_status import bot_admin, user_admin, is_use
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
-from alexa.modules.translations.strings import tld
+
 import re
 from pyDownload import Downloader
 import datetime
@@ -826,7 +826,7 @@ from alexa.__main__ import GDPR
 from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.translations.strings import tld
+
 from alexa.events import register
 from requests import get
 from telethon import events
@@ -857,7 +857,7 @@ from alexa.__main__ import GDPR
 from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.translations.strings import tld
+
 from requests import get
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (DownloadError, ContentTooShortError,
@@ -916,8 +916,8 @@ from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
 from alexa.modules.helper_funcs.filters import CustomFilters
 
-from alexa.modules.sql.translation import prev_locale
-from alexa.modules.translations.strings import tld
+
+
 from requests import get
 from telethon.tl.types import *
 from telegram.ext import CallbackContext, run_async
@@ -964,7 +964,7 @@ async def is_register_banful(chat, user):
 @run_async
 def runs(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
-    update.effective_message.reply_text(random.choice(tld(chat.id, "RUNS-K")))
+    update.effective_message.reply_text(random.choice(chat.id, "RUNS-K"))
 
 @user_admin
 @run_async
@@ -996,12 +996,12 @@ def slap(bot: Bot, update: Update, context: CallbackContext):
         user1 = "[{}](tg://user?id={})".format(bot.first_name, bot.id)
         user2 = curr_user
 
-    temp = random.choice(tld(chat.id, "SLAP_TEMPLATES-K"))
-    item = random.choice(tld(chat.id, "ITEMS-K"))
-    hit = random.choice(tld(chat.id, "HIT-K"))
-    throw = random.choice(tld(chat.id, "THROW-K"))
-    itemp = random.choice(tld(chat.id, "ITEMP-K"))
-    itemr = random.choice(tld(chat.id, "ITEMR-K"))
+    temp = random.choice(chat.id, "SLAP_TEMPLATES-K")
+    item = random.choice(chat.id, "ITEMS-K")
+    hit = random.choice(chat.id, "HIT-K")
+    throw = random.choice(chat.id, "THROW-K")
+    itemp = random.choice(chat.id, "ITEMP-K")
+    itemr = random.choice(chat.id, "ITEMR-K")
 
     repl = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw, itemp=itemp, itemr=itemr)
     #user1=user1, user2=user2, item=item_ru, hits=hit_ru, throws=throw_ru, itemp=itemp_ru, itemr=itemr_ru
@@ -1010,34 +1010,47 @@ def slap(bot: Bot, update: Update, context: CallbackContext):
     
 @user_admin
 @run_async
-def get_id(bot: Bot, update: Update, context: CallbackContext):
-    user_id = extract_user(update.effective_message, args)
-    chat = update.effective_chat  # type: Optional[Chat]
-    args = context.args
+def get_id(update: Update, context: CallbackContext):
+    bot, args = context.bot, context.args
+    message = update.effective_message
+    chat = update.effective_chat
+    msg = update.effective_message
+    user_id = extract_user(msg, args)
+
     if user_id:
-        if update.effective_message.reply_to_message and update.effective_message.reply_to_message.forward_from:
-            user1 = update.effective_message.reply_to_message.from_user
-            user2 = update.effective_message.reply_to_message.forward_from
-            update.effective_message.reply_text(tld(chat.id,
-                "The original sender, {}, has an ID of `{}`.\nThe forwarder, {}, has an ID of `{}`.").format(
-                    escape_markdown(user2.first_name),
-                    user2.id,
-                    escape_markdown(user1.first_name),
-                    user1.id),
-                parse_mode=ParseMode.MARKDOWN)
-        else:
-            user = bot.get_chat(user_id)
-            update.effective_message.reply_text(tld(chat.id, "{}'s id is `{}`.").format(escape_markdown(user.first_name), user.id),
-                                                parse_mode=ParseMode.MARKDOWN)
-    else:
-        chat = update.effective_chat  # type: Optional[Chat]
-        if chat.type == "private":
-            update.effective_message.reply_text(tld(chat.id, "Your id is `{}`.").format(chat.id),
-                                                parse_mode=ParseMode.MARKDOWN)
+
+        if msg.reply_to_message and msg.reply_to_message.forward_from:
+
+            user1 = message.reply_to_message.from_user
+            user2 = message.reply_to_message.forward_from
+
+            msg.reply_text(
+                f"The original sender, {html.escape(user2.first_name)},"
+                f" has an ID of <code>{user2.id}</code>.\n"
+                f"The forwarder, {html.escape(user1.first_name)},"
+                f" has an ID of <code>{user1.id}</code>.",
+                parse_mode=ParseMode.HTML)
 
         else:
-            update.effective_message.reply_text(tld(chat.id, "This group's id is `{}`.").format(chat.id),
-                                                parse_mode=ParseMode.MARKDOWN)
+
+            user = bot.get_chat(user_id)
+            msg.reply_text(
+                f"{html.escape(user.first_name)}'s id is <code>{user.id}</code>.",
+                parse_mode=ParseMode.HTML)
+
+    else:
+
+        if chat.type == "private":
+            msg.reply_text(
+                f"Your id is <code>{chat.id}</code>.",
+                parse_mode=ParseMode.HTML)
+
+        else:
+            msg.reply_text(
+                f"This group's id is <code>{chat.id}</code>.",
+                parse_mode=ParseMode.HTML)
+               
+               
 @run_async
 def stats(bot: Bot, update: Update, context: CallbackContext):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
@@ -1080,17 +1093,16 @@ def reply_keyboard_remove(bot: Bot, update: Update, context: CallbackContext):
 @user_admin
 @run_async
 def gdpr(bot: Bot, update: Update, context: CallbackContext):
-    update.effective_message.reply_text(tld(update.effective_chat.id, "Deleting identifiable data..."))
+    update.effective_message.reply_text(update.effective_chat.id, "Deleting identifiable data...")
     for mod in GDPR:
         mod.__gdpr__(update.effective_user.id)
 
-    update.effective_message.reply_text(tld(update.effective_chat.id, "send_gdpr"), parse_mode=ParseMode.MARKDOWN)
-
+    
 @user_admin
 @run_async
 def markdown_help(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
-    update.effective_message.reply_text(tld(chat.id, "MARKDOWN_HELP-K"), parse_mode=ParseMode.HTML)
+    update.effective_message.reply_text(chat.id, MARKDOWN_HELP-K, parse_mode=ParseMode.HTML)
     
 @run_async
 @user_admin
@@ -2097,7 +2109,6 @@ def gettime(bot: Bot, update: Update, context: CallbackContext):
 
 
 
-# Simple lyrics module using tswift by @TheRealPhoenix
 
 from tswift import Song
 from telegram import Bot, Update, Message, Chat
