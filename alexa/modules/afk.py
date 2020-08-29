@@ -696,7 +696,7 @@ def afk(update, context):
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
-    update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
+    update.effective_message.reply_text(chat.id, f"{fname} is now AFK!"))
     
 
 @run_async
@@ -757,9 +757,9 @@ def reply_afk(update, context):
                 elapsed_time = time.time() - start_time 
                 final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
                 if not user.reason:
-                   res = tld(chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
+                   res = (chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
                 else:
-                   res = tld(chat.id, f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago") 
+                   res = (chat.id, f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago") 
                 update.effective_message.reply_text(res)
 
 def __user_info__(user_id):
