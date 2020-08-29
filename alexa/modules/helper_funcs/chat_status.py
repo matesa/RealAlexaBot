@@ -671,6 +671,7 @@ from telegram import MessageEntity, ParseMode, Update, Bot
 from alexa import DEL_CMDS, SUDO_USERS
 from alexa.mwt import MWT
 from telegram import User, Chat
+from telegram.ext import CallbackContext
 
 def can_delete(chat: Chat, bot_id: int) -> bool:
     return chat.get_member(bot_id).can_delete_messages
