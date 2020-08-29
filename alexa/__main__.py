@@ -694,7 +694,6 @@ from alexa.modules import ALL_MODULES
 from alexa import tbot
 from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
 from alexa.modules.helper_funcs.misc import paginate_modules
-from alexa.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
@@ -793,7 +792,6 @@ def test(update, context):
 
 
 @run_async
-@typing_action
 @user_admin
 def start(update, context):
     if update.effective_chat.type == "private":
@@ -924,7 +922,6 @@ def help_button(update, context):
 
 
 @run_async
-@typing_action
 @user_admin
 def get_help(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1096,7 +1093,6 @@ def settings_button(update, context):
 
 
 @run_async
-@typing_action
 def get_settings(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
