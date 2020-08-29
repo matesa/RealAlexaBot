@@ -676,7 +676,7 @@ from coffeehouse.lydia import LydiaAI
 from alexa import LYDIA_API_KEY, OWNER_ID, dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
 from alexa.modules.helper_funcs.filters import CustomFilters
-from alexa.modules.log_channel import gloggable
+from alexa.modules.log_channel import loggable
 from telegram import Update
 from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
@@ -689,7 +689,7 @@ api_client = LydiaAI(CoffeeHouseAPI)
 
 @run_async
 @user_can_change
-@gloggable
+@loggable
 def add_chat(update: Update, context: CallbackContext):
     global api_client
     chat = update.effective_chat
@@ -713,7 +713,7 @@ def add_chat(update: Update, context: CallbackContext):
 
 @run_async
 @user_can_change
-@gloggable
+@loggable
 def remove_chat(update: Update, context: CallbackContext):
     msg = update.effective_message
     chat = update.effective_chat
