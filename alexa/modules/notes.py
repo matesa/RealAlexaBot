@@ -664,29 +664,46 @@
 
 
 
-
-import re
+import re, ast
+from html import escape
 from io import BytesIO
-from typing import Optional, List
+from typing import Optional
 
-from telegram import MAX_MESSAGE_LENGTH, ParseMode, InlineKeyboardMarkup
-from telegram import Message, Update, Bot
+from telegram import (
+    MAX_MESSAGE_LENGTH,
+    ParseMode,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+)
+from telegram import Message
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, RegexHandler
+from telegram.ext import CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram.ext.dispatcher import run_async
-from telegram.utils.helpers import escape_markdown
+from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.notes_sql as sql
 from alexa import dispatcher, MESSAGE_DUMP, LOGGER
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+from alexa.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply, user_can_change
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_note_type
+from alexa.modules.helper_funcs.string_handling import (
+    escape_invalid_curly_brackets,
+    markdown_to_html,
+)
 
-from alexa.modules.translations.strings import tld
 from alexa.modules.connection import connected
 
 FILE_MATCHER = re.compile(r"^###file_id(!photo)?###:(.*?)(?:\s|$)")
+STICKER_MATCHER = re.compile(r"^###sticker(!photo)?###:")
+BUTTON_MATCHER = re.compile(r"^###button(!photo)?###:(.*?)(?:\s|$)")
+MYFILE_MATCHER = re.compile(r"^###file(!photo)?###:")
+MYPHOTO_MATCHER = re.compile(r"^###photo(!photo)?###:")
+MYAUDIO_MATCHER = re.compile(r"^###audio(!photo)?###:")
+MYVOICE_MATCHER = re.compile(r"^###voice(!photo)?###:")
+MYVIDEO_MATCHER = re.compile(r"^###video(!photo)?###:")
+MYVIDEONOTE_MATCHER = re.compile(r"^###video_note(!photo)?###:")
+
 
 ENUM_FUNC_MAP = {
     sql.Types.TEXT.value: dispatcher.bot.send_message,
@@ -696,16 +713,17 @@ ENUM_FUNC_MAP = {
     sql.Types.PHOTO.value: dispatcher.bot.send_photo,
     sql.Types.AUDIO.value: dispatcher.bot.send_audio,
     sql.Types.VOICE.value: dispatcher.bot.send_voice,
-    sql.Types.VIDEO.value: dispatcher.bot.send_video
+    sql.Types.VIDEO.value: dispatcher.bot.send_video,
 }
 
 
 # Do not async
 def get(bot, update, notename, show_none=True, no_format=False):
+    chat_id = update.effective_chat.id
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     conn = connected(bot, update, chat, user.id, need_admin=False)
-    if not conn == False:
+    if conn:
         chat_id = conn
         send_id = user.id
     else:
@@ -725,64 +743,136 @@ def get(bot, update, notename, show_none=True, no_format=False):
         if note.is_reply:
             if MESSAGE_DUMP:
                 try:
-                    bot.forward_message(chat_id=chat_id, from_chat_id=MESSAGE_DUMP, message_id=note.value)
+                    bot.forward_message(
+                        chat_id=update.effective_chat.id,
+                        from_chat_id=MESSAGE_DUMP,
+                        message_id=note.value,
+                    )
                 except BadRequest as excp:
                     if excp.message == "Message to forward not found":
-                        message.reply_text("This message seems to have been lost - I'll remove it "
-                                           "from your notes list.")
+                        message.reply_text(
+                            "This message seems to have been lost - I'll remove it "
+                            "from your notes list."
+                        )
                         sql.rm_note(chat_id, notename)
                     else:
                         raise
             else:
                 try:
-                    bot.forward_message(chat_id=chat_id, from_chat_id=chat_id, message_id=note.value)
+                    bot.forward_message(
+                        chat_id=update.effective_chat.id,
+                        from_chat_id=chat_id,
+                        message_id=note.value,
+                    )
                 except BadRequest as excp:
                     if excp.message == "Message to forward not found":
-                        message.reply_text("Looks like the original sender of this note has deleted "
-                                           "their message - sorry! Get your bot admin to start using a "
-                                           "message dump to avoid this. I'll remove this note from "
-                                           "your saved notes.")
+                        message.reply_text(
+                            "Looks like the original sender of this note has deleted "
+                            "their message - sorry! Get your bot admin to start using a "
+                            "message dump to avoid this. I'll remove this note from "
+                            "your saved notes."
+                        )
                         sql.rm_note(chat_id, notename)
                     else:
                         raise
         else:
-            text = note.value
+            VALID_NOTE_FORMATTERS = [
+                "first",
+                "last",
+                "fullname",
+                "username",
+                "id",
+                "chatname",
+                "mention",
+            ]
+            valid_format = escape_invalid_curly_brackets(
+                note.value, VALID_NOTE_FORMATTERS
+            )
+            if valid_format:
+                text = valid_format.format(
+                    first=escape(message.from_user.first_name),
+                    last=escape(
+                        message.from_user.last_name or message.from_user.first_name
+                    ),
+                    fullname=" ".join(
+                        [
+                            escape(message.from_user.first_name),
+                            escape(message.from_user.last_name),
+                        ]
+                        if message.from_user.last_name
+                        else [escape(message.from_user.first_name)]
+                    ),
+                    username="@" + escape(message.from_user.username)
+                    if message.from_user.username
+                    else mention_html(
+                        message.from_user.id, message.from_user.first_name
+                    ),
+                    mention=mention_html(
+                        message.from_user.id, message.from_user.first_name
+                    ),
+                    chatname=escape(message.chat.title)
+                    if message.chat.type != "private"
+                    else escape(message.from_user.first_name),
+                    id=message.from_user.id,
+                )
+            else:
+                text = ""
+
             keyb = []
-            parseMode = ParseMode.MARKDOWN
+            parseMode = ParseMode.HTML
             buttons = sql.get_buttons(chat_id, notename)
             if no_format:
                 parseMode = None
                 text += revert_buttons(buttons)
             else:
+                text = markdown_to_html(text)
                 keyb = build_keyboard(buttons)
 
             keyboard = InlineKeyboardMarkup(keyb)
 
             try:
                 if note.msgtype in (sql.Types.BUTTON_TEXT, sql.Types.TEXT):
-                    bot.send_message(send_id, text, reply_to_message_id=reply_id,
-                                     parse_mode=parseMode, disable_web_page_preview=True,
-                                     reply_markup=keyboard)
+                    bot.send_message(
+                        update.effective_chat.id,
+                        text,
+                        reply_to_message_id=reply_id,
+                        parse_mode=parseMode,
+                        disable_web_page_preview=True,
+                        reply_markup=keyboard,
+                    )
                 else:
-                    ENUM_FUNC_MAP[note.msgtype](send_id, note.file, caption=text, reply_to_message_id=reply_id,
-                                                parse_mode=parseMode, disable_web_page_preview=True,
-                                                reply_markup=keyboard)
+                    ENUM_FUNC_MAP[note.msgtype](
+                        update.effective_chat.id,
+                        note.file,
+                        caption=text,
+                        reply_to_message_id=reply_id,
+                        parse_mode=parseMode,
+                        disable_web_page_preview=True,
+                        reply_markup=keyboard,
+                    )
 
             except BadRequest as excp:
-                print(excp.message)
                 if excp.message == "Entity_mention_user_invalid":
-                    message.reply_text("Looks like you tried to mention someone I've never seen before. If you really "
-                                       "want to mention them, forward one of their messages to me, and I'll be able "
-                                       "to tag them!")
+                    message.reply_text(
+                        "Looks like you tried to mention someone I've never seen before. If you really "
+                        "want to mention them, forward one of their messages to me, and I'll be able "
+                        "to tag them!"
+                    )
                 elif FILE_MATCHER.match(note.value):
-                    message.reply_text("This note was an incorrectly imported file from another bot - I can't use "
-                                       "it. If you really need it, you'll have to save it again. In "
-                                       "the meantime, I'll remove it from your notes list.")
+                    message.reply_text(
+                        "This note was an incorrectly imported file from another bot - I can't use "
+                        "it. If you really need it, you'll have to save it again. In "
+                        "the meantime, I'll remove it from your notes list."
+                    )
                     sql.rm_note(chat_id, notename)
                 else:
-                    message.reply_text("This note could not be sent, as it is incorrectly formatted. Ask in "
-                                       "@TheDarkW3b if you can't figure out why!")
-                    LOGGER.exception("Could not parse message #%s in chat %s", notename, str(chat_id))
+                    message.reply_text(
+                        "This note could not be sent, as it is incorrectly formatted."
+                    )
+
+                    LOGGER.exception(
+                        "Could not parse message #%s in chat %s", notename, str(chat_id)
+                    )
                     LOGGER.warning("Message was: %s", str(note.value))
         return
     elif show_none:
@@ -790,29 +880,32 @@ def get(bot, update, notename, show_none=True, no_format=False):
 
 
 @run_async
-def cmd_get(bot: Bot, update: Update, args: List[str]):
+
+def cmd_get(update, context):
+    args = context.args
     if len(args) >= 2 and args[1].lower() == "noformat":
-        get(bot, update, args[0], show_none=True, no_format=True)
+        get(context.bot, update, args[0].lower(), show_none=True, no_format=True)
     elif len(args) >= 1:
-        get(bot, update, args[0], show_none=True)
+        get(context.bot, update, args[0].lower(), show_none=True)
     else:
-        update.effective_message.reply_text(tld(update.effective_chat.id, "Muh Me Lega bsdk ?"))
+        update.effective_message.reply_text("Get rekt")
 
 
 @run_async
-def hash_get(bot: Bot, update: Update):
+def hash_get(update, context):
     message = update.effective_message.text
     fst_word = message.split()[0]
-    no_hash = fst_word[1:]
-    get(bot, update, no_hash, show_none=False)
+    no_hash = fst_word[1:].lower()
+    get(context.bot, update, no_hash, show_none=False)
 
 
 @run_async
 @user_can_change
-def save(bot: Bot, update: Update):
+
+def save(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id)
+    conn = connected(context.bot, update, chat, user.id)
     if not conn == False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
@@ -823,42 +916,41 @@ def save(bot: Bot, update: Update):
         else:
             chat_name = chat.title
 
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
 
     note_name, text, data_type, content, buttons = get_note_type(msg)
+    note_name = note_name.lower()
 
     if data_type is None:
-        msg.reply_text("Dude, there's no note")
+        msg.reply_text("Bruh! there's no note")
         return
-    
+
     if len(text.strip()) == 0:
         text = note_name
-        
-    sql.add_note_to_db(chat_id, note_name, text, data_type, buttons=buttons, file=content)
+
+    sql.add_note_to_db(
+        chat_id, note_name, text, data_type, buttons=buttons, file=content
+    )
 
     msg.reply_text(
-        "Ok, added `{note_name}` note in *{chat_name}*.\nGet it with `/get {note_name}`, or `#{note_name}`".format(note_name=note_name, chat_name=chat_name), parse_mode=ParseMode.MARKDOWN)
-
-#    if msg.reply_to_message and msg.reply_to_message.from_user.is_bot:
-#        if text:
-#            msg.reply_text("Seems like you're trying to save a message from a bot. Unfortunately, "
-#                           "bots can't forward bot messages, so I can't save the exact message. "
-#                           "\nI'll save all the text I can, but if you want more, you'll have to "
-#                           "forward the message yourself, and then save it.")
-#        else:
-#            msg.reply_text("Bots are kinda handicapped by telegram, making it hard for bots to "
-#                           "interact with other bots, so I can't save this message "
-#                           "like I usually would - do you mind forwarding it and "
-#                           "then saving that new message? Thanks!")
-#        return
+        "Saved '`{note_name}`' in *{chat_name}*.\nGet it with `/get {note_name}`, or `#{note_name}`!".format(
+            note_name=note_name, chat_name=chat_name
+        ),
+        parse_mode=ParseMode.MARKDOWN,
+    )
 
 
 @run_async
 @user_can_change
-def clear(bot: Bot, update: Update, args: List[str]):
+
+def clear(update, context):
+    args = context.args
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id)
+    msg = update.effective_message
+    conn = connected(context.bot, update, chat, user.id)
+    note_name, text, data_type, content, buttons = get_note_type(msg)
+
     if not conn == False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
@@ -868,21 +960,32 @@ def clear(bot: Bot, update: Update, args: List[str]):
             chat_name = "local notes"
         else:
             chat_name = chat.title
-    
+
     if len(args) >= 1:
-        notename = args[0]
+        notename = args[0].lower()
 
         if sql.rm_note(chat_id, notename):
-            update.effective_message.reply_text("Note succesfully removed from *{}*.".format(chat_name), parse_mode=ParseMode.MARKDOWN)
+            update.effective_message.reply_text(
+                "Successfully deleted '`{note_name}`' from {chat_name}!".format(
+                    note_name=note_name, chat_name=chat_name
+                ),
+                parse_mode=ParseMode.MARKDOWN,
+            )
         else:
-            update.effective_message.reply_text("That's not a note in my database!")
+            update.effective_message.reply_text(
+                "There is no such notes saved in {chat_name}!".format(
+                    chat_name=chat_name
+                )
+            )
 
 
 @run_async
-def list_notes(bot: Bot, update: Update):
+
+def list_notes(update, context):
+    chat_id = update.effective_chat.id
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
-    conn = connected(bot, update, chat, user.id, need_admin=False)
+    conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if not conn == False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
@@ -894,71 +997,232 @@ def list_notes(bot: Bot, update: Update):
             msg = "*Local Notes:*\n"
         else:
             chat_name = chat.title
-            msg = "*Notes in {}:*\n"
+            msg = "*Notes saved in {}:*\n"
 
     note_list = sql.get_all_chat_notes(chat_id)
-
+    des = "You can get notes by using `/get notename`, or `#notename`.\n"
     for note in note_list:
-        note_name = " • `{}`\n".format(note.name)
+        note_name = " × `{}`\n".format(note.name.lower())
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
             update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
             msg = ""
         msg += note_name
 
     if not note_list:
-        update.effective_message.reply_text("No notes in *{}*!".format(chat_name), parse_mode=ParseMode.MARKDOWN)
+        update.effective_message.reply_text("No notes saved here!")
 
     elif len(msg) != 0:
-        msg += "\nYou can retrieve these notes by using `/get notename`, or `#notename`"
-        update.effective_message.reply_text(msg.format(chat_name), parse_mode=ParseMode.MARKDOWN)
+        try:
+            update.effective_message.reply_text(
+                msg.format(chat_name) + des, parse_mode=ParseMode.MARKDOWN
+            )
+        except ValueError:
+            update.effective_message.reply_text(
+                "There was a problem in showing notes list, maybe due to some invalid character in note names. Ask in @alexabot if you're unable to figure it out!"
+            )
+
+
+@run_async
+@user_can_change
+def clear_notes(update, context):
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
+
+    chatmem = chat.get_member(user.id)
+    if chatmem.status == "creator":
+        allnotes = sql.get_all_chat_notes(chat.id)
+        if not allnotes:
+            msg.reply_text("No notes saved here what should i delete?")
+            return
+        else:
+            msg.reply_text(
+                "Do you really wanna delete all of the notes??",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Yes I'm sure️", callback_data="rmnotes_true"
+                            )
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                text="⚠️ Cancel", callback_data="rmnotes_cancel"
+                            )
+                        ],
+                    ]
+                ),
+            )
+
+    else:
+        msg.reply_text("This command can be only used by chat OWNER!")
+
+
+@run_async
+@user_admin_no_reply
+def rmbutton(update, context):
+    query = update.callback_query
+    userid = update.effective_user.id
+    match = query.data.split("_")[1]
+    chat = update.effective_chat
+
+    usermem = chat.get_member(userid).status
+
+    if match == "cancel" and usermem == "creator":
+        return query.message.edit_text("Cancelled deletion of notes.")
+
+    elif match == "true" and usermem == "creator":
+
+        allnotes = sql.get_all_chat_notes(chat.id)
+        count = 0
+        notelist = []
+        for notename in allnotes:
+            count += 1
+            note = notename.name.lower()
+            notelist.append(note)
+
+        for i in notelist:
+            sql.rm_note(chat.id, i)
+        query.message.edit_text(f"Successfully cleaned {count} notes in {chat.title}.")
 
 
 def __import_data__(chat_id, data):
     failures = []
-    for notename, notedata in data.get('extra', {}).items():
+    for notename, notedata in data.get("extra", {}).items():
         match = FILE_MATCHER.match(notedata)
+        matchsticker = STICKER_MATCHER.match(notedata)
+        matchbtn = BUTTON_MATCHER.match(notedata)
+        matchfile = MYFILE_MATCHER.match(notedata)
+        matchphoto = MYPHOTO_MATCHER.match(notedata)
+        matchaudio = MYAUDIO_MATCHER.match(notedata)
+        matchvoice = MYVOICE_MATCHER.match(notedata)
+        matchvideo = MYVIDEO_MATCHER.match(notedata)
+        matchvn = MYVIDEONOTE_MATCHER.match(notedata)
 
         if match:
             failures.append(notename)
-            notedata = notedata[match.end():].strip()
+            notedata = notedata[match.end() :].strip()
             if notedata:
                 sql.add_note_to_db(chat_id, notename[1:], notedata, sql.Types.TEXT)
+        elif matchsticker:
+            content = notedata[matchsticker.end() :].strip()
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.STICKER, file=content
+                )
+        elif matchbtn:
+            parse = notedata[matchbtn.end() :].strip()
+            notedata = parse.split("<###button###>")[0]
+            buttons = parse.split("<###button###>")[1]
+            buttons = ast.literal_eval(buttons)
+            if buttons:
+                sql.add_note_to_db(
+                    chat_id,
+                    notename[1:],
+                    notedata,
+                    sql.Types.BUTTON_TEXT,
+                    buttons=buttons,
+                )
+        elif matchfile:
+            file = notedata[matchfile.end() :].strip()
+            file = file.split("<###TYPESPLIT###>")
+            notedata = file[1]
+            content = file[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.DOCUMENT, file=content
+                )
+        elif matchphoto:
+            photo = notedata[matchphoto.end() :].strip()
+            photo = photo.split("<###TYPESPLIT###>")
+            notedata = photo[1]
+            content = photo[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.PHOTO, file=content
+                )
+        elif matchaudio:
+            audio = notedata[matchaudio.end() :].strip()
+            audio = audio.split("<###TYPESPLIT###>")
+            notedata = audio[1]
+            content = audio[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.AUDIO, file=content
+                )
+        elif matchvoice:
+            voice = notedata[matchvoice.end() :].strip()
+            voice = voice.split("<###TYPESPLIT###>")
+            notedata = voice[1]
+            content = voice[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.VOICE, file=content
+                )
+        elif matchvideo:
+            video = notedata[matchvideo.end() :].strip()
+            video = video.split("<###TYPESPLIT###>")
+            notedata = video[1]
+            content = video[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.VIDEO, file=content
+                )
+        elif matchvn:
+            video_note = notedata[matchvn.end() :].strip()
+            video_note = video_note.split("<###TYPESPLIT###>")
+            notedata = video_note[1]
+            content = video_note[0]
+            if content:
+                sql.add_note_to_db(
+                    chat_id, notename[1:], notedata, sql.Types.VIDEO_NOTE, file=content
+                )
         else:
             sql.add_note_to_db(chat_id, notename[1:], notedata, sql.Types.TEXT)
 
     if failures:
         with BytesIO(str.encode("\n".join(failures))) as output:
             output.name = "failed_imports.txt"
-            dispatcher.bot.send_document(chat_id, document=output, filename="failed_imports.txt",
-                                         caption="These files/photos failed to import due to originating "
-                                                 "from another bot. This is a telegram API restriction, and can't "
-                                                 "be avoided. Sorry for the inconvenience!")
+            dispatcher.bot.send_document(
+                chat_id,
+                document=output,
+                filename="failed_imports.txt",
+                caption="These files/photos failed to import due to originating "
+                "from another bot. This is a telegram API restriction, and can't "
+                "be avoided. Sorry for the inconvenience!",
+            )
 
 
 def __stats__():
-    return "{} notes, across {} chats.".format(sql.num_notes(), sql.num_chats())
+    return "× {} notes, across {} chats.".format(sql.num_notes(), sql.num_chats())
 
 
 def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(bot, update, chat, chatP, user):
-    chat_id = chat.id
+def __chat_settings__(chat_id, user_id):
     notes = sql.get_all_chat_notes(chat_id)
     return "There are `{}` notes in this chat.".format(len(notes))
 
 
+__mod_name__ = "Notes"
+
 GET_HANDLER = CommandHandler("get", cmd_get, pass_args=True)
-HASH_GET_HANDLER = RegexHandler(r"^#[^\s]+", hash_get)
+HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get)
 
 SAVE_HANDLER = CommandHandler("save", save)
 DELETE_HANDLER = CommandHandler("clear", clear, pass_args=True)
 
-LIST_HANDLER = CommandHandler(["notes", "saved"], list_notes)
+LIST_HANDLER = CommandHandler(["notes", "saved"], list_notes, admin_ok=True)
+CLEARALLNOTES_HANDLER = CommandHandler("rmallnotes", clear_notes, filters=Filters.group)
+
+RMBTN_HANDLER = CallbackQueryHandler(rmbutton, pattern=r"rmnotes_")
 
 dispatcher.add_handler(GET_HANDLER)
 dispatcher.add_handler(SAVE_HANDLER)
 dispatcher.add_handler(LIST_HANDLER)
 dispatcher.add_handler(DELETE_HANDLER)
 dispatcher.add_handler(HASH_GET_HANDLER)
+dispatcher.add_handler(CLEARALLNOTES_HANDLER)
+dispatcher.add_handler(RMBTN_HANDLER)
