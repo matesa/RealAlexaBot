@@ -665,26 +665,23 @@
 
 
 
-# Wallpapers module by @TheRealPhoenix using wall.alphacoders.com
+from random import randint
 
 import requests as r
-from random import randint
-from time import sleep
+from alexa import WALL_API, dispatcher
 
-from telegram import Message, Chat, Update, Bot
-from telegram.ext import run_async, CommandHandler
-
-from alexa import dispatcher, WALL_API
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin
+from telegram import Update
+from telegram.ext import CallbackContext, run_async, CommandHandler
 
 
 @run_async
 @user_admin
-def wall(bot: Bot, update: Update, args):
+def wall(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     msg = update.effective_message
+    args = context.args
     msg_id = update.effective_message.message_id
+    bot = context.bot
     query = " ".join(args)
     if not query:
         msg.reply_text("Please enter a query!")
@@ -692,23 +689,35 @@ def wall(bot: Bot, update: Update, args):
     else:
         caption = query
         term = query.replace(" ", "%20")
-        json_rep = r.get(f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}").json()
+        json_rep = r.get(
+            f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}"
+        ).json()
         if not json_rep.get("success"):
-            msg.reply_text(f"An error occurred! Report this to @AlexaSupport")
+            msg.reply_text(f"An error occurred! Report this {SUPPORT_CHAT}")
         else:
             wallpapers = json_rep.get("wallpapers")
             if not wallpapers:
                 msg.reply_text("No results found! Refine your search.")
                 return
             else:
-                index = randint(0, len(wallpapers)-1) # Choose random index
+                index = randint(0, len(wallpapers) - 1)  # Choose random index
                 wallpaper = wallpapers[index]
                 wallpaper = wallpaper.get("url_image")
                 wallpaper = wallpaper.replace("\\", "")
-                bot.send_document(chat_id, document=wallpaper,
-                filename='wallpaper', caption=caption, reply_to_message_id=msg_id,
-                timeout=60)
- 
+                bot.send_photo(
+                    chat_id,
+                    photo=wallpaper,
+                    caption='Preview',
+                    reply_to_message_id=msg_id,
+                    timeout=60)
+                bot.send_document(
+                    chat_id,
+                    document=wallpaper,
+                    filename='wallpaper',
+                    caption=caption,
+                    reply_to_message_id=msg_id,
+                    timeout=60)
 
-WALLPAPER_HANDLER = CommandHandler("wall", wall, pass_args=True)
+
+WALLPAPER_HANDLER = CommandHandler("wall", wall)
 dispatcher.add_handler(WALLPAPER_HANDLER)
