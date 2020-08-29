@@ -666,40 +666,42 @@
 
 
 from typing import Optional
-from telegram import Message, Update, Bot, User
-from telegram import MessageEntity, ParseMode
-from telegram.ext import Filters, MessageHandler, run_async
+import random
 import time
+from telegram import Message, User
+from telegram import MessageEntity, ParseMode
+from telegram.error import BadRequest
+from telegram.ext import Filters, MessageHandler, run_async
+
 from alexa import dispatcher
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 from alexa.modules.sql import afk_sql as sql
 from alexa.modules.users import get_user_id
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.translations.strings import tld
+
+from alexa.modules.helper_funcs.alternate import send_message
+
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
-@user_admin
+
 @run_async
-def afk(bot: Bot, update: Update):
-    chat = update.effective_chat  # type: Optional[Chat]
+def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     if len(args) >= 2:
         reason = args[1]
     else:
         reason = ""
-    global start_time 
-    start_time = time.time()
+
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
-
+    
 
 @run_async
-def no_longer_afk(bot: Bot, update: Update):
+def no_longer_afk(update, context):
     user = update.effective_user  # type: Optional[User]
-    chat = update.effective_chat  # type: Optional[Chat]
+
     if not user:  # ignore channels
         return
 
@@ -710,53 +712,84 @@ def no_longer_afk(bot: Bot, update: Update):
         final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}"))
 
-
 @run_async
-def reply_afk(bot: Bot, update: Update):
+def reply_afk(update, context):
     message = update.effective_message  # type: Optional[Message]
-    if message.entities and message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
-        entities = message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+
+    entities = message.parse_entities(
+        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]
+    )
+    if message.entities and entities:
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
                 user_id = ent.user.id
                 fst_name = ent.user.first_name
 
             elif ent.type == MessageEntity.MENTION:
-                user_id = get_user_id(message.text[ent.offset:ent.offset + ent.length])
+                user_id = get_user_id(
+                    message.text[ent.offset : ent.offset + ent.length]
+                )
                 if not user_id:
                     # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                     return
-                chat = bot.get_chat(user_id)
+                try:
+                    chat = context.bot.get_chat(user_id)
+                except BadRequest:
+                    print("Error in afk can't get user id {}".format(user_id))
+                    return
                 fst_name = chat.first_name
 
             else:
                 return
 
-            check_afk(bot, update, user_id, fst_name)
+            if sql.is_afk(user_id):
+             if message.entities and entities:
+              for ent in entities:
+                if ent.type == MessageEntity.TEXT_MENTION:
+                   user_id = ent.user.id
+                   fst_name = ent.user.first_name
 
-    elif message.reply_to_message:
-        user_id = message.reply_to_message.from_user.id
-        fst_name = message.reply_to_message.from_user.first_name
-        check_afk(bot, update, user_id, fst_name)
+                elif ent.type == MessageEntity.MENTION:
+                   user_id = get_user_id(
+                    message.text[ent.offset : ent.offset + ent.length])
+                user = sql.check_afk_status(user_id)
+                elapsed_time = time.time() - start_time 
+                final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
+                if not user.reason:
+                   res = tld(chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
+                else:
+                   res = tld(chat.id, f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago") 
+                update.effective_message.reply_text(res)
+
+def __user_info__(user_id):
+    is_afk = sql.is_afk(user_id)
+
+    text = "<b>Currently AFK</b>: {}"
+    if is_afk:
+        text = text.format("Yes")
+
+    else:
+        text = text.format("No")
+    return text
 
 
-def check_afk(bot, update, user_id, fst_name):
-    chat = update.effective_chat  # type: Optional[Chat]
-    if sql.is_afk(user_id):
-        user = sql.check_afk_status(user_id)
-        elapsed_time = time.time() - start_time 
-        final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-        if not user.reason:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
-        else:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago") 
-        update.effective_message.reply_text(res)
+def __gdpr__(user_id):
+    sql.rm_afk(user_id)
+
+
+__mod_name = "AFK"
 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
-AFK_REGEX_HANDLER = DisableAbleRegexHandler("(?i)brb", afk, friendly="afk")
-NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
+AFK_REGEX_HANDLER = DisableAbleMessageHandler(
+    Filters.regex("(?i)brb"), afk, friendly="afk"
+)
+NO_AFK_HANDLER = MessageHandler(
+    Filters.all & Filters.group & ~Filters.update.edited_message, no_longer_afk
+)
 AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk)
+# AFK_REPLY_HANDLER = MessageHandler(Filters.entity(MessageEntity.MENTION) | Filters.entity(MessageEntity.TEXT_MENTION),
+#                                   reply_afk)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
