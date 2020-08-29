@@ -11,7 +11,7 @@ from alexa import (
     dispatcher,
     OWNER_ID,
     SUDO_USERS,   
-    STRICT_GBAN,
+    STRICT_ANTISPAM,
     MESSAGE_DUMP,
 )
 from alexa.modules.helper_funcs.chat_status import user_admin, is_user_admin
@@ -444,5 +444,5 @@ dispatcher.add_handler(UNGBAN_HANDLER)
 dispatcher.add_handler(GBAN_LIST)
 
 
-if STRICT_GBAN:  # enforce GBANS if this is set
+if STRICT_ANTISPAM:  # enforce GBANS if this is set
     dispatcher.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
