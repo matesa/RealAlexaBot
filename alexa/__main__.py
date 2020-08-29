@@ -815,12 +815,12 @@ def start(update, context):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
+          update.effective_message.reply_text(
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=False,
-            )
+                disable_web_page_preview=False)
     else:
         update.effective_message.reply_text(
             "Some Error Occured !"
