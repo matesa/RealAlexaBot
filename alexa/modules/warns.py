@@ -1217,14 +1217,14 @@ REMOVE_WARNS_HANDLER = CommandHandler(
     ["rmwarn", "unwarn"], remove_warns, pass_args=True, filters=Filters.group
 )
 CALLBACK_QUERY_HANDLER = CallbackQueryHandler(button, pattern=r"rm_warn")
-MYWARNS_HANDLER = DisableAbleCommandHandler(
+MYWARNS_HANDLER = CommandHandler(
     "warns", warns, pass_args=True, filters=Filters.group
 )
 ADD_WARN_HANDLER = CommandHandler("addwarn", add_warn_filter, filters=Filters.group)
 RM_WARN_HANDLER = CommandHandler(
     ["nowarn", "stopwarn"], remove_warn_filter, filters=Filters.group
 )
-LIST_WARN_HANDLER = DisableAbleCommandHandler(
+LIST_WARN_HANDLER = CommandHandler(
     ["warnlist", "warnfilters"], list_warn_filters, filters=Filters.group, admin_ok=True
 )
 WARN_FILTER_HANDLER = MessageHandler(
