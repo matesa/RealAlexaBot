@@ -897,7 +897,8 @@ UNBAN_RIGHTS = ChatBannedRights(
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
-# ==================================#
+
+
 from random import randint
 from datetime import datetime
 from typing import Optional, List
@@ -920,6 +921,8 @@ from alexa.modules.sql.translation import prev_locale
 from alexa.modules.translations.strings import tld
 from requests import get
 from telethon.tl.types import *
+from telegram.ext import CallbackContext, run_async
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -960,16 +963,16 @@ async def is_register_banful(chat, user):
 
 @user_admin
 @run_async
-def runs(bot: Bot, update: Update):
+def runs(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(random.choice(tld(chat.id, "RUNS-K")))
 
 @user_admin
 @run_async
-def slap(bot: Bot, update: Update, args: List[str]):
+def slap(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
-
+    args = context.args
     # reply to correct message
     reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
 
@@ -1008,9 +1011,10 @@ def slap(bot: Bot, update: Update, args: List[str]):
     
 @user_admin
 @run_async
-def get_id(bot: Bot, update: Update, args: List[str]):
+def get_id(bot: Bot, update: Update, context: CallbackContext):
     user_id = extract_user(update.effective_message, args)
     chat = update.effective_chat  # type: Optional[Chat]
+    args = context.args
     if user_id:
         if update.effective_message.reply_to_message and update.effective_message.reply_to_message.forward_from:
             user1 = update.effective_message.reply_to_message.from_user
@@ -1036,69 +1040,14 @@ def get_id(bot: Bot, update: Update, args: List[str]):
             update.effective_message.reply_text(tld(chat.id, "This group's id is `{}`.").format(chat.id),
                                                 parse_mode=ParseMode.MARKDOWN)
 @run_async
-def stats(bot: Bot, update: Update):
+def stats(bot: Bot, update: Update, context: CallbackContext):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
-@user_admin
-@run_async
-def info(bot: Bot, update: Update, args: List[str]):
-    msg = update.effective_message  # type: Optional[Message]
-    user_id = extract_user(update.effective_message, args)
-    chat = update.effective_chat  # type: Optional[Chat]
-
-    if user_id:
-        user = bot.get_chat(user_id)
-
-    elif not msg.reply_to_message and not args:
-        user = msg.from_user
-
-    elif not msg.reply_to_message and (not args or (
-            len(args) >= 1 and not args[0].startswith("@") and not args[0].isdigit() and not msg.parse_entities(
-        [MessageEntity.TEXT_MENTION]))):
-        msg.reply_text(tld(chat.id, "I can't extract a user from this."))
-        return
-
-    else:
-        return
-
-    text =  tld(chat.id, "<b>User info</b>:")
-    text += "\nID: <code>{}</code>".format(user.id)
-    text += tld(chat.id, "\nFirst Name: {}").format(html.escape(user.first_name))
-
-    if user.last_name:
-        text += tld(chat.id, "\nLast Name: {}").format(html.escape(user.last_name))
-
-    if user.username:
-        text += tld(chat.id, "\nUsername: @{}").format(html.escape(user.username))
-
-    text += tld(chat.id, "\nUser link: {}\n").format(mention_html(user.id, "link"))
-
-    if user.id == OWNER_ID:
-        text += tld(chat.id, "\n\nAy, This guy is my owner. I would never do anything against him!")
-    else:
-        if user.id in SUDO_USERS:
-            text += tld(chat.id, "\nThis person is one of my sudo users! " \
-            "Nearly as powerful as my owner - so watch it.")
-        else:
-            if user.id in SUPPORT_USERS:
-                text += tld(chat.id, "\nThis person is one of my support users! " \
-                        "Not quite a sudo user, but can still gban you off the map.")
-
-            if user.id in WHITELIST_USERS:
-                text += tld(chat.id, "\nThis person has been whitelisted! " \
-                        "That means I'm not allowed to ban/kick them.")
-
-    for mod in USER_INFO:
-        mod_info = mod.__user_info__(user.id, chat.id).strip()
-        if mod_info:
-            text += "\n\n" + mod_info
-
-    update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 @user_admin
 @run_async
-def echo(bot: Bot, update: Update):
-    args = update.effective_message.text.split(None, 1)
+def echo(bot: Bot, update: Update, context: CallbackContext):
+    args = context.args
     message = update.effective_message
     if message.reply_to_message:
         message.reply_to_message.reply_text(args[1])
@@ -1108,7 +1057,7 @@ def echo(bot: Bot, update: Update):
 
 @user_admin
 @run_async 
-def reply_keyboard_remove(bot: Bot, update: Update):
+def reply_keyboard_remove(bot: Bot, update: Update, context: CallbackContext):
     reply_keyboard = []
     reply_keyboard.append([
         ReplyKeyboardRemove(
@@ -1131,7 +1080,7 @@ def reply_keyboard_remove(bot: Bot, update: Update):
 
 @user_admin
 @run_async
-def gdpr(bot: Bot, update: Update):
+def gdpr(bot: Bot, update: Update, context: CallbackContext):
     update.effective_message.reply_text(tld(update.effective_chat.id, "Deleting identifiable data..."))
     for mod in GDPR:
         mod.__gdpr__(update.effective_user.id)
@@ -1140,13 +1089,13 @@ def gdpr(bot: Bot, update: Update):
 
 @user_admin
 @run_async
-def markdown_help(bot: Bot, update: Update):
+def markdown_help(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(tld(chat.id, "MARKDOWN_HELP-K"), parse_mode=ParseMode.HTML)
     
 @run_async
 @user_admin
-def github(bot: Bot, update: Update):
+def github(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len('/git '):]
     usr = get(f'https://api.github.com/users/{text}').json()
@@ -1175,8 +1124,9 @@ def github(bot: Bot, update: Update):
 
 @user_admin
 @run_async
-def repo(bot: Bot, update: Update, args: List[str]):
+def repo(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
+    args = context.args
     text = message.text[len('/repo '):]
     usr = get(f'https://api.github.com/users/{text}/repos?per_page=300').json()
     reply_text = "*Repo*\n"
@@ -1191,9 +1141,9 @@ BASE_URL = 'https://del.dog'
 
 @user_admin
 @run_async
-def paste(bot: Bot, update: Update, args: List[str]):
+def paste(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
-
+    args = context.args
     if message.reply_to_message:
         data = message.reply_to_message.text
     elif len(args) >= 1:
@@ -1223,9 +1173,9 @@ def paste(bot: Bot, update: Update, args: List[str]):
 
 @user_admin
 @run_async
-def get_paste_content(bot: Bot, update: Update, args: List[str]):
+def get_paste_content(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
-
+    args = context.args
     if len(args) >= 1:
         key = args[0]
     else:
@@ -1257,9 +1207,9 @@ def get_paste_content(bot: Bot, update: Update, args: List[str]):
 
 @user_admin
 @run_async
-def get_paste_stats(bot: Bot, update: Update, args: List[str]):
+def get_paste_stats(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
-
+    args = context.args
     if len(args) >= 1:
         key = args[0]
     else:
@@ -1520,7 +1470,7 @@ async def img_sampler(event):
 
 @run_async
 @user_admin
-def shrug(bot: Bot, update: Update):
+def shrug(bot: Bot, update: Update, context: CallbackContext):
     default_msg = "¯\_(ツ)_/¯"
     message = update.effective_message
     if message.reply_to_message:
@@ -1532,7 +1482,7 @@ from PyDictionary import PyDictionary
 dictionary=PyDictionary()
 
 @run_async
-def define(bot: Bot, update: Update):
+def define(bot: Bot, update: Update, context: CallbackContext):
   message = update.effective_message
   text = message.text[len('/define '):]
   word = f"{text}"
@@ -1544,7 +1494,7 @@ def define(bot: Bot, update: Update):
   message.reply_text(got)
 
 @run_async
-def synonyms(bot: Bot, update: Update):
+def synonyms(bot: Bot, update: Update, context: CallbackContext):
   message = update.effective_message
   text = message.text[len('/define '):]
   word = f"{text}"
@@ -1556,7 +1506,7 @@ def synonyms(bot: Bot, update: Update):
   message.reply_text(got)
 
 @run_async
-def antonyms(bot: Bot, update: Update):
+def antonyms(bot: Bot, update: Update, context: CallbackContext):
   message = update.effective_message
   text = message.text[len('/define '):]
   word = f"{text}"
@@ -2124,7 +2074,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 
 @run_async
 @user_admin
-def gettime(bot: Bot, update: Update):
+def gettime(bot: Bot, update: Update, context: CallbackContext):
     message = update.effective_message
 
     try:
@@ -2159,10 +2109,11 @@ from alexa.modules.disable import DisableAbleCommandHandler
 
 @run_async
 @user_admin
-def lyrics(bot: Bot, update: Update, args):
+def lyrics(bot: Bot, update: Update, context: CallbackContext):
     msg = update.effective_message
     query = " ".join(args)
     song = ""
+    args = context.args
     if not query:
         msg.reply_text("You haven't specified which song to look for!")
         return
