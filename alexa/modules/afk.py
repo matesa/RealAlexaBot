@@ -696,7 +696,7 @@ def afk(update, context):
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
-    update.effective_message.reply_text(chat.id, f"{fname} is now AFK!"))
+    update.effective_message.reply_text(chat.id, f"{fname} is now AFK!")
     
 
 @run_async
