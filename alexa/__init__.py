@@ -753,7 +753,7 @@ if ENV:
     GBAN_LOGS = os.environ.get("GBAN_LOGS", None)
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     tbot = TelegramClient("alexa", API_KEY, API_HASH)
-    updater = tg.Updater(TOKEN, workers=WORKERS)
+    updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
