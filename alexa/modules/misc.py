@@ -1096,13 +1096,50 @@ def gdpr(bot: Bot, update: Update, context: CallbackContext):
     update.effective_message.reply_text(update.effective_chat.id, "Deleting identifiable data...")
     for mod in GDPR:
         mod.__gdpr__(update.effective_user.id)
+    update.effective_message.reply_text(
+        "Your personal data has been deleted.\n\nNote that this will not unban "
+        "you from any chats, as that is telegram data, not Skylee data. "
+        "Flooding, warns, and gbans are also preserved, as of "
+        "[this](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/), "
+        "which clearly states that the right to erasure does not apply "
+        '"for the performance of a task carried out in the public interest", as is '
+        "the case for the aforementioned pieces of data.",
+        parse_mode=ParseMode.MARKDOWN)
 
-    
+MARKDOWN_HELP = """
+Markdown is a very powerful formatting tool supported by telegram. {} has some enhancements, to make sure that \
+saved messages are correctly parsed, and to allow you to create buttons.
+
+- <code>_italic_</code>: wrapping text with '_' will produce italic text
+- <code>*bold*</code>: wrapping text with '*' will produce bold text
+- <code>`code`</code>: wrapping text with '`' will produce monospaced text, also known as 'code'
+- <code>~strike~</code> wrapping text with '~' will produce strikethrough text
+- <code>--underline--</code> wrapping text with '--' will produce underline text
+- <code>[sometext](someURL)</code>: this will create a link - the message will just show <code>sometext</code>, \
+and tapping on it will open the page at <code>someURL</code>.
+EG: <code>[test](example.com)</code>
+
+- <code>[buttontext](buttonurl:someURL)</code>: this is a special enhancement to allow users to have telegram \
+buttons in their markdown. <code>buttontext</code> will be what is displayed on the button, and <code>someurl</code> \
+will be the url which is opened.
+EG: <code>[This is a button](buttonurl:example.com)</code>
+
+If you want multiple buttons on the same line, use :same, as such:
+<code>[one](buttonurl://example.com)
+[two](buttonurl://google.com:same)</code>
+This will create two buttons on a single line, instead of one button per line.
+
+Keep in mind that your message <b>MUST</b> contain some text other than just a button!
+""".format(
+    dispatcher.bot.first_name
+)
+
 @user_admin
 @run_async
 def markdown_help(bot: Bot, update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
-    update.effective_message.reply_text(chat.id, MARKDOWN_HELP-K, parse_mode=ParseMode.HTML)
+    
+    update.effective_message.reply_text(chat.id, MARKDOWN_HELP,  parse_mode=ParseMode.HTML)
     
 @run_async
 @user_admin
@@ -2109,6 +2146,7 @@ def gettime(bot: Bot, update: Update, context: CallbackContext):
 
 
 
+# Simple lyrics module using tswift by @TheRealPhoenix
 
 from tswift import Song
 from telegram import Bot, Update, Message, Chat
