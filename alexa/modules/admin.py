@@ -1188,8 +1188,8 @@ PROMOTE_HANDLER = CommandHandler(
 )
 DEMOTE_HANDLER = CommandHandler("demote", demote, pass_args=True, filters=Filters.group)
 
-SET_TITLE_HANDLER = DisableAbleCommandHandler("settitle", set_title, pass_args=True)
-ADMINLIST_HANDLER = DisableAbleCommandHandler(
+SET_TITLE_HANDLER = CommandHandler("settitle", set_title, pass_args=True)
+ADMINLIST_HANDLER = CommandHandler(
     "adminlist", adminlist, filters=Filters.group
 )
 
