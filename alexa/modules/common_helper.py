@@ -675,43 +675,49 @@ from alexa.modules.helper_funcs.chat_status import user_admin
 
 from alexa import dispatcher
 
-# Open API key
-API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
-URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
 
-def translate(bot: Bot, update: Update):
-    if update.effective_message.reply_to_message:
-        msg = update.effective_message.reply_to_message
+from typing import Optional, List
+from gtts import gTTS
+import os
+import requests
+import json
+from emoji import UNICODE_EMOJI
 
-        params = dict(
-            lang="US",
-            clientVersion="2.0",
-            apiKey=API_KEY,
-            text=msg.text
-        )
+from telegram import ChatAction
+from telegram.ext import run_async, CommandHandler
 
-        res = requests.get(URL, params=params)
-        # print(res)
-        # print(res.text)
-        pprint(json.loads(res.text))
-        changes = json.loads(res.text).get('LightGingerTheTextResult')
-        curr_string = ""
+from alexa import dispatcher
 
-        prev_end = 0
+from alexa.modules.helper_funcs.alternate import send_action
+from alexa.modules.helper_funcs.chat_status import user_admin
+from googletrans import Translator
 
-        for change in changes:
-            start = change.get('From')
-            end = change.get('To') + 1
-            suggestions = change.get('Suggestions')
-            if suggestions:
-                sugg_str = suggestions[0].get('Text')  # should look at this list more
-                curr_string += msg.text[prev_end:start] + sugg_str
 
-                prev_end = end
+@run_async
+@user_admin
+def gtrans(update, context):
+    msg = update.effective_message
+    args = context.args
+    lang = " ".join(args)
+    if not lang:
+        lang = "en"
+    translate_text = msg.reply_to_message.text
+    ignore_text = UNICODE_EMOJI.keys()
+    for emoji in ignore_text:
+        if emoji in translate_text:
+            translate_text = translate_text.replace(emoji, "")
 
-        curr_string += msg.text[prev_end:]
-        print(curr_string)
-        update.effective_message.reply_text(curr_string)
+    translator = Translator()
+    try:
+        translated = translator.translate(translate_text, dest=lang)
+        trl = translated.src
+        results = translated.text
+        msg.reply_text("Translated from {} to {}.\n {}".format(trl, lang, results))
+    except:
+        msg.reply_text("Error! invalid language code.")
+
+
+dispatcher.add_handler(CommandHandler(["tr", "tl"], gtrans, pass_args=True))
 
 __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
@@ -729,8 +735,3 @@ __help__ = """
 """
 
 __mod_name__ = "Helpers 🤗"
-
-
-TRANSLATE_HANDLER = CommandHandler('spell', translate)
-
-dispatcher.add_handler(TRANSLATE_HANDLER)
