@@ -1068,7 +1068,7 @@ def left_member(update, context):
 
 @run_async
 @user_can_change
-@typing_action
+
 def welcome(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = context.args
@@ -1121,7 +1121,7 @@ def welcome(update, context):
 
 @run_async
 @user_can_change
-@typing_action
+
 def goodbye(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = context.args
@@ -1175,7 +1175,7 @@ def goodbye(update, context):
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def set_welcome(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1203,7 +1203,7 @@ def set_welcome(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def reset_welcome(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1224,7 +1224,7 @@ def reset_welcome(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def set_goodbye(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1250,7 +1250,7 @@ def set_goodbye(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def reset_goodbye(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1271,7 +1271,7 @@ def reset_goodbye(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def welcomemute(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1333,7 +1333,7 @@ def welcomemute(update, context) -> str:
 @run_async
 @user_can_change
 @loggable
-@typing_action
+
 def clean_welcome(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1381,7 +1381,7 @@ def clean_welcome(update, context) -> str:
 
 @run_async
 @user_can_change
-@typing_action
+
 def cleanservice(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = context.args
@@ -1481,7 +1481,7 @@ WELC_HELP_TXT = (
 
 @run_async
 @user_can_change
-@typing_action
+
 def welcome_help(update, context):
     update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
