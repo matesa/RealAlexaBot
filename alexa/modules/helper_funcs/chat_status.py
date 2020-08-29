@@ -667,7 +667,7 @@
 
 from functools import wraps
 from telegram import User, Chat, ChatMember
-
+from telegram import MessageEntity, ParseMode, Update, Bot
 from alexa import DEL_CMDS, SUDO_USERS
 from alexa.mwt import MWT
 from telegram import User, Chat
