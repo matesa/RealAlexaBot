@@ -685,7 +685,7 @@ from alexa.modules.helper_funcs.chat_status import (
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.helper_funcs.chat_status import user_can_ban
-typing_action
+
 from alexa.modules.log_channel import loggable
 
 
