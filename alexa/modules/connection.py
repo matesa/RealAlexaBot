@@ -980,9 +980,8 @@ CONN_HELP = """
  • Set and control AntiFlood settings.
  • Set and control Blacklist settings.
  • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
  • Export and Imports of chat backup.
- • More in future!"""
+"""
 
 
 @run_async
