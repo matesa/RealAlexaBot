@@ -2089,8 +2089,7 @@ def fed_ban_list(update, context):
             update.effective_message.reply_document(
                 document=output,
                 filename="fbanlist.txt",
-                caption=
-                "The following is a list of users who are currently fbanned in the Federation {}."
+                caption="The following is a list of users who are currently fbanned in the Federation {}."
                 .format(info["fname"]),
             )
 
@@ -2186,8 +2185,7 @@ def fed_chats(update, context):
             update.effective_message.reply_document(
                 document=output,
                 filename="fedchats.txt",
-                caption=
-                "Here is a list of all the chats that joined the federation {}."
+                caption="Here is a list of all the chats that joined the federation {}."
                 .format(info["fname"]),
             )
 

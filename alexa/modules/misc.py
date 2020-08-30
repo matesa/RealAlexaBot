@@ -2268,8 +2268,7 @@ def lyrics(bot: Bot, update: Update, context: CallbackContext):
             with open("lyrics.txt", "rb") as f:
                 msg.reply_document(
                     document=f,
-                    caption=
-                    "Message length exceeded max limit! Sending as a text file.",
+                    caption="Message length exceeded max limit! Sending as a text file.",
                 )
         else:
             msg.reply_text(reply)

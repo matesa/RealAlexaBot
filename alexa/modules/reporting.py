@@ -778,25 +778,21 @@ def report(update, context) -> str:
                 [
                     InlineKeyboardButton(
                         "💬 Message",
-                        url=
-                        f"https://t.me/{chat.username}/{message.reply_to_message.message_id}",
+                        url=f"https://t.me/{chat.username}/{message.reply_to_message.message_id}",
                     ),
                     InlineKeyboardButton(
                         "⚽ Kick",
-                        callback_data=
-                        f"report_{chat.id}=kick={reported_user.id}={reported_user.first_name}",
+                        callback_data=f"report_{chat.id}=kick={reported_user.id}={reported_user.first_name}",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
                         "⛔️ Ban",
-                        callback_data=
-                        f"report_{chat.id}=banned={reported_user.id}={reported_user.first_name}",
+                        callback_data=f"report_{chat.id}=banned={reported_user.id}={reported_user.first_name}",
                     ),
                     InlineKeyboardButton(
                         "❎ Delete Message",
-                        callback_data=
-                        f"report_{chat.id}=delete={reported_user.id}={message.reply_to_message.message_id}",
+                        callback_data=f"report_{chat.id}=delete={reported_user.id}={message.reply_to_message.message_id}",
                     ),
                 ],
             ]
