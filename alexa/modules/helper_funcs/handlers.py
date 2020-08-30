@@ -711,3 +711,4 @@ class CustomCommandHandler(tg.CommandHandler):
                         return args, filter_result
                     else:
                         return False
+ 

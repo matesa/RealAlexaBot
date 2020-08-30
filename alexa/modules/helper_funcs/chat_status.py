@@ -926,3 +926,4 @@ def user_can_delete(func):
         return func(update, context, *args, **kwargs)
 
     return user_can_deletee
+ 

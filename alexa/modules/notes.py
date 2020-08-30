@@ -1226,3 +1226,4 @@ dispatcher.add_handler(DELETE_HANDLER)
 dispatcher.add_handler(HASH_GET_HANDLER)
 dispatcher.add_handler(CLEARALLNOTES_HANDLER)
 dispatcher.add_handler(RMBTN_HANDLER)
+ 

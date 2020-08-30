@@ -886,3 +886,4 @@ def rem_chat(chat_id):
             SESSION.commit()
         else:
             SESSION.close()
+ 

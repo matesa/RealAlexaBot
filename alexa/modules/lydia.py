@@ -672,3 +672,4 @@ Powered by coffeehouse from `intellivoid.net`
  - /stopchat: Type in reply to your message to deactivate. Deactivates AI mode in the chat the bot will stop giving auto replies to anyone who tags the bot
 """
 __mod_name__ = "ChatBot 🤖"
+ 

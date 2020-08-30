@@ -1241,3 +1241,4 @@ dispatcher.add_handler(LOCKED_HANDLER)
 dispatcher.add_handler(
     MessageHandler(Filters.all & Filters.group, del_lockables), PERM_GROUP
 )
+ 

@@ -733,3 +733,4 @@ __help__ = """
  example syntax: /cash 1 USD INR
 """
 __mod_name__ = "Currency 💰"
+ 

@@ -721,3 +721,4 @@ def wall(update: Update, context: CallbackContext):
 
 WALLPAPER_HANDLER = CommandHandler("wall", wall)
 dispatcher.add_handler(WALLPAPER_HANDLER)
+ 

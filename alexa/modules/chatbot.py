@@ -801,3 +801,4 @@ dispatcher.add_handler(ADD_CHAT_HANDLER)
 dispatcher.add_handler(REMOVE_CHAT_HANDLER)
 
 __mod_name__ = "Chatbot"
+ 

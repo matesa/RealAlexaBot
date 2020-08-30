@@ -722,3 +722,4 @@ async def terminal_runner(term):
         await term.reply("`" f"{curruser}:~$ {command}" f"\n{result}" "`")
 
  
+ 

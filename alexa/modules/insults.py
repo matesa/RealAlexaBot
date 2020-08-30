@@ -756,3 +756,4 @@ def insult(update, context):
 INSULT_HANDLER = CommandHandler("insult", insult)
 
 dispatcher.add_handler(INSULT_HANDLER)
+ 

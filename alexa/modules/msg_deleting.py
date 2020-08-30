@@ -746,3 +746,4 @@ async def delete_msg(event):
 
 
 __mod_name__ = "Purges"
+ 

@@ -757,3 +757,4 @@ RANGRY_HANDLER = CommandHandler("amgery", rangry)
 dispatcher.add_handler(REACT_HANDLER)
 dispatcher.add_handler(RHAPPY_HANDLER)
 dispatcher.add_handler(RANGRY_HANDLER)
+ 

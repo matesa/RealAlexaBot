@@ -707,3 +707,4 @@ class CustomFilters(object):
             )
 
     has_text = _HasText()
+ 

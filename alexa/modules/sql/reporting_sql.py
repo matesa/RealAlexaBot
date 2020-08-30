@@ -756,3 +756,4 @@ def migrate_chat(old_chat_id, new_chat_id):
         for note in chat_notes:
             note.chat_id = str(new_chat_id)
         SESSION.commit()
+ 

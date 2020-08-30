@@ -741,3 +741,4 @@ def set_user_bio(user_id, bio):
 
         SESSION.add(userbio)
         SESSION.commit()
+ 

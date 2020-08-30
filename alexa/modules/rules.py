@@ -784,3 +784,4 @@ RESET_RULES_HANDLER = CommandHandler(
 dispatcher.add_handler(GET_RULES_HANDLER)
 dispatcher.add_handler(SET_RULES_HANDLER)
 dispatcher.add_handler(RESET_RULES_HANDLER)
+ 
