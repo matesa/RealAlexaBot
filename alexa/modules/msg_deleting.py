@@ -659,16 +659,16 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import asyncio
 
 from telethon import events
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
 from telethon.tl.types import ChannelParticipantsAdmins
 
-from alexa import SUDO_USERS, tbot
-from alexa.events import register, tbot
+from alexa import SUDO_USERS
+from alexa import tbot
+from alexa.events import register
+from alexa.events import tbot
 
 # Check if user has admin rights
 

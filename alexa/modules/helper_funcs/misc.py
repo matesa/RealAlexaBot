@@ -659,14 +659,17 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
+from typing import Dict
+from typing import List
 
-
-from typing import Dict, List
-
-from telegram import MAX_MESSAGE_LENGTH, Bot, InlineKeyboardButton, ParseMode
+from telegram import Bot
+from telegram import InlineKeyboardButton
+from telegram import MAX_MESSAGE_LENGTH
+from telegram import ParseMode
 from telegram.error import TelegramError
 
-from alexa import LOAD, NO_LOAD
+from alexa import LOAD
+from alexa import NO_LOAD
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):

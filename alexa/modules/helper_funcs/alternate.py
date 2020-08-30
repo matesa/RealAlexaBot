@@ -659,11 +659,10 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 from functools import wraps
 
-from telegram import ChatAction, error
+from telegram import ChatAction
+from telegram import error
 
 
 def send_message(message, text, *args, **kwargs):

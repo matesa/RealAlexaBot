@@ -659,15 +659,16 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 from random import randint
 
 import requests as r
 from telegram import Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext
+from telegram.ext import CommandHandler
+from telegram.ext import run_async
 
-from alexa import WALL_API, dispatcher
+from alexa import dispatcher
+from alexa import WALL_API
 from alexa.modules.helper_funcs.chat_status import user_admin
 
 

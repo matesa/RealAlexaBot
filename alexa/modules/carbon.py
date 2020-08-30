@@ -659,8 +659,6 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import asyncio
 import os
 import random
@@ -677,11 +675,15 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
-from telethon import events, types
+from telethon import events
+from telethon import types
 from telethon.tl import functions
 
 import alexa.modules.sql.approve_sql as sql
-from alexa import CHROME_DRIVER, GOOGLE_CHROME_BIN, LOGGER, tbot
+from alexa import CHROME_DRIVER
+from alexa import GOOGLE_CHROME_BIN
+from alexa import LOGGER
+from alexa import tbot
 from alexa.events import register
 
 CARBONLANG = "en"

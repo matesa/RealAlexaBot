@@ -659,15 +659,19 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import threading
 
-from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText,
-                        UniqueConstraint, func)
+from sqlalchemy import Column
+from sqlalchemy import ForeignKey
+from sqlalchemy import func
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import UnicodeText
+from sqlalchemy import UniqueConstraint
 
 from alexa import dispatcher
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class Users(BASE):

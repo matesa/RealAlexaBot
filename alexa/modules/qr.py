@@ -659,17 +659,17 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import os
 from asyncio import sleep
 from datetime import datetime
 
-from requests import get, post
+from requests import get
+from requests import post
 from telethon import types
 from telethon.tl import functions
 
-from alexa import LOGGER, tbot
+from alexa import LOGGER
+from alexa import tbot
 from alexa.events import register
 
 

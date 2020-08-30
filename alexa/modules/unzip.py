@@ -659,13 +659,10 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 """ command: .unzip
 coded by @By_Azade
 code rewritten my SnapDragon7410
 """
-
 import asyncio
 import os
 import time
@@ -676,11 +673,15 @@ from zipfile import ZipFile
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from pySmartDL import SmartDL
-from telethon import events, types
+from telethon import events
+from telethon import types
 from telethon.tl import functions
-from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.tl.types import DocumentAttributeVideo
 
-from alexa import LOGGER, TEMP_DOWNLOAD_DIRECTORY, tbot
+from alexa import LOGGER
+from alexa import tbot
+from alexa import TEMP_DOWNLOAD_DIRECTORY
 from alexa.events import register
 
 extracted = TEMP_DOWNLOAD_DIRECTORY + "extracted/"

@@ -659,33 +659,39 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import ast
 import re
 from html import escape
 from io import BytesIO
 from typing import Optional
 
-from telegram import (MAX_MESSAGE_LENGTH, InlineKeyboardButton,
-                      InlineKeyboardMarkup, Message, ParseMode)
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import MAX_MESSAGE_LENGTH
+from telegram import Message
+from telegram import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
-                          MessageHandler)
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.notes_sql as sql
-from alexa import LOGGER, MESSAGE_DUMP, dispatcher
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa import MESSAGE_DUMP
 from alexa.modules.connection import connected
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (user_admin,
-                                                    user_admin_no_reply,
-                                                    user_can_change)
-from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin_no_reply
+from alexa.modules.helper_funcs.chat_status import user_can_change
+from alexa.modules.helper_funcs.misc import build_keyboard
+from alexa.modules.helper_funcs.misc import revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_note_type
-from alexa.modules.helper_funcs.string_handling import (
-    escape_invalid_curly_brackets, markdown_to_html)
+from alexa.modules.helper_funcs.string_handling import escape_invalid_curly_brackets
+from alexa.modules.helper_funcs.string_handling import markdown_to_html
 
 FILE_MATCHER = re.compile(r"^###file_id(!photo)?###:(.*?)(?:\s|$)")
 STICKER_MATCHER = re.compile(r"^###sticker(!photo)?###:")

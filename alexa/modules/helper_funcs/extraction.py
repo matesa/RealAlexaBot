@@ -659,11 +659,11 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
+from typing import List
+from typing import Optional
 
-
-from typing import List, Optional
-
-from telegram import Message, MessageEntity
+from telegram import Message
+from telegram import MessageEntity
 from telegram.error import BadRequest
 
 from alexa import LOGGER

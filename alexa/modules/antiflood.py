@@ -659,21 +659,29 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import html
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-from telegram import Chat, ChatPermissions, Message, ParseMode, User
+from telegram import Chat
+from telegram import ChatPermissions
+from telegram import Message
+from telegram import ParseMode
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher
 from alexa.modules.connection import connected
-from alexa.modules.helper_funcs.alternate import send_message, typing_action
-from alexa.modules.helper_funcs.chat_status import (is_user_admin, user_admin,
-                                                    user_can_change)
+from alexa.modules.helper_funcs.alternate import send_message
+from alexa.modules.helper_funcs.alternate import typing_action
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_can_change
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import antiflood_sql as sql

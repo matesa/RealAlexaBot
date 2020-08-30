@@ -659,16 +659,19 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import threading
 from typing import Union
 
-from sqlalchemy import (BigInteger, Boolean, Column, Integer, String,
-                        UnicodeText)
+from sqlalchemy import BigInteger
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import UnicodeText
 
 from alexa.modules.helper_funcs.msg_types import Types
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 DEFAULT_WELCOME = "Hi {first}, how are you?"
 DEFAULT_GOODBYE = "{first} has left the game."

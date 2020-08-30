@@ -659,17 +659,21 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import re
 import time
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
-from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import ParseMode
+from telegram.error import BadRequest
+from telegram.error import Unauthorized
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import run_async
 
 import alexa.modules.sql.connection_sql as sql
-from alexa import SUDO_USERS, dispatcher
+from alexa import dispatcher
+from alexa import SUDO_USERS
 from alexa.modules.helper_funcs import chat_status
 from alexa.modules.helper_funcs.alternate import send_message
 

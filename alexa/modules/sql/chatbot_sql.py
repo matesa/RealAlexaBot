@@ -659,13 +659,13 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import threading
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column
+from sqlalchemy import String
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class ChatbotChats(BASE):

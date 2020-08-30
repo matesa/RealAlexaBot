@@ -659,21 +659,28 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import html
 import json
 import random
 import time
 from datetime import datetime
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
 import requests
 from geopy.geocoders import Nominatim
-from telegram import (Bot, Chat, Location, Message, MessageEntity, ParseMode,
-                      Update)
-from telegram.ext import CommandHandler, Filters, run_async
-from telegram.utils.helpers import escape_markdown, mention_html
+from telegram import Bot
+from telegram import Chat
+from telegram import Location
+from telegram import Message
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import Update
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import run_async
+from telegram.utils.helpers import escape_markdown
+from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler

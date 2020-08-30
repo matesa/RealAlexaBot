@@ -659,8 +659,6 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import json
 import re
 import urllib
@@ -669,10 +667,12 @@ import rapidjson as json
 from bs4 import BeautifulSoup
 from hurry.filesize import size as sizee
 from requests import get
-from telethon import custom, types
+from telethon import custom
+from telethon import types
 from telethon.tl import functions
 
-from alexa import LOGGER, tbot
+from alexa import LOGGER
+from alexa import tbot
 from alexa.events import register
 
 GITHUB = "https://github.com"

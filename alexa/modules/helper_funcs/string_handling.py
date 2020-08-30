@@ -659,11 +659,10 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import re
 import time
-from typing import Dict, List
+from typing import Dict
+from typing import List
 
 import bleach
 import emoji

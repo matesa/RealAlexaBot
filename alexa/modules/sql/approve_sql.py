@@ -659,16 +659,17 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 #  This is made by @AyushChatterjee
 #  If you kang this without credits I swear ur mom will die
-
 import threading
 
-from sqlalchemy import Boolean, Column, Integer, UnicodeText
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import UnicodeText
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class APPROVE(BASE):
