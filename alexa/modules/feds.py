@@ -1,35 +1,34 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
-#     
+#
 #      Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 #      Everyone is permitted to copy and distribute verbatim copies
 #      of this license document, but changing it is not allowed.
-#     
+#
 #                                 Preamble
-#     
+#
 #       The GNU Affero General Public License is a free, copyleft license for
 #     software and other kinds of works, specifically designed to ensure
 #     cooperation with the community in the case of network server software.
-#     
+#
 #       The licenses for most software and other practical works are designed
 #     to take away your freedom to share and change the works.  By contrast,
 #     our General Public Licenses are intended to guarantee your freedom to
 #     share and change all versions of a program--to make sure it remains free
 #     software for all its users.
-#     
+#
 #       When we speak of free software, we are referring to freedom, not
 #     price.  Our General Public Licenses are designed to make sure that you
 #     have the freedom to distribute copies of free software (and charge for
 #     them if you wish), that you receive source code or can get it if you
 #     want it, that you can change the software or use pieces of it in new
 #     free programs, and that you know you can do these things.
-#     
+#
 #       Developers that use our General Public Licenses protect your rights
 #     with two steps: (1) assert copyright on the software, and (2) offer
 #     you this License which gives you legal permission to copy, distribute
 #     and/or modify the software.
-#     
+#
 #       A secondary benefit of defending all users' freedom is that
 #     improvements made in alternate versions of the program, if they
 #     receive widespread use, become available for other developers to
@@ -39,7 +38,7 @@
 #     The GNU General Public License permits making a modified version and
 #     letting the public access it on a server without ever releasing its
 #     source code to the public.
-#     
+#
 #       The GNU Affero General Public License is designed specifically to
 #     ensure that, in such cases, the modified source code becomes available
 #     to the community.  It requires the operator of a network server to
@@ -47,48 +46,48 @@
 #     users of that server.  Therefore, public use of a modified version, on
 #     a publicly accessible server, gives the public access to the source
 #     code of the modified version.
-#     
+#
 #       An older license, called the Affero General Public License and
 #     published by Affero, was designed to accomplish similar goals.  This is
 #     a different license, not a version of the Affero GPL, but Affero has
 #     released a new version of the Affero GPL which permits relicensing under
 #     this license.
-#     
+#
 #       The precise terms and conditions for copying, distribution and
 #     modification follow.
-#     
+#
 #                            TERMS AND CONDITIONS
-#     
+#
 #       0. Definitions.
-#     
+#
 #       "This License" refers to version 3 of the GNU Affero General Public License.
-#     
+#
 #       "Copyright" also means copyright-like laws that apply to other kinds of
 #     works, such as semiconductor masks.
-#     
+#
 #       "The Program" refers to any copyrightable work licensed under this
 #     License.  Each licensee is addressed as "you".  "Licensees" and
 #     "recipients" may be individuals or organizations.
-#     
+#
 #       To "modify" a work means to copy from or adapt all or part of the work
 #     in a fashion requiring copyright permission, other than the making of an
 #     exact copy.  The resulting work is called a "modified version" of the
 #     earlier work or a work "based on" the earlier work.
-#     
+#
 #       A "covered work" means either the unmodified Program or a work based
 #     on the Program.
-#     
+#
 #       To "propagate" a work means to do anything with it that, without
 #     permission, would make you directly or secondarily liable for
 #     infringement under applicable copyright law, except executing it on a
 #     computer or modifying a private copy.  Propagation includes copying,
 #     distribution (with or without modification), making available to the
 #     public, and in some countries other activities as well.
-#     
+#
 #       To "convey" a work means any kind of propagation that enables other
 #     parties to make or receive copies.  Mere interaction with a user through
 #     a computer network, with no transfer of a copy, is not conveying.
-#     
+#
 #       An interactive user interface displays "Appropriate Legal Notices"
 #     to the extent that it includes a convenient and prominently visible
 #     feature that (1) displays an appropriate copyright notice, and (2)
@@ -97,18 +96,18 @@
 #     work under this License, and how to view a copy of this License.  If
 #     the interface presents a list of user commands or options, such as a
 #     menu, a prominent item in the list meets this criterion.
-#     
+#
 #       1. Source Code.
-#     
+#
 #       The "source code" for a work means the preferred form of the work
 #     for making modifications to it.  "Object code" means any non-source
 #     form of a work.
-#     
+#
 #       A "Standard Interface" means an interface that either is an official
 #     standard defined by a recognized standards body, or, in the case of
 #     interfaces specified for a particular programming language, one that
 #     is widely used among developers working in that language.
-#     
+#
 #       The "System Libraries" of an executable work include anything, other
 #     than the work as a whole, that (a) is included in the normal form of
 #     packaging a Major Component, but which is not part of that Major
@@ -119,7 +118,7 @@
 #     (kernel, window system, and so on) of the specific operating system
 #     (if any) on which the executable work runs, or a compiler used to
 #     produce the work, or an object code interpreter used to run it.
-#     
+#
 #       The "Corresponding Source" for a work in object code form means all
 #     the source code needed to generate, install, and (for an executable
 #     work) run the object code and to modify the work, including scripts to
@@ -132,16 +131,16 @@
 #     linked subprograms that the work is specifically designed to require,
 #     such as by intimate data communication or control flow between those
 #     subprograms and other parts of the work.
-#     
+#
 #       The Corresponding Source need not include anything that users
 #     can regenerate automatically from other parts of the Corresponding
 #     Source.
-#     
+#
 #       The Corresponding Source for a work in source code form is that
 #     same work.
-#     
+#
 #       2. Basic Permissions.
-#     
+#
 #       All rights granted under this License are granted for the term of
 #     copyright on the Program, and are irrevocable provided the stated
 #     conditions are met.  This License explicitly affirms your unlimited
@@ -149,7 +148,7 @@
 #     covered work is covered by this License only if the output, given its
 #     content, constitutes a covered work.  This License acknowledges your
 #     rights of fair use or other equivalent, as provided by copyright law.
-#     
+#
 #       You may make, run and propagate covered works that you do not
 #     convey, without conditions so long as your license otherwise remains
 #     in force.  You may convey covered works to others for the sole purpose
@@ -160,19 +159,19 @@
 #     for you must do so exclusively on your behalf, under your direction
 #     and control, on terms that prohibit them from making any copies of
 #     your copyrighted material outside their relationship with you.
-#     
+#
 #       Conveying under any other circumstances is permitted solely under
 #     the conditions stated below.  Sublicensing is not allowed; section 10
 #     makes it unnecessary.
-#     
+#
 #       3. Protecting Users' Legal Rights From Anti-Circumvention Law.
-#     
+#
 #       No covered work shall be deemed part of an effective technological
 #     measure under any applicable law fulfilling obligations under article
 #     11 of the WIPO copyright treaty adopted on 20 December 1996, or
 #     similar laws prohibiting or restricting circumvention of such
 #     measures.
-#     
+#
 #       When you convey a covered work, you waive any legal power to forbid
 #     circumvention of technological measures to the extent such circumvention
 #     is effected by exercising rights under this License with respect to
@@ -180,9 +179,9 @@
 #     modification of the work as a means of enforcing, against the work's
 #     users, your or third parties' legal rights to forbid circumvention of
 #     technological measures.
-#     
+#
 #       4. Conveying Verbatim Copies.
-#     
+#
 #       You may convey verbatim copies of the Program's source code as you
 #     receive it, in any medium, provided that you conspicuously and
 #     appropriately publish on each copy an appropriate copyright notice;
@@ -190,24 +189,24 @@
 #     non-permissive terms added in accord with section 7 apply to the code;
 #     keep intact all notices of the absence of any warranty; and give all
 #     recipients a copy of this License along with the Program.
-#     
+#
 #       You may charge any price or no price for each copy that you convey,
 #     and you may offer support or warranty protection for a fee.
-#     
+#
 #       5. Conveying Modified Source Versions.
-#     
+#
 #       You may convey a work based on the Program, or the modifications to
 #     produce it from the Program, in the form of source code under the
 #     terms of section 4, provided that you also meet all of these conditions:
-#     
+#
 #         a) The work must carry prominent notices stating that you modified
 #         it, and giving a relevant date.
-#     
+#
 #         b) The work must carry prominent notices stating that it is
 #         released under this License and any conditions added under section
 #         7.  This requirement modifies the requirement in section 4 to
 #         "keep intact all notices".
-#     
+#
 #         c) You must license the entire work, as a whole, under this
 #         License to anyone who comes into possession of a copy.  This
 #         License will therefore apply, along with any applicable section 7
@@ -215,12 +214,12 @@
 #         regardless of how they are packaged.  This License gives no
 #         permission to license the work in any other way, but it does not
 #         invalidate such permission if you have separately received it.
-#     
+#
 #         d) If the work has interactive user interfaces, each must display
 #         Appropriate Legal Notices; however, if the Program has interactive
 #         interfaces that do not display Appropriate Legal Notices, your
 #         work need not make them do so.
-#     
+#
 #       A compilation of a covered work with other separate and independent
 #     works, which are not by their nature extensions of the covered work,
 #     and which are not combined with it such as to form a larger program,
@@ -230,19 +229,19 @@
 #     beyond what the individual works permit.  Inclusion of a covered work
 #     in an aggregate does not cause this License to apply to the other
 #     parts of the aggregate.
-#     
+#
 #       6. Conveying Non-Source Forms.
-#     
+#
 #       You may convey a covered work in object code form under the terms
 #     of sections 4 and 5, provided that you also convey the
 #     machine-readable Corresponding Source under the terms of this License,
 #     in one of these ways:
-#     
+#
 #         a) Convey the object code in, or embodied in, a physical product
 #         (including a physical distribution medium), accompanied by the
 #         Corresponding Source fixed on a durable physical medium
 #         customarily used for software interchange.
-#     
+#
 #         b) Convey the object code in, or embodied in, a physical product
 #         (including a physical distribution medium), accompanied by a
 #         written offer, valid for at least three years and valid for as
@@ -254,13 +253,13 @@
 #         more than your reasonable cost of physically performing this
 #         conveying of source, or (2) access to copy the
 #         Corresponding Source from a network server at no charge.
-#     
+#
 #         c) Convey individual copies of the object code with a copy of the
 #         written offer to provide the Corresponding Source.  This
 #         alternative is allowed only occasionally and noncommercially, and
 #         only if you received the object code with such an offer, in accord
 #         with subsection 6b.
-#     
+#
 #         d) Convey the object code by offering access from a designated
 #         place (gratis or for a charge), and offer equivalent access to the
 #         Corresponding Source in the same way through the same place at no
@@ -273,16 +272,16 @@
 #         Corresponding Source.  Regardless of what server hosts the
 #         Corresponding Source, you remain obligated to ensure that it is
 #         available for as long as needed to satisfy these requirements.
-#     
+#
 #         e) Convey the object code using peer-to-peer transmission, provided
 #         you inform other peers where the object code and Corresponding
 #         Source of the work are being offered to the general public at no
 #         charge under subsection 6d.
-#     
+#
 #       A separable portion of the object code, whose source code is excluded
 #     from the Corresponding Source as a System Library, need not be
 #     included in conveying the object code work.
-#     
+#
 #       A "User Product" is either (1) a "consumer product", which means any
 #     tangible personal property which is normally used for personal, family,
 #     or household purposes, or (2) anything designed or sold for incorporation
@@ -295,7 +294,7 @@
 #     is a consumer product regardless of whether the product has substantial
 #     commercial, industrial or non-consumer uses, unless such uses represent
 #     the only significant mode of use of the product.
-#     
+#
 #       "Installation Information" for a User Product means any methods,
 #     procedures, authorization keys, or other information required to install
 #     and execute modified versions of a covered work in that User Product from
@@ -303,7 +302,7 @@
 #     suffice to ensure that the continued functioning of the modified object
 #     code is in no case prevented or interfered with solely because
 #     modification has been made.
-#     
+#
 #       If you convey an object code work under this section in, or with, or
 #     specifically for use in, a User Product, and the conveying occurs as
 #     part of a transaction in which the right of possession and use of the
@@ -314,7 +313,7 @@
 #     if neither you nor any third party retains the ability to install
 #     modified object code on the User Product (for example, the work has
 #     been installed in ROM).
-#     
+#
 #       The requirement to provide Installation Information does not include a
 #     requirement to continue to provide support service, warranty, or updates
 #     for a work that has been modified or installed by the recipient, or for
@@ -322,15 +321,15 @@
 #     network may be denied when the modification itself materially and
 #     adversely affects the operation of the network or violates the rules and
 #     protocols for communication across the network.
-#     
+#
 #       Corresponding Source conveyed, and Installation Information provided,
 #     in accord with this section must be in a format that is publicly
 #     documented (and with an implementation available to the public in
 #     source code form), and must require no special password or key for
 #     unpacking, reading or copying.
-#     
+#
 #       7. Additional Terms.
-#     
+#
 #       "Additional permissions" are terms that supplement the terms of this
 #     License by making exceptions from one or more of its conditions.
 #     Additional permissions that are applicable to the entire Program shall
@@ -339,41 +338,41 @@
 #     apply only to part of the Program, that part may be used separately
 #     under those permissions, but the entire Program remains governed by
 #     this License without regard to the additional permissions.
-#     
+#
 #       When you convey a copy of a covered work, you may at your option
 #     remove any additional permissions from that copy, or from any part of
 #     it.  (Additional permissions may be written to require their own
 #     removal in certain cases when you modify the work.)  You may place
 #     additional permissions on material, added by you to a covered work,
 #     for which you have or can give appropriate copyright permission.
-#     
+#
 #       Notwithstanding any other provision of this License, for material you
 #     add to a covered work, you may (if authorized by the copyright holders of
 #     that material) supplement the terms of this License with terms:
-#     
+#
 #         a) Disclaiming warranty or limiting liability differently from the
 #         terms of sections 15 and 16 of this License; or
-#     
+#
 #         b) Requiring preservation of specified reasonable legal notices or
 #         author attributions in that material or in the Appropriate Legal
 #         Notices displayed by works containing it; or
-#     
+#
 #         c) Prohibiting misrepresentation of the origin of that material, or
 #         requiring that modified versions of such material be marked in
 #         reasonable ways as different from the original version; or
-#     
+#
 #         d) Limiting the use for publicity purposes of names of licensors or
 #         authors of the material; or
-#     
+#
 #         e) Declining to grant rights under trademark law for use of some
 #         trade names, trademarks, or service marks; or
-#     
+#
 #         f) Requiring indemnification of licensors and authors of that
 #         material by anyone who conveys the material (or modified versions of
 #         it) with contractual assumptions of liability to the recipient, for
 #         any liability that these contractual assumptions directly impose on
 #         those licensors and authors.
-#     
+#
 #       All other non-permissive additional terms are considered "further
 #     restrictions" within the meaning of section 10.  If the Program as you
 #     received it, or any part of it, contains a notice stating that it is
@@ -383,46 +382,46 @@
 #     License, you may add to a covered work material governed by the terms
 #     of that license document, provided that the further restriction does
 #     not survive such relicensing or conveying.
-#     
+#
 #       If you add terms to a covered work in accord with this section, you
 #     must place, in the relevant source files, a statement of the
 #     additional terms that apply to those files, or a notice indicating
 #     where to find the applicable terms.
-#     
+#
 #       Additional terms, permissive or non-permissive, may be stated in the
 #     form of a separately written license, or stated as exceptions;
 #     the above requirements apply either way.
-#     
+#
 #       8. Termination.
-#     
+#
 #       You may not propagate or modify a covered work except as expressly
 #     provided under this License.  Any attempt otherwise to propagate or
 #     modify it is void, and will automatically terminate your rights under
 #     this License (including any patent licenses granted under the third
 #     paragraph of section 11).
-#     
+#
 #       However, if you cease all violation of this License, then your
 #     license from a particular copyright holder is reinstated (a)
 #     provisionally, unless and until the copyright holder explicitly and
 #     finally terminates your license, and (b) permanently, if the copyright
 #     holder fails to notify you of the violation by some reasonable means
 #     prior to 60 days after the cessation.
-#     
+#
 #       Moreover, your license from a particular copyright holder is
 #     reinstated permanently if the copyright holder notifies you of the
 #     violation by some reasonable means, this is the first time you have
 #     received notice of violation of this License (for any work) from that
 #     copyright holder, and you cure the violation prior to 30 days after
 #     your receipt of the notice.
-#     
+#
 #       Termination of your rights under this section does not terminate the
 #     licenses of parties who have received copies or rights from you under
 #     this License.  If your rights have been terminated and not permanently
 #     reinstated, you do not qualify to receive new licenses for the same
 #     material under section 10.
-#     
+#
 #       9. Acceptance Not Required for Having Copies.
-#     
+#
 #       You are not required to accept this License in order to receive or
 #     run a copy of the Program.  Ancillary propagation of a covered work
 #     occurring solely as a consequence of using peer-to-peer transmission
@@ -431,14 +430,14 @@
 #     modify any covered work.  These actions infringe copyright if you do
 #     not accept this License.  Therefore, by modifying or propagating a
 #     covered work, you indicate your acceptance of this License to do so.
-#     
+#
 #       10. Automatic Licensing of Downstream Recipients.
-#     
+#
 #       Each time you convey a covered work, the recipient automatically
 #     receives a license from the original licensors, to run, modify and
 #     propagate that work, subject to this License.  You are not responsible
 #     for enforcing compliance by third parties with this License.
-#     
+#
 #       An "entity transaction" is a transaction transferring control of an
 #     organization, or substantially all assets of one, or subdividing an
 #     organization, or merging organizations.  If propagation of a covered
@@ -448,7 +447,7 @@
 #     give under the previous paragraph, plus a right to possession of the
 #     Corresponding Source of the work from the predecessor in interest, if
 #     the predecessor has it or can get it with reasonable efforts.
-#     
+#
 #       You may not impose any further restrictions on the exercise of the
 #     rights granted or affirmed under this License.  For example, you may
 #     not impose a license fee, royalty, or other charge for exercise of
@@ -456,13 +455,13 @@
 #     (including a cross-claim or counterclaim in a lawsuit) alleging that
 #     any patent claim is infringed by making, using, selling, offering for
 #     sale, or importing the Program or any portion of it.
-#     
+#
 #       11. Patents.
-#     
+#
 #       A "contributor" is a copyright holder who authorizes use under this
 #     License of the Program or a work on which the Program is based.  The
 #     work thus licensed is called the contributor's "contributor version".
-#     
+#
 #       A contributor's "essential patent claims" are all patent claims
 #     owned or controlled by the contributor, whether already acquired or
 #     hereafter acquired, that would be infringed by some manner, permitted
@@ -472,19 +471,19 @@
 #     purposes of this definition, "control" includes the right to grant
 #     patent sublicenses in a manner consistent with the requirements of
 #     this License.
-#     
+#
 #       Each contributor grants you a non-exclusive, worldwide, royalty-free
 #     patent license under the contributor's essential patent claims, to
 #     make, use, sell, offer for sale, import and otherwise run, modify and
 #     propagate the contents of its contributor version.
-#     
+#
 #       In the following three paragraphs, a "patent license" is any express
 #     agreement or commitment, however denominated, not to enforce a patent
 #     (such as an express permission to practice a patent or covenant not to
 #     sue for patent infringement).  To "grant" such a patent license to a
 #     party means to make such an agreement or commitment not to enforce a
 #     patent against the party.
-#     
+#
 #       If you convey a covered work, knowingly relying on a patent license,
 #     and the Corresponding Source of the work is not available for anyone
 #     to copy, free of charge and under the terms of this License, through a
@@ -498,7 +497,7 @@
 #     covered work in a country, or your recipient's use of the covered work
 #     in a country, would infringe one or more identifiable patents in that
 #     country that you have reason to believe are valid.
-#     
+#
 #       If, pursuant to or in connection with a single transaction or
 #     arrangement, you convey, or propagate by procuring conveyance of, a
 #     covered work, and grant a patent license to some of the parties
@@ -506,7 +505,7 @@
 #     or convey a specific copy of the covered work, then the patent license
 #     you grant is automatically extended to all recipients of the covered
 #     work and works based on it.
-#     
+#
 #       A patent license is "discriminatory" if it does not include within
 #     the scope of its coverage, prohibits the exercise of, or is
 #     conditioned on the non-exercise of one or more of the rights that are
@@ -521,13 +520,13 @@
 #     for and in connection with specific products or compilations that
 #     contain the covered work, unless you entered into that arrangement,
 #     or that patent license was granted, prior to 28 March 2007.
-#     
+#
 #       Nothing in this License shall be construed as excluding or limiting
 #     any implied license or other defenses to infringement that may
 #     otherwise be available to you under applicable patent law.
-#     
+#
 #       12. No Surrender of Others' Freedom.
-#     
+#
 #       If conditions are imposed on you (whether by court order, agreement or
 #     otherwise) that contradict the conditions of this License, they do not
 #     excuse you from the conditions of this License.  If you cannot convey a
@@ -537,9 +536,9 @@
 #     to collect a royalty for further conveying from those to whom you convey
 #     the Program, the only way you could satisfy both those terms and this
 #     License would be to refrain entirely from conveying the Program.
-#     
+#
 #       13. Remote Network Interaction; Use with the GNU General Public License.
-#     
+#
 #       Notwithstanding any other provision of this License, if you modify the
 #     Program, your modified version must prominently offer all users
 #     interacting with it remotely through a computer network (if your version
@@ -550,7 +549,7 @@
 #     shall include the Corresponding Source for any work covered by version 3
 #     of the GNU General Public License that is incorporated pursuant to the
 #     following paragraph.
-#     
+#
 #       Notwithstanding any other provision of this License, you have
 #     permission to link or combine any covered work with a work licensed
 #     under version 3 of the GNU General Public License into a single
@@ -558,14 +557,14 @@
 #     License will continue to apply to the part which is the covered work,
 #     but the work with which it is combined will remain governed by version
 #     3 of the GNU General Public License.
-#     
+#
 #       14. Revised Versions of this License.
-#     
+#
 #       The Free Software Foundation may publish revised and/or new versions of
 #     the GNU Affero General Public License from time to time.  Such new versions
 #     will be similar in spirit to the present version, but may differ in detail to
 #     address new problems or concerns.
-#     
+#
 #       Each version is given a distinguishing version number.  If the
 #     Program specifies that a certain numbered version of the GNU Affero General
 #     Public License "or any later version" applies to it, you have the
@@ -574,19 +573,19 @@
 #     Foundation.  If the Program does not specify a version number of the
 #     GNU Affero General Public License, you may choose any version ever published
 #     by the Free Software Foundation.
-#     
+#
 #       If the Program specifies that a proxy can decide which future
 #     versions of the GNU Affero General Public License can be used, that proxy's
 #     public statement of acceptance of a version permanently authorizes you
 #     to choose that version for the Program.
-#     
+#
 #       Later license versions may give you additional or different
 #     permissions.  However, no additional obligations are imposed on any
 #     author or copyright holder as a result of your choosing to follow a
 #     later version.
-#     
+#
 #       15. Disclaimer of Warranty.
-#     
+#
 #       THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
 #     APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
 #     HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
@@ -595,9 +594,9 @@
 #     PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
 #     IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
 #     ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-#     
+#
 #       16. Limitation of Liability.
-#     
+#
 #       IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
 #     WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
 #     THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
@@ -607,47 +606,47 @@
 #     PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
 #     EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
 #     SUCH DAMAGES.
-#     
+#
 #       17. Interpretation of Sections 15 and 16.
-#     
+#
 #       If the disclaimer of warranty and limitation of liability provided
 #     above cannot be given local legal effect according to their terms,
 #     reviewing courts shall apply local law that most closely approximates
 #     an absolute waiver of all civil liability in connection with the
 #     Program, unless a warranty or assumption of liability accompanies a
 #     copy of the Program in return for a fee.
-#     
+#
 #                          END OF TERMS AND CONDITIONS
-#     
+#
 #                 How to Apply These Terms to Your New Programs
-#     
+#
 #       If you develop a new program, and you want it to be of the greatest
 #     possible use to the public, the best way to achieve this is to make it
 #     free software which everyone can redistribute and change under these terms.
-#     
+#
 #       To do so, attach the following notices to the program.  It is safest
 #     to attach them to the start of each source file to most effectively
 #     state the exclusion of warranty; and each file should have at least
 #     the "copyright" line and a pointer to where the full notice is found.
-#     
+#
 #         <one line to give the program's name and a brief idea of what it does.>
 #         Copyright (C) <year>  <name of author>
-#     
+#
 #         This program is free software: you can redistribute it and/or modify
 #         it under the terms of the GNU Affero General Public License as published
 #         by the Free Software Foundation, either version 3 of the License, or
 #         (at your option) any later version.
-#     
+#
 #         This program is distributed in the hope that it will be useful,
 #         but WITHOUT ANY WARRANTY; without even the implied warranty of
 #         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #         GNU Affero General Public License for more details.
-#     
+#
 #         You should have received a copy of the GNU Affero General Public License
 #         along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#     
+#
 #     Also add information on how to contact you by electronic and paper mail.
-#     
+#
 #       If your software can interact with users remotely through a computer
 #     network, you should also make sure that it provides a way for users to
 #     get its source.  For example, if your program is a web application, its
@@ -655,61 +654,50 @@
 #     of the code.  There are many ways you could offer source, and different
 #     solutions will be better for different programs; see section 13 for the
 #     specific requirements.
-#     
+#
 #       You should also get your employer (if you work as a programmer) or school,
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
-
-
-
-
+import csv
+import json
+import os
+import re
+import time
+import uuid
 from io import BytesIO
 from typing import Optional
-import uuid
-import re
-import json
-import time
-import csv
-import os
 
-from telegram.error import BadRequest, TelegramError, Unauthorized
-from telegram import (
-    ParseMode,
-    Chat,
-    User,
-    MessageEntity,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    ChatAction,
-)
-from telegram.ext import run_async, CommandHandler, CallbackQueryHandler
-from telegram.utils.helpers import mention_html, mention_markdown
-
-from alexa import (
-    dispatcher,
-    OWNER_ID,
-    SUDO_USERS,
-    MESSAGE_DUMP,
-    LOGGER,
-)
-from alexa.modules.helper_funcs.chat_status import is_user_admin
-from alexa.modules.helper_funcs.extraction import (
-    extract_user,
-    extract_unt_fedban,
-    extract_user_fban,
-)
-from alexa.modules.helper_funcs.string_handling import markdown_parser
-from alexa.modules.disable import DisableAbleCommandHandler
+from telegram import Chat
+from telegram import ChatAction
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import User
+from telegram.error import BadRequest
+from telegram.error import TelegramError
+from telegram.error import Unauthorized
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import run_async
+from telegram.utils.helpers import mention_html
+from telegram.utils.helpers import mention_markdown
 
 import alexa.modules.sql.feds_sql as sql
-
-from alexa.modules.helper_funcs.alternate import (
-    send_message,
-    send_action,
-)
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa import MESSAGE_DUMP
+from alexa import OWNER_ID
+from alexa import SUDO_USERS
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.alternate import send_action
+from alexa.modules.helper_funcs.alternate import send_message
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.extraction import extract_unt_fedban
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.extraction import extract_user_fban
+from alexa.modules.helper_funcs.string_handling import markdown_parser
 
 # Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo and AyraHikari too
 # Federation by MrYacha 2018-2019
@@ -755,15 +743,13 @@ UNFBAN_ERRORS = {
 
 
 @run_async
-
 def new_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message
     if chat.type != "private":
         update.effective_message.reply_text(
-            "You can your federation in my PM, not in a group."
-        )
+            "You can your federation in my PM, not in a group.")
         return
     fednam = message.text.split(None, 1)
     if len(fednam) >= 2:
@@ -794,29 +780,25 @@ def new_fed(update, context):
         try:
             context.bot.send_message(
                 MESSAGE_DUMP,
-                "Federation <b>{}</b> has been created with ID: <pre>{}</pre>".format(
-                    fed_name, fed_id
-                ),
+                "Federation <b>{}</b> has been created with ID: <pre>{}</pre>".
+                format(fed_name, fed_id),
                 parse_mode=ParseMode.HTML,
             )
         except Exception:
             LOGGER.warning("Cannot send a message to MESSAGE_DUMP")
     else:
         update.effective_message.reply_text(
-            "Please write down the name of the federation"
-        )
+            "Please write down the name of the federation")
 
 
 @run_async
-
 def del_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     args = context.args
     if chat.type != "private":
         update.effective_message.reply_text(
-            "You can delete your federation in my PM, not in the group."
-        )
+            "You can delete your federation in my PM, not in the group.")
         return
     if args:
         is_fed_id = args[0]
@@ -827,36 +809,37 @@ def del_fed(update, context):
         if int(getinfo["owner"]) == int(user.id) or int(user.id) == OWNER_ID:
             fed_id = is_fed_id
         else:
-            update.effective_message.reply_text("Only federation owners can do this!")
+            update.effective_message.reply_text(
+                "Only federation owners can do this!")
             return
     else:
         update.effective_message.reply_text("What should I delete?")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only federation owners can do this!")
+        update.effective_message.reply_text(
+            "Only federation owners can do this!")
         return
 
     update.effective_message.reply_text(
-        "Are you sure you want to delete your federation? This action cannot be canceled, you will lose your entire ban list, and '{}' will be permanently lost.".format(
-            getinfo["fname"]
-        ),
-        reply_markup=InlineKeyboardMarkup(
+        "Are you sure you want to delete your federation? This action cannot be canceled, you will lose your entire ban list, and '{}' will be permanently lost."
+        .format(getinfo["fname"]),
+        reply_markup=InlineKeyboardMarkup([
             [
-                [
-                    InlineKeyboardButton(
-                        text="⚠️ Remove Federation ⚠️",
-                        callback_data="rmfed_{}".format(fed_id),
-                    )
-                ],
-                [InlineKeyboardButton(text="Cancel", callback_data="rmfed_cancel")],
-            ]
-        ),
+                InlineKeyboardButton(
+                    text="⚠️ Remove Federation ⚠️",
+                    callback_data="rmfed_{}".format(fed_id),
+                )
+            ],
+            [
+                InlineKeyboardButton(text="Cancel",
+                                     callback_data="rmfed_cancel")
+            ],
+        ]),
     )
 
 
 @run_async
-
 def fed_chat(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     fed_id = sql.get_fed_id(chat.id)
@@ -864,12 +847,12 @@ def fed_chat(update, context):
     user_id = update.effective_message.from_user.id
     if not is_user_admin(update.effective_chat, user_id):
         update.effective_message.reply_text(
-            "You must be an admin to execute this command"
-        )
+            "You must be an admin to execute this command")
         return
 
     if not fed_id:
-        update.effective_message.reply_text("This group is not in any federation!")
+        update.effective_message.reply_text(
+            "This group is not in any federation!")
         return
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -882,7 +865,6 @@ def fed_chat(update, context):
 
 
 @run_async
-
 def join_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -909,8 +891,7 @@ def join_fed(update, context):
                     pass
                 else:
                     update.effective_message.reply_text(
-                        "Only group creators can use this command!"
-                    )
+                        "Only group creators can use this command!")
                     return
     if fed_id:
         message.reply_text("You cannot join two federations from one chat")
@@ -933,18 +914,15 @@ def join_fed(update, context):
                 context.bot.send_message(
                     get_fedlog,
                     "Chat *{}* has joined the federation *{}*".format(
-                        chat.title, getfed["fname"]
-                    ),
+                        chat.title, getfed["fname"]),
                     parse_mode="markdown",
                 )
 
-        message.reply_text(
-            "This chat has joined the federation: {}!".format(getfed["fname"])
-        )
+        message.reply_text("This chat has joined the federation: {}!".format(
+            getfed["fname"]))
 
 
 @run_async
-
 def leave_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -969,24 +947,23 @@ def leave_fed(update, context):
                     context.bot.send_message(
                         get_fedlog,
                         "Chat *{}* has left the federation *{}*".format(
-                            chat.title, fed_info["fname"]
-                        ),
+                            chat.title, fed_info["fname"]),
                         parse_mode="markdown",
                     )
             send_message(
                 update.effective_message,
-                "This chat has left the federation {}!".format(fed_info["fname"]),
+                "This chat has left the federation {}!".format(
+                    fed_info["fname"]),
             )
         else:
             update.effective_message.reply_text(
-                "How can you leave a federation that you never joined?!"
-            )
+                "How can you leave a federation that you never joined?!")
     else:
-        update.effective_message.reply_text("Only group creators can use this command!")
+        update.effective_message.reply_text(
+            "Only group creators can use this command!")
 
 
 @run_async
-
 def user_join_fed(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -1009,14 +986,10 @@ def user_join_fed(update, context):
         elif not msg.reply_to_message and not args:
             user = msg.from_user
         elif not msg.reply_to_message and (
-            not args
-            or (
-                len(args) >= 1
-                and not args[0].startswith("@")
-                and not args[0].isdigit()
-                and not msg.parse_entities([MessageEntity.TEXT_MENTION])
-            )
-        ):
+                not args or
+            (len(args) >= 1 and not args[0].startswith("@")
+             and not args[0].isdigit()
+             and not msg.parse_entities([MessageEntity.TEXT_MENTION]))):
             msg.reply_text("I cannot extract user from this message")
             return
         else:
@@ -1038,8 +1011,7 @@ def user_join_fed(update, context):
             return
         if user_id == context.bot.id:
             update.effective_message.reply_text(
-                "I already am a federation admin in all federations!"
-            )
+                "I already am a federation admin in all federations!")
             return
         res = sql.user_join_fed(fed_id, user_id)
         if res:
@@ -1047,11 +1019,11 @@ def user_join_fed(update, context):
         else:
             update.effective_message.reply_text("Failed to promote!")
     else:
-        update.effective_message.reply_text("Only federation owners can do this!")
+        update.effective_message.reply_text(
+            "Only federation owners can do this!")
 
 
 @run_async
-
 def user_demote_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1076,14 +1048,10 @@ def user_demote_fed(update, context):
             user = msg.from_user
 
         elif not msg.reply_to_message and (
-            not args
-            or (
-                len(args) >= 1
-                and not args[0].startswith("@")
-                and not args[0].isdigit()
-                and not msg.parse_entities([MessageEntity.TEXT_MENTION])
-            )
-        ):
+                not args or
+            (len(args) >= 1 and not args[0].startswith("@")
+             and not args[0].isdigit()
+             and not msg.parse_entities([MessageEntity.TEXT_MENTION]))):
             msg.reply_text("I cannot extract user from this message")
             return
         else:
@@ -1097,8 +1065,7 @@ def user_demote_fed(update, context):
 
         if sql.search_user_in_fed(fed_id, user_id) == False:
             update.effective_message.reply_text(
-                "I cannot demote people who are not federation admins!"
-            )
+                "I cannot demote people who are not federation admins!")
             return
 
         res = sql.user_demote_fed(fed_id, user_id)
@@ -1107,12 +1074,12 @@ def user_demote_fed(update, context):
         else:
             update.effective_message.reply_text("Demotion failed!")
     else:
-        update.effective_message.reply_text("Only federation owners can do this!")
+        update.effective_message.reply_text(
+            "Only federation owners can do this!")
         return
 
 
 @run_async
-
 def fed_info(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1123,14 +1090,14 @@ def fed_info(update, context):
     else:
         fed_id = sql.get_fed_id(chat.id)
         if not fed_id:
-            send_message(
-                update.effective_message, "This group is not in any federation!"
-            )
+            send_message(update.effective_message,
+                         "This group is not in any federation!")
             return
         info = sql.get_fed_info(fed_id)
 
     if is_user_fed_admin(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only a federation admin can do this!")
+        update.effective_message.reply_text(
+            "Only a federation admin can do this!")
         return
 
     owner = context.bot.get_chat(info["owner"])
@@ -1155,14 +1122,12 @@ def fed_info(update, context):
     text += "\nTotal banned users: <code>{}</code>".format(len(getfban))
     getfchat = sql.all_fed_chats(fed_id)
     text += "\nNumber of groups in this federation: <code>{}</code>".format(
-        len(getfchat)
-    )
+        len(getfchat))
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
 @run_async
-
 def fed_admin(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1179,11 +1144,13 @@ def fed_admin(update, context):
     fed_id = sql.get_fed_id(chat.id)
 
     if not fed_id:
-        update.effective_message.reply_text("This group is not in any federation!")
+        update.effective_message.reply_text(
+            "This group is not in any federation!")
         return
 
     if is_user_fed_admin(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only federation admins can do this!")
+        update.effective_message.reply_text(
+            "Only federation admins can do this!")
         return
 
     user = update.effective_user  # type: Optional[Chat]
@@ -1212,7 +1179,6 @@ def fed_admin(update, context):
 
 
 @run_async
-
 def fed_ban(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1230,15 +1196,15 @@ def fed_ban(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     info = sql.get_fed_info(fed_id)
     getfednotif = sql.user_feds_report(info["owner"])
 
     if is_user_fed_admin(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only federation admins can do this!")
+        update.effective_message.reply_text(
+            "Only federation admins can do this!")
         return
 
     message = update.effective_message
@@ -1253,8 +1219,7 @@ def fed_ban(update, context):
 
     if user_id == context.bot.id:
         message.reply_text(
-            "What is funnier than kicking the group creator? Self sacrifice."
-        )
+            "What is funnier than kicking the group creator? Self sacrifice.")
         return
 
     if is_user_fed_owner(fed_id, user_id) == True:
@@ -1272,7 +1237,6 @@ def fed_ban(update, context):
     if int(user_id) in SUDO_USERS:
         message.reply_text("I will not use sudo fban!")
         return
-
 
     try:
         user_chat = context.bot.get_chat(user_id)
@@ -1385,13 +1349,13 @@ def fed_ban(update, context):
             try:
                 # Do not spam all fed chats
                 """
-				context.bot.send_message(chat, "<b>FedBan reason updated</b>" \
-							 "\n<b>Federation:</b> {}" \
-							 "\n<b>Federation Admin:</b> {}" \
-							 "\n<b>User:</b> {}" \
-							 "\n<b>User ID:</b> <code>{}</code>" \
-							 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
-				"""
+                                context.bot.send_message(chat, "<b>FedBan reason updated</b>" \
+                                                         "\n<b>Federation:</b> {}" \
+                                                         "\n<b>Federation Admin:</b> {}" \
+                                                         "\n<b>User:</b> {}" \
+                                                         "\n<b>User ID:</b> <code>{}</code>" \
+                                                         "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+                                """
                 context.bot.kick_chat_member(fedschat, fban_user_id)
             except BadRequest as excp:
                 if excp.message in FBAN_ERRORS:
@@ -1400,17 +1364,14 @@ def fed_ban(update, context):
                     except Unauthorized:
                         sql.chat_leave_fed(fedschat)
                         LOGGER.info(
-                            "Chat {} has leave fed {} because I was kicked".format(
-                                fedschat, info["fname"]
-                            )
-                        )
+                            "Chat {} has leave fed {} because I was kicked".
+                            format(fedschat, info["fname"]))
                         continue
                 elif excp.message == "User_id_invalid":
                     break
                 else:
-                    LOGGER.warning(
-                        "Could not fban on {} because: {}".format(chat, excp.message)
-                    )
+                    LOGGER.warning("Could not fban on {} because: {}".format(
+                        chat, excp.message))
             except TelegramError:
                 pass
         # Also do not spam all fed admins
@@ -1440,19 +1401,15 @@ def fed_ban(update, context):
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
                                 LOGGER.info(
-                                    "Chat {} has unsub fed {} because I was kicked".format(
-                                        fedschat, info["fname"]
-                                    )
-                                )
+                                    "Chat {} has unsub fed {} because I was kicked"
+                                    .format(fedschat, info["fname"]))
                                 continue
                         elif excp.message == "User_id_invalid":
                             break
                         else:
                             LOGGER.warning(
                                 "Unable to fban on {} because: {}".format(
-                                    fedschat, excp.message
-                                )
-                            )
+                                    fedschat, excp.message))
                     except TelegramError:
                         pass
         # send_message(update.effective_message, "Fedban Reason has been updated.")
@@ -1461,8 +1418,7 @@ def fed_ban(update, context):
     fed_name = info["fname"]
 
     starting = "Starting a federation ban for {} in the Federation <b>{}</b>.".format(
-        user_target, fed_name
-    )
+        user_target, fed_name)
     update.effective_message.reply_text(starting, parse_mode=ParseMode.HTML)
 
     if reason == "":
@@ -1543,13 +1499,13 @@ def fed_ban(update, context):
         try:
             # Do not spamming all fed chats
             """
-			context.bot.send_message(chat, "<b>FedBan reason updated</b>" \
-							"\n<b>Federation:</b> {}" \
-							"\n<b>Federation Admin:</b> {}" \
-							"\n<b>User:</b> {}" \
-							"\n<b>User ID:</b> <code>{}</code>" \
-							"\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
-			"""
+                        context.bot.send_message(chat, "<b>FedBan reason updated</b>" \
+                                                        "\n<b>Federation:</b> {}" \
+                                                        "\n<b>Federation Admin:</b> {}" \
+                                                        "\n<b>User:</b> {}" \
+                                                        "\n<b>User ID:</b> <code>{}</code>" \
+                                                        "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+                        """
             context.bot.kick_chat_member(fedschat, fban_user_id)
         except BadRequest as excp:
             if excp.message in FBAN_ERRORS:
@@ -1557,9 +1513,8 @@ def fed_ban(update, context):
             elif excp.message == "User_id_invalid":
                 break
             else:
-                LOGGER.warning(
-                    "Could not fban on {} because: {}".format(chat, excp.message)
-                )
+                LOGGER.warning("Could not fban on {} because: {}".format(
+                    chat, excp.message))
         except TelegramError:
             pass
 
@@ -1571,7 +1526,7 @@ def fed_ban(update, context):
 							 "\n<b>Federation Admin:</b> {}" \
 							 "\n<b>User:</b> {}" \
 							 "\n<b>User ID:</b> <code>{}</code>" \
-							 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), 
+							 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason),
 							html=True)
 		"""
 
@@ -1591,31 +1546,25 @@ def fed_ban(update, context):
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
                                 LOGGER.info(
-                                    "Chat {} has unsub fed {} because I was kicked".format(
-                                        fedschat, info["fname"]
-                                    )
-                                )
+                                    "Chat {} has unsub fed {} because I was kicked"
+                                    .format(fedschat, info["fname"]))
                                 continue
                         elif excp.message == "User_id_invalid":
                             break
                         else:
                             LOGGER.warning(
                                 "Unable to fban on {} because: {}".format(
-                                    fedschat, excp.message
-                                )
-                            )
+                                    fedschat, excp.message))
                     except TelegramError:
                         pass
     if chats_in_fed == 0:
         send_message(update.effective_message, "Fedban affected 0 chats. ")
     elif chats_in_fed > 0:
-        send_message(
-            update.effective_message, "Fedban affected {} chats. ".format(chats_in_fed)
-        )
+        send_message(update.effective_message,
+                     "Fedban affected {} chats. ".format(chats_in_fed))
 
 
 @run_async
-
 def unfban(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1633,15 +1582,15 @@ def unfban(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     info = sql.get_fed_info(fed_id)
     getfednotif = sql.user_feds_report(info["owner"])
 
     if is_user_fed_admin(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only federation admins can do this!")
+        update.effective_message.reply_text(
+            "Only federation admins can do this!")
         return
 
     user_id = extract_user_fban(message, args)
@@ -1683,9 +1632,8 @@ def unfban(update, context):
         message.reply_text("This user is not fbanned!")
         return
 
-    message.reply_text(
-        "I'll give {} another chance in this federation".format(user_chat.first_name)
-    )
+    message.reply_text("I'll give {} another chance in this federation".format(
+        user_chat.first_name))
 
     chat_list = sql.all_fed_chats(fed_id)
     # Will send to current chat
@@ -1758,9 +1706,8 @@ def unfban(update, context):
             elif excp.message == "User_id_invalid":
                 break
             else:
-                LOGGER.warning(
-                    "Could not fban on {} because: {}".format(chat, excp.message)
-                )
+                LOGGER.warning("Could not fban on {} because: {}".format(
+                    chat, excp.message))
         except TelegramError:
             pass
 
@@ -1791,30 +1738,26 @@ def unfban(update, context):
                             targetfed_id = sql.get_fed_id(fedschat)
                             sql.unsubs_fed(fed_id, targetfed_id)
                             LOGGER.info(
-                                "Chat {} has unsub fed {} because I was kicked".format(
-                                    fedschat, info["fname"]
-                                )
-                            )
+                                "Chat {} has unsub fed {} because I was kicked"
+                                .format(fedschat, info["fname"]))
                             continue
                     elif excp.message == "User_id_invalid":
                         break
                     else:
                         LOGGER.warning(
                             "Unable to fban on {} because: {}".format(
-                                fedschat, excp.message
-                            )
-                        )
+                                fedschat, excp.message))
                 except TelegramError:
                     pass
 
     if unfbanned_in_chats == 0:
-        send_message(
-            update.effective_message, "This person has been un-fbanned in 0 chats."
-        )
+        send_message(update.effective_message,
+                     "This person has been un-fbanned in 0 chats.")
     if unfbanned_in_chats > 0:
         send_message(
             update.effective_message,
-            "This person has been un-fbanned in {} chats.".format(unfbanned_in_chats),
+            "This person has been un-fbanned in {} chats.".format(
+                unfbanned_in_chats),
         )
     # Also do not spamming all fed admins
     """
@@ -1836,7 +1779,6 @@ def unfban(update, context):
 
 
 @run_async
-
 def set_frules(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1853,7 +1795,8 @@ def set_frules(update, context):
     fed_id = sql.get_fed_id(chat.id)
 
     if not fed_id:
-        update.effective_message.reply_text("This chat is not in any federation!")
+        update.effective_message.reply_text(
+            "This chat is not in any federation!")
         return
 
     if is_user_fed_admin(fed_id, user.id) == False:
@@ -1863,18 +1806,19 @@ def set_frules(update, context):
     if len(args) >= 1:
         msg = update.effective_message  # type: Optional[Message]
         raw_text = msg.text
-        args = raw_text.split(None, 1)  # use python's maxsplit to separate cmd and args
+        # use python's maxsplit to separate cmd and args
+        args = raw_text.split(None, 1)
         if len(args) == 2:
             txt = args[1]
-            offset = len(txt) - len(raw_text)  # set correct offset relative to command
-            markdown_rules = markdown_parser(
-                txt, entities=msg.parse_entities(), offset=offset
-            )
+            # set correct offset relative to command
+            offset = len(txt) - len(raw_text)
+            markdown_rules = markdown_parser(txt,
+                                             entities=msg.parse_entities(),
+                                             offset=offset)
         x = sql.set_frules(fed_id, markdown_rules)
         if not x:
             update.effective_message.reply_text(
-                "Big F! There is an error while setting federation rules!"
-            )
+                "Big F! There is an error while setting federation rules!")
             return
 
         rules = sql.get_fed_info(fed_id)["frules"]
@@ -1885,17 +1829,16 @@ def set_frules(update, context):
                 context.bot.send_message(
                     get_fedlog,
                     "*{}* has changed federation rules for fed *{}*".format(
-                        user.first_name, getfed["fname"]
-                    ),
+                        user.first_name, getfed["fname"]),
                     parse_mode="markdown",
                 )
-        update.effective_message.reply_text(f"Rules have been changed to :\n{rules}!")
+        update.effective_message.reply_text(
+            f"Rules have been changed to :\n{rules}!")
     else:
         update.effective_message.reply_text("Please write rules to set it up!")
 
 
 @run_async
-
 def get_frules(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = context.args
@@ -1909,7 +1852,8 @@ def get_frules(update, context):
 
     fed_id = sql.get_fed_id(chat.id)
     if not fed_id:
-        update.effective_message.reply_text("This chat is not in any federation!")
+        update.effective_message.reply_text(
+            "This chat is not in any federation!")
         return
 
     rules = sql.get_frules(fed_id)
@@ -1919,7 +1863,6 @@ def get_frules(update, context):
 
 
 @run_async
-
 def fed_broadcast(update, context):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -1939,10 +1882,14 @@ def fed_broadcast(update, context):
         fedinfo = sql.get_fed_info(fed_id)
         # Parsing md
         raw_text = msg.text
-        args = raw_text.split(None, 1)  # use python's maxsplit to separate cmd and args
+        # use python's maxsplit to separate cmd and args
+        args = raw_text.split(None, 1)
         txt = args[1]
-        offset = len(txt) - len(raw_text)  # set correct offset relative to command
-        text_parser = markdown_parser(txt, entities=msg.parse_entities(), offset=offset)
+        # set correct offset relative to command
+        offset = len(txt) - len(raw_text)
+        text_parser = markdown_parser(txt,
+                                      entities=msg.parse_entities(),
+                                      offset=offset)
         text = text_parser
         try:
             broadcaster = user.first_name
@@ -1954,7 +1901,9 @@ def fed_broadcast(update, context):
         for chat in chat_list:
             title = "*New broadcast from Fed {}*\n".format(fedinfo["fname"])
             try:
-                context.bot.sendMessage(chat, title + text, parse_mode="markdown")
+                context.bot.sendMessage(chat,
+                                        title + text,
+                                        parse_mode="markdown")
             except TelegramError:
                 try:
                     dispatcher.bot.getChat(chat)
@@ -1963,18 +1912,16 @@ def fed_broadcast(update, context):
                     sql.chat_leave_fed(chat)
                     LOGGER.info(
                         "Chat {} has leave fed {} because I was kicked".format(
-                            chat, fedinfo["fname"]
-                        )
-                    )
+                            chat, fedinfo["fname"]))
                     continue
                 failed += 1
-                LOGGER.warning("Couldn't send broadcast to {}".format(str(chat)))
+                LOGGER.warning("Couldn't send broadcast to {}".format(
+                    str(chat)))
 
         send_text = "The federation broadcast is complete"
         if failed >= 1:
             send_text += "{} the group failed to receive the message, probably because it left the Federation.".format(
-                failed
-            )
+                failed)
         update.effective_message.reply_text(send_text)
 
 
@@ -1998,12 +1945,12 @@ def fed_ban_list(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only Federation owners can do this!")
+        update.effective_message.reply_text(
+            "Only Federation owners can do this!")
         return
 
     user = update.effective_user  # type: Optional[Chat]
@@ -2023,13 +1970,11 @@ def fed_ban_list(update, context):
             cek = get_chat(chat.id, chat_data)
             if cek.get("status"):
                 if jam <= int(cek.get("value")):
-                    waktu = time.strftime(
-                        "%H:%M:%S %d/%m/%Y", time.localtime(cek.get("value"))
-                    )
+                    waktu = time.strftime("%H:%M:%S %d/%m/%Y",
+                                          time.localtime(cek.get("value")))
                     update.effective_message.reply_text(
-                        "You can backup your data once every 30 minutes!\nYou can back up data again at `{}`".format(
-                            waktu
-                        ),
+                        "You can backup your data once every 30 minutes!\nYou can back up data again at `{}`"
+                        .format(waktu),
                         parse_mode=ParseMode.MARKDOWN,
                     )
                     return
@@ -2056,9 +2001,8 @@ def fed_ban_list(update, context):
                 update.effective_message.reply_document(
                     document=output,
                     filename="alexa_fbanned_users.json",
-                    caption="Total {} User are blocked by the Federation {}.".format(
-                        len(getfban), info["fname"]
-                    ),
+                    caption="Total {} User are blocked by the Federation {}.".
+                    format(len(getfban), info["fname"]),
                 )
             return
         elif args[0] == "csv":
@@ -2067,13 +2011,11 @@ def fed_ban_list(update, context):
             cek = get_chat(chat.id, chat_data)
             if cek.get("status"):
                 if jam <= int(cek.get("value")):
-                    waktu = time.strftime(
-                        "%H:%M:%S %d/%m/%Y", time.localtime(cek.get("value"))
-                    )
+                    waktu = time.strftime("%H:%M:%S %d/%m/%Y",
+                                          time.localtime(cek.get("value")))
                     update.effective_message.reply_text(
-                        "You can back up data once every 30 minutes!\nYou can back up data again at `{}`".format(
-                            waktu
-                        ),
+                        "You can back up data once every 30 minutes!\nYou can back up data again at `{}`"
+                        .format(waktu),
                         parse_mode=ParseMode.MARKDOWN,
                     )
                     return
@@ -2099,28 +2041,24 @@ def fed_ban_list(update, context):
                 update.effective_message.reply_document(
                     document=output,
                     filename="alexa_fbanned_users.csv",
-                    caption="Total {} User are blocked by Federation {}.".format(
-                        len(getfban), info["fname"]
-                    ),
+                    caption="Total {} User are blocked by Federation {}.".
+                    format(len(getfban), info["fname"]),
                 )
             return
 
     text = "<b>{} users have been banned from the federation {}:</b>\n".format(
-        len(getfban), info["fname"]
-    )
+        len(getfban), info["fname"])
     for users in getfban:
         getuserinfo = sql.get_all_fban_users_target(fed_id, users)
         if getuserinfo == False:
             text = "There are no users banned from the federation {}".format(
-                info["fname"]
-            )
+                info["fname"])
             break
         user_name = getuserinfo["first_name"]
         if getuserinfo["last_name"]:
             user_name += " " + getuserinfo["last_name"]
         text += " • {} (<code>{}</code>)\n".format(
-            mention_html(users, user_name), users
-        )
+            mention_html(users, user_name), users)
 
     try:
         update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
@@ -2130,13 +2068,11 @@ def fed_ban_list(update, context):
         cek = get_chat(chat.id, chat_data)
         if cek.get("status"):
             if jam <= int(cek.get("value")):
-                waktu = time.strftime(
-                    "%H:%M:%S %d/%m/%Y", time.localtime(cek.get("value"))
-                )
+                waktu = time.strftime("%H:%M:%S %d/%m/%Y",
+                                      time.localtime(cek.get("value")))
                 update.effective_message.reply_text(
-                    "You can back up data once every 30 minutes!\nYou can back up data again at `{}`".format(
-                        waktu
-                    ),
+                    "You can back up data once every 30 minutes!\nYou can back up data again at `{}`"
+                    .format(waktu),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 return
@@ -2153,14 +2089,13 @@ def fed_ban_list(update, context):
             update.effective_message.reply_document(
                 document=output,
                 filename="fbanlist.txt",
-                caption="The following is a list of users who are currently fbanned in the Federation {}.".format(
-                    info["fname"]
-                ),
+                caption=
+                "The following is a list of users who are currently fbanned in the Federation {}."
+                .format(info["fname"]),
             )
 
 
 @run_async
-
 def fed_notif(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2170,8 +2105,7 @@ def fed_notif(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     if args:
@@ -2190,13 +2124,13 @@ def fed_notif(update, context):
     else:
         getreport = sql.user_feds_report(user.id)
         msg.reply_text(
-            "Your current Federation report preferences: `{}`".format(getreport),
+            "Your current Federation report preferences: `{}`".format(
+                getreport),
             parse_mode="markdown",
         )
 
 
 @run_async
-
 def fed_chats(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2214,18 +2148,19 @@ def fed_chats(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     if is_user_fed_admin(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only federation admins can do this!")
+        update.effective_message.reply_text(
+            "Only federation admins can do this!")
         return
 
     getlist = sql.all_fed_chats(fed_id)
     if len(getlist) == 0:
         update.effective_message.reply_text(
-            "No users are fbanned from the federation {}".format(info["fname"]),
+            "No users are fbanned from the federation {}".format(
+                info["fname"]),
             parse_mode=ParseMode.HTML,
         )
         return
@@ -2236,11 +2171,8 @@ def fed_chats(update, context):
             chat_name = dispatcher.bot.getChat(chats).title
         except Unauthorized:
             sql.chat_leave_fed(chats)
-            LOGGER.info(
-                "Chat {} has leave fed {} because I was kicked".format(
-                    chats, info["fname"]
-                )
-            )
+            LOGGER.info("Chat {} has leave fed {} because I was kicked".format(
+                chats, info["fname"]))
             continue
         text += " • {} (<code>{}</code>)\n".format(chat_name, chats)
 
@@ -2254,14 +2186,13 @@ def fed_chats(update, context):
             update.effective_message.reply_document(
                 document=output,
                 filename="fedchats.txt",
-                caption="Here is a list of all the chats that joined the federation {}.".format(
-                    info["fname"]
-                ),
+                caption=
+                "Here is a list of all the chats that joined the federation {}."
+                .format(info["fname"]),
             )
 
 
 @run_async
-
 def fed_import_bans(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2281,12 +2212,12 @@ def fed_import_bans(update, context):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not a part of any federation!"
-        )
+            "This group is not a part of any federation!")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
-        update.effective_message.reply_text("Only Federation owners can do this!")
+        update.effective_message.reply_text(
+            "Only Federation owners can do this!")
         return
 
     if msg.reply_to_message and msg.reply_to_message.document:
@@ -2295,13 +2226,11 @@ def fed_import_bans(update, context):
         cek = get_chat(chat.id, chat_data)
         if cek.get("status"):
             if jam <= int(cek.get("value")):
-                waktu = time.strftime(
-                    "%H:%M:%S %d/%m/%Y", time.localtime(cek.get("value"))
-                )
+                waktu = time.strftime("%H:%M:%S %d/%m/%Y",
+                                      time.localtime(cek.get("value")))
                 update.effective_message.reply_text(
-                    "You can get your data once every 30 minutes!\nYou can get data again at `{}`".format(
-                        waktu
-                    ),
+                    "You can get your data once every 30 minutes!\nYou can get data again at `{}`"
+                    .format(waktu),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 return
@@ -2317,7 +2246,8 @@ def fed_import_bans(update, context):
         success = 0
         failed = 0
         try:
-            file_info = context.bot.get_file(msg.reply_to_message.document.file_id)
+            file_info = context.bot.get_file(
+                msg.reply_to_message.document.file_id)
         except BadRequest:
             msg.reply_text(
                 "Try downloading and re-uploading the file, this one seems broken!"
@@ -2345,7 +2275,8 @@ def fed_import_bans(update, context):
                         failed += 1
                         continue
                     try:
-                        import_userid = int(data["user_id"])  # Make sure it int
+                        # Make sure it int
+                        import_userid = int(data["user_id"])
                         import_firstname = str(data["first_name"])
                         import_lastname = str(data["last_name"])
                         import_username = str(data["user_name"])
@@ -2369,7 +2300,7 @@ def fed_import_bans(update, context):
                     if int(import_userid) in SUDO_USERS:
                         failed += 1
                         continue
-                    
+
                     multi_fed_id.append(fed_id)
                     multi_import_userid.append(str(import_userid))
                     multi_import_firstname.append(import_firstname)
@@ -2386,19 +2317,19 @@ def fed_import_bans(update, context):
                     multi_import_reason,
                 )
             text = "Blocks were successfully imported. {} people are blocked.".format(
-                success
-            )
+                success)
             if failed >= 1:
                 text += " {} Failed to import.".format(failed)
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
                 if eval(get_fedlog):
                     teks = "Fed *{}* has successfully imported data. {} banned.".format(
-                        getfed["fname"], success
-                    )
+                        getfed["fname"], success)
                     if failed >= 1:
                         teks += " {} Failed to import.".format(failed)
-                    context.bot.send_message(get_fedlog, teks, parse_mode="markdown")
+                    context.bot.send_message(get_fedlog,
+                                             teks,
+                                             parse_mode="markdown")
         elif fileformat == "csv":
             multi_fed_id = []
             multi_import_userid = []
@@ -2406,13 +2337,13 @@ def fed_import_bans(update, context):
             multi_import_lastname = []
             multi_import_username = []
             multi_import_reason = []
-            file_info.download(
-                "fban_{}.csv".format(msg.reply_to_message.document.file_id)
-            )
+            file_info.download("fban_{}.csv".format(
+                msg.reply_to_message.document.file_id))
             with open(
-                "fban_{}.csv".format(msg.reply_to_message.document.file_id),
-                "r",
-                encoding="utf8",
+                    "fban_{}.csv".format(
+                        msg.reply_to_message.document.file_id),
+                    "r",
+                    encoding="utf8",
             ) as csvFile:
                 reader = csv.reader(csvFile)
                 for data in reader:
@@ -2441,7 +2372,7 @@ def fed_import_bans(update, context):
                     if int(import_userid) in SUDO_USERS:
                         failed += 1
                         continue
-                    
+
                     multi_fed_id.append(fed_id)
                     multi_import_userid.append(str(import_userid))
                     multi_import_firstname.append(import_firstname)
@@ -2460,21 +2391,25 @@ def fed_import_bans(update, context):
                     multi_import_reason,
                 )
             csvFile.close()
-            os.remove("fban_{}.csv".format(msg.reply_to_message.document.file_id))
-            text = "Files were imported successfully. {} people banned.".format(success)
+            os.remove("fban_{}.csv".format(
+                msg.reply_to_message.document.file_id))
+            text = "Files were imported successfully. {} people banned.".format(
+                success)
             if failed >= 1:
                 text += " {} Failed to import.".format(failed)
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
                 if eval(get_fedlog):
                     teks = "Fed *{}* has successfully imported data. {} banned.".format(
-                        getfed["fname"], success
-                    )
+                        getfed["fname"], success)
                     if failed >= 1:
                         teks += " {} Failed to import.".format(failed)
-                    context.bot.send_message(get_fedlog, teks, parse_mode="markdown")
+                    context.bot.send_message(get_fedlog,
+                                             teks,
+                                             parse_mode="markdown")
         else:
-            send_message(update.effective_message, "This file is not supported.")
+            send_message(update.effective_message,
+                         "This file is not supported.")
             return
         send_message(update.effective_message, text)
 
@@ -2493,15 +2428,13 @@ def del_fed_button(update, context):
         delete = sql.del_fed(fed_id)
         if delete:
             query.message.edit_text(
-                "You have removed your Federation! Now all the Groups that are connected with `{}` do not have a Federation.".format(
-                    getfed["fname"]
-                ),
+                "You have removed your Federation! Now all the Groups that are connected with `{}` do not have a Federation."
+                .format(getfed["fname"]),
                 parse_mode="markdown",
             )
 
 
 @run_async
-
 def fed_stat_user(update, context):
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -2518,7 +2451,8 @@ def fed_stat_user(update, context):
     if user_id:
         if len(args) == 2 and args[0].isdigit():
             fed_id = args[1]
-            user_name, reason, fbantime = sql.get_user_fban(fed_id, str(user_id))
+            user_name, reason, fbantime = sql.get_user_fban(
+                fed_id, str(user_id))
             if fbantime:
                 fbantime = time.strftime("%d/%m/%Y", time.localtime(fbantime))
             else:
@@ -2539,9 +2473,10 @@ def fed_stat_user(update, context):
                 )
             else:
                 teks = "{} banned in this federation because:\n`{}`\n*Banned at:* `{}`".format(
-                    user_name, reason, fbantime
-                )
-                send_message(update.effective_message, teks, parse_mode="markdown")
+                    user_name, reason, fbantime)
+                send_message(update.effective_message,
+                             teks,
+                             parse_mode="markdown")
             return
         user_name, fbanlist = sql.get_user_fbanlist(str(user_id))
         if user_name == "":
@@ -2585,7 +2520,8 @@ def fed_stat_user(update, context):
         fed_id = args[0]
         fedinfo = sql.get_fed_info(fed_id)
         if not fedinfo:
-            send_message(update.effective_message, "Fed {} not found!".format(fed_id))
+            send_message(update.effective_message,
+                         "Fed {} not found!".format(fed_id))
             return
         name, reason, fbantime = sql.get_user_fban(fed_id, msg.from_user.id)
         if fbantime:
@@ -2602,15 +2538,13 @@ def fed_stat_user(update, context):
             return
         send_message(
             update.effective_message,
-            "{} banned in this federation because:\n`{}`\n*Banned at:* `{}`".format(
-                name, reason, fbantime
-            ),
+            "{} banned in this federation because:\n`{}`\n*Banned at:* `{}`".
+            format(name, reason, fbantime),
             parse_mode="markdown",
         )
 
 
 @run_async
-
 def set_fed_log(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2626,7 +2560,8 @@ def set_fed_log(update, context):
     if args:
         fedinfo = sql.get_fed_info(args[0])
         if not fedinfo:
-            send_message(update.effective_message, "This Federation does not exist!")
+            send_message(update.effective_message,
+                         "This Federation does not exist!")
             return
         isowner = is_user_fed_owner(args[0], user.id)
         if not isowner:
@@ -2640,18 +2575,15 @@ def set_fed_log(update, context):
             send_message(
                 update.effective_message,
                 "Federation log `{}` has been set to {}".format(
-                    fedinfo["fname"], chat.title
-                ),
+                    fedinfo["fname"], chat.title),
                 parse_mode="markdown",
             )
     else:
-        send_message(
-            update.effective_message, "You have not provided your federated ID!"
-        )
+        send_message(update.effective_message,
+                     "You have not provided your federated ID!")
 
 
 @run_async
-
 def unset_fed_log(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2668,7 +2600,8 @@ def unset_fed_log(update, context):
     if args:
         fedinfo = sql.get_fed_info(args[0])
         if not fedinfo:
-            send_message(update.effective_message, "This Federation does not exist!")
+            send_message(update.effective_message,
+                         "This Federation does not exist!")
             return
         isowner = is_user_fed_owner(args[0], user.id)
         if not isowner:
@@ -2682,18 +2615,15 @@ def unset_fed_log(update, context):
             send_message(
                 update.effective_message,
                 "Federation log `{}` has been revoked on {}".format(
-                    fedinfo["fname"], chat.title
-                ),
+                    fedinfo["fname"], chat.title),
                 parse_mode="markdown",
             )
     else:
-        send_message(
-            update.effective_message, "You have not provided your federated ID!"
-        )
+        send_message(update.effective_message,
+                     "You have not provided your federated ID!")
 
 
 @run_async
-
 def subs_feds(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2711,7 +2641,8 @@ def subs_feds(update, context):
     fedinfo = sql.get_fed_info(fed_id)
 
     if not fed_id:
-        send_message(update.effective_message, "This chat is not in any federation!")
+        send_message(update.effective_message,
+                     "This chat is not in any federation!")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
@@ -2721,17 +2652,15 @@ def subs_feds(update, context):
     if args:
         getfed = sql.search_fed_by_id(args[0])
         if getfed == False:
-            send_message(
-                update.effective_message, "Please enter a valid federation id."
-            )
+            send_message(update.effective_message,
+                         "Please enter a valid federation id.")
             return
         subfed = sql.subs_fed(args[0], fed_id)
         if subfed:
             send_message(
                 update.effective_message,
-                "Federation `{}` has subscribe the federation `{}`. Every time there is a Fedban from that federation, this federation will also banned that user.".format(
-                    fedinfo["fname"], getfed["fname"]
-                ),
+                "Federation `{}` has subscribe the federation `{}`. Every time there is a Fedban from that federation, this federation will also banned that user."
+                .format(fedinfo["fname"], getfed["fname"]),
                 parse_mode="markdown",
             )
             get_fedlog = sql.get_fed_log(args[0])
@@ -2739,27 +2668,23 @@ def subs_feds(update, context):
                 if int(get_fedlog) != int(chat.id):
                     context.bot.send_message(
                         get_fedlog,
-                        "Federation `{}` has subscribe the federation `{}`".format(
-                            fedinfo["fname"], getfed["fname"]
-                        ),
+                        "Federation `{}` has subscribe the federation `{}`".
+                        format(fedinfo["fname"], getfed["fname"]),
                         parse_mode="markdown",
                     )
         else:
             send_message(
                 update.effective_message,
-                "Federation `{}` already subscribe the federation `{}`.".format(
-                    fedinfo["fname"], getfed["fname"]
-                ),
+                "Federation `{}` already subscribe the federation `{}`.".
+                format(fedinfo["fname"], getfed["fname"]),
                 parse_mode="markdown",
             )
     else:
-        send_message(
-            update.effective_message, "You have not provided your federated ID!"
-        )
+        send_message(update.effective_message,
+                     "You have not provided your federated ID!")
 
 
 @run_async
-
 def unsubs_feds(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2777,7 +2702,8 @@ def unsubs_feds(update, context):
     fedinfo = sql.get_fed_info(fed_id)
 
     if not fed_id:
-        send_message(update.effective_message, "This chat is not in any federation!")
+        send_message(update.effective_message,
+                     "This chat is not in any federation!")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
@@ -2787,17 +2713,15 @@ def unsubs_feds(update, context):
     if args:
         getfed = sql.search_fed_by_id(args[0])
         if getfed == False:
-            send_message(
-                update.effective_message, "Please enter a valid federation id."
-            )
+            send_message(update.effective_message,
+                         "Please enter a valid federation id.")
             return
         subfed = sql.unsubs_fed(args[0], fed_id)
         if subfed:
             send_message(
                 update.effective_message,
                 "Federation `{}` now unsubscribe fed `{}`.".format(
-                    fedinfo["fname"], getfed["fname"]
-                ),
+                    fedinfo["fname"], getfed["fname"]),
                 parse_mode="markdown",
             )
             get_fedlog = sql.get_fed_log(args[0])
@@ -2806,26 +2730,22 @@ def unsubs_feds(update, context):
                     context.bot.send_message(
                         get_fedlog,
                         "Federation `{}` has unsubscribe fed `{}`.".format(
-                            fedinfo["fname"], getfed["fname"]
-                        ),
+                            fedinfo["fname"], getfed["fname"]),
                         parse_mode="markdown",
                     )
         else:
             send_message(
                 update.effective_message,
                 "Federation `{}` is not subscribing `{}`.".format(
-                    fedinfo["fname"], getfed["fname"]
-                ),
+                    fedinfo["fname"], getfed["fname"]),
                 parse_mode="markdown",
             )
     else:
-        send_message(
-            update.effective_message, "You have not provided your federated ID!"
-        )
+        send_message(update.effective_message,
+                     "You have not provided your federated ID!")
 
 
 @run_async
-
 def get_myfedsubs(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2843,7 +2763,8 @@ def get_myfedsubs(update, context):
     fedinfo = sql.get_fed_info(fed_id)
 
     if not fed_id:
-        send_message(update.effective_message, "This chat is not in any federation!")
+        send_message(update.effective_message,
+                     "This chat is not in any federation!")
         return
 
     if is_user_fed_owner(fed_id, user.id) == False:
@@ -2856,15 +2777,13 @@ def get_myfedsubs(update, context):
         send_message(
             update.effective_message,
             "Federation `{}` is not subscribing any federation.".format(
-                fedinfo["fname"]
-            ),
+                fedinfo["fname"]),
             parse_mode="markdown",
         )
         return
     else:
         listfed = "Federation `{}` is subscribing federation:\n".format(
-            fedinfo["fname"]
-        )
+            fedinfo["fname"])
         for x in getmy:
             listfed += "- `{}`\n".format(x)
         listfed += (
@@ -2874,7 +2793,6 @@ def get_myfedsubs(update, context):
 
 
 @run_async
-
 def get_myfeds_list(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2924,8 +2842,7 @@ def welcome_fed(update, context):
     fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user.id)
     if fban:
         update.effective_message.reply_text(
-            "This user is banned in current federation! I will remove him."
-        )
+            "This user is banned in current federation! I will remove him.")
         context.bot.kick_chat_member(chat.id, user.id)
         return True
     else:
@@ -2936,8 +2853,7 @@ def __stats__():
     all_fbanned = sql.get_all_fban_users_global()
     all_feds = sql.get_all_feds_users_global()
     return "× {} users banned, in {} federations".format(
-        len(all_fbanned), len(all_feds)
-    )
+        len(all_fbanned), len(all_feds))
 
 
 def __user_info__(user_id, chat_id):
@@ -2949,12 +2865,10 @@ def __user_info__(user_id, chat_id):
 
         if int(info["owner"]) == user_id:
             text = "This user is the owner of the current Federation: <b>{}</b>.".format(
-                infoname
-            )
+                infoname)
         elif is_user_fed_admin(fed_id, user_id):
             text = "This user is the admin of the current Federation: <b>{}</b>.".format(
-                infoname
-            )
+                infoname)
 
         elif fban:
             text = "<b>Banned in current Fed</b>: Yes"
@@ -2987,7 +2901,6 @@ def get_chat(chat_id, chat_data):
 
 __mod_name__ = "Federations"
 
-
 __help__ = """
 Ah, group management. Everything is fun, until the spammer starts entering your group, and you have to block it. Then you need to start banning more, and more, and it hurts.
 But then you have many groups, and you don't want this spammer to be in one of your groups - how can you deal? Do you have to manually block it, in all your groups?
@@ -3013,7 +2926,6 @@ You can even designate admin federations, so your trusted admin can ban all the 
  × /importfbans: Reply to the Federation backup message file to import the banned list to the Federation now.
 """
 
-
 NEW_FED_HANDLER = CommandHandler("newfed", new_fed)
 DEL_FED_HANDLER = CommandHandler("delfed", del_fed, pass_args=True)
 JOIN_FED_HANDLER = CommandHandler("joinfed", join_fed, pass_args=True)
@@ -3023,22 +2935,25 @@ DEMOTE_FED_HANDLER = CommandHandler("fdemote", user_demote_fed, pass_args=True)
 INFO_FED_HANDLER = CommandHandler("fedinfo", fed_info, pass_args=True)
 BAN_FED_HANDLER = CommandHandler(["fban", "fedban"], fed_ban, pass_args=True)
 UN_BAN_FED_HANDLER = CommandHandler("unfban", unfban, pass_args=True)
-FED_BROADCAST_HANDLER = CommandHandler("fbroadcast", fed_broadcast, pass_args=True)
+FED_BROADCAST_HANDLER = CommandHandler("fbroadcast",
+                                       fed_broadcast,
+                                       pass_args=True)
 FED_SET_RULES_HANDLER = CommandHandler("setfrules", set_frules, pass_args=True)
 FED_GET_RULES_HANDLER = CommandHandler("frules", get_frules, pass_args=True)
 FED_CHAT_HANDLER = CommandHandler("chatfed", fed_chat, pass_args=True)
 FED_ADMIN_HANDLER = CommandHandler("fedadmins", fed_admin, pass_args=True)
-FED_USERBAN_HANDLER = CommandHandler(
-    "fbanlist", fed_ban_list, pass_args=True, pass_chat_data=True
-)
+FED_USERBAN_HANDLER = CommandHandler("fbanlist",
+                                     fed_ban_list,
+                                     pass_args=True,
+                                     pass_chat_data=True)
 FED_NOTIF_HANDLER = CommandHandler("fednotif", fed_notif, pass_args=True)
 FED_CHATLIST_HANDLER = CommandHandler("fedchats", fed_chats, pass_args=True)
-FED_IMPORTBAN_HANDLER = CommandHandler(
-    "importfbans", fed_import_bans, pass_chat_data=True
-)
-FEDSTAT_USER = CommandHandler(
-    ["fedstat", "fbanstat"], fed_stat_user, pass_args=True
-)
+FED_IMPORTBAN_HANDLER = CommandHandler("importfbans",
+                                       fed_import_bans,
+                                       pass_chat_data=True)
+FEDSTAT_USER = CommandHandler(["fedstat", "fbanstat"],
+                              fed_stat_user,
+                              pass_args=True)
 SET_FED_LOG = CommandHandler("setfedlog", set_fed_log, pass_args=True)
 UNSET_FED_LOG = CommandHandler("unsetfedlog", unset_fed_log, pass_args=True)
 SUBS_FED = CommandHandler("subfed", subs_feds, pass_args=True)
