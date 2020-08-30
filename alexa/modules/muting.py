@@ -662,26 +662,19 @@
 import html
 from typing import Optional
 
-from telegram import Chat
-from telegram import ChatPermissions
-from telegram import Message
-from telegram import User
+from telegram import Chat, ChatPermissions, Message, User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler
-from telegram.ext import Filters
+from telegram.ext import CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alexa import dispatcher
-from alexa import LOGGER
+from alexa import LOGGER, dispatcher
 from alexa.modules.helper_funcs.alternate import typing_action
-from alexa.modules.helper_funcs.chat_status import bot_admin
-from alexa.modules.helper_funcs.chat_status import can_restrict
-from alexa.modules.helper_funcs.chat_status import is_user_admin
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.helper_funcs.chat_status import user_can_ban
-from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.helper_funcs.extraction import extract_user_and_text
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_restrict,
+                                                    is_user_admin, user_admin,
+                                                    user_can_ban)
+from alexa.modules.helper_funcs.extraction import (extract_user,
+                                                   extract_user_and_text)
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
 

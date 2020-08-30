@@ -662,23 +662,18 @@
 import html
 import re
 
-from telegram import ChatPermissions
-from telegram import ParseMode
+from telegram import ChatPermissions, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler
-from telegram.ext import Filters
-from telegram.ext import MessageHandler
-from telegram.ext import run_async
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.blacklist_sql as sql
-from alexa import dispatcher
-from alexa import LOGGER
+from alexa import LOGGER, dispatcher
 from alexa.modules.connection import connected
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.helper_funcs.chat_status import user_can_change
-from alexa.modules.helper_funcs.chat_status import user_not_admin
+from alexa.modules.helper_funcs.chat_status import (user_admin,
+                                                    user_can_change,
+                                                    user_not_admin)
 from alexa.modules.helper_funcs.extraction import extract_text
 from alexa.modules.helper_funcs.misc import split_message
 from alexa.modules.helper_funcs.string_handling import extract_time

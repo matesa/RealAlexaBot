@@ -662,15 +662,12 @@
 import os
 import re
 import urllib
-from urllib.error import HTTPError
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 import requests
 from bs4 import BeautifulSoup
-from telegram import InputMediaPhoto
-from telegram import TelegramError
-from telegram.ext import CommandHandler
-from telegram.ext import run_async
+from telegram import InputMediaPhoto, TelegramError
+from telegram.ext import CommandHandler, run_async
 
 from alexa import dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler

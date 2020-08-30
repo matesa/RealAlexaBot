@@ -662,17 +662,13 @@
 from typing import Union
 
 from future.utils import string_types
-from telegram import Chat
-from telegram import ParseMode
-from telegram import Update
-from telegram.ext import CommandHandler
-from telegram.ext import MessageHandler
+from telegram import Chat, ParseMode, Update
+from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
 from alexa import dispatcher
 from alexa.modules.connection import connected
-from alexa.modules.helper_funcs.alternate import send_message
-from alexa.modules.helper_funcs.alternate import typing_action
+from alexa.modules.helper_funcs.alternate import send_message, typing_action
 from alexa.modules.helper_funcs.handlers import CMD_STARTERS
 from alexa.modules.helper_funcs.misc import is_module_loaded
 
@@ -682,7 +678,8 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram.ext.dispatcher import run_async
 
-    from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
+    from alexa.modules.helper_funcs.chat_status import (is_user_admin,
+                                                        user_admin)
     from alexa.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []

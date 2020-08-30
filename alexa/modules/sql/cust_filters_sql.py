@@ -1322,17 +1322,11 @@
 #     <https://www.gnu.org/licenses/>.
 import threading
 
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import distinct
-from sqlalchemy import func
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy import UnicodeText
+from sqlalchemy import (Boolean, Column, Integer, String, UnicodeText,
+                        distinct, func)
 
 from alexa.modules.helper_funcs.msg_types import Types
-from alexa.modules.sql import BASE
-from alexa.modules.sql import SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class CustomFilters(BASE):

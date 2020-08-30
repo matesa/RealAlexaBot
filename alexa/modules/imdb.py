@@ -671,8 +671,7 @@ import requests
 from telethon import types
 from telethon.tl import functions
 
-from alexa import LOGGER
-from alexa import tbot
+from alexa import LOGGER, tbot
 from alexa.events import register
 
 langi = "en"

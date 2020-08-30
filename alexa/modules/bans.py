@@ -661,25 +661,18 @@
 #     <https://www.gnu.org/licenses/>.
 import html
 
-from telegram import Chat
-from telegram import ParseMode
-from telegram import User
+from telegram import Chat, ParseMode, User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler
-from telegram.ext import Filters
-from telegram.ext import run_async
+from telegram.ext import CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-from alexa import dispatcher
-from alexa import LOGGER
+from alexa import LOGGER, dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import bot_admin
-from alexa.modules.helper_funcs.chat_status import can_restrict
-from alexa.modules.helper_funcs.chat_status import is_user_admin
-from alexa.modules.helper_funcs.chat_status import is_user_ban_protected
-from alexa.modules.helper_funcs.chat_status import is_user_in_chat
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.helper_funcs.chat_status import user_can_ban
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_restrict,
+                                                    is_user_admin,
+                                                    is_user_ban_protected,
+                                                    is_user_in_chat,
+                                                    user_admin, user_can_ban)
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable

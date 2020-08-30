@@ -672,7 +672,8 @@ if is_module_loaded(FILENAME):
     from telegram.utils.helpers import escape_markdown
 
     from alexa import LOGGER, dispatcher
-    from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+    from alexa.modules.helper_funcs.chat_status import (user_admin,
+                                                        user_can_change)
     from alexa.modules.sql import log_channel_sql as sql
 
     def loggable(func):

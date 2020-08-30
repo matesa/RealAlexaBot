@@ -662,16 +662,11 @@
 import threading
 from typing import Union
 
-from sqlalchemy import BigInteger
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy import UnicodeText
+from sqlalchemy import (BigInteger, Boolean, Column, Integer, String,
+                        UnicodeText)
 
 from alexa.modules.helper_funcs.msg_types import Types
-from alexa.modules.sql import BASE
-from alexa.modules.sql import SESSION
+from alexa.modules.sql import BASE, SESSION
 
 DEFAULT_WELCOME = "Hi {first}, how are you?"
 DEFAULT_GOODBYE = "{first} has left the game."

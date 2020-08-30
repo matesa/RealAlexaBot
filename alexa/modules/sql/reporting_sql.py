@@ -662,13 +662,9 @@
 import threading
 from typing import Union
 
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import String
+from sqlalchemy import Boolean, Column, Integer, String
 
-from alexa.modules.sql import BASE
-from alexa.modules.sql import SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class ReportingUserSettings(BASE):

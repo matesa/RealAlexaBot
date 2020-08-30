@@ -661,8 +661,7 @@
 #     <https://www.gnu.org/licenses/>.
 import re
 import time
-from typing import Dict
-from typing import List
+from typing import Dict, List
 
 import bleach
 import emoji

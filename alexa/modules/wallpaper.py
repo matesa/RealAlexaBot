@@ -663,12 +663,9 @@ from random import randint
 
 import requests as r
 from telegram import Update
-from telegram.ext import CallbackContext
-from telegram.ext import CommandHandler
-from telegram.ext import run_async
+from telegram.ext import CallbackContext, CommandHandler, run_async
 
-from alexa import dispatcher
-from alexa import WALL_API
+from alexa import WALL_API, dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin
 
 

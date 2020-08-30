@@ -661,15 +661,9 @@
 #     <https://www.gnu.org/licenses/>.
 import threading
 
-from sqlalchemy import Column
-from sqlalchemy import distinct
-from sqlalchemy import func
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy import UnicodeText
+from sqlalchemy import Column, Integer, String, UnicodeText, distinct, func
 
-from alexa.modules.sql import BASE
-from alexa.modules.sql import SESSION
+from alexa.modules.sql import BASE, SESSION
 
 
 class BlackListFilters(BASE):

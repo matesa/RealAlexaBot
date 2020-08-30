@@ -665,13 +665,10 @@ import time
 import zipfile
 
 from pySmartDL import SmartDL
-from telethon import events
-from telethon import types
+from telethon import events, types
 from telethon.tl import functions
 
-from alexa import LOGGER
-from alexa import tbot
-from alexa import TEMP_DOWNLOAD_DIRECTORY
+from alexa import LOGGER, TEMP_DOWNLOAD_DIRECTORY, tbot
 from alexa.events import register
 
 

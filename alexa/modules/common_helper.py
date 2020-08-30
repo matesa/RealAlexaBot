@@ -662,18 +662,14 @@
 import json
 import os
 from pprint import pprint
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
 import requests
 from emoji import UNICODE_EMOJI
 from googletrans import Translator
 from gtts import gTTS
-from telegram import Bot
-from telegram import ChatAction
-from telegram import Update
-from telegram.ext import CommandHandler
-from telegram.ext import run_async
+from telegram import Bot, ChatAction, Update
+from telegram.ext import CommandHandler, run_async
 
 from alexa import dispatcher
 from alexa.modules.helper_funcs.alternate import send_action

@@ -661,8 +661,7 @@
 #     <https://www.gnu.org/licenses/>.
 from functools import wraps
 
-from telegram import ChatAction
-from telegram import error
+from telegram import ChatAction, error
 
 
 def send_message(message, text, *args, **kwargs):
