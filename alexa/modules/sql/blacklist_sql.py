@@ -685,9 +685,12 @@ class BlackListFilters(BASE):
         return "<Blacklist filter '%s' for %s>" % (self.trigger, self.chat_id)
 
     def __eq__(self, other):
-        return bool(isinstance(other, BlackListFilters)
-                    and self.chat_id == other.chat_id
-                    and self.trigger == other.trigger)
+        return bool(
+            isinstance(other, BlackListFilters)
+            and self.chat_id == other.chat_id
+            and self.trigger == other.trigger
+        )
+
 
 class BlacklistSettings(BASE):
     __tablename__ = "blacklist_settings"
@@ -701,7 +704,9 @@ class BlacklistSettings(BASE):
         self.value = value
 
     def __repr__(self):
-        return "<{} will executing {} for blacklist trigger.>".format(self.chat_id, self.blacklist_type)
+        return "<{} will executing {} for blacklist trigger.>".format(
+            self.chat_id, self.blacklist_type
+        )
 
 
 BlackListFilters.__table__.create(checkfirst=True)
@@ -720,7 +725,11 @@ def add_to_blacklist(chat_id, trigger):
 
         SESSION.merge(blacklist_filt)  # merge to avoid duplicate key issues
         SESSION.commit()
-        CHAT_BLACKLISTS.setdefault(str(chat_id), set()).add(trigger)
+        global CHAT_BLACKLISTS
+        if CHAT_BLACKLISTS.get(str(chat_id), set()) == set():
+            CHAT_BLACKLISTS[str(chat_id)] = {trigger}
+        else:
+            CHAT_BLACKLISTS.get(str(chat_id), set()).add(trigger)
 
 
 def rm_from_blacklist(chat_id, trigger):
@@ -751,7 +760,11 @@ def num_blacklist_filters():
 
 def num_blacklist_chat_filters(chat_id):
     try:
-        return SESSION.query(BlackListFilters.chat_id).filter(BlackListFilters.chat_id == str(chat_id)).count()
+        return (
+            SESSION.query(BlackListFilters.chat_id)
+            .filter(BlackListFilters.chat_id == str(chat_id))
+            .count()
+        )
     finally:
         SESSION.close()
 
@@ -762,17 +775,7 @@ def num_blacklist_filter_chats():
     finally:
         SESSION.close()
 
-def get_blacklist_setting(chat_id):
-    try:
-        setting = CHAT_SETTINGS_BLACKLISTS.get(str(chat_id))
-        if setting:
-            return setting['blacklist_type'], setting['value']
-        else:
-            return 1, "0"
 
-    finally:
-        SESSION.close()
-        
 def set_blacklist_strength(chat_id, blacklist_type, value):
     # for blacklist_type
     # 0 = nothing
@@ -787,15 +790,33 @@ def set_blacklist_strength(chat_id, blacklist_type, value):
         global CHAT_SETTINGS_BLACKLISTS
         curr_setting = SESSION.query(BlacklistSettings).get(str(chat_id))
         if not curr_setting:
-            curr_setting = BlacklistSettings(chat_id, blacklist_type=int(blacklist_type), value=value)
+            curr_setting = BlacklistSettings(
+                chat_id, blacklist_type=int(blacklist_type), value=value
+            )
 
         curr_setting.blacklist_type = int(blacklist_type)
         curr_setting.value = str(value)
-        CHAT_SETTINGS_BLACKLISTS[str(chat_id)] = {'blacklist_type': int(blacklist_type), 'value': value}
+        CHAT_SETTINGS_BLACKLISTS[str(chat_id)] = {
+            "blacklist_type": int(blacklist_type),
+            "value": value,
+        }
 
         SESSION.add(curr_setting)
         SESSION.commit()
-        
+
+
+def get_blacklist_setting(chat_id):
+    try:
+        setting = CHAT_SETTINGS_BLACKLISTS.get(str(chat_id))
+        if setting:
+            return setting["blacklist_type"], setting["value"]
+        else:
+            return 1, "0"
+
+    finally:
+        SESSION.close()
+
+
 def __load_chat_blacklists():
     global CHAT_BLACKLISTS
     try:
@@ -813,12 +834,31 @@ def __load_chat_blacklists():
         SESSION.close()
 
 
+def __load_chat_settings_blacklists():
+    global CHAT_SETTINGS_BLACKLISTS
+    try:
+        chats_settings = SESSION.query(BlacklistSettings).all()
+        for x in chats_settings:  # remove tuple by ( ,)
+            CHAT_SETTINGS_BLACKLISTS[x.chat_id] = {
+                "blacklist_type": x.blacklist_type,
+                "value": x.value,
+            }
+
+    finally:
+        SESSION.close()
+
+
 def migrate_chat(old_chat_id, new_chat_id):
     with BLACKLIST_FILTER_INSERTION_LOCK:
-        chat_filters = SESSION.query(BlackListFilters).filter(BlackListFilters.chat_id == str(old_chat_id)).all()
+        chat_filters = (
+            SESSION.query(BlackListFilters)
+            .filter(BlackListFilters.chat_id == str(old_chat_id))
+            .all()
+        )
         for filt in chat_filters:
             filt.chat_id = str(new_chat_id)
         SESSION.commit()
 
 
 __load_chat_blacklists()
+__load_chat_settings_blacklists()
