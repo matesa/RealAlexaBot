@@ -660,19 +660,29 @@
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
 import html
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
-                      Message, ParseMode, User)
-from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
-                          MessageHandler, run_async)
+from telegram import Chat
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import ParseMode
+from telegram import User
+from telegram.error import BadRequest
+from telegram.error import Unauthorized
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
-from alexa import LOGGER, dispatcher
-from alexa.modules.helper_funcs.chat_status import (user_admin,
-                                                    user_can_change,
-                                                    user_not_admin)
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_can_change
+from alexa.modules.helper_funcs.chat_status import user_not_admin
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import reporting_sql as sql
 

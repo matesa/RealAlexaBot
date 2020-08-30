@@ -667,10 +667,12 @@ import rapidjson as json
 from bs4 import BeautifulSoup
 from hurry.filesize import size as sizee
 from requests import get
-from telethon import custom, types
+from telethon import custom
+from telethon import types
 from telethon.tl import functions
 
-from alexa import LOGGER, tbot
+from alexa import LOGGER
+from alexa import tbot
 from alexa.events import register
 
 GITHUB = "https://github.com"

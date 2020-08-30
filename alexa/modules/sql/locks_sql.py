@@ -662,9 +662,12 @@
 # New chat added -> setup permissions
 import threading
 
-from sqlalchemy import Boolean, Column, String
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import String
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class Permissions(BASE):

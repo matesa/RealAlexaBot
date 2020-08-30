@@ -673,11 +673,15 @@ from zipfile import ZipFile
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from pySmartDL import SmartDL
-from telethon import events, types
+from telethon import events
+from telethon import types
 from telethon.tl import functions
-from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.tl.types import DocumentAttributeVideo
 
-from alexa import LOGGER, TEMP_DOWNLOAD_DIRECTORY, tbot
+from alexa import LOGGER
+from alexa import tbot
+from alexa import TEMP_DOWNLOAD_DIRECTORY
 from alexa.events import register
 
 extracted = TEMP_DOWNLOAD_DIRECTORY + "extracted/"

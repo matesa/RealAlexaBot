@@ -667,19 +667,30 @@ import sys
 import time
 from collections import deque
 from contextlib import suppress
-from os import environ, execl, execle, getenv, makedirs, path, remove
+from os import environ
+from os import execl
+from os import execle
+from os import getenv
+from os import makedirs
+from os import path
+from os import remove
 from shutil import rmtree
 
 import git
 import heroku3
 import requests
 from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
+from git.exc import GitCommandError
+from git.exc import InvalidGitRepositoryError
+from git.exc import NoSuchPathError
 from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
-from alexa import HEROKU_API_KEY, HEROKU_APP_NAME, OWNER_ID, UPSTREAM_REPO_URL
+from alexa import HEROKU_API_KEY
+from alexa import HEROKU_APP_NAME
+from alexa import OWNER_ID
+from alexa import UPSTREAM_REPO_URL
 from alexa.events import register
 
 requirements_path = path.join(

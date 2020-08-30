@@ -665,11 +665,15 @@ from typing import Optional
 
 from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
 from telegram.ext.dispatcher import run_async
 
 import alexa.modules.sql.users_sql as sql
-from alexa import LOGGER, OWNER_ID, dispatcher
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa import OWNER_ID
 from alexa.modules.helper_funcs.filters import CustomFilters
 
 USERS_GROUP = 4

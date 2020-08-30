@@ -661,15 +661,23 @@
 #     <https://www.gnu.org/licenses/>.
 from typing import Optional
 
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, Message,
-                      ParseMode, Update, User)
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import ParseMode
+from telegram import Update
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.ext import CallbackContext
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import run_async
 from telegram.utils.helpers import escape_markdown
 
 import alexa.modules.sql.rules_sql as sql
 from alexa import dispatcher
-from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_can_change
 from alexa.modules.helper_funcs.string_handling import markdown_parser
 
 

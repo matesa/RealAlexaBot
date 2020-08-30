@@ -661,11 +661,17 @@
 #     <https://www.gnu.org/licenses/>.
 import threading
 
-from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
-from telegram.error import BadRequest, Unauthorized
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import UnicodeText
+from telegram.error import BadRequest
+from telegram.error import Unauthorized
 
 from alexa import dispatcher
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class Federations(BASE):

@@ -665,10 +665,14 @@ import os
 from datetime import datetime
 
 import requests
-from telethon import events, types
+from telethon import events
+from telethon import types
 from telethon.tl import functions
 
-from alexa import LOGGER, REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY, tbot
+from alexa import LOGGER
+from alexa import REM_BG_API_KEY
+from alexa import tbot
+from alexa import TEMP_DOWNLOAD_DIRECTORY
 from alexa.events import register
 
 

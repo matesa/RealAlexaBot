@@ -663,13 +663,19 @@ import random
 import time
 from typing import Optional
 
-from telegram import Message, MessageEntity, ParseMode, User
+from telegram import Message
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 
 from alexa import dispatcher
-from alexa.modules.disable import (DisableAbleCommandHandler,
-                                   DisableAbleMessageHandler)
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.disable import DisableAbleMessageHandler
 from alexa.modules.helper_funcs.alternate import send_message
 from alexa.modules.helper_funcs.chat_status import user_admin
 from alexa.modules.sql import afk_sql as sql

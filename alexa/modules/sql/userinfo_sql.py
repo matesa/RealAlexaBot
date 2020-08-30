@@ -661,9 +661,12 @@
 #     <https://www.gnu.org/licenses/>.
 import threading
 
-from sqlalchemy import Column, Integer, UnicodeText
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import UnicodeText
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class UserInfo(BASE):

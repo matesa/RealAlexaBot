@@ -661,7 +661,8 @@
 #     <https://www.gnu.org/licenses/>.
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import sessionmaker
 
 from alexa import DB_URI
 

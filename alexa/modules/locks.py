@@ -662,22 +662,32 @@
 import html
 
 from alphabet_detector import AlphabetDetector
-from telegram import (Chat, ChatPermissions, Message, MessageEntity, ParseMode,
-                      TelegramError)
+from telegram import Chat
+from telegram import ChatPermissions
+from telegram import Message
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.locks_sql as sql
-from alexa import LOGGER, SUDO_USERS, dispatcher
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa import SUDO_USERS
 from alexa.modules.connection import connected
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import send_message
-from alexa.modules.helper_funcs.chat_status import (can_delete, is_bot_admin,
-                                                    is_user_admin, user_admin,
-                                                    user_can_change,
-                                                    user_not_admin)
+from alexa.modules.helper_funcs.chat_status import can_delete
+from alexa.modules.helper_funcs.chat_status import is_bot_admin
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_can_change
+from alexa.modules.helper_funcs.chat_status import user_not_admin
 from alexa.modules.log_channel import loggable
 
 ad = AlphabetDetector()

@@ -660,20 +660,29 @@
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
 import html
-from time import sleep, time
+from time import sleep
+from time import time
 
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
 from coffeehouse.lydia import LydiaAI
 from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Unauthorized
-from telegram.ext import (CallbackContext, CommandHandler, Filters,
-                          MessageHandler, run_async)
+from telegram.error import BadRequest
+from telegram.error import RetryAfter
+from telegram.error import Unauthorized
+from telegram.ext import CallbackContext
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.chatbot_sql as sql
-from alexa import LYDIA_API_KEY, OWNER_ID, dispatcher
-from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+from alexa import dispatcher
+from alexa import LYDIA_API_KEY
+from alexa import OWNER_ID
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_can_change
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.log_channel import loggable
 

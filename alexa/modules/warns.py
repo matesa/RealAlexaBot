@@ -664,24 +664,34 @@ import re
 from typing import Optional
 
 import telegram
-from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
-                      Message, ParseMode, User)
+from telegram import Chat
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import ParseMode
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import (CallbackQueryHandler, CommandHandler,
-                          DispatcherHandlerStop, Filters, MessageHandler,
-                          run_async)
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import DispatcherHandlerStop
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher  # BAN_STICKER
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import typing_action
-from alexa.modules.helper_funcs.chat_status import (bot_admin, can_restrict,
-                                                    is_user_admin, user_admin,
-                                                    user_admin_no_reply,
-                                                    user_can_change,
-                                                    user_can_restrict)
-from alexa.modules.helper_funcs.extraction import (extract_text, extract_user,
-                                                   extract_user_and_text)
+from alexa.modules.helper_funcs.chat_status import bot_admin
+from alexa.modules.helper_funcs.chat_status import can_restrict
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin_no_reply
+from alexa.modules.helper_funcs.chat_status import user_can_change
+from alexa.modules.helper_funcs.chat_status import user_can_restrict
+from alexa.modules.helper_funcs.extraction import extract_text
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.helper_funcs.misc import split_message
 from alexa.modules.helper_funcs.string_handling import split_quotes

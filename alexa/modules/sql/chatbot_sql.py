@@ -661,9 +661,11 @@
 #     <https://www.gnu.org/licenses/>.
 import threading
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column
+from sqlalchemy import String
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import BASE
+from alexa.modules.sql import SESSION
 
 
 class ChatbotChats(BASE):
