@@ -666,7 +666,7 @@
 
 
 from alexa import tbot, SUDO_USERS
-from alexa.events import register
+from alexa.events import register, tbot
 import asyncio
 from telethon import events
 from telethon.tl.types import ChannelParticipantsAdmins
@@ -675,7 +675,7 @@ from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
 # Check if user has admin rights
 async def is_administrator(user_id: int, message):
     admin = False
-    async for user in client.iter_participants(
+    async for user in tbot.iter_participants(
         message.chat_id, filter=ChannelParticipantsAdmins
     ):
         if user_id == user.id or user_id in SUDO_USERS:
