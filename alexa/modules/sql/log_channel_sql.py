@@ -669,7 +669,7 @@ import threading
 
 from sqlalchemy import Column, String, func, distinct
 
-from alexa.modules.sql import BASE, SESSION
+from skylee.modules.sql import BASE, SESSION
 
 
 class GroupLogs(BASE):
