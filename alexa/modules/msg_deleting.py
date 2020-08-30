@@ -666,7 +666,7 @@
 
 
 from alexa import tbot, SUDO_USERS
-
+from alexa import register
 import asyncio
 from telethon import events
 from telethon.tl.types import ChannelParticipantsAdmins
