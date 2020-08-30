@@ -693,17 +693,16 @@ async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
         return isinstance(
-            (
-                await tbot(functions.channels.GetParticipantRequest(chat, user))
-            ).participant,
+            (await
+             tbot(functions.channels.GetParticipantRequest(chat,
+                                                           user))).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     elif isinstance(chat, types.InputPeerChat):
 
         ui = await tbot.get_peer_id(user)
-        ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-        ).full_chat.participants.participants
+        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id)
+                         )).full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),
             (types.ChatParticipantAdmin, types.ChatParticipantCreator),
@@ -715,7 +714,8 @@ async def is_register_admin(chat, user):
 @register(pattern="^/yt(audio|video) (.*)")
 async def download_video(v_url):
     if v_url.is_group:
-        if not (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
+        if not (await is_register_admin(v_url.input_chat,
+                                        v_url.message.sender_id)):
             return
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
@@ -723,40 +723,58 @@ async def download_video(v_url):
     lmao = await v_url.reply("`Preparing to download...`")
     if type == "audio":
         opts = {
-            "format": "bestaudio",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "writethumbnail": True,
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "256",
-                }
-            ],
-            "outtmpl": "%(id)s.mp3",
-            "quiet": True,
-            "logtostderr": False,
+            "format":
+            "bestaudio",
+            "addmetadata":
+            True,
+            "key":
+            "FFmpegMetadata",
+            "writethumbnail":
+            True,
+            "prefer_ffmpeg":
+            True,
+            "geo_bypass":
+            True,
+            "nocheckcertificate":
+            True,
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "256",
+            }],
+            "outtmpl":
+            "%(id)s.mp3",
+            "quiet":
+            True,
+            "logtostderr":
+            False,
         }
         video = False
         song = True
     elif type == "video":
         opts = {
-            "format": "best",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
-            ],
-            "outtmpl": "%(id)s.mp4",
-            "logtostderr": False,
-            "quiet": True,
+            "format":
+            "best",
+            "addmetadata":
+            True,
+            "key":
+            "FFmpegMetadata",
+            "prefer_ffmpeg":
+            True,
+            "geo_bypass":
+            True,
+            "nocheckcertificate":
+            True,
+            "postprocessors": [{
+                "key": "FFmpegVideoConvertor",
+                "preferedformat": "mp4"
+            }],
+            "outtmpl":
+            "%(id)s.mp4",
+            "logtostderr":
+            False,
+            "quiet":
+            True,
         }
         song = False
         video = True
@@ -795,11 +813,9 @@ async def download_video(v_url):
         return
     c_time = time.time()
     if song:
-        await lmao.edit(
-            f"`Preparing to upload song:`\
+        await lmao.edit(f"`Preparing to upload song:`\
         \n**{ytdl_data['title']}**\
-        \nby *{ytdl_data['uploader']}*"
-        )
+        \nby *{ytdl_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{ytdl_data['id']}.mp3",
@@ -814,11 +830,9 @@ async def download_video(v_url):
         )
         os.remove(f"{ytdl_data['id']}.mp3")
     elif video:
-        await lmao.edit(
-            f"`Preparing to upload video:`\
+        await lmao.edit(f"`Preparing to upload video:`\
         \n**{ytdl_data['title']}**\
-        \nby *{ytdl_data['uploader']}*"
-        )
+        \nby *{ytdl_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{ytdl_data['id']}.mp4",

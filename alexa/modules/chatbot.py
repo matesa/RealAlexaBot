@@ -706,11 +706,9 @@ def add_chat(update: Update, context: CallbackContext):
         expires = str(ses.expires)
         sql.set_ses(chat.id, ses_id, expires)
         msg.reply_text("AI successfully enabled for this chat!")
-        message = (
-            f"<b>{html.escape(chat.title)}:</b>\n"
-            f"#AI_ENABLED\n"
-            f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-        )
+        message = (f"<b>{html.escape(chat.title)}:</b>\n"
+                   f"#AI_ENABLED\n"
+                   f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n")
         return message
     else:
         msg.reply_text("AI is already enabled for this chat!")
@@ -731,11 +729,9 @@ def remove_chat(update: Update, context: CallbackContext):
     else:
         sql.rem_chat(chat.id)
         msg.reply_text("AI disabled successfully!")
-        message = (
-            f"<b>{html.escape(chat.title)}:</b>\n"
-            f"#AI_DISABLED\n"
-            f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-        )
+        message = (f"<b>{html.escape(chat.title)}:</b>\n"
+                   f"#AI_DISABLED\n"
+                   f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n")
         return message
 
 
@@ -779,7 +775,8 @@ def chatbot(update: Update, context: CallbackContext):
             sleep(0.3)
             msg.reply_text(rep, timeout=60)
         except CFError as e:
-            bot.send_message(OWNER_ID, f"Chatbot error: {e} occurred in {chat_id}!")
+            bot.send_message(OWNER_ID,
+                             f"Chatbot error: {e} occurred in {chat_id}!")
 
 
 @run_async
@@ -802,7 +799,6 @@ def list_chatbot_chats(update: Update, context: CallbackContext):
 
 ADD_CHAT_HANDLER = CommandHandler("autochat", add_chat)
 REMOVE_CHAT_HANDLER = CommandHandler("stopchat", remove_chat)
-
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
 dispatcher.add_handler(REMOVE_CHAT_HANDLER)

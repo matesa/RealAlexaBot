@@ -683,7 +683,8 @@ class APPROVE(BASE):
         self.chat_id = chat_id
 
     def __repr__(self):
-        return "approved_status for {} in {}".format(self.user_id, self.chat_id)
+        return "approved_status for {} in {}".format(self.user_id,
+                                                     self.chat_id)
 
 
 APPROVE.__table__.create(checkfirst=True)
@@ -739,8 +740,7 @@ def __load_APPROVE_users():
         all_APPROVE = SESSION.query(APPROVE).all()
         APPROVED_USERS = {
             user.user_id + " " + user.chat_id
-            for user in all_APPROVE
-            if user.is_approved
+            for user in all_APPROVE if user.is_approved
         }
     finally:
         SESSION.close()

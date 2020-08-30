@@ -660,7 +660,6 @@
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
 
-
 __help__ = """
 Powered by coffeehouse from `intellivoid.net`
 
