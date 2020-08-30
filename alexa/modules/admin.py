@@ -705,9 +705,7 @@ def promote(update, context):
     user = update.effective_user
     args = context.args
 
-    if user_can_promote(chat, user, context.bot.id) is False:
-        message.reply_text("You don't have enough rights to promote someone!")
-        return ""
+    
 
     user_id = extract_user(message, args)
     if not user_id:
@@ -763,10 +761,7 @@ def demote(update, context):
     user = update.effective_user
     args = context.args
 
-    if user_can_promote(chat, user, context.bot.id) is False:
-        message.reply_text("You don't have enough rights to demote someone!")
-        return ""
-
+    
     user_id = extract_user(message, args)
     if not user_id:
         message.reply_text("mention one.... 🤷🏻‍♂.")
@@ -835,9 +830,6 @@ def pin(update, context):
 
     prev_message = update.effective_message.reply_to_message
 
-    if user_can_pin(chat, user, context.bot.id) is False:
-        message.reply_text("You are missing rights to pin a message!")
-        return ""
 
     is_silent = True
     if len(args) >= 1:
@@ -878,9 +870,6 @@ def unpin(update, context):
     user = update.effective_user
     message = update.effective_message
 
-    if user_can_pin(chat, user, context.bot.id) is False:
-        message.reply_text("You are missing rights to unpin a message!")
-        return ""
 
     try:
         context.bot.unpinChatMessage(chat.id)
@@ -1026,10 +1015,7 @@ def setchatpic(update, context):
     msg = update.effective_message
     user = update.effective_user
 
-    if user_can_changeinfo(chat, user, context.bot.id) is False:
-        msg.reply_text("You are missing right to change group info!")
-        return
-
+    
     if msg.reply_to_message:
         if msg.reply_to_message.photo:
             pic_id = msg.reply_to_message.photo[-1].file_id
@@ -1064,9 +1050,6 @@ def rmchatpic(update, context):
     msg = update.effective_message
     user = update.effective_user
 
-    if user_can_changeinfo(chat, user, context.bot.id) is False:
-        msg.reply_text("You don't have enough rights to delete group photo")
-        return
     try:
         context.bot.delete_chat_photo(int(chat.id))
         msg.reply_text("Successfully deleted chat's profile photo!")
@@ -1085,10 +1068,7 @@ def setchat_title(update, context):
     user = update.effective_user
     args = context.args
 
-    if user_can_changeinfo(chat, user, context.bot.id) is False:
-        msg.reply_text("You don't have enough rights to change chat info!")
-        return
-
+    
     title = " ".join(args)
     if not title:
         msg.reply_text("Enter some text to set new title in your chat!")
@@ -1114,9 +1094,7 @@ def set_sticker(update, context):
     chat = update.effective_chat
     user = update.effective_user
 
-    if user_can_changeinfo(chat, user, context.bot.id) is False:
-        return msg.reply_text("You're missing rights to change chat info!")
-
+    
     if msg.reply_to_message:
         if not msg.reply_to_message.sticker:
             return msg.reply_text(
@@ -1145,9 +1123,7 @@ def set_desc(update, context):
     chat = update.effective_chat
     user = update.effective_user
 
-    if user_can_changeinfo(chat, user, context.bot.id) is False:
-        return msg.reply_text("You're missing rights to change chat info!")
-
+    
     tesc = msg.text.split(None, 1)
     if len(tesc) >= 2:
         desc = tesc[1]
