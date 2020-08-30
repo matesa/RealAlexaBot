@@ -692,7 +692,7 @@ GMAPS_LOC = "https://maps.googleapis.com/maps/api/geocode/json"
 
 @run_async
 @user_admin
-def gps(update, context):
+def gps(bot: Bot, update: Update, context):
     message = update.effective_message
     args = context.args
     if len(args) == 0:
