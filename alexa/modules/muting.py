@@ -701,11 +701,7 @@ def mute(update, context):
     message = update.effective_message  # type: Optional[Message]
     args = context.args
 
-    if user_can_ban(chat, user, context.bot.id) == False:
-        message.reply_text(
-            "You don't have enough rights to restrict someone from talking!"
-        )
-        return ""
+    
 
     user_id = extract_user(message, args)
     if not user_id:
@@ -759,9 +755,7 @@ def unmute(update, context):
     message = update.effective_message  # type: Optional[Message]
     args = context.args
 
-    if user_can_ban(chat, user, context.bot.id) == False:
-        message.reply_text("You don't have enough rights to unmute people")
-        return ""
+    
 
     user_id = extract_user(message, args)
     if not user_id:
@@ -827,11 +821,7 @@ def temp_mute(update, context):
     message = update.effective_message  # type: Optional[Message]
     args = context.args
 
-    if user_can_ban(chat, user, context.bot.id) == False:
-        message.reply_text(
-            "You don't have enough rights to restrict someone from talking!"
-        )
-        return ""
+    
 
     user_id, reason = extract_user_and_text(message, args)
 
