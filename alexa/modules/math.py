@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -676,7 +675,7 @@ from alexa.modules.helper_funcs.chat_status import user_admin
 def simplify(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.simplify('{}'.format(args[0])))
+    message.reply_text(newton.simplify("{}".format(args[0])))
 
 
 @run_async
@@ -684,7 +683,7 @@ def simplify(update: Update, context: CallbackContext):
 def factor(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.factor('{}'.format(args[0])))
+    message.reply_text(newton.factor("{}".format(args[0])))
 
 
 @run_async
@@ -692,7 +691,7 @@ def factor(update: Update, context: CallbackContext):
 def derive(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.derive('{}'.format(args[0])))
+    message.reply_text(newton.derive("{}".format(args[0])))
 
 
 @run_async
@@ -700,7 +699,7 @@ def derive(update: Update, context: CallbackContext):
 def integrate(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.integrate('{}'.format(args[0])))
+    message.reply_text(newton.integrate("{}".format(args[0])))
 
 
 @run_async
@@ -708,7 +707,7 @@ def integrate(update: Update, context: CallbackContext):
 def zeroes(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.zeroes('{}'.format(args[0])))
+    message.reply_text(newton.zeroes("{}".format(args[0])))
 
 
 @run_async
@@ -716,7 +715,7 @@ def zeroes(update: Update, context: CallbackContext):
 def tangent(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.tangent('{}'.format(args[0])))
+    message.reply_text(newton.tangent("{}".format(args[0])))
 
 
 @run_async
@@ -724,7 +723,7 @@ def tangent(update: Update, context: CallbackContext):
 def area(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
-    message.reply_text(newton.area('{}'.format(args[0])))
+    message.reply_text(newton.area("{}".format(args[0])))
 
 
 @run_async

@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -686,7 +685,11 @@ from telegram.utils.helpers import mention_html
 import alexa.modules.sql.welcome_sql as sql
 from alexa.modules.sql.global_bans_sql import is_user_gbanned
 from alexa import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change
+from alexa.modules.helper_funcs.chat_status import (
+    user_admin,
+    is_user_ban_protected,
+    user_can_change,
+)
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_welcome_type
 from alexa.modules.helper_funcs.alternate import typing_action
@@ -827,8 +830,7 @@ def new_member(update, context):
             # Clean service welcome
             if cleanserv:
                 try:
-                    dispatcher.bot.delete_message(
-                        chat.id, update.message.message_id)
+                    dispatcher.bot.delete_message(chat.id, update.message.message_id)
                 except BadRequest:
                     pass
                 reply = False
@@ -875,8 +877,7 @@ def new_member(update, context):
 
                 if cust_welcome:
                     if new_mem.last_name:
-                        fullname = "{} {}".format(
-                            first_name, new_mem.last_name)
+                        fullname = "{} {}".format(first_name, new_mem.last_name)
                     else:
                         fullname = first_name
                     count = chat.get_members_count()
@@ -908,14 +909,12 @@ def new_member(update, context):
                 keyboard = InlineKeyboardMarkup(keyb)
 
                 sent = send(
-                    update, res, keyboard, sql.DEFAULT_WELCOME.format(
-                        first=first_name)
+                    update, res, keyboard, sql.DEFAULT_WELCOME.format(first=first_name)
                 )  # type: Optional[Message]
 
                 # User exception from mutes:
                 if (
-                    is_user_ban_protected(
-                        chat, new_mem.id, chat.get_member(new_mem.id))
+                    is_user_ban_protected(chat, new_mem.id, chat.get_member(new_mem.id))
                     or human_checks
                 ):
                     continue
@@ -996,8 +995,7 @@ def left_member(update, context):
         # Clean service welcome
         if cleanserv:
             try:
-                dispatcher.bot.delete_message(
-                    chat.id, update.message.message_id)
+                dispatcher.bot.delete_message(chat.id, update.message.message_id)
             except BadRequest:
                 pass
             reply = False
@@ -1108,8 +1106,7 @@ def welcome(update, context):
 
         elif args[0].lower() in ("off", "no"):
             sql.set_welc_preference(str(chat.id), False)
-            update.effective_message.reply_text(
-                "I'm sulking, not gonna greet anymore.")
+            update.effective_message.reply_text("I'm sulking, not gonna greet anymore.")
 
         else:
             # idek what you're writing, say yes or no
@@ -1157,13 +1154,11 @@ def goodbye(update, context):
     elif len(args) >= 1:
         if args[0].lower() in ("on", "yes"):
             sql.set_gdbye_preference(str(chat.id), True)
-            update.effective_message.reply_text(
-                "I'll be sorry when people leave!")
+            update.effective_message.reply_text("I'll be sorry when people leave!")
 
         elif args[0].lower() in ("off", "no"):
             sql.set_gdbye_preference(str(chat.id), False)
-            update.effective_message.reply_text(
-                "They leave, they're dead to me.")
+            update.effective_message.reply_text("They leave, they're dead to me.")
 
         else:
             # idek what you're writing, say yes or no
@@ -1321,8 +1316,7 @@ def welcomemute(update, context) -> str:
     else:
         curr_setting = sql.welcome_mutes(chat.id)
         reply = "\n Give me a setting! Choose one of: `off`/`no` or `soft` or `strong` only! \nCurrent setting: `{}`"
-        msg.reply_text(reply.format(curr_setting),
-                       parse_mode=ParseMode.MARKDOWN)
+        msg.reply_text(reply.format(curr_setting), parse_mode=ParseMode.MARKDOWN)
         return ""
 
 
@@ -1348,8 +1342,7 @@ def clean_welcome(update, context) -> str:
 
     if args[0].lower() in ("on", "yes"):
         sql.set_clean_welcome(str(chat.id), True)
-        update.effective_message.reply_text(
-            "I'll try to delete old welcome messages!")
+        update.effective_message.reply_text("I'll try to delete old welcome messages!")
         return (
             "<b>{}:</b>"
             "\n#CLEAN_WELCOME"
@@ -1360,8 +1353,7 @@ def clean_welcome(update, context) -> str:
         )
     elif args[0].lower() in ("off", "no"):
         sql.set_clean_welcome(str(chat.id), False)
-        update.effective_message.reply_text(
-            "I won't delete old welcome messages.")
+        update.effective_message.reply_text("I won't delete old welcome messages.")
         return (
             "<b>{}:</b>"
             "\n#CLEAN_WELCOME"
@@ -1372,8 +1364,7 @@ def clean_welcome(update, context) -> str:
         )
     else:
         # idek what you're writing, say yes or no
-        update.effective_message.reply_text(
-            "I understand 'on/yes' or 'off/no' only!")
+        update.effective_message.reply_text("I understand 'on/yes' or 'off/no' only!")
         return ""
 
 
@@ -1479,8 +1470,7 @@ WELC_HELP_TXT = (
 @run_async
 @user_can_change
 def welcome_help(update, context):
-    update.effective_message.reply_text(
-        WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
 
 # TODO: get welcome data from group butler snap
@@ -1517,10 +1507,8 @@ def __chat_settings__(chat_id, user_id):
 
 __mod_name__ = "Greetings"
 
-NEW_MEM_HANDLER = MessageHandler(
-    Filters.status_update.new_chat_members, new_member)
-LEFT_MEM_HANDLER = MessageHandler(
-    Filters.status_update.left_chat_member, left_member)
+NEW_MEM_HANDLER = MessageHandler(Filters.status_update.new_chat_members, new_member)
+LEFT_MEM_HANDLER = MessageHandler(Filters.status_update.left_chat_member, left_member)
 WELC_PREF_HANDLER = CommandHandler(
     "welcome", welcome, pass_args=True, filters=Filters.group
 )
@@ -1529,10 +1517,8 @@ GOODBYE_PREF_HANDLER = CommandHandler(
 )
 SET_WELCOME = CommandHandler("setwelcome", set_welcome, filters=Filters.group)
 SET_GOODBYE = CommandHandler("setgoodbye", set_goodbye, filters=Filters.group)
-RESET_WELCOME = CommandHandler(
-    "resetwelcome", reset_welcome, filters=Filters.group)
-RESET_GOODBYE = CommandHandler(
-    "resetgoodbye", reset_goodbye, filters=Filters.group)
+RESET_WELCOME = CommandHandler("resetwelcome", reset_welcome, filters=Filters.group)
+RESET_GOODBYE = CommandHandler("resetgoodbye", reset_goodbye, filters=Filters.group)
 CLEAN_WELCOME = CommandHandler(
     "cleanwelcome", clean_welcome, pass_args=True, filters=Filters.group
 )
@@ -1543,8 +1529,7 @@ CLEAN_SERVICE_HANDLER = CommandHandler(
     "cleanservice", cleanservice, pass_args=True, filters=Filters.group
 )
 WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)
-BUTTON_VERIFY_HANDLER = CallbackQueryHandler(
-    user_button, pattern=r"user_join_")
+BUTTON_VERIFY_HANDLER = CallbackQueryHandler(user_button, pattern=r"user_join_")
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
 dispatcher.add_handler(LEFT_MEM_HANDLER)

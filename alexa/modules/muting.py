@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -712,13 +711,11 @@ def mute(update, context):
 
     if member:
         if is_user_admin(chat, user_id, member=member):
-            message.reply_text(
-                "Well i'm not gonna stop an admin from talking!")
+            message.reply_text("Well i'm not gonna stop an admin from talking!")
 
         elif member.can_send_messages is None or member.can_send_messages:
             context.bot.restrict_chat_member(
-                chat.id, user_id, permissions=ChatPermissions(
-                    can_send_messages=False)
+                chat.id, user_id, permissions=ChatPermissions(can_send_messages=False)
             )
             message.reply_text("👍🏻 muted! 🤐")
             return (
@@ -837,8 +834,7 @@ def temp_mute(update, context):
         return ""
 
     if not reason:
-        message.reply_text(
-            "You haven't specified a time to mute this user for!")
+        message.reply_text("You haven't specified a time to mute this user for!")
         return ""
 
     split_reason = reason.split(None, 1)
@@ -885,8 +881,7 @@ def temp_mute(update, context):
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
-            message.reply_text(
-                "shut up! 🤐 Taped for {}!".format(time_val), quote=False)
+            message.reply_text("shut up! 🤐 Taped for {}!".format(time_val), quote=False)
             return log
         else:
             LOGGER.warning(update)
@@ -904,10 +899,8 @@ def temp_mute(update, context):
 
 __mod_name__ = "Muting"
 
-MUTE_HANDLER = CommandHandler(
-    "mute", mute, pass_args=True, filters=Filters.group)
-UNMUTE_HANDLER = CommandHandler(
-    "unmute", unmute, pass_args=True, filters=Filters.group)
+MUTE_HANDLER = CommandHandler("mute", mute, pass_args=True, filters=Filters.group)
+UNMUTE_HANDLER = CommandHandler("unmute", unmute, pass_args=True, filters=Filters.group)
 TEMPMUTE_HANDLER = CommandHandler(
     ["tmute", "tempmute"], temp_mute, pass_args=True, filters=Filters.group
 )

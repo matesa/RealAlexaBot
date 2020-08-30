@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -709,8 +708,7 @@ def gtrans(update, context):
         translated = translator.translate(translate_text, dest=lang)
         trl = translated.src
         results = translated.text
-        msg.reply_text(
-            "Translated from {} to {}.\n {}".format(trl, lang, results))
+        msg.reply_text("Translated from {} to {}.\n {}".format(trl, lang, results))
     except:
         msg.reply_text("Error! invalid language code.")
 
@@ -726,8 +724,7 @@ def spellcheck(update, context):
     if update.effective_message.reply_to_message:
         msg = update.effective_message.reply_to_message
 
-        params = dict(lang="US", clientVersion="2.0",
-                      apiKey=API_KEY, text=msg.text)
+        params = dict(lang="US", clientVersion="2.0", apiKey=API_KEY, text=msg.text)
 
         res = requests.get(URL, params=params)
         changes = json.loads(res.text).get("LightGingerTheTextResult")

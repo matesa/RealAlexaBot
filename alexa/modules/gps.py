@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -694,7 +693,8 @@ def gps(bot: Bot, update: Update, context):
     args = context.args
     if len(args) == 0:
         update.effective_message.reply_text(
-            "That was a funny joke, but no really, put in a location")
+            "That was a funny joke, but no really, put in a location"
+        )
     try:
         geolocator = Nominatim(user_agent="SkittBot")
         location = " ".join(args)
@@ -705,8 +705,11 @@ def gps(bot: Bot, update: Update, context):
         the_loc = Location(lon, lat)
         gm = "https://www.google.com/maps/search/{},{}".format(lat, lon)
         bot.send_location(chat_id, location=the_loc)
-        update.message.reply_text("Open with: [Google Maps]({})".format(
-            gm), parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+        update.message.reply_text(
+            "Open with: [Google Maps]({})".format(gm),
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+        )
     except AttributeError:
         update.message.reply_text("I can't find that")
 

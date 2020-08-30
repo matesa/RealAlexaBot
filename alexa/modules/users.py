@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -740,8 +739,7 @@ def log_user(update, context):
     chat = update.effective_chat
     msg = update.effective_message
 
-    sql.update_user(msg.from_user.id, msg.from_user.username,
-                    chat.id, chat.title)
+    sql.update_user(msg.from_user.id, msg.from_user.username, chat.id, chat.title)
 
     if msg.reply_to_message:
         sql.update_user(
@@ -774,8 +772,7 @@ def chats(update, context):
 @run_async
 def chat_checker(update, context):
     if (
-        update.effective_message.chat.get_member(
-            context.bot.id).can_send_messages
+        update.effective_message.chat.get_member(context.bot.id).can_send_messages
         is False
     ):
         context.bot.leaveChat(update.effective_message.chat.id)
@@ -802,10 +799,8 @@ BROADCAST_HANDLER = CommandHandler(
     "broadcast", broadcast, filters=Filters.user(OWNER_ID)
 )
 USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
-CHATLIST_HANDLER = CommandHandler(
-    "chatlist", chats, filters=Filters.user(OWNER_ID))
-CHAT_CHECKER_HANDLER = MessageHandler(
-    Filters.all & Filters.group, chat_checker)
+CHATLIST_HANDLER = CommandHandler("chatlist", chats, filters=Filters.user(OWNER_ID))
+CHAT_CHECKER_HANDLER = MessageHandler(Filters.all & Filters.group, chat_checker)
 
 dispatcher.add_handler(USER_HANDLER, USERS_GROUP)
 dispatcher.add_handler(BROADCAST_HANDLER)

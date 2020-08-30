@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -674,25 +673,31 @@ from telethon.tl import functions
 
 def progress(current, total):
     """ Calculate and return the download progress with given arguments. """
-    print("Downloaded {} of {}\nCompleted {}".format(current, total,
-                                                     (current / total) * 100))
+    print(
+        "Downloaded {} of {}\nCompleted {}".format(
+            current, total, (current / total) * 100
+        )
+    )
 
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
         return isinstance(
-            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     elif isinstance(chat, types.InputPeerChat):
 
         ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
-            .full_chat.participants.participants
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator)
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
         )
     else:
         return None
@@ -710,7 +715,8 @@ async def parseqr(qr_e):
 
     start = datetime.now()
     downloaded_file_name = await qr_e.client.download_media(
-        await qr_e.get_reply_message(), progress_callback=progress)
+        await qr_e.get_reply_message(), progress_callback=progress
+    )
     url = "https://api.qrserver.com/v1/read-qr-code/?outputformat=json"
     file = open(downloaded_file_name, "rb")
     files = {"file": file}
@@ -720,8 +726,9 @@ async def parseqr(qr_e):
     os.remove(downloaded_file_name)
     end = datetime.now()
     duration = (end - start).seconds
-    await qr_e.reply("Obtained QRCode contents in {} seconds.\n{}".format(
-        duration, qr_contents))
+    await qr_e.reply(
+        "Obtained QRCode contents in {} seconds.\n{}".format(duration, qr_contents)
+    )
 
 
 @register(pattern=r"^/makeqr(?: |$)([\s\S]*)")
@@ -743,7 +750,8 @@ async def make_qr(qrcode):
         reply_msg_id = previous_message.id
         if previous_message.media:
             downloaded_file_name = await qrcode.client.download_media(
-                previous_message, progress_callback=progress)
+                previous_message, progress_callback=progress
+            )
             m_list = None
             with open(downloaded_file_name, "rb") as file:
                 m_list = file.readlines()

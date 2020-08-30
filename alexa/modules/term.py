@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -682,6 +681,7 @@ async def terminal_runner(term):
         command = term.pattern_match.group(1)
         try:
             from os import geteuid
+
             uid = geteuid()
         except ImportError:
             uid = "This ain't it chief!"
@@ -694,12 +694,10 @@ async def terminal_runner(term):
             return
 
         process = await asyncio.create_subprocess_shell(
-            command,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE)
+            command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
         stdout, stderr = await process.communicate()
-        result = str(stdout.decode().strip()) \
-            + str(stderr.decode().strip())
+        result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         if len(result) > 4096:
             output = open("output.txt", "w+")

@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -683,7 +682,11 @@ from telegram.utils.helpers import mention_html
 import alexa.modules.sql.notes_sql as sql
 from alexa import dispatcher, MESSAGE_DUMP, LOGGER
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply, user_can_change
+from alexa.modules.helper_funcs.chat_status import (
+    user_admin,
+    user_admin_no_reply,
+    user_can_change,
+)
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_note_type
 from alexa.modules.helper_funcs.string_handling import (
@@ -870,8 +873,7 @@ def get(bot, update, notename, show_none=True, no_format=False):
                     )
 
                     LOGGER.exception(
-                        "Could not parse message #%s in chat %s", notename, str(
-                            chat_id)
+                        "Could not parse message #%s in chat %s", notename, str(chat_id)
                     )
                     LOGGER.warning("Message was: %s", str(note.value))
         return
@@ -883,8 +885,7 @@ def get(bot, update, notename, show_none=True, no_format=False):
 def cmd_get(update, context):
     args = context.args
     if len(args) >= 2 and args[1].lower() == "noformat":
-        get(context.bot, update, args[0].lower(),
-            show_none=True, no_format=True)
+        get(context.bot, update, args[0].lower(), show_none=True, no_format=True)
     elif len(args) >= 1:
         get(context.bot, update, args[0].lower(), show_none=True)
     else:
@@ -1001,8 +1002,7 @@ def list_notes(update, context):
     for note in note_list:
         note_name = " × `{}`\n".format(note.name.lower())
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
-            update.effective_message.reply_text(
-                msg, parse_mode=ParseMode.MARKDOWN)
+            update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
             msg = ""
         msg += note_name
 
@@ -1081,8 +1081,7 @@ def rmbutton(update, context):
 
         for i in notelist:
             sql.rm_note(chat.id, i)
-        query.message.edit_text(
-            f"Successfully cleaned {count} notes in {chat.title}.")
+        query.message.edit_text(f"Successfully cleaned {count} notes in {chat.title}.")
 
 
 def __import_data__(chat_id, data):
@@ -1100,18 +1099,17 @@ def __import_data__(chat_id, data):
 
         if match:
             failures.append(notename)
-            notedata = notedata[match.end():].strip()
+            notedata = notedata[match.end() :].strip()
             if notedata:
-                sql.add_note_to_db(
-                    chat_id, notename[1:], notedata, sql.Types.TEXT)
+                sql.add_note_to_db(chat_id, notename[1:], notedata, sql.Types.TEXT)
         elif matchsticker:
-            content = notedata[matchsticker.end():].strip()
+            content = notedata[matchsticker.end() :].strip()
             if content:
                 sql.add_note_to_db(
                     chat_id, notename[1:], notedata, sql.Types.STICKER, file=content
                 )
         elif matchbtn:
-            parse = notedata[matchbtn.end():].strip()
+            parse = notedata[matchbtn.end() :].strip()
             notedata = parse.split("<###button###>")[0]
             buttons = parse.split("<###button###>")[1]
             buttons = ast.literal_eval(buttons)
@@ -1124,7 +1122,7 @@ def __import_data__(chat_id, data):
                     buttons=buttons,
                 )
         elif matchfile:
-            file = notedata[matchfile.end():].strip()
+            file = notedata[matchfile.end() :].strip()
             file = file.split("<###TYPESPLIT###>")
             notedata = file[1]
             content = file[0]
@@ -1133,7 +1131,7 @@ def __import_data__(chat_id, data):
                     chat_id, notename[1:], notedata, sql.Types.DOCUMENT, file=content
                 )
         elif matchphoto:
-            photo = notedata[matchphoto.end():].strip()
+            photo = notedata[matchphoto.end() :].strip()
             photo = photo.split("<###TYPESPLIT###>")
             notedata = photo[1]
             content = photo[0]
@@ -1142,7 +1140,7 @@ def __import_data__(chat_id, data):
                     chat_id, notename[1:], notedata, sql.Types.PHOTO, file=content
                 )
         elif matchaudio:
-            audio = notedata[matchaudio.end():].strip()
+            audio = notedata[matchaudio.end() :].strip()
             audio = audio.split("<###TYPESPLIT###>")
             notedata = audio[1]
             content = audio[0]
@@ -1151,7 +1149,7 @@ def __import_data__(chat_id, data):
                     chat_id, notename[1:], notedata, sql.Types.AUDIO, file=content
                 )
         elif matchvoice:
-            voice = notedata[matchvoice.end():].strip()
+            voice = notedata[matchvoice.end() :].strip()
             voice = voice.split("<###TYPESPLIT###>")
             notedata = voice[1]
             content = voice[0]
@@ -1160,7 +1158,7 @@ def __import_data__(chat_id, data):
                     chat_id, notename[1:], notedata, sql.Types.VOICE, file=content
                 )
         elif matchvideo:
-            video = notedata[matchvideo.end():].strip()
+            video = notedata[matchvideo.end() :].strip()
             video = video.split("<###TYPESPLIT###>")
             notedata = video[1]
             content = video[0]
@@ -1169,7 +1167,7 @@ def __import_data__(chat_id, data):
                     chat_id, notename[1:], notedata, sql.Types.VIDEO, file=content
                 )
         elif matchvn:
-            video_note = notedata[matchvn.end():].strip()
+            video_note = notedata[matchvn.end() :].strip()
             video_note = video_note.split("<###TYPESPLIT###>")
             notedata = video_note[1]
             content = video_note[0]
@@ -1215,8 +1213,7 @@ SAVE_HANDLER = CommandHandler("save", save)
 DELETE_HANDLER = CommandHandler("clear", clear, pass_args=True)
 
 LIST_HANDLER = CommandHandler(["notes", "saved"], list_notes, admin_ok=True)
-CLEARALLNOTES_HANDLER = CommandHandler(
-    "rmallnotes", clear_notes, filters=Filters.group)
+CLEARALLNOTES_HANDLER = CommandHandler("rmallnotes", clear_notes, filters=Filters.group)
 
 RMBTN_HANDLER = CallbackQueryHandler(rmbutton, pattern=r"rmnotes_")
 

@@ -743,8 +743,7 @@ def reverse(update, context):
             msg.reply_text(f"{UE.reason}")
             return
         except ValueError as VE:
-            msg.reply_text(
-                f"{VE}\nPlease try again using http or https protocol.")
+            msg.reply_text(f"{VE}\nPlease try again using http or https protocol.")
             return
     else:
         msg.reply_markdown(
@@ -758,8 +757,7 @@ def reverse(update, context):
             "encoded_image": (imagename, open(imagename, "rb")),
             "image_content": "",
         }
-        response = requests.post(
-            searchUrl, files=multipart, allow_redirects=False)
+        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
         fetchUrl = response.headers["Location"]
 
         if response != 400:
@@ -870,8 +868,6 @@ def scam(imgspage, lim):
     return imglinks
 
 
-REVERSE_HANDLER = CommandHandler(
-    "reverse", reverse, pass_args=True, admin_ok=True
-)
+REVERSE_HANDLER = CommandHandler("reverse", reverse, pass_args=True, admin_ok=True)
 
 dispatcher.add_handler(REVERSE_HANDLER)

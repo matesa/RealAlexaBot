@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -689,7 +688,7 @@ from alexa.modules.helper_funcs.chat_status import (
     user_admin,
     can_restrict,
     user_can_restrict,
-    user_can_change
+    user_can_change,
 )
 from alexa.modules.helper_funcs.extraction import (
     extract_text,
@@ -793,8 +792,7 @@ def warn(
         )
 
     try:
-        message.reply_text(reply, reply_markup=keyboard,
-                           parse_mode=ParseMode.HTML)
+        message.reply_text(reply, reply_markup=keyboard, parse_mode=ParseMode.HTML)
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
@@ -833,8 +831,7 @@ def button(update, context):
                 "\n<b>User:</b> {} (<code>{}</code>)".format(
                     html.escape(chat.title),
                     mention_html(user.id, user.first_name),
-                    mention_html(user_member.user.id,
-                                 user_member.user.first_name),
+                    mention_html(user_member.user.id, user_member.user.first_name),
                     user_member.user.id,
                 )
             )
@@ -969,8 +966,7 @@ def warns(update, context):
                 )
             )
     else:
-        update.effective_message.reply_text(
-            "This user hasn't got any warnings!")
+        update.effective_message.reply_text("This user hasn't got any warnings!")
 
 
 # Dispatcher handler stop - do not async
@@ -1003,8 +999,7 @@ def add_warn_filter(update, context):
 
     sql.add_warn_filter(chat.id, keyword, content)
 
-    update.effective_message.reply_text(
-        "Warn filter added for '{}'!".format(keyword))
+    update.effective_message.reply_text("Warn filter added for '{}'!".format(keyword))
     raise DispatcherHandlerStop
 
 
@@ -1050,23 +1045,20 @@ def list_warn_filters(update, context):
     all_handlers = sql.get_chat_warn_triggers(chat.id)
 
     if not all_handlers:
-        update.effective_message.reply_text(
-            "No warning filters are active here!")
+        update.effective_message.reply_text("No warning filters are active here!")
         return
 
     filter_list = CURRENT_WARNING_FILTER_STRING
     for keyword in all_handlers:
         entry = " - {}\n".format(html.escape(keyword))
         if len(entry) + len(filter_list) > telegram.MAX_MESSAGE_LENGTH:
-            update.effective_message.reply_text(
-                filter_list, parse_mode=ParseMode.HTML)
+            update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
             filter_list = entry
         else:
             filter_list += entry
 
     if not filter_list == CURRENT_WARNING_FILTER_STRING:
-        update.effective_message.reply_text(
-            filter_list, parse_mode=ParseMode.HTML)
+        update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
 
 
 @run_async
@@ -1138,8 +1130,7 @@ def set_warn_strength(update, context):
                 "<b>{}:</b>\n"
                 "<b>Admin:</b> {}\n"
                 "Has enabled strong warns. Users will be banned.".format(
-                    html.escape(chat.title), mention_html(
-                        user.id, user.first_name)
+                    html.escape(chat.title), mention_html(user.id, user.first_name)
                 )
             )
 
@@ -1152,8 +1143,7 @@ def set_warn_strength(update, context):
                 "<b>{}:</b>\n"
                 "<b>Admin:</b> {}\n"
                 "Has disabled strong warns. Users will only be kicked.".format(
-                    html.escape(chat.title), mention_html(
-                        user.id, user.first_name)
+                    html.escape(chat.title), mention_html(user.id, user.first_name)
                 )
             )
 
@@ -1209,8 +1199,7 @@ def __chat_settings__(chat_id, user_id):
 
 __mod_name__ = "Warnings"
 
-WARN_HANDLER = CommandHandler(
-    "warn", warn_user, pass_args=True, filters=Filters.group)
+WARN_HANDLER = CommandHandler("warn", warn_user, pass_args=True, filters=Filters.group)
 RESET_WARN_HANDLER = CommandHandler(
     ["resetwarn", "resetwarns"], reset_warns, pass_args=True, filters=Filters.group
 )
@@ -1218,11 +1207,8 @@ REMOVE_WARNS_HANDLER = CommandHandler(
     ["rmwarn", "unwarn"], remove_warns, pass_args=True, filters=Filters.group
 )
 CALLBACK_QUERY_HANDLER = CallbackQueryHandler(button, pattern=r"rm_warn")
-MYWARNS_HANDLER = CommandHandler(
-    "warns", warns, pass_args=True, filters=Filters.group
-)
-ADD_WARN_HANDLER = CommandHandler(
-    "addwarn", add_warn_filter, filters=Filters.group)
+MYWARNS_HANDLER = CommandHandler("warns", warns, pass_args=True, filters=Filters.group)
+ADD_WARN_HANDLER = CommandHandler("addwarn", add_warn_filter, filters=Filters.group)
 RM_WARN_HANDLER = CommandHandler(
     ["nowarn", "stopwarn"], remove_warn_filter, filters=Filters.group
 )

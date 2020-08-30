@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -678,7 +677,11 @@ from telegram.ext import (
 from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher, LOGGER
-from alexa.modules.helper_funcs.chat_status import user_not_admin, user_admin, user_can_change
+from alexa.modules.helper_funcs.chat_status import (
+    user_not_admin,
+    user_admin,
+    user_can_change,
+)
 
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import reporting_sql as sql
@@ -703,8 +706,7 @@ def report_setting(update, context):
 
             elif args[0] in ("no", "off"):
                 sql.set_user_setting(chat.id, False)
-                msg.reply_text(
-                    "Turned off reporting! You wont get any reports.")
+                msg.reply_text("Turned off reporting! You wont get any reports.")
         else:
             msg.reply_text(
                 "Your current report preference is: `{}`".format(
@@ -834,8 +836,7 @@ def report(update, context) -> str:
                             "Exception while reporting user " + excp.message
                         )
 
-        message.reply_to_message.reply_text(
-            reported, parse_mode=ParseMode.HTML)
+        message.reply_to_message.reply_text(reported, parse_mode=ParseMode.HTML)
         return msg
 
     return ""
@@ -905,8 +906,7 @@ __mod_name__ = "Reporting"
 REPORT_HANDLER = CommandHandler("report", report, filters=Filters.group)
 SETTING_HANDLER = CommandHandler("reports", report_setting, pass_args=True)
 ADMIN_REPORT_HANDLER = MessageHandler(Filters.regex("(?i)@admin(s)?"), report)
-REPORT_BUTTON_HANDLER = CallbackQueryHandler(
-    report_buttons, pattern=r"report_")
+REPORT_BUTTON_HANDLER = CallbackQueryHandler(report_buttons, pattern=r"report_")
 
 dispatcher.add_handler(REPORT_HANDLER, REPORT_GROUP)
 dispatcher.add_handler(ADMIN_REPORT_HANDLER, REPORT_GROUP)

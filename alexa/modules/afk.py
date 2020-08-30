@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -709,7 +708,8 @@ def no_longer_afk(update, context):
         elapsed_time = time.time() - start_time
         final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         update.effective_message.reply_text(
-            chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}")
+            chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}"
+        )
 
 
 @run_async
@@ -727,7 +727,7 @@ def reply_afk(update, context):
 
             elif ent.type == MessageEntity.MENTION:
                 user_id = get_user_id(
-                    message.text[ent.offset: ent.offset + ent.length]
+                    message.text[ent.offset : ent.offset + ent.length]
                 )
                 if not user_id:
                     # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
@@ -751,17 +751,23 @@ def reply_afk(update, context):
 
                         elif ent.type == MessageEntity.MENTION:
                             user_id = get_user_id(
-                                message.text[ent.offset: ent.offset + ent.length])
+                                message.text[ent.offset : ent.offset + ent.length]
+                            )
                         user = sql.check_afk_status(user_id)
                         elapsed_time = time.time() - start_time
                         final = time.strftime(
-                            "%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
+                            "%Hh: %Mm: %Ss", time.gmtime(elapsed_time)
+                        )
                         if not user.reason:
                             res = (
-                                chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
+                                chat.id,
+                                f"{fst_name} is AFK !\n\nLast seen {final} ago",
+                            )
                         else:
                             res = (
-                                chat.id, f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago")
+                                chat.id,
+                                f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago",
+                            )
                         update.effective_message.reply_text(res)
 
 

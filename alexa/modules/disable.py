@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -786,14 +785,12 @@ if is_module_loaded(FILENAME):
                         disable_cmd, chat_name
                     )
                 else:
-                    text = "Disabled the use of `{}` command!".format(
-                        disable_cmd)
+                    text = "Disabled the use of `{}` command!".format(disable_cmd)
                 send_message(
                     update.effective_message, text, parse_mode=ParseMode.MARKDOWN
                 )
             else:
-                send_message(update.effective_message,
-                             "This command can't be disabled")
+                send_message(update.effective_message, "This command can't be disabled")
 
         else:
             send_message(update.effective_message, "What should I disable?")
@@ -833,14 +830,12 @@ if is_module_loaded(FILENAME):
                         enable_cmd, chat_name
                     )
                 else:
-                    text = "Enabled the use of `{}` command!".format(
-                        enable_cmd)
+                    text = "Enabled the use of `{}` command!".format(enable_cmd)
                 send_message(
                     update.effective_message, text, parse_mode=ParseMode.MARKDOWN
                 )
             else:
-                send_message(update.effective_message,
-                             "Is that even disabled?")
+                send_message(update.effective_message, "Is that even disabled?")
 
         else:
             send_message(update.effective_message, "What should I enable?")
@@ -891,8 +886,7 @@ if is_module_loaded(FILENAME):
             chat_id = update.effective_chat.id
 
         text = build_curr_disabled(chat.id)
-        send_message(update.effective_message, text,
-                     parse_mode=ParseMode.MARKDOWN)
+        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
 
     def __import_data__(chat_id, data):
         disabled = data.get("disabled", {})

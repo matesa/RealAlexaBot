@@ -85,8 +85,7 @@ def gban(update, context):
         return
 
     if user_id == context.bot.id:
-        message.reply_text(
-            "-_- So funny, lets gban myself why don't I? Nice try.")
+        message.reply_text("-_- So funny, lets gban myself why don't I? Nice try.")
         return
 
     try:
@@ -100,8 +99,7 @@ def gban(update, context):
         return
 
     if user_chat.first_name == "":
-        message.reply_text(
-            "This is a deleted account! no point to gban them...")
+        message.reply_text("This is a deleted account! no point to gban them...")
         return
 
     if sql.is_user_gbanned(user_id):
@@ -253,11 +251,9 @@ def ungban(update, context):
             if excp.message in UNGBAN_ERRORS:
                 pass
             else:
-                message.reply_text(
-                    "Could not un-gban due to: {}".format(excp.message))
+                message.reply_text("Could not un-gban due to: {}".format(excp.message))
                 context.bot.send_message(
-                    OWNER_ID, "Could not un-gban due to: {}".format(
-                        excp.message)
+                    OWNER_ID, "Could not un-gban due to: {}".format(excp.message)
                 )
                 return
         except TelegramError:
@@ -419,22 +415,12 @@ def __chat_settings__(chat_id, user_id):
 __mod_name__ = "Spam Shield"
 
 GBAN_HANDLER = CommandHandler(
-    "gban",
-    gban,
-    pass_args=True,
-    filters=CustomFilters.sudo_filter,
+    "gban", gban, pass_args=True, filters=CustomFilters.sudo_filter,
 )
 UNGBAN_HANDLER = CommandHandler(
-    "ungban",
-    ungban,
-    pass_args=True,
-    filters=CustomFilters.sudo_filter,
+    "ungban", ungban, pass_args=True, filters=CustomFilters.sudo_filter,
 )
-GBAN_LIST = CommandHandler(
-    "gbanlist",
-    gbanlist,
-    filters=CustomFilters.sudo_filter,
-)
+GBAN_LIST = CommandHandler("gbanlist", gbanlist, filters=CustomFilters.sudo_filter,)
 
 
 GBAN_ENFORCER = MessageHandler(Filters.all & Filters.group, enforce_gban)

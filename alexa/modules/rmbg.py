@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -679,17 +678,20 @@ async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
         return isinstance(
-            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator)
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     elif isinstance(chat, types.InputPeerChat):
 
         ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
-            .full_chat.participants.participants
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator)
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
         )
     else:
         return None
@@ -715,8 +717,7 @@ async def _(event):
         await event.reply("Processing...")
         try:
             downloaded_file_name = await event.client.download_media(
-                reply_message,
-                TEMP_DOWNLOAD_DIRECTORY
+                reply_message, TEMP_DOWNLOAD_DIRECTORY
             )
         except Exception as e:
             await event.reply(str(e))
@@ -737,13 +738,17 @@ async def _(event):
                 force_document=True,
                 supports_streaming=False,
                 allow_cache=False,
-                reply_to=message_id
+                reply_to=message_id,
             )
         end = datetime.now()
         ms = (end - start).seconds
         await event.reply("Background Removed in {} seconds".format(ms))
     else:
-        await event.reply("remove.bg API returned Errors. Please report to @AlexaSupport\n`{}".format(output_file_name.content.decode("UTF-8")))
+        await event.reply(
+            "remove.bg API returned Errors. Please report to @AlexaSupport\n`{}".format(
+                output_file_name.content.decode("UTF-8")
+            )
+        )
 
 
 # this method will call the API, and return in the appropriate format
@@ -760,6 +765,6 @@ def ReTrieveFile(input_file_name):
         headers=headers,
         files=files,
         allow_redirects=True,
-        stream=True
+        stream=True,
     )
     return r

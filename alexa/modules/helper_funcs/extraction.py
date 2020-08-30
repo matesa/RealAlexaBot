@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -709,7 +708,7 @@ def extract_user_and_text(
     if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
         ent = entities[0]
         user_id = ent.user.id
-        text = message.text[ent.offset + ent.length:]
+        text = message.text[ent.offset + ent.length :]
 
     elif len(args) >= 1 and args[0][0] == "@":
         user = args[0]
@@ -787,7 +786,7 @@ def extract_unt_fedban(
     if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
         ent = entities[0]
         user_id = ent.user.id
-        text = message.text[ent.offset + ent.length:]
+        text = message.text[ent.offset + ent.length :]
 
     elif len(args) >= 1 and args[0][0] == "@":
         user = args[0]

@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -951,8 +950,7 @@ def chat_join_fed(fed_id, chat_name, chat_id):
         global FEDERATION_CHATS, FEDERATION_CHATS_BYID
         r = ChatF(chat_id, chat_name, fed_id)
         SESSION.add(r)
-        FEDERATION_CHATS[str(chat_id)] = {
-            "chat_name": chat_name, "fid": fed_id}
+        FEDERATION_CHATS[str(chat_id)] = {"chat_name": chat_name, "fid": fed_id}
         checkid = FEDERATION_CHATS_BYID.get(fed_id)
         if checkid == None:
             FEDERATION_CHATS_BYID[fed_id] = []
@@ -1130,8 +1128,7 @@ def set_frules(fed_id, rules):
         FEDERATION_BYNAME[fed_name]["frules"] = fed_rules
         # Set on database
         fed = Federations(
-            str(owner_id), fed_name, str(
-                fed_id), fed_rules, fed_log, str(fed_members)
+            str(owner_id), fed_name, str(fed_id), fed_rules, fed_log, str(fed_members)
         )
         SESSION.merge(fed)
         SESSION.commit()
@@ -1360,8 +1357,7 @@ def set_fed_log(fed_id, chat_id):
         FEDERATION_BYNAME[fed_name]["flog"] = fed_log
         # Set on database
         fed = Federations(
-            str(owner_id), fed_name, str(
-                fed_id), fed_rules, fed_log, str(fed_members)
+            str(owner_id), fed_name, str(fed_id), fed_rules, fed_log, str(fed_members)
         )
         SESSION.merge(fed)
         SESSION.commit()
@@ -1475,8 +1471,7 @@ def __load_all_feds_chats():
             check = FEDERATION_CHATS.get(x.chat_id)
             if check == None:
                 FEDERATION_CHATS[x.chat_id] = {}
-            FEDERATION_CHATS[x.chat_id] = {
-                "chat_name": x.chat_name, "fid": x.fed_id}
+            FEDERATION_CHATS[x.chat_id] = {"chat_name": x.chat_name, "fid": x.fed_id}
             # Federation Chats By ID
             check = FEDERATION_CHATS_BYID.get(x.fed_id)
             if check == None:

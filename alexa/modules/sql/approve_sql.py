@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -736,7 +735,10 @@ def __load_APPROVE_users():
     try:
         all_APPROVE = SESSION.query(APPROVE).all()
         APPROVED_USERS = {
-            user.user_id+" "+user.chat_id for user in all_APPROVE if user.is_approved}
+            user.user_id + " " + user.chat_id
+            for user in all_APPROVE
+            if user.is_approved
+        }
     finally:
         SESSION.close()
 
