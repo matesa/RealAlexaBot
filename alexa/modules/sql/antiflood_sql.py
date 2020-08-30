@@ -667,9 +667,9 @@
 
 import threading
 
-from sqlalchemy import Column, Integer, String, UnicodeText
+from sqlalchemy import String, Column, Integer, UnicodeText
 
-from alexa.modules.sql import BASE, SESSION
+from alexa.modules.sql import SESSION, BASE
 
 DEF_COUNT = 0
 DEF_LIMIT = 0
@@ -688,6 +688,7 @@ class FloodControl(BASE):
 
     def __repr__(self):
         return "<flood control for %s>" % self.chat_id
+
 
 class FloodSettings(BASE):
     __tablename__ = "antiflood_settings"
@@ -709,13 +710,12 @@ FloodSettings.__table__.create(checkfirst=True)
 
 INSERTION_FLOOD_LOCK = threading.RLock()
 INSERTION_FLOOD_SETTINGS_LOCK = threading.RLock()
-INSERTION_LOCK = threading.RLock()
 
 CHAT_FLOOD = {}
 
 
 def set_flood(chat_id, amount):
-    with INSERTION_LOCK:
+    with INSERTION_FLOOD_LOCK:
         flood = SESSION.query(FloodControl).get(str(chat_id))
         if not flood:
             flood = FloodControl(str(chat_id))
@@ -737,7 +737,7 @@ def update_flood(chat_id: str, user_id) -> bool:
             return False
 
         if user_id != curr_user_id or user_id is None:  # other user
-            CHAT_FLOOD[str(chat_id)] = (user_id, DEF_COUNT + 1, limit)
+            CHAT_FLOOD[str(chat_id)] = (user_id, DEF_COUNT, limit)
             return False
 
         count += 1
@@ -750,16 +750,9 @@ def update_flood(chat_id: str, user_id) -> bool:
         return False
 
 
-def get_flood_setting(chat_id):
-    try:
-        setting = SESSION.query(FloodSettings).get(str(chat_id))
-        if setting:
-            return setting.flood_type, setting.value
-        else:
-            return 1, "0"
+def get_flood_limit(chat_id):
+    return CHAT_FLOOD.get(str(chat_id), DEF_OBJ)[2]
 
-    finally:
-        SESSION.close()
 
 def set_flood_strength(chat_id, flood_type, value):
     # for flood_type
@@ -771,7 +764,9 @@ def set_flood_strength(chat_id, flood_type, value):
     with INSERTION_FLOOD_SETTINGS_LOCK:
         curr_setting = SESSION.query(FloodSettings).get(str(chat_id))
         if not curr_setting:
-            curr_setting = FloodSettings(chat_id, flood_type=int(flood_type), value=value)
+            curr_setting = FloodSettings(
+                chat_id, flood_type=int(flood_type), value=value
+            )
 
         curr_setting.flood_type = int(flood_type)
         curr_setting.value = str(value)
@@ -779,8 +774,17 @@ def set_flood_strength(chat_id, flood_type, value):
         SESSION.add(curr_setting)
         SESSION.commit()
 
-def get_flood_limit(chat_id):
-    return CHAT_FLOOD.get(str(chat_id), DEF_OBJ)[2]
+
+def get_flood_setting(chat_id):
+    try:
+        setting = SESSION.query(FloodSettings).get(str(chat_id))
+        if setting:
+            return setting.flood_type, setting.value
+        else:
+            return 1, "0"
+
+    finally:
+        SESSION.close()
 
 
 def migrate_chat(old_chat_id, new_chat_id):
