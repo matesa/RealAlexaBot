@@ -137,7 +137,8 @@ def num_gbanned_users():
 def __load_gbanned_userid_list():
     global GBANNED_LIST
     try:
-        GBANNED_LIST = {x.user_id for x in SESSION.query(GloballyBannedUsers).all()}
+        GBANNED_LIST = {x.user_id for x in SESSION.query(
+            GloballyBannedUsers).all()}
     finally:
         SESSION.close()
 
@@ -165,4 +166,3 @@ def migrate_chat(old_chat_id, new_chat_id):
 # Create in memory userid to avoid disk access
 __load_gbanned_userid_list()
 __load_gban_stat_list()
- 

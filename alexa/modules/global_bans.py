@@ -10,7 +10,7 @@ import alexa.modules.sql.global_bans_sql as sql
 from alexa import (
     dispatcher,
     OWNER_ID,
-    SUDO_USERS,   
+    SUDO_USERS,
     STRICT_ANTISPAM,
     MESSAGE_DUMP,
 )
@@ -64,7 +64,6 @@ UNGBAN_ERRORS = {
 
 
 @run_async
-
 def gban(update, context):
     message = update.effective_message
     chat = update.effective_chat
@@ -85,9 +84,9 @@ def gban(update, context):
         )
         return
 
-
     if user_id == context.bot.id:
-        message.reply_text("-_- So funny, lets gban myself why don't I? Nice try.")
+        message.reply_text(
+            "-_- So funny, lets gban myself why don't I? Nice try.")
         return
 
     try:
@@ -101,7 +100,8 @@ def gban(update, context):
         return
 
     if user_chat.first_name == "":
-        message.reply_text("This is a deleted account! no point to gban them...")
+        message.reply_text(
+            "This is a deleted account! no point to gban them...")
         return
 
     if sql.is_user_gbanned(user_id):
@@ -198,7 +198,6 @@ def gban(update, context):
 
 
 @run_async
-
 def ungban(update, context):
     message = update.effective_message
     args = context.args
@@ -254,9 +253,11 @@ def ungban(update, context):
             if excp.message in UNGBAN_ERRORS:
                 pass
             else:
-                message.reply_text("Could not un-gban due to: {}".format(excp.message))
+                message.reply_text(
+                    "Could not un-gban due to: {}".format(excp.message))
                 context.bot.send_message(
-                    OWNER_ID, "Could not un-gban due to: {}".format(excp.message)
+                    OWNER_ID, "Could not un-gban due to: {}".format(
+                        excp.message)
                 )
                 return
         except TelegramError:
@@ -359,7 +360,6 @@ def enforce_gban(update, context):
 
 @run_async
 @user_admin
-
 def gbanstat(update, context):
     args = context.args
     if len(args) > 0:
@@ -446,4 +446,3 @@ dispatcher.add_handler(GBAN_LIST)
 
 if STRICT_ANTISPAM:  # enforce GBANS if this is set
     dispatcher.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
- 
