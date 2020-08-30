@@ -690,7 +690,7 @@ from telegram.utils.helpers import mention_html
 import alexa.modules.sql.welcome_sql as sql
 from alexa.modules.sql.global_bans_sql import is_user_gbanned
 from alexa import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
+from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_welcome_type
 from alexa.modules.helper_funcs.alternate import typing_action
