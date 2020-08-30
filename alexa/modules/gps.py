@@ -698,8 +698,7 @@ def gps(bot: Bot, update: Update, context):
     args = context.args
     if len(args) == 0:
         update.effective_message.reply_text(
-            "That was a funny joke, but no really, put in a location"
-        )
+            "That was a funny joke, but no really, put in a location")
     try:
         geolocator = Nominatim(user_agent="SkittBot")
         location = " ".join(args)

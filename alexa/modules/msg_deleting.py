@@ -674,9 +674,8 @@ from alexa.events import tbot
 # Check if user has admin rights
 async def is_administrator(user_id: int, message):
     admin = False
-    async for user in tbot.iter_participants(
-        message.chat_id, filter=ChannelParticipantsAdmins
-    ):
+    async for user in tbot.iter_participants(message.chat_id,
+                                             filter=ChannelParticipantsAdmins):
         if user_id == user.id or user_id in SUDO_USERS:
             admin = True
             break
@@ -694,7 +693,8 @@ async def purge(event):
 
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply("Reply to a message to select where to start purging from.")
+        await event.reply(
+            "Reply to a message to select where to start purging from.")
         return
 
     try:
@@ -711,9 +711,8 @@ async def purge(event):
                 msgs = []
 
         await event.client.delete_messages(chat, msgs)
-        del_res = await event.client.send_message(
-            event.chat_id, f"Purged {count} messages."
-        )
+        del_res = await event.client.send_message(event.chat_id,
+                                                  f"Purged {count} messages.")
 
         await asyncio.sleep(4)
         await del_res.delete()
