@@ -663,7 +663,7 @@
 
 import threading
 
-from sqlalchemy import Column, String, func, distinct
+from sqlalchemy import Column, String, distinct, func
 
 from alexa.modules.sql import BASE, SESSION
 

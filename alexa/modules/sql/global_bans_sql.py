@@ -1,6 +1,6 @@
 import threading
 
-from sqlalchemy import Column, UnicodeText, Integer, String, Boolean
+from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
 from alexa.modules.sql import BASE, SESSION
 

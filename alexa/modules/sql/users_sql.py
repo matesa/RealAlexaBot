@@ -663,15 +663,8 @@
 
 import threading
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    UnicodeText,
-    String,
-    ForeignKey,
-    UniqueConstraint,
-    func,
-)
+from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText,
+                        UniqueConstraint, func)
 
 from alexa import dispatcher
 from alexa.modules.sql import BASE, SESSION

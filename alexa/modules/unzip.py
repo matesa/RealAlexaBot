@@ -670,20 +670,18 @@ import asyncio
 import os
 import time
 import zipfile
-from telethon import events
-from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
-import time
 from datetime import datetime
-from pySmartDL import SmartDL
+from zipfile import ZipFile
+
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from zipfile import ZipFile
-from alexa.events import register
-from alexa import TEMP_DOWNLOAD_DIRECTORY
-from alexa import LOGGER, tbot
-from telethon import types
+from pySmartDL import SmartDL
+from telethon import events, types
 from telethon.tl import functions
+from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
 
+from alexa import LOGGER, TEMP_DOWNLOAD_DIRECTORY, tbot
+from alexa.events import register
 
 extracted = TEMP_DOWNLOAD_DIRECTORY + "extracted/"
 thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"

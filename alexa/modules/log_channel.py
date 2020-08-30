@@ -662,18 +662,20 @@
 
 
 from functools import wraps
+
 from alexa.modules.helper_funcs.misc import is_module_loaded
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 if is_module_loaded(FILENAME):
-    from telegram import Bot, ParseMode, Message
+    from telegram import Bot, Message, ParseMode
     from telegram.error import BadRequest, Unauthorized
     from telegram.ext import CommandHandler, run_async
     from telegram.utils.helpers import escape_markdown
 
-    from alexa import dispatcher, LOGGER
-    from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
+    from alexa import LOGGER, dispatcher
+    from alexa.modules.helper_funcs.chat_status import (user_admin,
+                                                        user_can_change)
     from alexa.modules.sql import log_channel_sql as sql
 
     def loggable(func):

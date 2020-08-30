@@ -664,25 +664,20 @@
 import html
 from typing import Optional
 
-from telegram import Message, Chat, User
-from telegram import ChatPermissions
+from telegram import Chat, ChatPermissions, Message, User
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alexa import dispatcher, LOGGER
-from alexa.modules.helper_funcs.chat_status import (
-    bot_admin,
-    user_admin,
-    is_user_admin,
-    can_restrict,
-    user_can_ban,
-)
-from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from alexa.modules.helper_funcs.string_handling import extract_time
-
+from alexa import LOGGER, dispatcher
 from alexa.modules.helper_funcs.alternate import typing_action
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_restrict,
+                                                    is_user_admin, user_admin,
+                                                    user_can_ban)
+from alexa.modules.helper_funcs.extraction import (extract_user,
+                                                   extract_user_and_text)
+from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
 
 

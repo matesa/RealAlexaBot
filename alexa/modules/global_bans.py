@@ -1,23 +1,19 @@
 import html
 from io import BytesIO
 
-from telegram import ParseMode, ChatAction
+from telegram import ChatAction, ParseMode
 from telegram.error import BadRequest, TelegramError
-from telegram.ext import run_async, CommandHandler, MessageHandler, Filters
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.global_bans_sql as sql
-from alexa import (
-    dispatcher,
-    OWNER_ID,
-    SUDO_USERS,
-    STRICT_ANTISPAM,
-    MESSAGE_DUMP,
-)
-from alexa.modules.helper_funcs.chat_status import user_admin, is_user_admin
-from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from alexa import (MESSAGE_DUMP, OWNER_ID, STRICT_ANTISPAM, SUDO_USERS,
+                   dispatcher)
+from alexa.modules.helper_funcs.alternate import send_action, typing_action
+from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
+from alexa.modules.helper_funcs.extraction import (extract_user,
+                                                   extract_user_and_text)
 from alexa.modules.helper_funcs.filters import CustomFilters
-from alexa.modules.helper_funcs.alternate import typing_action, send_action
 from alexa.modules.sql.users_sql import get_all_chats
 
 GBAN_ENFORCE_GROUP = 6

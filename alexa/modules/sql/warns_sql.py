@@ -663,10 +663,11 @@
 
 import threading
 
-from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct, Boolean
+from sqlalchemy import (Boolean, Column, Integer, String, UnicodeText,
+                        distinct, func)
 from sqlalchemy.dialects import postgresql
 
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 
 class Warns(BASE):

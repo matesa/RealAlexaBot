@@ -664,24 +664,22 @@
 import html
 import json
 import random
-from datetime import datetime
-from typing import Optional, List
 import time
+from datetime import datetime
+from typing import List, Optional
+
 import requests
-from telegram import Message, Chat, Update, Bot, MessageEntity
-from telegram import ParseMode
-from telegram.ext import CommandHandler, run_async, Filters
+from geopy.geocoders import Nominatim
+from telegram import (Bot, Chat, Location, Message, MessageEntity, ParseMode,
+                      Update)
+from telegram.ext import CommandHandler, Filters, run_async
 from telegram.utils.helpers import escape_markdown, mention_html
-from alexa.modules.helper_funcs.chat_status import user_admin
 
 from alexa import dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 from alexa.modules.helper_funcs.extraction import extract_user
 from alexa.modules.helper_funcs.filters import CustomFilters
-
-from geopy.geocoders import Nominatim
-from telegram import Location
-
 
 GMAPS_LOC = "https://maps.googleapis.com/maps/api/geocode/json"
 

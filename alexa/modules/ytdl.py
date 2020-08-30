@@ -661,33 +661,28 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import os
-import time
-import math
 import asyncio
+import math
+import os
 import shutil
-from youtube_dl import YoutubeDL
-from youtube_dl.utils import (
-    DownloadError,
-    ContentTooShortError,
-    ExtractorError,
-    GeoRestrictedError,
-    MaxDownloadsReached,
-    PostProcessingError,
-    UnavailableVideoError,
-    XAttrMetadataError,
-)
+import time
 from asyncio import sleep
-from telethon.tl.types import DocumentAttributeAudio
 from collections import deque
-from googleapiclient.discovery import build
-from alexa.events import register
-from alexa import YOUTUBE_API_KEY
 from html import unescape
+
 import requests
-from alexa import LOGGER, tbot
+from googleapiclient.discovery import build
 from telethon import types
 from telethon.tl import functions
+from telethon.tl.types import DocumentAttributeAudio
+from youtube_dl import YoutubeDL
+from youtube_dl.utils import (ContentTooShortError, DownloadError,
+                              ExtractorError, GeoRestrictedError,
+                              MaxDownloadsReached, PostProcessingError,
+                              UnavailableVideoError, XAttrMetadataError)
+
+from alexa import LOGGER, YOUTUBE_API_KEY, tbot
+from alexa.events import register
 
 
 async def is_register_admin(chat, user):

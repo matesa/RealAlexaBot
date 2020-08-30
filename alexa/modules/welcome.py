@@ -661,44 +661,29 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from html import escape
-import time
 import re
+import time
+from html import escape
 
-from telegram import (
-    ParseMode,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    ChatPermissions,
-    CallbackQuery,
-)
+from telegram import (CallbackQuery, ChatPermissions, InlineKeyboardButton,
+                      InlineKeyboardMarkup, ParseMode)
 from telegram.error import BadRequest
-from telegram.ext import (
-    MessageHandler,
-    Filters,
-    CommandHandler,
-    run_async,
-    CallbackQueryHandler,
-)
+from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
+                          MessageHandler, run_async)
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.welcome_sql as sql
-from alexa.modules.sql.global_bans_sql import is_user_gbanned
-from alexa import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from alexa.modules.helper_funcs.chat_status import (
-    user_admin,
-    is_user_ban_protected,
-    user_can_change,
-)
+from alexa import LOGGER, MESSAGE_DUMP, OWNER_ID, dispatcher
+from alexa.modules.helper_funcs.alternate import typing_action
+from alexa.modules.helper_funcs.chat_status import (is_user_ban_protected,
+                                                    user_admin,
+                                                    user_can_change)
 from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from alexa.modules.helper_funcs.msg_types import get_welcome_type
-from alexa.modules.helper_funcs.alternate import typing_action
 from alexa.modules.helper_funcs.string_handling import (
-    markdown_parser,
-    escape_invalid_curly_brackets,
-    markdown_to_html,
-)
+    escape_invalid_curly_brackets, markdown_parser, markdown_to_html)
 from alexa.modules.log_channel import loggable
+from alexa.modules.sql.global_bans_sql import is_user_gbanned
 
 VALID_WELCOME_FORMATTERS = [
     "first",

@@ -662,12 +662,12 @@
 
 
 import random
-from telegram.ext import run_async, Filters, CommandHandler
-from telegram import Message, Chat, Update, Bot, MessageEntity
-from alexa import dispatcher
 
+from telegram import Bot, Chat, Message, MessageEntity, Update
+from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+
+from alexa import dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin
-from telegram.ext import CallbackContext, run_async
 
 reactionhappy = [
     "''̵͇З= ( ▀ ͜͞ʖ▀) =Ε/̵͇/’’",

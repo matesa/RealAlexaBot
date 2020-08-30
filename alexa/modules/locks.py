@@ -663,30 +663,24 @@
 
 import html
 
-from telegram import Message, Chat, ParseMode, MessageEntity
-from telegram import TelegramError, ChatPermissions
+from alphabet_detector import AlphabetDetector
+from telegram import (Chat, ChatPermissions, Message, MessageEntity, ParseMode,
+                      TelegramError)
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, MessageHandler, Filters
+from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alphabet_detector import AlphabetDetector
-
 import alexa.modules.sql.locks_sql as sql
-from alexa import dispatcher, SUDO_USERS, LOGGER
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (
-    can_delete,
-    is_user_admin,
-    user_not_admin,
-    is_bot_admin,
-    user_admin,
-    user_can_change,
-)
-from alexa.modules.log_channel import loggable
+from alexa import LOGGER, SUDO_USERS, dispatcher
 from alexa.modules.connection import connected
-
+from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import send_message
+from alexa.modules.helper_funcs.chat_status import (can_delete, is_bot_admin,
+                                                    is_user_admin, user_admin,
+                                                    user_can_change,
+                                                    user_not_admin)
+from alexa.modules.log_channel import loggable
 
 ad = AlphabetDetector()
 

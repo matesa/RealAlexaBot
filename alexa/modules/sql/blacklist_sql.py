@@ -663,9 +663,9 @@
 
 import threading
 
-from sqlalchemy import func, distinct, Column, String, UnicodeText, Integer
+from sqlalchemy import Column, Integer, String, UnicodeText, distinct, func
 
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 
 class BlackListFilters(BASE):

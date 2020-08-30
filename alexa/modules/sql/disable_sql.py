@@ -663,9 +663,9 @@
 
 import threading
 
-from sqlalchemy import Column, String, UnicodeText, func, distinct
+from sqlalchemy import Column, String, UnicodeText, distinct, func
 
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 
 class Disable(BASE):

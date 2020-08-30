@@ -664,26 +664,23 @@
 import html
 import re
 
-from telegram import ParseMode, ChatPermissions
+from telegram import ChatPermissions, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from telegram.utils.helpers import mention_html
 
 import alexa.modules.sql.blacklist_sql as sql
-from alexa import dispatcher, LOGGER
+from alexa import LOGGER, dispatcher
+from alexa.modules.connection import connected
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (
-    user_admin,
-    user_not_admin,
-    user_can_change,
-)
+from alexa.modules.helper_funcs.chat_status import (user_admin,
+                                                    user_can_change,
+                                                    user_not_admin)
 from alexa.modules.helper_funcs.extraction import extract_text
 from alexa.modules.helper_funcs.misc import split_message
+from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
 from alexa.modules.warns import warn
-from alexa.modules.helper_funcs.string_handling import extract_time
-from alexa.modules.connection import connected
-
 
 BLACKLIST_GROUP = 11
 

@@ -662,27 +662,19 @@
 
 
 import html
-from typing import Optional, List
+from typing import List, Optional
 
-from telegram import Message, Chat, User, ParseMode
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
+                      Message, ParseMode, User)
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (
-    CommandHandler,
-    MessageHandler,
-    run_async,
-    Filters,
-    CallbackQueryHandler,
-)
+from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
+                          MessageHandler, run_async)
 from telegram.utils.helpers import mention_html
 
-from alexa import dispatcher, LOGGER
-from alexa.modules.helper_funcs.chat_status import (
-    user_not_admin,
-    user_admin,
-    user_can_change,
-)
-
+from alexa import LOGGER, dispatcher
+from alexa.modules.helper_funcs.chat_status import (user_admin,
+                                                    user_can_change,
+                                                    user_not_admin)
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import reporting_sql as sql
 

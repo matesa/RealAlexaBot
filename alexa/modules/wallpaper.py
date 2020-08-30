@@ -664,10 +664,11 @@
 from random import randint
 
 import requests as r
+from telegram import Update
+from telegram.ext import CallbackContext, CommandHandler, run_async
+
 from alexa import WALL_API, dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin
-from telegram import Update
-from telegram.ext import CallbackContext, run_async, CommandHandler
 
 
 @run_async

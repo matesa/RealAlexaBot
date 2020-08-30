@@ -661,37 +661,28 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from os import remove, execle, path, makedirs, getenv, environ
-from shutil import rmtree
 import asyncio
-import sys
-from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
-from os import remove
-from os import execl
-import sys
-import heroku3
-import git
-from git import Repo
-from git.exc import GitCommandError
-from git.exc import InvalidGitRepositoryError
-from git.exc import NoSuchPathError
-import asyncio
+import os
 import random
 import re
+import sys
 import time
 from collections import deque
+from contextlib import suppress
+from os import environ, execl, execle, getenv, makedirs, path, remove
+from shutil import rmtree
+
+import git
+import heroku3
 import requests
+from git import Repo
+from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
+from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
-from telethon import events
+
+from alexa import HEROKU_API_KEY, HEROKU_APP_NAME, OWNER_ID, UPSTREAM_REPO_URL
 from alexa.events import register
-from alexa import OWNER_ID
-from contextlib import suppress
-import os
-import sys
-import asyncio
-from alexa import UPSTREAM_REPO_URL, HEROKU_APP_NAME, HEROKU_API_KEY
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"

@@ -661,50 +661,30 @@
 #     <https://www.gnu.org/licenses/>.
 
 
+import csv
+import json
+import os
+import re
+import time
+import uuid
 from io import BytesIO
 from typing import Optional
-import uuid
-import re
-import json
-import time
-import csv
-import os
 
+from telegram import (Chat, ChatAction, InlineKeyboardButton,
+                      InlineKeyboardMarkup, MessageEntity, ParseMode, User)
 from telegram.error import BadRequest, TelegramError, Unauthorized
-from telegram import (
-    ParseMode,
-    Chat,
-    User,
-    MessageEntity,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    ChatAction,
-)
-from telegram.ext import run_async, CommandHandler, CallbackQueryHandler
+from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
 from telegram.utils.helpers import mention_html, mention_markdown
 
-from alexa import (
-    dispatcher,
-    OWNER_ID,
-    SUDO_USERS,
-    MESSAGE_DUMP,
-    LOGGER,
-)
-from alexa.modules.helper_funcs.chat_status import is_user_admin
-from alexa.modules.helper_funcs.extraction import (
-    extract_user,
-    extract_unt_fedban,
-    extract_user_fban,
-)
-from alexa.modules.helper_funcs.string_handling import markdown_parser
-from alexa.modules.disable import DisableAbleCommandHandler
-
 import alexa.modules.sql.feds_sql as sql
-
-from alexa.modules.helper_funcs.alternate import (
-    send_message,
-    send_action,
-)
+from alexa import LOGGER, MESSAGE_DUMP, OWNER_ID, SUDO_USERS, dispatcher
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.alternate import send_action, send_message
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.extraction import (extract_unt_fedban,
+                                                   extract_user,
+                                                   extract_user_fban)
+from alexa.modules.helper_funcs.string_handling import markdown_parser
 
 # Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo and AyraHikari too
 # Federation by MrYacha 2018-2019

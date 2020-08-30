@@ -663,9 +663,9 @@
 
 import threading
 
-from sqlalchemy import String, Column, Integer, UnicodeText
+from sqlalchemy import Column, Integer, String, UnicodeText
 
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 DEF_COUNT = 0
 DEF_LIMIT = 0

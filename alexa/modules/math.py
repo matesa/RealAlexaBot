@@ -664,9 +664,10 @@
 import math
 
 import pynewtonmath as newton
-from alexa import dispatcher
 from telegram import Update
-from telegram.ext import CallbackContext, run_async, CommandHandler
+from telegram.ext import CallbackContext, CommandHandler, run_async
+
+from alexa import dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin
 
 

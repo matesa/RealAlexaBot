@@ -661,24 +661,23 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import random
-import re
 import asyncio
-import time
-from cowpy import cow
-from alexa.events import register
 import html
 import random
+import re
 import time
 from typing import List
-from telegram import Bot, Update, ParseMode
+
+from cowpy import cow
+from telegram import Bot, ParseMode, Update
 from telegram.ext import run_async
-from alexa import dispatcher
-from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
-from alexa.modules.helper_funcs.extraction import extract_user
-from alexa import LOGGER, tbot
 from telethon import types
 from telethon.tl import functions
+
+from alexa import LOGGER, dispatcher, tbot
+from alexa.events import register
+from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
+from alexa.modules.helper_funcs.extraction import extract_user
 
 
 async def is_register_admin(chat, user):

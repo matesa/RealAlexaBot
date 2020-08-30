@@ -662,7 +662,8 @@
 
 
 from functools import wraps
-from telegram import error, ChatAction
+
+from telegram import ChatAction, error
 
 
 def send_message(message, text, *args, **kwargs):

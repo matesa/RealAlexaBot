@@ -663,21 +663,16 @@
 
 from typing import Optional
 
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, Message,
+                      ParseMode, Update, User)
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.utils.helpers import escape_markdown
+
 import alexa.modules.sql.rules_sql as sql
 from alexa import dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
 from alexa.modules.helper_funcs.string_handling import markdown_parser
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    ParseMode,
-    Update,
-    User,
-)
-from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
-from telegram.utils.helpers import escape_markdown
 
 
 @run_async

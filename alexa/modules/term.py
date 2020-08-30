@@ -661,12 +661,13 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from alexa.events import register
-from alexa import OWNER_ID
 import asyncio
 from getpass import getuser
 from os import remove
 from sys import executable
+
+from alexa import OWNER_ID
+from alexa.events import register
 
 
 @register(pattern="^/term(?: |$)(.*)")

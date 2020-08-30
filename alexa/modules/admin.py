@@ -672,19 +672,15 @@ from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (
-    bot_admin,
-    can_promote,
-    user_can_promote,
-    user_admin,
-    can_pin,
-    user_can_pin,
-    user_can_change,
-)
-from alexa.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-
 from alexa.modules.connection import connected
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_pin,
+                                                    can_promote, user_admin,
+                                                    user_can_change,
+                                                    user_can_pin,
+                                                    user_can_promote)
+from alexa.modules.helper_funcs.extraction import (extract_user,
+                                                   extract_user_and_text)
 from alexa.modules.log_channel import loggable
 
 

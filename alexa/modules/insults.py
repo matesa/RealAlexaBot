@@ -662,8 +662,10 @@
 
 
 import random
-from telegram.ext import run_async, Filters, CommandHandler
-from telegram import Message, Chat, Update, Bot, MessageEntity
+
+from telegram import Bot, Chat, Message, MessageEntity, Update
+from telegram.ext import CommandHandler, Filters, run_async
+
 from alexa import dispatcher
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.chat_status import user_admin

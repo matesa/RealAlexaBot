@@ -663,11 +663,11 @@
 
 import threading
 
-from sqlalchemy import Column, String, UnicodeText, Integer, Boolean
+from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 from telegram.error import BadRequest, Unauthorized
 
 from alexa import dispatcher
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 
 class Federations(BASE):

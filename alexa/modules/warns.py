@@ -666,39 +666,27 @@ import re
 from typing import Optional
 
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, User
-from telegram import Message, Chat
+from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
+                      Message, ParseMode, User)
 from telegram.error import BadRequest
-from telegram.ext import (
-    CommandHandler,
-    run_async,
-    DispatcherHandlerStop,
-    MessageHandler,
-    Filters,
-    CallbackQueryHandler,
-)
+from telegram.ext import (CallbackQueryHandler, CommandHandler,
+                          DispatcherHandlerStop, Filters, MessageHandler,
+                          run_async)
 from telegram.utils.helpers import mention_html
 
 from alexa import dispatcher  # BAN_STICKER
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (
-    is_user_admin,
-    bot_admin,
-    user_admin_no_reply,
-    user_admin,
-    can_restrict,
-    user_can_restrict,
-    user_can_change,
-)
-from alexa.modules.helper_funcs.extraction import (
-    extract_text,
-    extract_user_and_text,
-    extract_user,
-)
+from alexa.modules.helper_funcs.alternate import typing_action
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_restrict,
+                                                    is_user_admin, user_admin,
+                                                    user_admin_no_reply,
+                                                    user_can_change,
+                                                    user_can_restrict)
+from alexa.modules.helper_funcs.extraction import (extract_text, extract_user,
+                                                   extract_user_and_text)
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.helper_funcs.misc import split_message
 from alexa.modules.helper_funcs.string_handling import split_quotes
-from alexa.modules.helper_funcs.alternate import typing_action
 from alexa.modules.log_channel import loggable
 from alexa.modules.sql import warns_sql as sql
 

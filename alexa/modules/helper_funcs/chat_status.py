@@ -662,12 +662,13 @@
 
 
 from functools import wraps
-from telegram import User, Chat, ChatMember
-from telegram import MessageEntity, ParseMode, Update, Bot
+
+from telegram import (Bot, Chat, ChatMember, MessageEntity, ParseMode, Update,
+                      User)
+from telegram.ext import CallbackContext
+
 from alexa import DEL_CMDS, SUDO_USERS
 from alexa.mwt import MWT
-from telegram import User, Chat
-from telegram.ext import CallbackContext
 
 
 def can_delete(chat: Chat, bot_id: int) -> bool:

@@ -1325,7 +1325,8 @@
 
 import threading
 
-from sqlalchemy import Column, String, UnicodeText, Boolean, Integer, distinct, func
+from sqlalchemy import (Boolean, Column, Integer, String, UnicodeText,
+                        distinct, func)
 
 from alexa.modules.helper_funcs.msg_types import Types
 from alexa.modules.sql import BASE, SESSION

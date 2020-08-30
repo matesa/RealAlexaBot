@@ -665,7 +665,7 @@ import threading
 
 from sqlalchemy import Column, Integer, UnicodeText
 
-from alexa.modules.sql import SESSION, BASE
+from alexa.modules.sql import BASE, SESSION
 
 
 class UserInfo(BASE):

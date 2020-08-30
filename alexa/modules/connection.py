@@ -661,15 +661,15 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import time
 import re
+import time
 
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CommandHandler, CallbackQueryHandler, run_async
+from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
 
 import alexa.modules.sql.connection_sql as sql
-from alexa import dispatcher, SUDO_USERS
+from alexa import SUDO_USERS, dispatcher
 from alexa.modules.helper_funcs import chat_status
 from alexa.modules.helper_funcs.alternate import send_message
 

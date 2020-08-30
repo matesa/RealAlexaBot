@@ -661,17 +661,17 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from telethon import events
 import asyncio
-import zipfile
-from pySmartDL import SmartDL
-import time
 import os
-from alexa.events import register
-from alexa import TEMP_DOWNLOAD_DIRECTORY
-from alexa import LOGGER, tbot
-from telethon import types
+import time
+import zipfile
+
+from pySmartDL import SmartDL
+from telethon import events, types
 from telethon.tl import functions
+
+from alexa import LOGGER, TEMP_DOWNLOAD_DIRECTORY, tbot
+from alexa.events import register
 
 
 async def is_register_admin(chat, user):

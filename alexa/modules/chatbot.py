@@ -662,28 +662,23 @@
 
 
 import html
-
 # AI module using Intellivoid's Coffeehouse API by @TheRealPhoenix
 from time import sleep, time
 
-import alexa.modules.sql.chatbot_sql as sql
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
 from coffeehouse.lydia import LydiaAI
+from telegram import Update
+from telegram.error import BadRequest, RetryAfter, Unauthorized
+from telegram.ext import (CallbackContext, CommandHandler, Filters,
+                          MessageHandler, run_async)
+from telegram.utils.helpers import mention_html
+
+import alexa.modules.sql.chatbot_sql as sql
 from alexa import LYDIA_API_KEY, OWNER_ID, dispatcher
 from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.log_channel import loggable
-from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    run_async,
-)
-from telegram.utils.helpers import mention_html
 
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)

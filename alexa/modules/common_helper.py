@@ -662,31 +662,20 @@
 
 
 import json
-from pprint import pprint
-
-import requests
-from telegram import Update, Bot
-from telegram.ext import CommandHandler
-from alexa.modules.helper_funcs.chat_status import user_admin
-
-from alexa import dispatcher
-
-
-from typing import Optional, List
-from gtts import gTTS
 import os
-import requests
-import json
-from emoji import UNICODE_EMOJI
+from pprint import pprint
+from typing import List, Optional
 
-from telegram import ChatAction
-from telegram.ext import run_async, CommandHandler
+import requests
+from emoji import UNICODE_EMOJI
+from googletrans import Translator
+from gtts import gTTS
+from telegram import Bot, ChatAction, Update
+from telegram.ext import CommandHandler, run_async
 
 from alexa import dispatcher
-
 from alexa.modules.helper_funcs.alternate import send_action
 from alexa.modules.helper_funcs.chat_status import user_admin
-from googletrans import Translator
 
 
 @run_async

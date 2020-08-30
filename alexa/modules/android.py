@@ -661,23 +661,19 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import rapidjson as json
+import json
+import re
 import urllib
 
+import rapidjson as json
+from bs4 import BeautifulSoup
 from hurry.filesize import size as sizee
-from telethon import custom
-from alexa.events import register
-from alexa import LOGGER, tbot
-
-import re
-import json
-
-from alexa import LOGGER, tbot
-from telethon import types
+from requests import get
+from telethon import custom, types
 from telethon.tl import functions
 
-from bs4 import BeautifulSoup
-from requests import get
+from alexa import LOGGER, tbot
+from alexa.events import register
 
 GITHUB = "https://github.com"
 

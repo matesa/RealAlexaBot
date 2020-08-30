@@ -661,21 +661,21 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from typing import Optional
 import random
 import time
-from telegram import Message, User
-from telegram import MessageEntity, ParseMode
+from typing import Optional
+
+from telegram import Message, MessageEntity, ParseMode, User
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 
 from alexa import dispatcher
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from alexa.modules.sql import afk_sql as sql
-from alexa.modules.users import get_user_id
-
+from alexa.modules.disable import (DisableAbleCommandHandler,
+                                   DisableAbleMessageHandler)
 from alexa.modules.helper_funcs.alternate import send_message
 from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.sql import afk_sql as sql
+from alexa.modules.users import get_user_id
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8

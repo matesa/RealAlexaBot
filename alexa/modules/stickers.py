@@ -660,22 +660,23 @@
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
 
+import math
 import os
 import re
-import math
-import requests
 import urllib.request as urllib
-from PIL import Image
 from html import escape
-from bs4 import BeautifulSoup as bs
 
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram import TelegramError, Update
-from telegram.ext import run_async, CallbackContext
+import requests
+from bs4 import BeautifulSoup as bs
+from PIL import Image
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
+                      TelegramError, Update)
+from telegram.ext import CallbackContext, run_async
 from telegram.utils.helpers import mention_html
-from alexa.modules.helper_funcs.chat_status import user_admin
+
 from alexa import dispatcher
 from alexa.modules.disable import CommandHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
 

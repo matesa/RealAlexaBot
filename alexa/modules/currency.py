@@ -662,23 +662,14 @@
 
 
 import requests
-from telegram import Bot, Update
-from telegram.ext import CommandHandler, run_async
-from alexa.modules.helper_funcs.chat_status import (
-    bot_admin,
-    can_promote,
-    user_admin,
-    can_pin,
-    user_can_restrict,
-    user_can_pin,
-)
-
-from alexa import dispatcher, CASH_API_KEY
-
-import requests
-from alexa import CASH_API_KEY, dispatcher
-from telegram import Update, ParseMode
+from telegram import Bot, ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
+
+from alexa import CASH_API_KEY, dispatcher
+from alexa.modules.helper_funcs.chat_status import (bot_admin, can_pin,
+                                                    can_promote, user_admin,
+                                                    user_can_pin,
+                                                    user_can_restrict)
 
 
 @run_async

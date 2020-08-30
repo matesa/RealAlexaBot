@@ -661,18 +661,20 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import bs4
-import requests
 import asyncio
 import os
 import re
 import subprocess
 import time
 from datetime import datetime
-from alexa.events import register
-from alexa import LOGGER, tbot
+
+import bs4
+import requests
 from telethon import types
 from telethon.tl import functions
+
+from alexa import LOGGER, tbot
+from alexa.events import register
 
 langi = "en"
 

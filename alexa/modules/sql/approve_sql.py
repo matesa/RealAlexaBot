@@ -665,7 +665,9 @@
 #  If you kang this without credits I swear ur mom will die
 
 import threading
-from sqlalchemy import Column, UnicodeText, Boolean, Integer
+
+from sqlalchemy import Boolean, Column, Integer, UnicodeText
+
 from alexa.modules.sql import BASE, SESSION
 
 

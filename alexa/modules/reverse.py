@@ -663,16 +663,15 @@
 
 import os
 import re
-import requests
 import urllib
-from urllib.error import URLError, HTTPError
-from bs4 import BeautifulSoup
+from urllib.error import HTTPError, URLError
 
+import requests
+from bs4 import BeautifulSoup
 from telegram import InputMediaPhoto, TelegramError
-from telegram.ext import run_async, CommandHandler
+from telegram.ext import CommandHandler, run_async
 
 from alexa import dispatcher
-
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import typing_action
 

@@ -661,12 +661,14 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from alexa import tbot, SUDO_USERS
-from alexa.events import register, tbot
 import asyncio
+
 from telethon import events
-from telethon.tl.types import ChannelParticipantsAdmins
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
+from telethon.tl.types import ChannelParticipantsAdmins
+
+from alexa import SUDO_USERS, tbot
+from alexa.events import register, tbot
 
 # Check if user has admin rights
 

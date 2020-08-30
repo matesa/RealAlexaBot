@@ -661,39 +661,28 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-from telethon import events
-from urllib.parse import quote_plus
-from urllib.error import HTTPError
-from time import sleep
 import asyncio
 import os
 import random
-from alexa import GOOGLE_CHROME_BIN, CHROME_DRIVER
-from alexa.events import register
-import os
-import time
-import asyncio
-import random
-import asyncio
-import shutil
-from bs4 import BeautifulSoup
 import re
-from time import sleep
+import shutil
+import time
 from html import unescape
 from re import findall
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
-from urllib.parse import quote_plus
+from time import sleep
 from urllib.error import HTTPError
-from telethon import events
-from alexa import LOGGER, tbot
-from telethon import types
+from urllib.parse import quote_plus
+
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import Select
+from telethon import events, types
 from telethon.tl import functions
+
 import alexa.modules.sql.approve_sql as sql
+from alexa import CHROME_DRIVER, GOOGLE_CHROME_BIN, LOGGER, tbot
+from alexa.events import register
 
 CARBONLANG = "en"
 
