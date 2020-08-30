@@ -712,7 +712,8 @@ def no_longer_afk(update, context):
         elapsed_time = time.time() - start_time
         final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         update.effective_message.reply_text(
-            chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}")
+            chat.id, f"{firstname} is no longer AFK !\n\nWas AFK for {final}"
+        )
 
 
 @run_async
@@ -720,7 +721,8 @@ def reply_afk(update, context):
     message = update.effective_message  # type: Optional[Message]
 
     entities = message.parse_entities(
-        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]
+    )
     if message.entities and entities:
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
@@ -728,8 +730,9 @@ def reply_afk(update, context):
                 fst_name = ent.user.first_name
 
             elif ent.type == MessageEntity.MENTION:
-                user_id = get_user_id(message.text[ent.offset:ent.offset +
-                                                   ent.length])
+                user_id = get_user_id(
+                    message.text[ent.offset : ent.offset + ent.length]
+                )
                 if not user_id:
                     # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                     return
@@ -752,12 +755,13 @@ def reply_afk(update, context):
 
                         elif ent.type == MessageEntity.MENTION:
                             user_id = get_user_id(
-                                message.text[ent.offset:ent.offset +
-                                             ent.length])
+                                message.text[ent.offset : ent.offset + ent.length]
+                            )
                         user = sql.check_afk_status(user_id)
                         elapsed_time = time.time() - start_time
-                        final = time.strftime("%Hh: %Mm: %Ss",
-                                              time.gmtime(elapsed_time))
+                        final = time.strftime(
+                            "%Hh: %Mm: %Ss", time.gmtime(elapsed_time)
+                        )
                         if not user.reason:
                             res = (
                                 chat.id,
@@ -792,8 +796,8 @@ __mod_name = "AFK"
 AFK_HANDLER = CommandHandler("afk", afk)
 
 NO_AFK_HANDLER = MessageHandler(
-    Filters.all & Filters.group & ~Filters.update.edited_message,
-    no_longer_afk)
+    Filters.all & Filters.group & ~Filters.update.edited_message, no_longer_afk
+)
 AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk)
 # AFK_REPLY_HANDLER = MessageHandler(Filters.entity(MessageEntity.MENTION) | Filters.entity(MessageEntity.TEXT_MENTION),
 #                                   reply_afk)

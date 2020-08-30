@@ -682,8 +682,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram.ext.dispatcher import run_async
 
-    from alexa.modules.helper_funcs.chat_status import (is_user_admin,
-                                                        user_admin)
+    from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
     from alexa.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []
@@ -710,15 +709,16 @@ if is_module_loaded(FILENAME):
                 if message.text and len(message.text) > 1:
                     fst_word = message.text.split(None, 1)[0]
                     if len(fst_word) > 1 and any(
-                            fst_word.startswith(start)
-                            for start in CMD_STARTERS):
+                        fst_word.startswith(start) for start in CMD_STARTERS
+                    ):
                         args = message.text.split()[1:]
                         command = fst_word[1:].split("@")
                         command.append(message.bot.username)
 
-                        if not (command[0].lower() in self.command
-                                and command[1].lower() ==
-                                message.bot.username.lower()):
+                        if not (
+                            command[0].lower() in self.command
+                            and command[1].lower() == message.bot.username.lower()
+                        ):
                             return None
 
                         filter_result = self.filters(update)
@@ -726,12 +726,11 @@ if is_module_loaded(FILENAME):
                             chat = update.effective_chat
                             user = update.effective_user
                             # disabled, admincmd, user admin
-                            if sql.is_command_disabled(chat.id,
-                                                       command[0].lower()):
+                            if sql.is_command_disabled(chat.id, command[0].lower()):
                                 # check if command was disabled
                                 is_disabled = command[
-                                    0] in ADMIN_CMDS and is_user_admin(
-                                        chat, user.id)
+                                    0
+                                ] in ADMIN_CMDS and is_user_admin(chat, user.id)
                                 if not is_disabled:
                                     return None
                                 else:
@@ -751,7 +750,8 @@ if is_module_loaded(FILENAME):
             if isinstance(update, Update) and update.effective_message:
                 chat = update.effective_chat
                 return self.filters(update) and not sql.is_command_disabled(
-                    chat.id, self.friendly)
+                    chat.id, self.friendly
+                )
 
     @run_async
     @user_admin
@@ -784,16 +784,15 @@ if is_module_loaded(FILENAME):
                 sql.disable_command(chat.id, disable_cmd)
                 if conn:
                     text = "Disabled the use of `{}` command in *{}*!".format(
-                        disable_cmd, chat_name)
+                        disable_cmd, chat_name
+                    )
                 else:
-                    text = "Disabled the use of `{}` command!".format(
-                        disable_cmd)
-                send_message(update.effective_message,
-                             text,
-                             parse_mode=ParseMode.MARKDOWN)
+                    text = "Disabled the use of `{}` command!".format(disable_cmd)
+                send_message(
+                    update.effective_message, text, parse_mode=ParseMode.MARKDOWN
+                )
             else:
-                send_message(update.effective_message,
-                             "This command can't be disabled")
+                send_message(update.effective_message, "This command can't be disabled")
 
         else:
             send_message(update.effective_message, "What should I disable?")
@@ -830,16 +829,15 @@ if is_module_loaded(FILENAME):
             if sql.enable_command(chat.id, enable_cmd):
                 if conn:
                     text = "Enabled the use of `{}` command in *{}*!".format(
-                        enable_cmd, chat_name)
+                        enable_cmd, chat_name
+                    )
                 else:
-                    text = "Enabled the use of `{}` command!".format(
-                        enable_cmd)
-                send_message(update.effective_message,
-                             text,
-                             parse_mode=ParseMode.MARKDOWN)
+                    text = "Enabled the use of `{}` command!".format(enable_cmd)
+                send_message(
+                    update.effective_message, text, parse_mode=ParseMode.MARKDOWN
+                )
             else:
-                send_message(update.effective_message,
-                             "Is that even disabled?")
+                send_message(update.effective_message, "Is that even disabled?")
 
         else:
             send_message(update.effective_message, "What should I enable?")
@@ -868,8 +866,7 @@ if is_module_loaded(FILENAME):
         result = ""
         for cmd in disabled:
             result += " - `{}`\n".format(escape_markdown(cmd))
-        return "The following commands are currently restricted:\n{}".format(
-            result)
+        return "The following commands are currently restricted:\n{}".format(result)
 
     @run_async
     @typing_action
@@ -891,9 +888,7 @@ if is_module_loaded(FILENAME):
             chat_id = update.effective_chat.id
 
         text = build_curr_disabled(chat.id)
-        send_message(update.effective_message,
-                     text,
-                     parse_mode=ParseMode.MARKDOWN)
+        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
 
     def __import_data__(chat_id, data):
         disabled = data.get("disabled", {})
@@ -902,7 +897,8 @@ if is_module_loaded(FILENAME):
 
     def __stats__():
         return "× {} disabled items, across {} chats.".format(
-            sql.num_disabled(), sql.num_chats())
+            sql.num_disabled(), sql.num_chats()
+        )
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
@@ -913,11 +909,14 @@ if is_module_loaded(FILENAME):
     __mod_name__ = "Disabling"
 
     DISABLE_HANDLER = CommandHandler(
-        "disable", disable, pass_args=True)  # , filters=Filters.group)
-    ENABLE_HANDLER = CommandHandler("enable", enable,
-                                    pass_args=True)  # , filters=Filters.group)
-    COMMANDS_HANDLER = CommandHandler(["cmds", "disabled"],
-                                      commands)  # , filters=Filters.group)
+        "disable", disable, pass_args=True
+    )  # , filters=Filters.group)
+    ENABLE_HANDLER = CommandHandler(
+        "enable", enable, pass_args=True
+    )  # , filters=Filters.group)
+    COMMANDS_HANDLER = CommandHandler(
+        ["cmds", "disabled"], commands
+    )  # , filters=Filters.group)
     # , filters=Filters.group)
     TOGGLE_HANDLER = CommandHandler("listcmds", list_cmds)
 
