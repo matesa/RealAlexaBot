@@ -1156,25 +1156,25 @@ __help__ = """
  - /adminlist | /admins: list of admins in the chat
  - /pin | /unpin: pins/unpins the message in the chat
  - /invitelink: gets invitelink
- - /promote: promotes a user 
+ - /promote: promotes a user
  - /settitle <username> <title>: sets a custom title for an admin
  - /demote: demotes a user
  - /zombies: count the number of deleted account in your group
  - /kickthefools: kicks all members inactive from 1 week
- - /ban: bans a user 
+ - /ban: bans a user
  - /tban <d/h/m> : temporarily bans a user from your chat
- - /unban: unbans a user 
+ - /unban: unbans a user
  - /sban: silently bans a user
- - /mute: mute a user 
+ - /mute: mute a user
  - /tmute <d/h/m>: temporarily mute a user
  - /unmute: unmutes a user
- - /kick: kicks a user 
+ - /kick: kicks a user
  - /setflood <number/off>: set the number of messages to take action on a user for flooding
  - /setfloodmode <mute/ban/kick/tban/tmute>: select the valid action eg. /setfloodmode tmute 5m
  - /connection <chatid>: Connect to remote chat
  - /disconnect: disconnects a chat from pm
  - /allowconnect on/yes/off/no: allow connect users to group via PM
- - /helpconnect: gets the available list commands 
+ - /helpconnect: gets the available list commands
  - /flood: gets the current antiflood settings
  - /addblacklist <trigger> : blacklists the trigger
  - /unblacklist <trigger> | rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
@@ -1192,7 +1192,7 @@ __help__ = """
  - /unsetlog: unset the log channel.
  - /logchannel: get the log channel info
  - /purge: deletes all messages from the message you replied to
- - /purge X: deletes X messages after the message you replied to 
+ - /purge X: deletes X messages after the message you replied to
  - /del: deletes the message you replied to.
  - /save <word> <sentence>: Save that sentence to the note called "word"
  - /get <word> | #<word> : get the note registered to that word
@@ -1215,8 +1215,8 @@ __help__ = """
  - /welcome: should the bot welcome new members ?
  - /welcome noformat: shows current welcome settings
  - /goodbye: should the bot bid farewell to left members ?
- - /setwelcome <text>: set a custom welcome message, you can reply to a media it too to set it 
- - /setgoodbye <sometext>: set a custom goodbye message, you can reply to a media it too to set it 
+ - /setwelcome <text>: set a custom welcome message, you can reply to a media it too to set it
+ - /setgoodbye <sometext>: set a custom goodbye message, you can reply to a media it too to set it
  - /resetwelcome: reset to the default welcome message
  - /resetgoodbye: reset to the default goodbye message
  - /cleanwelcome <on/off>: try to delete the previous welcome message to avoid spamming

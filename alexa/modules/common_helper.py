@@ -747,13 +747,13 @@ __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
  - brb <reason>: same as the afk command
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
- - /forbesify: Correct your punctuations better use the advanged spell module 
+ - /forbesify: Correct your punctuations better use the advanged spell module
  - /tr (language code) as reply to a long message.
  - /define <text>: Type the word or expression you want to search\nFor example /define Gay
  - /banme: ban yourself from a chat
  - /kickme: kicks yourself from a chat
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats
- - /smsbomb {country code without +} {phone no}: Take revenge upon your enemy by sending bulk messages 
+ - /smsbomb {country code without +} {phone no}: Take revenge upon your enemy by sending bulk messages
  - /report <reason> | @admin: reply to a message to report it to admins(non-admin only)
  - /reports <on/off>: change report setting (admin only)
 """
