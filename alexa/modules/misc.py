@@ -679,9 +679,7 @@ import time
 import urllib.request
 from asyncio import sleep
 from collections import deque
-from datetime import datetime
-from datetime import timedelta
-from datetime import tzinfo
+from datetime import *
 from getpass import getuser
 from html import unescape
 from io import BytesIO
@@ -2624,7 +2622,7 @@ async def _(event):
     except Exception as e:
         await event.reply(str(e))
         return
-    end = datetime.now()
+    end = datetime.datetime.now()
     ms = (end - start).seconds
     await event.reply("Created BarCode in {} seconds".format(ms))
 
