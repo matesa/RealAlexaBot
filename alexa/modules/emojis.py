@@ -661,26 +661,25 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from alexa import dispatcher
+import asyncio
+import glob
+import io
+import os
 import random
 import re
 import string
-import io
-import asyncio
 from io import BytesIO
-from typing import Optional, List
-from telegram import Message, Update, Bot, User
 from pathlib import Path
-import glob
-import os
-from alexa.modules.helper_funcs.chat_status import user_admin
-from typing import Optional, List
-from telegram import Message, Update, Bot, User
-from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
+from typing import List, Optional
 
 import nltk  # shitty lib, but it does work
+from telegram import Bot, Message, MessageEntity, Update, User
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+
+from alexa import dispatcher
+from alexa.modules.disable import (DisableAbleCommandHandler,
+                                   DisableAbleRegexHandler)
+from alexa.modules.helper_funcs.chat_status import user_admin
 
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
