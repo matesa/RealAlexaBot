@@ -693,7 +693,7 @@ GMAPS_LOC = "https://maps.googleapis.com/maps/api/geocode/json"
 
 @run_async
 @user_admin
-def gps(bot: Bot, update: Update, context):
+def gps(update: Update, context):
     message = update.effective_message
     args = context.args
     if len(args) == 0:
@@ -708,7 +708,7 @@ def gps(bot: Bot, update: Update, context):
         lat = geoloc.latitude
         the_loc = Location(lon, lat)
         gm = "https://www.google.com/maps/search/{},{}".format(lat, lon)
-        bot.send_location(chat_id, location=the_loc)
+        context.bot.send_location(chat_id, location=the_loc)
         update.message.reply_text(
             "Open with: [Google Maps]({})".format(gm),
             parse_mode=ParseMode.MARKDOWN,
