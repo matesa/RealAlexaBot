@@ -662,10 +662,13 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-
-
-
-import random, re, string, io, asyncio
+from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from alexa import dispatcher
+import random
+import re
+import string
+import io
+import asyncio
 from io import BytesIO
 from typing import Optional, List
 from telegram import Message, Update, Bot, User
@@ -678,13 +681,10 @@ from telegram import Message, Update, Bot, User
 from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 
-import nltk # shitty lib, but it does work
+import nltk  # shitty lib, but it does work
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
-
-from alexa import dispatcher
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 
 # D A N K modules by @deletescape vvv
 
@@ -693,9 +693,11 @@ from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHan
 @user_admin
 def copypasta(update, context):
     message = update.effective_message
-    emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏", "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
+    emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏",
+              "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
     reply_text = random.choice(emojis)
-    b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
+    # choose a random character in the message to be substituted with 🅱️
+    b_char = random.choice(message.reply_to_message.text).lower()
     for c in message.reply_to_message.text:
         if c == " ":
             reply_text += random.choice(emojis)
@@ -717,8 +719,10 @@ def copypasta(update, context):
 @user_admin
 def bmoji(update, context):
     message = update.effective_message
-    b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
-    reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
+    # choose a random character in the message to be substituted with 🅱️
+    b_char = random.choice(message.reply_to_message.text).lower()
+    reply_text = message.reply_to_message.text.replace(
+        b_char, "🅱️").replace(b_char.upper(), "🅱️")
     message.reply_to_message.reply_text(reply_text)
 
 
@@ -765,7 +769,8 @@ def crymoji(update, context):
 def me_too(update, context):
     message = update.effective_message
     if random.randint(0, 100) > 60:
-        reply = random.choice(["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
+        reply = random.choice(
+            ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
         message.reply_text(reply)
 
 
@@ -781,12 +786,12 @@ CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
 BMOJI_ALIAS_HANDLER = CommandHandler("bmoji", bmoji)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
-#dispatcher.add_handler(COPYPASTA_ALIAS_HANDLER)
+# dispatcher.add_handler(COPYPASTA_ALIAS_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
-#dispatcher.add_handler(CLAPMOJI_ALIAS_HANDLER)
+# dispatcher.add_handler(CLAPMOJI_ALIAS_HANDLER)
 dispatcher.add_handler(ANGRYMOJI_HANDLER)
-#dispatcher.add_handler(ANGRYMOJI_ALIAS_HANDLER)
+# dispatcher.add_handler(ANGRYMOJI_ALIAS_HANDLER)
 dispatcher.add_handler(CRYMOJI_HANDLER)
-#dispatcher.add_handler(CRYMOJI_ALIAS_HANDLER)
-#dispatcher.add_handler(BMOJI_HANDLER)
+# dispatcher.add_handler(CRYMOJI_ALIAS_HANDLER)
+# dispatcher.add_handler(BMOJI_HANDLER)
 dispatcher.add_handler(BMOJI_ALIAS_HANDLER)
