@@ -1174,7 +1174,7 @@ def gdpr(update: Update, context: CallbackContext):
 
 
 MARKDOWN_HELP = """
-Markdown is a very powerful formatting tool supported by telegram. {} has some enhancements, to make sure that \
+Markdown is a very powerful formatting tool supported by telegram. Alexa has some enhancements, to make sure that \
 saved messages are correctly parsed, and to allow you to create buttons.
 
 - <code>_italic_</code>: wrapping text with '_' will produce italic text
@@ -1197,7 +1197,7 @@ If you want multiple buttons on the same line, use :same, as such:
 This will create two buttons on a single line, instead of one button per line.
 
 Keep in mind that your message <b>MUST</b> contain some text other than just a button!
-""".format(context.bot.first_name)
+"""
 
 
 @user_admin
