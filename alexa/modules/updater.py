@@ -723,7 +723,7 @@ async def updateme_requirements():
 
 @register(pattern="^/update(?: |$)(.*)")
 async def upstream(ups):
-    check = term.message.sender_id
+    check = ups.message.sender_id
     checkint = int(check)
     # print(checkint)
     if int(check) != int(OWNER_ID):
