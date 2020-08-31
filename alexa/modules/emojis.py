@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -682,8 +681,9 @@ from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 
 import nltk  # shitty lib, but it does work
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
+
+nltk.download("punkt")
+nltk.download("averaged_perceptron_tagger")
 
 
 # D A N K modules by @deletescape vvv
@@ -693,8 +693,36 @@ nltk.download('averaged_perceptron_tagger')
 @user_admin
 def copypasta(update, context):
     message = update.effective_message
-    emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏",
-              "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
+    emojis = [
+        "😂",
+        "😂",
+        "👌",
+        "✌",
+        "💞",
+        "👍",
+        "👌",
+        "💯",
+        "🎶",
+        "👀",
+        "😂",
+        "👓",
+        "👏",
+        "👐",
+        "🍕",
+        "💥",
+        "🍴",
+        "💦",
+        "💦",
+        "🍑",
+        "🍆",
+        "😩",
+        "😏",
+        "👉👌",
+        "👀",
+        "👅",
+        "😩",
+        "🚰",
+    ]
     reply_text = random.choice(emojis)
     # choose a random character in the message to be substituted with 🅱️
     b_char = random.choice(message.reply_to_message.text).lower()
@@ -721,8 +749,9 @@ def bmoji(update, context):
     message = update.effective_message
     # choose a random character in the message to be substituted with 🅱️
     b_char = random.choice(message.reply_to_message.text).lower()
-    reply_text = message.reply_to_message.text.replace(
-        b_char, "🅱️").replace(b_char.upper(), "🅱️")
+    reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(
+        b_char.upper(), "🅱️"
+    )
     message.reply_to_message.reply_text(reply_text)
 
 
@@ -770,19 +799,20 @@ def me_too(update, context):
     message = update.effective_message
     if random.randint(0, 100) > 60:
         reply = random.choice(
-            ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
+            ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"]
+        )
         message.reply_text(reply)
 
 
 COPYPASTA_HANDLER = CommandHandler("copypasta", copypasta)
-#COPYPASTA_ALIAS_HANDLER = CommandHandler("😂", copypasta)
+# COPYPASTA_ALIAS_HANDLER = CommandHandler("😂", copypasta)
 CLAPMOJI_HANDLER = CommandHandler("clapmoji", clapmoji)
-#CLAPMOJI_ALIAS_HANDLER = CommandHandler("👏", clapmoji)
+# CLAPMOJI_ALIAS_HANDLER = CommandHandler("👏", clapmoji)
 ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
-#ANGRYMOJI_ALIAS_HANDLER = CommandHandler("😡", angrymoji)
+# ANGRYMOJI_ALIAS_HANDLER = CommandHandler("😡", angrymoji)
 CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
-#CRYMOJI_ALIAS_HANDLER = CommandHandler("😭", crymoji)
-#BMOJI_HANDLER = CommandHandler("🅱️", bmoji)
+# CRYMOJI_ALIAS_HANDLER = CommandHandler("😭", crymoji)
+# BMOJI_HANDLER = CommandHandler("🅱️", bmoji)
 BMOJI_ALIAS_HANDLER = CommandHandler("bmoji", bmoji)
 
 dispatcher.add_handler(COPYPASTA_HANDLER)
