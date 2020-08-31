@@ -691,7 +691,7 @@ from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHan
 # based on https://github.com/wrxck/mattata/blob/master/plugins/copypasta.mattata
 @run_async
 @user_admin
-def copypasta(bot: Bot, update: Update):
+def copypasta(update, context):
     message = update.effective_message
     emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏", "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
     reply_text = random.choice(emojis)
@@ -715,7 +715,7 @@ def copypasta(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def bmoji(bot: Bot, update: Update):
+def bmoji(update, context):
     message = update.effective_message
     b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
     reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
@@ -724,7 +724,7 @@ def bmoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def clapmoji(bot: Bot, update: Update):
+def clapmoji(update, context):
     message = update.effective_message
     reply_text = "👏 "
     reply_text += message.reply_to_message.text.replace(" ", " 👏 ")
@@ -734,7 +734,7 @@ def clapmoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def angrymoji(bot: Bot, update: Update):
+def angrymoji(update, context):
     message = update.effective_message
     reply_text = "😡 "
     for i in message.reply_to_message.text:
@@ -748,7 +748,7 @@ def angrymoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def crymoji(bot: Bot, update: Update):
+def crymoji(update, context):
     message = update.effective_message
     reply_text = "😭 "
     for i in message.reply_to_message.text:
@@ -762,7 +762,7 @@ def crymoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def me_too(bot: Bot, update: Update):
+def me_too(update, context):
     message = update.effective_message
     if random.randint(0, 100) > 60:
         reply = random.choice(["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
