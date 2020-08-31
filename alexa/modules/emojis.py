@@ -690,8 +690,8 @@ from alexa.modules.helper_funcs.chat_status import user_admin
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
-
 # D A N K modules by @deletescape vvv
+
 
 # based on https://github.com/wrxck/mattata/blob/master/plugins/copypasta.mattata
 @run_async
@@ -755,8 +755,7 @@ def bmoji(update, context):
     # choose a random character in the message to be substituted with 🅱️
     b_char = random.choice(message.reply_to_message.text).lower()
     reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(
-        b_char.upper(), "🅱️"
-    )
+        b_char.upper(), "🅱️")
     message.reply_to_message.reply_text(reply_text)
 
 
@@ -804,8 +803,7 @@ def me_too(update, context):
     message = update.effective_message
     if random.randint(0, 100) > 60:
         reply = random.choice(
-            ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"]
-        )
+            ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
         message.reply_text(reply)
 
 
