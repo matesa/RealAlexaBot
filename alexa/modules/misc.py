@@ -956,7 +956,7 @@ def slap(update: Update, context: CallbackContext):
 
     user_id = extract_user(update.effective_message, args)
     if user_id:
-        slapped_user = bot.get_chat(user_id)
+        slapped_user = context.bot.get_chat(user_id)
         user1 = curr_user
         if slapped_user.username:
             user2 = "@" + escape_markdown(slapped_user.username)
@@ -966,7 +966,7 @@ def slap(update: Update, context: CallbackContext):
 
     # if no target found, bot targets the sender
     else:
-        user1 = "[{}](tg://user?id={})".format(bot.first_name, bot.id)
+        user1 = "[{}](tg://user?id={})".format(context.bot.first_name, context.bot.id)
         user2 = curr_user
 
     temp = random.choice(chat.id, "SLAP_TEMPLATES-K")
@@ -1016,7 +1016,7 @@ def get_id(update: Update, context: CallbackContext):
 
         else:
 
-            user = bot.get_chat(user_id)
+            user = context.bot.get_chat(user_id)
             msg.reply_text(
                 f"{html.escape(user.first_name)}'s id is <code>{user.id}</code>.",
                 parse_mode=ParseMode.HTML,
@@ -1134,7 +1134,7 @@ def echo(update: Update, context: CallbackContext):
     if message.reply_to_message:
         message.reply_to_message.reply_text(args[1])
     else:
-        message.reply_text(args[1], quote=False)
+        message.reply_text(args, quote=False)
     message.delete()
 
 
@@ -1144,13 +1144,13 @@ def reply_keyboard_remove(update: Update, context: CallbackContext):
     reply_keyboard = []
     reply_keyboard.append([ReplyKeyboardRemove(remove_keyboard=True)])
     reply_markup = ReplyKeyboardRemove(remove_keyboard=True)
-    old_message = bot.send_message(
+    old_message = context.bot.send_message(
         chat_id=update.message.chat_id,
         text="Bot Keyboard removed successfully !",
         reply_markup=reply_markup,
         reply_to_message_id=update.message.message_id,
     )
-    bot.delete_message(chat_id=update.message.chat_id,
+    context.bot.delete_message(chat_id=update.message.chat_id,
                        message_id=old_message.message_id)
 
 
@@ -1197,7 +1197,7 @@ If you want multiple buttons on the same line, use :same, as such:
 This will create two buttons on a single line, instead of one button per line.
 
 Keep in mind that your message <b>MUST</b> contain some text other than just a button!
-""".format(dispatcher.bot.first_name)
+""".format(context.bot.first_name)
 
 
 @user_admin
