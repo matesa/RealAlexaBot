@@ -919,6 +919,7 @@ def forbesify(update, context):
 @user_admin
 def deepfryer(update, context):
     message = update.effective_message
+    bot = context.bot
     if message.reply_to_message:
         data = message.reply_to_message.photo
         data2 = message.reply_to_message.sticker
@@ -947,8 +948,9 @@ def deepfryer(update, context):
     loop.close()
 
 
-async def process_deepfry(image: Image, reply: Message, bot: Bot):
+async def process_deepfry(image: Image, reply: Message, context):
     # DEEPFRY IT
+    bot = context.bot
     image = await deepfry(img=image,
                           token=DEEPFRY_TOKEN,
                           url_base="westeurope")
