@@ -661,29 +661,30 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from alexa import dispatcher, DEEPFRY_TOKEN, LOGGER
-from deeppyer import deepfry
-from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
-from telegram import MessageEntity
-from telegram import Message, Update, Bot, User
-from typing import Optional, List
+import asyncio
+import base64
+import glob
+import io
+import os
 import random
 import re
 import string
-import io
-import asyncio
-from PIL import Image
 from io import BytesIO
-import base64
-from spongemock import spongemock
-from zalgo_text import zalgo
-import os
 from pathlib import Path
-import glob
+from typing import List, Optional
 
 import nltk  # shitty lib, but it does work
+from PIL import Image
+from spongemock import spongemock
+from telegram import Bot, Message, MessageEntity, Update, User
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from zalgo_text import zalgo
+
+from alexa import DEEPFRY_TOKEN, LOGGER, dispatcher
+from alexa.modules.disable import (DisableAbleCommandHandler,
+                                   DisableAbleRegexHandler)
+from alexa.modules.helper_funcs.chat_status import user_admin
+from deeppyer import deepfry
 
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
