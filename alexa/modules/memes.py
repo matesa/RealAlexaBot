@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -660,34 +659,43 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
-
-
-
-import random, re, string, io, asyncio
-from PIL import Image
-from io import BytesIO
+import asyncio
 import base64
-from spongemock import spongemock
-from zalgo_text import zalgo
-import os
-from pathlib import Path
 import glob
+import io
+import os
+import random
+import re
+import string
+from io import BytesIO
+from pathlib import Path
+from typing import List
+from typing import Optional
 
-import nltk # shitty lib, but it does work
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-
-from typing import Optional, List
-from telegram import Message, Update, Bot, User
+import nltk  # shitty lib, but it does work
+from PIL import Image
+from spongemock import spongemock
+from telegram import Bot
+from telegram import Message
 from telegram import MessageEntity
-from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
+from telegram import Update
+from telegram import User
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
+from zalgo_text import zalgo
+
+from alexa import DEEPFRY_TOKEN
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.disable import DisableAbleRegexHandler
+from alexa.modules.helper_funcs.chat_status import user_admin
 from deeppyer import deepfry
 
-from alexa import dispatcher, DEEPFRY_TOKEN, LOGGER
-from alexa.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from alexa.modules.helper_funcs.chat_status import user_admin
+nltk.download("punkt")
+nltk.download("averaged_perceptron_tagger")
 
 WIDE_MAP = dict((i, i + 0xFEE0) for i in range(0x21, 0x7F))
 WIDE_MAP[0x20] = 0x3000
@@ -702,21 +710,39 @@ def owo(update, context):
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
     else:
-        faces = ['(・`ω´・)',';;w;;','owo','UwU','>w<','^w^','\(^o\) (/o^)/','( ^ _ ^)∠☆','(ô_ô)','~:o',';____;', '(*^*)', '(>_', '(♥_♥)', '*(^O^)*', '((+_+))']
-        reply_text = re.sub(r'[rl]', "w", message.reply_to_message.text)
-        reply_text = re.sub(r'[ｒｌ]', "ｗ", message.reply_to_message.text)
-        reply_text = re.sub(r'[RL]', 'W', reply_text)
-        reply_text = re.sub(r'[ＲＬ]', 'Ｗ', reply_text)
-        reply_text = re.sub(r'n([aeiouａｅｉｏｕ])', r'ny\1', reply_text)
-        reply_text = re.sub(r'ｎ([ａｅｉｏｕ])', r'ｎｙ\1', reply_text)
-        reply_text = re.sub(r'N([aeiouAEIOU])', r'Ny\1', reply_text)
-        reply_text = re.sub(r'Ｎ([ａｅｉｏｕＡＥＩＯＵ])', r'Ｎｙ\1', reply_text)
-        reply_text = re.sub(r'\!+', ' ' + random.choice(faces), reply_text)
-        reply_text = re.sub(r'！+', ' ' + random.choice(faces), reply_text)
+        faces = [
+            "(・`ω´・)",
+            ";;w;;",
+            "owo",
+            "UwU",
+            ">w<",
+            "^w^",
+            "\(^o\) (/o^)/",
+            "( ^ _ ^)∠☆",
+            "(ô_ô)",
+            "~:o",
+            ";____;",
+            "(*^*)",
+            "(>_",
+            "(♥_♥)",
+            "*(^O^)*",
+            "((+_+))",
+        ]
+        reply_text = re.sub(r"[rl]", "w", message.reply_to_message.text)
+        reply_text = re.sub(r"[ｒｌ]", "ｗ", message.reply_to_message.text)
+        reply_text = re.sub(r"[RL]", "W", reply_text)
+        reply_text = re.sub(r"[ＲＬ]", "Ｗ", reply_text)
+        reply_text = re.sub(r"n([aeiouａｅｉｏｕ])", r"ny\1", reply_text)
+        reply_text = re.sub(r"ｎ([ａｅｉｏｕ])", r"ｎｙ\1", reply_text)
+        reply_text = re.sub(r"N([aeiouAEIOU])", r"Ny\1", reply_text)
+        reply_text = re.sub(r"Ｎ([ａｅｉｏｕＡＥＩＯＵ])", r"Ｎｙ\1", reply_text)
+        reply_text = re.sub(r"\!+", " " + random.choice(faces), reply_text)
+        reply_text = re.sub(r"！+", " " + random.choice(faces), reply_text)
         reply_text = reply_text.replace("ove", "uv")
         reply_text = reply_text.replace("ｏｖｅ", "ｕｖ")
-        reply_text += ' ' + random.choice(faces)
+        reply_text += " " + random.choice(faces)
         message.reply_to_message.reply_text(reply_text)
+
 
 @run_async
 @user_admin
@@ -725,9 +751,39 @@ def copypasta(update, context):
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
     else:
-        emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏", "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
+        emojis = [
+            "😂",
+            "😂",
+            "👌",
+            "✌",
+            "💞",
+            "👍",
+            "👌",
+            "💯",
+            "🎶",
+            "👀",
+            "😂",
+            "👓",
+            "👏",
+            "👐",
+            "🍕",
+            "💥",
+            "🍴",
+            "💦",
+            "💦",
+            "🍑",
+            "🍆",
+            "😩",
+            "😏",
+            "👉👌",
+            "👀",
+            "👅",
+            "😩",
+            "🚰",
+        ]
         reply_text = random.choice(emojis)
-        b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
+        # choose a random character in the message to be substituted with 🅱️
+        b_char = random.choice(message.reply_to_message.text).lower()
         for c in message.reply_to_message.text:
             if c == " ":
                 reply_text += random.choice(emojis)
@@ -752,8 +808,10 @@ def bmoji(update, context):
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
     else:
-        b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
-        reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
+        # choose a random character in the message to be substituted with 🅱️
+        b_char = random.choice(message.reply_to_message.text).lower()
+        reply_text = message.reply_to_message.text.replace(
+            b_char, "🅱️").replace(b_char.upper(), "🅱️")
         message.reply_to_message.reply_text(reply_text)
 
 
@@ -770,7 +828,6 @@ def clapmoji(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-
 @run_async
 @user_admin
 def stretch(update, context):
@@ -779,7 +836,8 @@ def stretch(update, context):
         message.reply_text("I need a message to meme.")
     else:
         count = random.randint(3, 10)
-        reply_text = re.sub(r'([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])', (r'\1' * count), message.reply_to_message.text)
+        reply_text = re.sub(r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])", (r"\1" * count),
+                            message.reply_to_message.text)
         message.reply_to_message.reply_text(reply_text)
 
 
@@ -790,7 +848,8 @@ def vapor(update, context):
     args = context.args
     if not message.reply_to_message:
         if not args:
-            message.reply_text("I need a message to convert to vaporwave text.")
+            message.reply_text(
+                "I need a message to convert to vaporwave text.")
         else:
             noreply = True
             data = message.text.split(None, 1)[1]
@@ -798,13 +857,14 @@ def vapor(update, context):
         noreply = False
         data = message.reply_to_message.text
     else:
-        data = ''
+        data = ""
 
     reply_text = str(data).translate(WIDE_MAP)
     if noreply:
         message.reply_text(reply_text)
     else:
         message.reply_to_message.reply_text(reply_text)
+
 
 # D A N K modules by @deletescape ^^^
 # Less D A N K modules by @skittles9823 # holi fugg I did some maymays vvv
@@ -817,13 +877,16 @@ def zalgotext(update, context):
     if message.reply_to_message:
         data = message.reply_to_message.text
     else:
-        data = str('Insolant human, you must reply to something to zalgofy it!')
+        data = str(
+            "Insolant human, you must reply to something to zalgofy it!")
 
     reply_text = zalgo.zalgo().zalgofy(data)
     message.reply_text(reply_text)
 
+
 # Less D A N K modules by @skittles9823 # holi fugg I did some maymays ^^^
 # shitty maymay modules made by @divadsn vvv
+
 
 @run_async
 @user_admin
@@ -832,10 +895,10 @@ def forbesify(update, context):
     if message.reply_to_message:
         data = message.reply_to_message.text
     else:
-        data = ''
+        data = ""
 
     data = data.lower()
-    accidentals = ['VB', 'VBD', 'VBG', 'VBN']
+    accidentals = ["VB", "VBD", "VBG", "VBN"]
     reply_text = data.split()
     offset = 0
 
@@ -847,10 +910,10 @@ def forbesify(update, context):
     for k in range(len(reply_text)):
         i = reply_text[k + offset]
         if tagged.get(i) in accidentals:
-            reply_text.insert(k + offset, 'accidentally')
+            reply_text.insert(k + offset, "accidentally")
             offset += 1
 
-    reply_text = string.capwords(' '.join(reply_text))
+    reply_text = string.capwords(" ".join(reply_text))
     message.reply_to_message.reply_text(reply_text)
 
 
@@ -876,31 +939,32 @@ def deepfryer(update, context):
         image = Image.open(io.BytesIO(photodata))
     elif data2:
         sticker = context.bot.get_file(data2.file_id)
-        sticker.download('sticker.png')
+        sticker.download("sticker.png")
         image = Image.open("sticker.png")
 
     # the following needs to be executed async (because dumb lib)
     loop = asyncio.new_event_loop()
-    loop.run_until_complete(process_deepfry(image, message.reply_to_message, bot))
+    loop.run_until_complete(
+        process_deepfry(image, message.reply_to_message, bot))
     loop.close()
+
 
 async def process_deepfry(image: Image, reply: Message, bot: Bot):
     # DEEPFRY IT
-    image = await deepfry(
-        img=image,
-        token=DEEPFRY_TOKEN,
-        url_base='westeurope'
-    )
+    image = await deepfry(img=image,
+                          token=DEEPFRY_TOKEN,
+                          url_base="westeurope")
 
     bio = BytesIO()
-    bio.name = 'image.jpeg'
-    image.save(bio, 'JPEG')
+    bio.name = "image.jpeg"
+    image.save(bio, "JPEG")
 
     # send it back
     bio.seek(0)
     reply.reply_photo(bio)
     if Path("sticker.png").is_file():
         os.remove("sticker.png")
+
 
 # shitty maymay modules made by @divadsn ^^^
 
@@ -916,9 +980,9 @@ def shout(update, context):
     msg = "```"
     text = " ".join(args)
     result = []
-    result.append(' '.join([s for s in text]))
+    result.append(" ".join([s for s in text]))
     for pos, symbol in enumerate(text[1:]):
-        result.append(symbol + ' ' + '  ' * pos + symbol)
+        result.append(symbol + " " + "  " * pos + symbol)
     result = list("\n".join(result))
     result[0] = text[0]
     result = "".join(result)
@@ -952,6 +1016,7 @@ def crymoji(update, context):
             reply_text += i
     reply_text += " 😭"
     message.reply_to_message.reply_text(reply_text)
+
 
 __help__ = """
 Some memes command, find it all out yourself!
@@ -1003,18 +1068,18 @@ ZALGO_HANDLER = CommandHandler("zalgofy", zalgotext)
 FORBES_HANDLER = CommandHandler("forbes", forbesify)
 DEEPFRY_HANDLER = CommandHandler("deepfry", deepfryer)
 SHOUT_HANDLER = CommandHandler("shout", shout, pass_args=True)
-#FORBES_HANDLER = CommandHandler("forbesify", forbesify)
+# FORBES_HANDLER = CommandHandler("forbesify", forbesify)
 ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
 CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
 
 dispatcher.add_handler(ANGRYMOJI_HANDLER)
-dispatcher.add_handler(CRYMOJI_HANDLER
+dispatcher.add_handler(CRYMOJI_HANDLER)
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
 dispatcher.add_handler(BMOJI_HANDLER)
 dispatcher.add_handler(SHOUT_HANDLER)
 dispatcher.add_handler(OWO_HANDLER)
-#dispatcher.add_handler(FORBES_HANDLER)
+# dispatcher.add_handler(FORBES_HANDLER)
 dispatcher.add_handler(STRETCH_HANDLER)
 dispatcher.add_handler(VAPOR_HANDLER)
 dispatcher.add_handler(ZALGO_HANDLER)
