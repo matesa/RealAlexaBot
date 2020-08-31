@@ -1008,7 +1008,7 @@ ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
 CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
 
 dispatcher.add_handler(ANGRYMOJI_HANDLER)
-dispatcher.add_handler(CRYMOJI_HANDLER
+dispatcher.add_handler(CRYMOJI_HANDLER)
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
 dispatcher.add_handler(BMOJI_HANDLER)
