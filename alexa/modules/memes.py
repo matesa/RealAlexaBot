@@ -689,8 +689,6 @@ from zalgo_text import zalgo
 from alexa import DEEPFRY_TOKEN
 from alexa import dispatcher
 from alexa import LOGGER
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.disable import DisableAbleRegexHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
 from deeppyer import deepfry
 
