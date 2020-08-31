@@ -659,8 +659,6 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import asyncio
 import base64
 import glob
@@ -671,18 +669,28 @@ import re
 import string
 from io import BytesIO
 from pathlib import Path
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
 import nltk  # shitty lib, but it does work
 from PIL import Image
 from spongemock import spongemock
-from telegram import Bot, Message, MessageEntity, Update, User
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from telegram import Bot
+from telegram import Message
+from telegram import MessageEntity
+from telegram import Update
+from telegram import User
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from zalgo_text import zalgo
 
-from alexa import DEEPFRY_TOKEN, LOGGER, dispatcher
-from alexa.modules.disable import (DisableAbleCommandHandler,
-                                   DisableAbleRegexHandler)
+from alexa import DEEPFRY_TOKEN
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa.modules.disable import DisableAbleCommandHandler
+from alexa.modules.disable import DisableAbleRegexHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
 from deeppyer import deepfry
 
