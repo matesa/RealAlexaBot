@@ -683,8 +683,6 @@ from telegram.ext import MessageHandler
 from telegram.ext import run_async
 
 from alexa import dispatcher
-from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.disable import DisableAbleRegexHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
 
 nltk.download("punkt")
