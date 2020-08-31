@@ -932,14 +932,14 @@ async def is_register_banful(chat, user):
 
 @user_admin
 @run_async
-def runs(bot: Bot, update: Update, context: CallbackContext):
+def runs(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(random.choice(chat.id, "RUNS-K"))
 
 
 @user_admin
 @run_async
-def slap(bot: Bot, update: Update, context: CallbackContext):
+def slap(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
     args = context.args
@@ -1034,7 +1034,7 @@ def get_id(update: Update, context: CallbackContext):
 
 
 @run_async
-def stats(bot: Bot, update: Update, context: CallbackContext):
+def stats(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         "Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
@@ -1128,7 +1128,7 @@ def info(update, context):
 
 @user_admin
 @run_async
-def echo(bot: Bot, update: Update, context: CallbackContext):
+def echo(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
     if message.reply_to_message:
@@ -1140,7 +1140,7 @@ def echo(bot: Bot, update: Update, context: CallbackContext):
 
 @user_admin
 @run_async
-def reply_keyboard_remove(bot: Bot, update: Update, context: CallbackContext):
+def reply_keyboard_remove(update: Update, context: CallbackContext):
     reply_keyboard = []
     reply_keyboard.append([ReplyKeyboardRemove(remove_keyboard=True)])
     reply_markup = ReplyKeyboardRemove(remove_keyboard=True)
@@ -1156,7 +1156,7 @@ def reply_keyboard_remove(bot: Bot, update: Update, context: CallbackContext):
 
 @user_admin
 @run_async
-def gdpr(bot: Bot, update: Update, context: CallbackContext):
+def gdpr(update: Update, context: CallbackContext):
     update.effective_message.reply_text(update.effective_chat.id,
                                         "Deleting identifiable data...")
     for mod in GDPR:
@@ -1202,7 +1202,7 @@ Keep in mind that your message <b>MUST</b> contain some text other than just a b
 
 @user_admin
 @run_async
-def markdown_help(bot: Bot, update: Update, context: CallbackContext):
+def markdown_help(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
 
     update.effective_message.reply_text(chat.id,
@@ -1212,7 +1212,7 @@ def markdown_help(bot: Bot, update: Update, context: CallbackContext):
 
 @run_async
 @user_admin
-def github(bot: Bot, update: Update, context: CallbackContext):
+def github(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/git "):]
     usr = get(f"https://api.github.com/users/{text}").json()
@@ -1241,7 +1241,7 @@ def github(bot: Bot, update: Update, context: CallbackContext):
 
 @user_admin
 @run_async
-def repo(bot: Bot, update: Update, context: CallbackContext):
+def repo(update: Update, context: CallbackContext):
     message = update.effective_message
     args = context.args
     text = message.text[len("/repo "):]
@@ -1259,7 +1259,7 @@ BASE_URL = "https://del.dog"
 
 @user_admin
 @run_async
-def paste(bot: Bot, update: Update, context: CallbackContext):
+def paste(update: Update, context: CallbackContext):
     message = update.effective_message
     args = context.args
     if message.reply_to_message:
@@ -1294,7 +1294,7 @@ def paste(bot: Bot, update: Update, context: CallbackContext):
 
 @user_admin
 @run_async
-def get_paste_content(bot: Bot, update: Update, context: CallbackContext):
+def get_paste_content(update: Update, context: CallbackContext):
     message = update.effective_message
     args = context.args
     if len(args) >= 1:
@@ -1331,7 +1331,7 @@ def get_paste_content(bot: Bot, update: Update, context: CallbackContext):
 
 @user_admin
 @run_async
-def get_paste_stats(bot: Bot, update: Update, context: CallbackContext):
+def get_paste_stats(update: Update, context: CallbackContext):
     message = update.effective_message
     args = context.args
     if len(args) >= 1:
@@ -1602,7 +1602,7 @@ async def img_sampler(event):
 
 @run_async
 @user_admin
-def shrug(bot: Bot, update: Update, context: CallbackContext):
+def shrug(update: Update, context: CallbackContext):
     default_msg = "¯\_(ツ)_/¯"
     message = update.effective_message
     if message.reply_to_message:
@@ -1615,7 +1615,7 @@ dictionary = PyDictionary()
 
 
 @run_async
-def define(bot: Bot, update: Update, context: CallbackContext):
+def define(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
     word = f"{text}"
@@ -1628,7 +1628,7 @@ def define(bot: Bot, update: Update, context: CallbackContext):
 
 
 @run_async
-def synonyms(bot: Bot, update: Update, context: CallbackContext):
+def synonyms(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
     word = f"{text}"
@@ -1641,7 +1641,7 @@ def synonyms(bot: Bot, update: Update, context: CallbackContext):
 
 
 @run_async
-def antonyms(bot: Bot, update: Update, context: CallbackContext):
+def antonyms(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
     word = f"{text}"
@@ -2213,7 +2213,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 
 @run_async
 @user_admin
-def gettime(bot: Bot, update: Update, context: CallbackContext):
+def gettime(update: Update, context: CallbackContext):
     message = update.effective_message
 
     try:
@@ -2245,7 +2245,7 @@ def gettime(bot: Bot, update: Update, context: CallbackContext):
 
 @run_async
 @user_admin
-def lyrics(bot: Bot, update: Update, context: CallbackContext):
+def lyrics(update: Update, context: CallbackContext):
     msg = update.effective_message
     query = " ".join(args)
     song = ""
