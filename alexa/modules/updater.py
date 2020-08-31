@@ -694,7 +694,8 @@ from alexa import UPSTREAM_REPO_URL
 from alexa.events import register
 
 requirements_path = path.join(
-    path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt")
+    path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
+)
 
 
 async def gen_chlog(repo, diff):
@@ -768,7 +769,8 @@ async def upstream(ups):
                 f"**[UPDATER]:**` Looks like you are using your own custom branch ({ac_br}). "
                 "in that case, Updater is unable to identify "
                 "which branch is to be merged. "
-                "please checkout to any official branch`")
+                "please checkout to any official branch`"
+            )
             repo.__del__()
             return
 
@@ -797,9 +799,7 @@ async def upstream(ups):
                 file.write(changelog_str)
                 file.close()
                 await ups.client.send_file(
-                    ups.chat_id,
-                    "output.txt",
-                    reply_to=ups.id,
+                    ups.chat_id, "output.txt", reply_to=ups.id,
                 )
                 remove("output.txt")
             else:
@@ -809,7 +809,8 @@ async def upstream(ups):
 
         if force_update:
             await lol.edit(
-                "`Force-Syncing to latest stable userbot code, please wait...`")
+                "`Force-Syncing to latest stable userbot code, please wait...`"
+            )
         else:
             await lol.edit("`Still running ...`")
 
@@ -835,13 +836,15 @@ async def upstream(ups):
                 )
                 repo.__del__()
                 return
-            await lol.edit(f"`[Updater]\
+            await lol.edit(
+                f"`[Updater]\
                         Your bot is being deployed, please wait for it to complete.\nIt may take upto 5 minutes `"
-                           )
+            )
             ups_rem.fetch(ac_br)
             repo.git.reset("--hard", "FETCH_HEAD")
             heroku_git_url = heroku_app.git_url.replace(
-                "https://", "https://api:" + HEROKU_API_KEY + "@")
+                "https://", "https://api:" + HEROKU_API_KEY + "@"
+            )
             if "heroku" in repo.remotes:
                 remote = repo.remote("heroku")
                 remote.set_url(heroku_git_url)
