@@ -659,15 +659,16 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import logging
 import os
 import sys
 import threading
 from distutils.util import strtobool as sb
 from importlib import import_module
-from logging import DEBUG, INFO, basicConfig, getLogger
+from logging import basicConfig
+from logging import DEBUG
+from logging import getLogger
+from logging import INFO
 from sys import version_info
 
 import telegram.ext as tg
