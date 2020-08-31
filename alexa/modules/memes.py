@@ -697,7 +697,7 @@ WIDE_MAP[0x20] = 0x3000
 
 @run_async
 @user_admin
-def owo(bot: Bot, update: Update):
+def owo(update, context):
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
@@ -720,7 +720,7 @@ def owo(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def copypasta(bot: Bot, update: Update):
+def copypasta(update, context):
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
@@ -747,7 +747,7 @@ def copypasta(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def bmoji(bot: Bot, update: Update):
+def bmoji(update, context):
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
@@ -759,7 +759,7 @@ def bmoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def clapmoji(bot: Bot, update: Update):
+def clapmoji(update, context):
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
@@ -773,7 +773,7 @@ def clapmoji(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def stretch(bot: Bot, update: Update):
+def stretch(update, context):
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("I need a message to meme.")
@@ -785,8 +785,9 @@ def stretch(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def vapor(bot: Bot, update: Update, args: List[str]):
+def vapor(update, context):
     message = update.effective_message
+    args = context.args
     if not message.reply_to_message:
         if not args:
             message.reply_text("I need a message to convert to vaporwave text.")
@@ -811,7 +812,7 @@ def vapor(bot: Bot, update: Update, args: List[str]):
 
 @run_async
 @user_admin
-def zalgotext(bot: Bot, update: Update):
+def zalgotext(update, context):
     message = update.effective_message
     if message.reply_to_message:
         data = message.reply_to_message.text
@@ -826,7 +827,7 @@ def zalgotext(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def forbesify(bot: Bot, update: Update):
+def forbesify(update, context):
     message = update.effective_message
     if message.reply_to_message:
         data = message.reply_to_message.text
@@ -855,7 +856,7 @@ def forbesify(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def deepfryer(bot: Bot, update: Update):
+def deepfryer(update, context):
     message = update.effective_message
     if message.reply_to_message:
         data = message.reply_to_message.photo
@@ -906,7 +907,8 @@ async def process_deepfry(image: Image, reply: Message, bot: Bot):
 
 @run_async
 @user_admin
-def shout(bot: Bot, update: Update, args):
+def shout(update, context):
+	args = context.args
     if len(args) == 0:
         update.effective_message.reply_text("Where is text?")
         return
@@ -924,7 +926,33 @@ def shout(bot: Bot, update: Update, args):
     return update.effective_message.reply_text(msg, parse_mode="MARKDOWN")
 
 
-# no help string
+@run_async
+@user_admin
+def angrymoji(update, context):
+    message = update.effective_message
+    reply_text = "😡 "
+    for i in message.reply_to_message.text:
+        if i == " ":
+            reply_text += " 😡 "
+        else:
+            reply_text += i
+    reply_text += " 😡"
+    message.reply_to_message.reply_text(reply_text)
+
+
+@run_async
+@user_admin
+def crymoji(update, context):
+    message = update.effective_message
+    reply_text = "😭 "
+    for i in message.reply_to_message.text:
+        if i == " ":
+            reply_text += " 😭 "
+        else:
+            reply_text += i
+    reply_text += " 😭"
+    message.reply_to_message.reply_text(reply_text)
+
 __help__ = """
 Some memes command, find it all out yourself!
 
@@ -958,7 +986,7 @@ Some memes command, find it all out yourself!
  - /stickerid: Gives the ID of the sticker you've replied to
  - /getsticker: Uploads the .png of the sticker you've replied to
  - /kang <emoji for sticker>: Reply to a sticker to add it to your pack or makes a new one if it doesn't exist
- - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours)
+ - /sticklet <text>: Turn a text into a sticker
  - /fortune: gets a random fortune quote
  - /quotly: An alternative to @QuotlyBot, type /quotly in reply to a message
 """
@@ -976,7 +1004,11 @@ FORBES_HANDLER = CommandHandler("forbes", forbesify)
 DEEPFRY_HANDLER = CommandHandler("deepfry", deepfryer)
 SHOUT_HANDLER = CommandHandler("shout", shout, pass_args=True)
 #FORBES_HANDLER = CommandHandler("forbesify", forbesify)
+ANGRYMOJI_HANDLER = CommandHandler("angrymoji", angrymoji)
+CRYMOJI_HANDLER = CommandHandler("crymoji", crymoji)
 
+dispatcher.add_handler(ANGRYMOJI_HANDLER)
+dispatcher.add_handler(CRYMOJI_HANDLER
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
 dispatcher.add_handler(BMOJI_HANDLER)
