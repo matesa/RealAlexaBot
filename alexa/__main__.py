@@ -661,38 +661,27 @@
 #     <https://www.gnu.org/licenses/>.
 
 
-import importlib
-import traceback
 import html
+import importlib
 import json
 import re
-from typing import Optional, List
+import traceback
+from typing import List, Optional
 
-from telegram import Message, Chat, User
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
-from telegram.ext.dispatcher import run_async, DispatcherHandlerStop
+from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
+                      Message, ParseMode, User)
+from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
+                          MessageHandler)
+from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
 
-from alexa import (
-    dispatcher,
-    updater,
-    TOKEN,
-    OWNER_ID,
-    WEBHOOK,
-    CERT_PATH,
-    PORT,
-    URL,
-    LOGGER,
-)
-
+from alexa import (CERT_PATH, LOGGER, OWNER_ID, PORT, TOKEN, URL, WEBHOOK,
+                   dispatcher, tbot, updater)
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from alexa.modules import ALL_MODULES
-from alexa import tbot
 from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
 from alexa.modules.helper_funcs.misc import paginate_modules
-
 
 PM_START_TEXT = f"""
 [#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
