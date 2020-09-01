@@ -661,7 +661,7 @@
 #     <https://www.gnu.org/licenses/>.
 import asyncio
 import base64
-import datetime
+from datetime import datetime, timedelta
 import glob
 import html
 import io
@@ -929,10 +929,10 @@ async def is_register_banful(chat, user):
 
 @user_admin
 @run_async
-def runs(update: Update, context: CallbackContext):
+def runs(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     RUNIT = ["Now you see me, now you don't.","ε=ε=ε=ε=┌(;￣▽￣)┘","Get back here!","REEEEEEEEEEEEEEEEEE!!!!!!!","Look out for the wall!","Don't leave me alone with them!!","You've got company!","Chotto matte!","Yare yare daze","*Naruto run activated*","*Nezuko run activated*","Hey take responsibilty for what you just did!","May the odds be ever in your favour.","Run everyone, they just dropped a bomb 💣💣","And they disappeared forever, never to be seen again.","Legend has it, they're still running.","Hasta la vista, baby.","Ah, what a waste. I liked that one.","As The Doctor would say... RUN!"]
-    update.effective_message.reply_text(random.choice(chat.id, RUNIT))
+    update.effective_message.reply_text(chat.id, random.choice(RUNIT))
 
 
 @user_admin
@@ -2021,7 +2021,7 @@ async def _(event):
                                         event.message.sender_id)):
             await event.reply("")
             return
-    start = datetime.datetime.now()
+    start = datetime.now()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     await event.reply("Downloading to Alexa's server for Analysis ...")
@@ -2058,7 +2058,7 @@ async def _(event):
                     transcript_confidence += (" " +
                                               str(alternatives["confidence"]) +
                                               " + ")
-                end = datetime.datetime.now()
+                end = datetime.now()
                 ms = (end - start).seconds
                 if transcript_response != "":
                     string_to_show = "Language: `English`\nTRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(
@@ -2186,7 +2186,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
                 time_fmt = r"%H:%M:%S"
                 day_fmt = r"%A"
                 gmt_offset = zone["gmtOffset"]
-                timestamp = datetime.datetime.now(
+                timestamp = datetime.now(
                     datetime.timezone.utc) + datetime.timedelta(
                         seconds=gmt_offset)
                 current_date = timestamp.strftime(date_fmt)
@@ -2487,9 +2487,9 @@ async def pingme(pong):
             await pong.reply("")
             return
     """ FOr .pingme command, ping the userbot from any chat.  """
-    start = datetime.datetime.now()
+    start = datetime.now()
     up = await pong.reply("`Pong!`")
-    end = datetime.datetime.now()
+    end = datetime.now()
     duration = (end - start).microseconds / 1000
     await up.edit("`Pong!\n%sms`" % (duration))
 
@@ -2581,7 +2581,7 @@ async def _(event):
                                         event.message.sender_id)):
             await event.reply("")
             return
-    start = datetime.datetime.now()
+    start = datetime.now()
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `.barcode <long text to include>`"
     reply_msg_id = event.message.id
@@ -2622,7 +2622,7 @@ async def _(event):
     except Exception as e:
         await event.reply(str(e))
         return
-    end = datetime.datetime.now()
+    end = datetime.now()
     ms = (end - start).seconds
     await event.reply("Created BarCode in {} seconds".format(ms))
 
