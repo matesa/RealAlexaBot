@@ -2170,6 +2170,7 @@ async def _(event):
         except:
             pass
 
+from datetime import timezone
 
 def generate_time(to_find: str, findtype: List[str]) -> str:
     data = requests.get(
@@ -2195,8 +2196,8 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
                 time_fmt = r"%H:%M:%S"
                 day_fmt = r"%A"
                 gmt_offset = zone["gmtOffset"]
-                timestamp = datetime.datetime.now(
-                    datetime.timezone.utc) + datetime.timedelta(
+                dt_now = datetime.now(tz=timezone.utc)
+                timestamp = dt_now + datetime.timedelta(
                         seconds=gmt_offset)
                 current_date = timestamp.strftime(date_fmt)
                 current_time = timestamp.strftime(time_fmt)
@@ -3332,6 +3333,7 @@ async def sticklet(event):
                         sticktext,
                         font=font,
                         fill=(R, G, B))
+    global image_stream
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
@@ -3348,23 +3350,6 @@ async def get_font_file(client, channel_id):
     font_file_message = random.choice(font_file_message_s)
     return await client.download_media(font_file_message)
 
-
-@register(pattern="^/undlt")
-async def _(event):
-    if event.fwd_from:
-        return
-    c = await event.get_chat()
-    if c.admin_rights or c.creator:
-        a = await tbot.get_admin_log(event.chat_id,
-                                     limit=5,
-                                     search="",
-                                     edit=True,
-                                     delete=True)
-        for i in a:
-            await event.reply(i.original.action.message)
-    else:
-        await event.reply(
-            "I need administrative permissions in order to do this command")
 
 
 __help__ = """
