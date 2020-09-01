@@ -1130,9 +1130,18 @@ def echo(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
     if message.reply_to_message:
-        message.reply_to_message.reply_text(args[1])
+        lo = str(args)
+        pe = lo.replace["[", ""]
+        se = pe.replace["]", ""]
+        de = se.replace['"', '']
+        message.reply_text(de)
+        message.reply_to_message.reply_text(args)
     else:
-        message.reply_text(args, quote=False)
+        lo = str(args)
+        pe = lo.replace["[", ""]
+        se = pe.replace["]", ""]
+        de = se.replace['"', '']
+        message.reply_text(de)
     message.delete()
 
 
@@ -2186,7 +2195,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
                 time_fmt = r"%H:%M:%S"
                 day_fmt = r"%A"
                 gmt_offset = zone["gmtOffset"]
-                timestamp = datetime.now(
+                timestamp = datetime.datetime.now(
                     datetime.timezone.utc) + datetime.timedelta(
                         seconds=gmt_offset)
                 current_date = timestamp.strftime(date_fmt)
@@ -2676,7 +2685,7 @@ async def _(event):
             logger.warn("sleeping for {} seconds".format(ex.seconds))
             sleep(ex.seconds)
         except Exception as ex:
-            await event.reply(str(ex))
+            await event.reply(str(ex)) 
         else:
             p += 1
         await done.edit("{}: {} unbanned".format(event.chat_id, p))
@@ -3299,6 +3308,7 @@ async def stickleter(event):
                                        reply_to=event.id)
     os.system("rm -rf image_stream")
     del stickletedtext
+    del image_stream
     await chia.delete()
 
 
