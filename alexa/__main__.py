@@ -659,29 +659,44 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
 import html
 import importlib
 import json
 import re
 import traceback
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
-                      Message, ParseMode, User)
-from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
-                          MessageHandler)
-from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
+from telegram import Chat
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import ParseMode
+from telegram import User
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext.dispatcher import DispatcherHandlerStop
+from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 
-from alexa import (CERT_PATH, LOGGER, OWNER_ID, PORT, TOKEN, URL, WEBHOOK,
-                   dispatcher, tbot, updater)
+from alexa import CERT_PATH
+from alexa import dispatcher
+from alexa import LOGGER
+from alexa import OWNER_ID
+from alexa import PORT
+from alexa import tbot
+from alexa import TOKEN
+from alexa import updater
+from alexa import URL
+from alexa import WEBHOOK
+from alexa.modules import ALL_MODULES
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.misc import paginate_modules
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
-from alexa.modules import ALL_MODULES
-from alexa.modules.helper_funcs.chat_status import is_user_admin, user_admin
-from alexa.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = f"""
 [#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
