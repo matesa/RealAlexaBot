@@ -705,12 +705,12 @@ buttons = [
         InlineKeyboardButton(
             text="Add to Group 👥", url="t.me/realalexabot?startgroup=true"
         ),
-        InlineKeyboardButton(text="Support Group 🎙️", url="https://t.me/"),
+        InlineKeyboardButton(text="Support Group 🎙️", url="https://t.me/realalexabotsupport"),
     ]
 ]
 
-buttons += [[InlineKeyboardButton(text="My Commands ❔", callback_data="help_back"),
-                      InlineKeyboardButton(text="Website 🕸️", url="http://realalexabetabot.unaux.com/home")]]
+buttons += [[InlineKeyboardButton(text="Commands ❓", callback_data="help_back"),
+                      InlineKeyboardButton(text="Website 🌐", url="http://realalexabot.unaux.com/home")]]
 
 
 HELP_STRINGS = """
@@ -813,7 +813,7 @@ def start(update, context):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-          update.effective_message.reply_text(
+          update.effective_message.edit_message_text(
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
@@ -869,7 +869,7 @@ def help_button(update, context):
                 )
                 + HELPABLE[module].__help__
             )
-            query.message.reply_text(
+            query.message.edit_message_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -879,7 +879,7 @@ def help_button(update, context):
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.reply_text(
+            query.message.edit_message_text(
                 HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -889,7 +889,7 @@ def help_button(update, context):
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(
+            query.message.edit_message_text(
                 HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -898,7 +898,7 @@ def help_button(update, context):
             )
 
         elif back_match:
-            query.message.reply_text(
+            query.message.edit_message_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -907,7 +907,7 @@ def help_button(update, context):
             )
 
         # ensure no spinny white circle
-        query.message.delete()
+        #   query.message.delete()
         context.bot.answer_callback_query(query.id)
     except Exception as excp:
         if excp.message == "Message is not modified":
