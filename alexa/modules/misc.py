@@ -926,7 +926,7 @@ async def is_register_banful(chat, user):
     else:
         return None
 
-RUNS-K = (
+RUNS-K = [
     "Now you see me, now you don't."
     "ε=ε=ε=ε=┌(;￣▽￣)┘",
     "Get back here!",
@@ -946,7 +946,7 @@ RUNS-K = (
     "Hasta la vista, baby.",
     "Ah, what a waste. I liked that one.",
     "As The Doctor would say... RUN!",
-)
+]
 
 
 @user_admin
