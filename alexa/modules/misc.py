@@ -3249,7 +3249,6 @@ async def sticklet(event):
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
-    image_stream.seek(0)
 
     # finally, reply the sticker
     #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
@@ -3258,7 +3257,6 @@ async def sticklet(event):
     # cleanup
     try:
         os.remove(FONT_FILE)
-        del image_stream
     except:
         pass
 
