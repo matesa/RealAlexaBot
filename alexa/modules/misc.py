@@ -3209,9 +3209,6 @@ async def stickleter(event):
     await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
     os.system('rm -rf image_stream')
     await chia.delete()
-    del stickletedtext
-    del image_stream
-
 
 
 @alexabot(pattern="^/stickleted")
