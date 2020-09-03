@@ -813,13 +813,13 @@ async def upstream(ups):
         else:
             await lol.edit("`Still running ...`")
   
-        try:
-           ups_rem.pull(ac_br)
-        except GitCommandError:
-            repo.git.reset("--hard", "FETCH_HEAD")
-            reqs_upgrade = await updateme_requirements()
-            await lol.edit("`Successfully Updated!\n" "restarting......`")
-            # Spin a new instance of bot
-            args = [sys.executable, "-m", "alexa"]
-            execle(sys.executable, *args, environ)
-            return
+            try:
+              ups_rem.pull(ac_br)
+            except GitCommandError:
+              repo.git.reset("--hard", "FETCH_HEAD")
+              reqs_upgrade = await updateme_requirements()
+              await lol.edit("`Successfully Updated!\n" "restarting......`")
+              # Spin a new instance of bot
+              args = [sys.executable, "-m", "alexa"]
+              execle(sys.executable, *args, environ)
+              return
