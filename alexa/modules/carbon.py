@@ -725,7 +725,7 @@ async def carbon_api(e):
     if e.is_group:
         if not (await is_register_admin(e.input_chat, e.message.sender_id)):
             return
-        else:
+        elif:
           approved_userss = approved_users.find({})
           for ch in approved_userss:
             if e.chat_id == ch['id'] and e.from_id == ch['user']:  
