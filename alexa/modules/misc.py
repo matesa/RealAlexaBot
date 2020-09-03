@@ -3210,7 +3210,7 @@ async def stickleter(event):
     if os.path.exists("stickleted.webp"):
        print("The file exists")
        os.remove("stickleted.webp")
-       os.remove("stickleted.webp")
+       print("The file is removed now")
     else:
        print("The file doesn't exists")
     await chia.delete()
