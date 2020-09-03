@@ -728,7 +728,7 @@ if ENV:
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_ANTISPAM = bool(os.environ.get("STRICT_ANTISPAM", True))
     DEEPFRY_TOKEN = os.environ.get("DEEPFRY_TOKEN", "")
-    BOTLOG_CHATID = os.environ.get("MESSAGE_DUMP")
+    BOTLOG_CHATID = int(os.environ.get("MESSAGE_DUMP"))
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
@@ -817,7 +817,7 @@ if ENV:
             ubot.loop.run_until_complete(check_botlog_chatid())
         except:
             LOGS.error("BOTLOG_CHATID environment variable isn't a "
-                       "valid entity. Check your config.env file. Halting!")
+                       "valid entity. Halting!")
             quit(1)
     INVALID_PH = "\nERROR: The phone no. entered is incorrect"
     try:
