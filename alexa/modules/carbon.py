@@ -679,7 +679,6 @@ from telethon import events
 from telethon import types
 from telethon.tl import functions
 
-import alexa.modules.sql.approve_sql as sql
 from alexa import CHROME_DRIVER
 from alexa import GOOGLE_CHROME_BIN
 from alexa import LOGGER
@@ -688,6 +687,14 @@ from alexa.events import register
 
 CARBONLANG = "en"
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -718,9 +725,9 @@ async def carbon_api(e):
     if e.is_group:
         if not (await is_register_admin(e.input_chat, e.message.sender_id)):
             return
-        elif sql.is_approved(user_id, chat_id) == True:
-            pass
-    """ A Wrapper for carbon.now.sh """
+        elif for ch in approved_users:
+           if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+              pass
     jj = "`Processing..`"
     gg = await e.reply(jj)
     CARBON = "https://carbon.now.sh/?bg=rgba(239%2C40%2C44%2C1)&t=one-light&wt=none&l=application%2Ftypescript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=143%25&si=false&es=2x&wm=false&code={code}"
