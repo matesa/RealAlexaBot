@@ -693,7 +693,7 @@ async def approve(event):
 	approved_users.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
 	await event.reply("Successfully Approved User")
 	
-@register(pattern="^/disapprove)
+@register(pattern="^/disapprove")
 async def disapprove(event):
 	if event.fwd_from:
 		return  
