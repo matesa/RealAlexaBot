@@ -912,8 +912,6 @@ from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
 from alexa.modules.helper_funcs.filters import CustomFilters
-from alexa.modules.rextester.api import Rextester, CompilerError
-from alexa.modules.rextester.langs import languages
 
 from requests import get
 from telethon.tl.types import *
