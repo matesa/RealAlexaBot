@@ -3205,10 +3205,12 @@ async def stickleter(event):
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity(OWNER_USERNAME)
-    await event.client.send_message(entity, "/stickleted")
-    hak = await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
+    chia = await event.client.send_message(entity, "/stickleted")
+    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
     os.system('rm -rf image_stream')
-    await hak.delete()
+    await chia.delete()
+    del stickletedtext
+    del image_stream
 
 
 
