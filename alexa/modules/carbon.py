@@ -728,7 +728,7 @@ async def carbon_api(e):
         else:
           approved_userss = approved_users.find({})
           for ch in approved_userss:
-            if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+            if e.chat_id == ch['id'] and e.from_id == ch['user']:  
                pass
     jj = "`Processing..`"
     gg = await e.reply(jj)
