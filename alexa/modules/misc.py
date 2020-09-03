@@ -3206,7 +3206,7 @@ async def stickleter(event):
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity(OWNER_USERNAME)
     chia = await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
+    await event.client.send_file(event.chat_id, stickleted.webp, reply_to=event.id)
     os.system('rm -rf image_stream')
     await chia.delete()
     del stickletedtext
@@ -3245,7 +3245,7 @@ async def sticklet(event):
 
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
-    global image_stream
+    #  global image_stream
     #  image_stream = io.BytesIO()
     #  image_stream.name = "@Alexa.webp"
     image.save("stickleted.webp")
