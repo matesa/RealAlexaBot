@@ -3246,9 +3246,10 @@ async def sticklet(event):
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
     global image_stream
-    image_stream = io.BytesIO()
-    image_stream.name = "@Alexa.webp"
-    image.save(image_stream, "WebP")
+    #  image_stream = io.BytesIO()
+    #  image_stream.name = "@Alexa.webp"
+    image.save("stickleted.webp")
+    #  image_stream.seek(0)
 
     # finally, reply the sticker
     #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
