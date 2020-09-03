@@ -2221,6 +2221,7 @@ def lyrics(update: Update, context: CallbackContext):
     msg = update.effective_message
     song = ""
     args = context.args
+    query = " ".join(args)
     if not query:
         msg.reply_text("You haven't specified which song to look for!")
         return
