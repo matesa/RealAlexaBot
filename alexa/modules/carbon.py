@@ -722,12 +722,12 @@ async def is_register_admin(chat, user):
 async def carbon_api(e):
     user_id = e.message.sender_id
     chat_id = e.input_chat
-    approved_users = approved_users.find({})
     if e.is_group:
         if not (await is_register_admin(e.input_chat, e.message.sender_id)):
             return
         else:
-          for ch in approved_users:
+          approved_userss = approved_users.find({})
+          for ch in approved_userss:
             if event.chat_id == ch['id'] and event.from_id == ch['user']:  
                pass
     jj = "`Processing..`"
