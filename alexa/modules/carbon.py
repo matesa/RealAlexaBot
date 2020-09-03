@@ -726,6 +726,7 @@ async def carbon_api(e):
         if not (await is_register_admin(e.input_chat, e.message.sender_id)):
             return
         else:
+          approved_users = approved_users.find({})
           for ch in approved_users:
             if event.chat_id == ch['id'] and event.from_id == ch['user']:  
                pass
