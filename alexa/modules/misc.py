@@ -3207,7 +3207,12 @@ async def stickleter(event):
     entity = await event.client.get_entity(OWNER_USERNAME)
     chia = await event.client.send_message(entity, "/stickleted")
     await event.client.send_file(event.chat_id, file="stickleted.webp", reply_to=event.id)
-    os.remove("stickleted.webp")
+    if os.path.exists("stickleted.webp"):
+       print("The file exists")
+       os.remove("stickleted.webp")
+       os.remove("stickleted.webp")
+    else:
+       print("The file doesn't exists")
     await chia.delete()
     
 
