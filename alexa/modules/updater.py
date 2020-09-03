@@ -687,8 +687,6 @@ from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
-from alexa import HEROKU_API_KEY
-from alexa import HEROKU_APP_NAME
 from alexa import OWNER_ID
 from alexa import UPSTREAM_REPO_URL
 from alexa.events import register
