@@ -674,7 +674,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client['test']
 approved_users = db.approve
 
-@register(pattern="^/approve)
+@register(pattern="^/approve")
 async def approve(event):
 	if event.fwd_from:
 		return  
