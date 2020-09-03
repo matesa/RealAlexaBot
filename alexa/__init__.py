@@ -783,7 +783,7 @@ if ENV:
 
     # Bot Logs setup:
     CONSOLE_LOGGER_VERBOSE = sb(
-        os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
+        os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
 
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
@@ -795,7 +795,7 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             level=INFO)
     LOGS = getLogger(__name__)
-    BOTLOG = os.environ.get("BOTLOG") == "False"
+    BOTLOG = os.environ.get("BOTLOG", True)
 
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
