@@ -670,7 +670,6 @@ from logging import DEBUG
 from logging import getLogger
 from logging import INFO
 from sys import version_info
-
 import telegram.ext as tg
 from dotenv import load_dotenv
 from pyDownload import Downloader
@@ -698,9 +697,6 @@ if ENV:
             "Your spammers users list does not contain valid integers.")
     MESSAGE_DUMP = os.environ.get("MESSAGE_DUMP", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
-
-    # NOTE: SUDO USERS AND SUPPORT USERS HAS NO PRIORITY SO LEAVE THEM BLANK
-
     try:
         SUDO_USERS = set(
             int(x) for x in os.environ.get("SUDO_USERS", "").split())
@@ -723,7 +719,7 @@ if ENV:
     URL = os.environ.get("URL", "")  # Does not contain token
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
-    PORT = int(os.environ.get("PORT", 5000))
+    PORT = int(os.environ.get("PORT", 5432))
     CERT_PATH = os.environ.get("CERT_PATH")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
     DB_URI = os.environ.get("DATABASE_URL")
@@ -744,7 +740,7 @@ if ENV:
     )
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     SUDO_USERS.add(OWNER_ID)
-    GBAN_LOGS = os.environ.get("GBAN_LOGS", None)
+    GBAN_LOGS = os.environ.get("MESSAGE_DUMP")
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     tbot = TelegramClient("alexa", API_KEY, API_HASH)
     updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
@@ -763,16 +759,20 @@ if ENV:
 
     # Load at end to ensure all prev variables have been set
     from alexa.modules.helper_funcs.handlers import CustomCommandHandler
-
+    
     tg.CommandHandler = CustomCommandHandler
+    
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)  # NO NEED OF THIS
-    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME",
-                                     None)  # NO NEED OF THIS
-    UPSTREAM_REPO_URL = os.environ.get(
-        "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
+    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
+    try:
+        from alexa.antispam import (antispam_cek_user, antispam_restrict_user,
+                                    detect_user)
+
+        antispam_module = True
+    except ModuleNotFoundError:
+        antispam_module = False
 
     def spamfilters(_text, user_id, _chat_id):
         if int(user_id) in SPAMMERS:
@@ -795,7 +795,7 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             level=INFO)
     LOGS = getLogger(__name__)
-    BOTLOG = os.environ.get("BOTLOG", True)
+    BOTLOG = os.environ.get("BOTLOG") == "True"
 
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
@@ -819,7 +819,6 @@ if ENV:
             LOGS.error("BOTLOG_CHATID environment variable isn't a "
                        "valid entity. Check your config.env file. Halting!")
             quit(1)
-
     INVALID_PH = "\nERROR: The phone no. entered is incorrect"
     try:
         ubot.start()
