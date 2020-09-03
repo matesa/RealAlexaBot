@@ -680,7 +680,7 @@ from telegram.ext import MessageHandler
 from telegram.ext.dispatcher import DispatcherHandlerStop
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
-
+from sys import argv
 from alexa import CERT_PATH
 from alexa import dispatcher
 from alexa import LOGGER
@@ -1162,10 +1162,12 @@ def main():
             tbot.run_until_disconnected()
 
     else:
+        updater.start_polling(poll_interval=0, timeout=15, read_latency=4, clean=True)
+        if len(argv) not in (1, 3, 4):
+           tbot.disconnect()
+        else:
+           tbot.run_until_disconnected()
         LOGGER.info("Successfully Started Alexa !")
-        updater.start_polling(timeout=15, read_latency=4)
-        tbot.run_until_disconnected()
-
     updater.idle()
 
 
