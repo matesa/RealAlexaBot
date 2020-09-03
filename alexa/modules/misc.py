@@ -3209,7 +3209,7 @@ async def stickleter(event):
     await event.client.send_file(event.chat_id, file="stickleted.webp", reply_to=event.id)
     if os.path.exists("stickleted.webp"):
        print("The file exists")
-       os.remove("stickleted.webp")
+       os.system("rm -rf stickleted.webp")
        print("The file is removed now")
     else:
        print("The file doesn't exists")
