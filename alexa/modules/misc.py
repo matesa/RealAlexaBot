@@ -2219,7 +2219,6 @@ from alexa.modules.disable import DisableAbleCommandHandler
 @user_admin
 def lyrics(update: Update, context: CallbackContext):
     msg = update.effective_message
-    query = " ".join(args)
     song = ""
     args = context.args
     if not query:
