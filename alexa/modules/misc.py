@@ -696,7 +696,7 @@ from alexa.modules.helper_funcs.chat_status import bot_admin, user_admin, is_use
 from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.string_handling import extract_time
 from alexa.modules.log_channel import loggable
-from alexa.modules.translations.strings import tld
+
 import re
 from pyDownload import Downloader
 import datetime
@@ -825,7 +825,7 @@ from alexa.__main__ import GDPR
 from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.translations.strings import tld
+
 from alexa.events import register
 from requests import get
 from telethon import events
@@ -856,7 +856,7 @@ from alexa.__main__ import GDPR
 from alexa.__main__ import STATS, USER_INFO
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.extraction import extract_user
-from alexa.modules.translations.strings import tld
+
 from requests import get
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (DownloadError, ContentTooShortError,
@@ -915,8 +915,7 @@ from alexa.modules.helper_funcs.extraction import extract_user
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.rextester.api import Rextester, CompilerError
 from alexa.modules.rextester.langs import languages
-from alexa.modules.sql.translation import prev_locale
-from alexa.modules.translations.strings import tld
+
 from requests import get
 from telethon.tl.types import *
 
