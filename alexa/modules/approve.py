@@ -688,7 +688,6 @@ async def approve(event):
 	for c in chats:
 		if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
 			await event.reply("This User is Already Approved")
-			await asyncio.sleep(1)
 			return 
 	approved_users.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
 	await event.reply("Successfully Approved User")
