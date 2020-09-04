@@ -721,15 +721,12 @@ async def is_register_admin(chat, user):
 @register(pattern="^/carbon (.*)")
 async def carbon_api(e):
     if e.is_group:
-        if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-            return
-        else:
           approved_userss = approved_users.find({})
           for ch in approved_userss:
             if e.chat_id == ch['id'] and e.from_id == ch['user']:  
                print("good boy")
                pass
-            else:
+            elif not (await is_register_admin(e.input_chat, e.message.sender_id)):
                print("bad boy")
                return
     jj = "`Processing..`"
