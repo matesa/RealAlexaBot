@@ -728,6 +728,11 @@ async def updateme_requirements():
 
 @register(pattern="^/update(?: |$)(.*)")
 async def upstream(ups):
+    check = term.message.sender_id
+    checkint = int(check)
+    # print(checkint)
+    if int(check) != int(OWNER_ID):
+        return
     "For .update command, check if the bot is up to date, update if specified"
     lol = await ups.reply("`Checking for updates, please wait....`")
     conf = ups.pattern_match.group(1)
