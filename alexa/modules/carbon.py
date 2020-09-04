@@ -728,6 +728,7 @@ async def carbon_api(e):
                print(he)
                print("good boy")
                pass
+               break
             elif not (await is_register_admin(e.input_chat, e.message.sender_id)):
                 he = str(e.from_id)
                 print(he)
