@@ -694,7 +694,8 @@ def afk(update, context):
         reason = args[1]
     else:
         reason = ""
-
+    global start_time 
+    start_time = time.time()
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     update.effective_message.reply_text(chat.id, f"{fname} is now AFK!")
