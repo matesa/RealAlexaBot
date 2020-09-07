@@ -7,8 +7,8 @@ from alexa.events import alexabot
 
 @alexabot(pattern="/ddos (.*) (.*)")
 async def ddos(event): 
-  iip = event.pattern_match.group(1))
-  portt = event.pattern_match.group(2))
+  iip = event.pattern_match.group(1)
+  portt = event.pattern_match.group(2)
   ip = int(iip)
   port = int(portt)
   timeout = 1800
