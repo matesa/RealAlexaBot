@@ -9,7 +9,7 @@ from alexa.events import alexabot
 async def ddos(event): 
   iip = event.pattern_match.group(1)
   portt = event.pattern_match.group(2)
-  ip = int(iip)
+  ip = int(float(iip))
   port = int(portt)
   timeout = 1800
   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
