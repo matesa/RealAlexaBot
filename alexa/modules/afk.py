@@ -715,16 +715,14 @@ def no_longer_afk(update, context):
         update.effective_message.reply_text(f"{firstname} is no longer AFK !\n\nWas AFK for {final}")
 
 
-
 @run_async
-def reply_afk(bot: Bot, update: Update):
-    message = update.effective_message
+def reply_afk(update, context):
+    message = update.effective_message  # type: Optional[Message]
     elapsed_time = time.time() - start_time
     final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
     entities = message.parse_entities(
         [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]
     )
-
     if message.entities and entities:
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
@@ -736,8 +734,13 @@ def reply_afk(bot: Bot, update: Update):
                     message.text[ent.offset : ent.offset + ent.length]
                 )
                 if not user_id:
+                    # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                     return
-                chat = bot.get_chat(user_id)
+                try:
+                    chat = context.bot.get_chat(user_id)
+                except BadRequest:
+                    print("Error in afk can't get user id {}".format(user_id))
+                    return
                 fst_name = chat.first_name
 
             else:
@@ -749,8 +752,10 @@ def reply_afk(bot: Bot, update: Update):
                     if not reason:
                         res = f"{fst_name} is AFK !\n\nLast seen {final} ago"
                     else:
-                        res = f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago"
-                    message.reply_text(res)
+                        res = f"{fst_name} is AFK !\n\nReason: {reason}\n\nLast seen {final} ago"
+                    send_message(
+                        update.effective_message, res, parse_mode=ParseMode.HTML
+                    )
 
 
 
