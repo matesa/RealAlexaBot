@@ -715,12 +715,16 @@ def no_longer_afk(update, context):
         update.effective_message.reply_text(f"{firstname} is no longer AFK !\n\nWas AFK for {final}")
 
 
+
 @run_async
-def reply_afk(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    
+def reply_afk(bot: Bot, update: Update):
+    message = update.effective_message
+    elapsed_time = time.time() - start_time
+    final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
     entities = message.parse_entities(
-        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]
+    )
+
     if message.entities and entities:
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
@@ -728,41 +732,26 @@ def reply_afk(update, context):
                 fst_name = ent.user.first_name
 
             elif ent.type == MessageEntity.MENTION:
-                user_id = get_user_id(message.text[ent.offset:ent.offset +
-                                                   ent.length])
+                user_id = get_user_id(
+                    message.text[ent.offset : ent.offset + ent.length]
+                )
                 if not user_id:
-                    # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                     return
-                try:
-                    chat = context.bot.get_chat(user_id)
-                except BadRequest:
-                    print("Error in afk can't get user id {}".format(user_id))
-                    return
+                chat = bot.get_chat(user_id)
                 fst_name = chat.first_name
 
             else:
                 return
 
             if sql.is_afk(user_id):
-                if message.entities and entities:
-                    for ent in entities:
-                        if ent.type == MessageEntity.TEXT_MENTION:
-                            user_id = ent.user.id
-                            fst_name = ent.user.first_name
+                valid, reason = sql.check_afk_status(user_id)
+                if valid:
+                    if not reason:
+                        res = f"{fst_name} is AFK !\n\nLast seen {final} ago"
+                    else:
+                        res = f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago"
+                    message.reply_text(res)
 
-                        elif ent.type == MessageEntity.MENTION:
-                            user_id = get_user_id(
-                                message.text[ent.offset:ent.offset +
-                                             ent.length])
-                        user = sql.check_afk_status(user_id)
-                        elapsed_time = time.time() - start_time
-                        final = time.strftime("%Hh: %Mm: %Ss",
-                                              time.gmtime(elapsed_time))
-                        if not user.reason:
-                            res = f"{fst_name} is AFK !\n\nLast seen {final} ago"
-                        else:
-                            res = f"{fst_name} is AFK !\n\nReason: {user.reason}\n\nLast seen {final} ago"
-                        update.effective_message.reply_text(res)
 
 
 def __user_info__(user_id):
