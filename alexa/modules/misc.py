@@ -3184,10 +3184,6 @@ async def savel(event):
   await randika.delete()
         
     
-
-# Random RGB Sticklet by @PhycoNinja13b
-# modified by @UniBorg
-
 import io
 import os
 import random
@@ -3207,6 +3203,10 @@ async def stickleter(event):
     entity = await event.client.get_entity(OWNER_USERNAME)
     chia = await event.client.send_message(entity, "/stickleted")
     await event.client.send_file(event.chat_id, file="stickleted.webp", reply_to=event.id)
+    #gay
+    fp = open('stickleted.webp', 'w')
+    fp.truncate(0)
+    fp.close()
     if os.path.exists("stickleted.webp"):
        print("The file exists")
        os.system("rm -rf stickleted.webp")
