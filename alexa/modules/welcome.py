@@ -832,7 +832,7 @@ def new_member(update, context):
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Master is in the houseeee, let's get this party started!",
+                    "Master is in the house, let's get this party started!",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -841,7 +841,7 @@ def new_member(update, context):
             elif new_mem.id == context.bot.id:
                 update.effective_message.reply_text(
                     "Hey {}, I'm {}! Thank you for adding me to {}"
-                    " and be sure to join our channel: @alexabot to know more about updates and tricks!"
+                    " and be sure to join our support group: @RealAlexaBotSuppot to know more about updates and tricks!"
                     .format(user.first_name, context.bot.first_name,
                             chat_name),
                     reply_to_message_id=reply,
@@ -932,7 +932,7 @@ def new_member(update, context):
                             new_join_mem),
                         reply_markup=InlineKeyboardMarkup([[
                             InlineKeyboardButton(
-                                text="Yus, I'm a human",
+                                text="Yes, I'm a human",
                                 callback_data="user_join_({})".format(
                                     new_mem.id),
                             )
