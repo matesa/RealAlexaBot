@@ -10,7 +10,7 @@ import subprocess
 @register(pattern="/ddos (.*)")
 async def ddos(event): 
   userid = event.message.sender_id
-  checkint = int(userid)
+  check = int(userid)
     # print(checkint)
   if int(check) != int(OWNER_ID):
      return
