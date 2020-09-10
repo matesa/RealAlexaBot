@@ -681,6 +681,7 @@ from alexa.modules.helper_funcs.chat_status import user_admin
 from alexa.modules.sql import afk_sql as sql
 from alexa.modules.users import get_user_id
 from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
+from telegram import MessageEntity, Update
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
