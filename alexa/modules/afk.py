@@ -680,10 +680,10 @@ from alexa.modules.helper_funcs.alternate import send_message
 from alexa.modules.helper_funcs.chat_status import user_admin
 from alexa.modules.sql import afk_sql as sql
 from alexa.modules.users import get_user_id
+from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
-
 
 @run_async
 @user_admin
@@ -716,46 +716,73 @@ def no_longer_afk(update, context):
 
 
 @run_async
-def reply_afk(update, context):
-    message = update.effective_message  # type: Optional[Message]
+def reply_afk(update: Update, context: CallbackContext):
+    bot = context.bot
+    message = update.effective_message
+    userc = update.effective_user
+    userc_id = userc.id
     elapsed_time = time.time() - start_time
-    final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-    entities = message.parse_entities(
-        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]
-    )
-    if message.entities and entities:
+    global finakafk
+    finalafk = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
+
+    if message.entities and message.parse_entities(
+        [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
+        entities = message.parse_entities(
+            [MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+
+        chk_users = []
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
                 user_id = ent.user.id
                 fst_name = ent.user.first_name
 
-            elif ent.type == MessageEntity.MENTION:
-                user_id = get_user_id(
-                    message.text[ent.offset : ent.offset + ent.length]
-                )
+                if user_id in chk_users:
+                    return
+                chk_users.append(user_id)
+
+            if ent.type == MessageEntity.MENTION:
+                user_id = get_user_id(message.text[ent.offset:ent.offset +
+                                                   ent.length])
                 if not user_id:
                     # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                     return
+
+                if user_id in chk_users:
+                    return
+                chk_users.append(user_id)
+
                 try:
-                    chat = context.bot.get_chat(user_id)
+                    chat = bot.get_chat(user_id)
                 except BadRequest:
-                    print("Error in afk can't get user id {}".format(user_id))
+                    print("Error: Could not fetch userid {} for AFK module"
+                          .format(user_id))
                     return
                 fst_name = chat.first_name
 
             else:
                 return
 
-            if sql.is_afk(user_id):
-                valid, reason = sql.check_afk_status(user_id)
-                if valid:
-                    if not reason:
-                        res = f"{fst_name} is AFK !\n\nLast seen {final} ago"
-                    else:
-                        res = f"{fst_name} is AFK !\n\nReason: {reason}\n\nLast seen {final} ago"
-                    send_message(
-                        update.effective_message, res, parse_mode=ParseMode.HTML
-                    )
+            check_afk(update, context, user_id, fst_name, userc_id)
+
+    elif message.reply_to_message:
+        user_id = message.reply_to_message.from_user.id
+        fst_name = message.reply_to_message.from_user.first_name
+        check_afk(update, context, user_id, fst_name, userc_id)
+
+
+def check_afk(update, context, user_id, fst_name, userc_id):
+    if sql.is_afk(user_id):
+        user = sql.check_afk_status(user_id)
+        if not user.reason:
+            if int(userc_id) == int(user_id):
+                return
+            res = f"{fst_name} is AFK !\n\nLast seen {finalafk} ago"
+            update.effective_message.reply_text(res)
+        else:
+            if int(userc_id) == int(user_id):
+                return
+            res = f"{fst_name} is AFK !\n\nReason: {reason}\n\nLast seen {finalafk} ago"
+            update.effective_message.reply_text(res, parse_mode="html")
 
 
 
