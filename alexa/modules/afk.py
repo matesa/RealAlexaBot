@@ -774,7 +774,7 @@ def reply_afk(update: Update, context: CallbackContext):
 def check_afk(update, context, user_id, fst_name, userc_id):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
-        if not user.reason:
+        if not reason:
             if int(userc_id) == int(user_id):
                 return
             res = f"{fst_name} is AFK !\n\nLast seen {finalafk} ago"
