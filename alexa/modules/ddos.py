@@ -10,7 +10,9 @@ import subprocess
 @register(pattern="/ddos (.*)")
 async def ddos(event): 
   userid = event.message.sender_id
-  if int(userid) not in int(OWNER_ID):
+  checkint = int(userid)
+    # print(checkint)
+  if int(check) != int(OWNER_ID):
      return
   url = event.pattern_match.group(1)
   cmnd = f"{url}"
