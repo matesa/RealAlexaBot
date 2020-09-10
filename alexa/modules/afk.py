@@ -723,7 +723,7 @@ def reply_afk(update: Update, context: CallbackContext):
     userc = update.effective_user
     userc_id = userc.id
     elapsed_time = time.time() - start_time
-    global finakafk
+    global finalafk
     finalafk = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
 
     if message.entities and message.parse_entities(
