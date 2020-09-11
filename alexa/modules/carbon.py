@@ -725,11 +725,12 @@ async def carbon_api(e):
 
     if (await is_register_admin(e.input_chat, e.message.sender_id)):
        pass
-    elif ch in approved_userss: 
-     if e.chat_id == ch['id'] and e.from_id == ch['user']:  
-       pass
     else:
-       return
+      for ch in approved_userss: 
+        if e.chat_id == ch['id'] and e.from_id == ch['user']:  
+           pass
+    else:
+      return
 
     jj = "`Processing..`"
     gg = await e.reply(jj)
