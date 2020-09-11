@@ -3284,7 +3284,7 @@ async def get_font_file(client, channel_id):
 import text2emotion as machi
 
 # NEW EMOTION DETECTOR MADE BY @AyushChatterjee
-@register(pattern="^/emotion (.*)")
+@register(pattern="^/emotion")
 async def _(event):
     if event.fwd_from:
         return
@@ -3292,8 +3292,9 @@ async def _(event):
       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
           await event.reply("")
           return
-    text = event.pattern_match.group(1)
-    let = str(machi.get_emotion(text))
+    reply = await event.get_reply_message()
+    msg = reply.message
+    let = str(machi.get_emotion(msg))
     m = let.replace("'Happy'", "😀")
     n = m.replace("{", "")
     o = n.replace("}", "")
@@ -3301,7 +3302,7 @@ async def _(event):
     q = p.replace("'Sad'", "😭")
     r = q.replace("'Surprise'", "😮")
     s = r.replace("'Fear'", "😱")
-    t = s.replace(",", "")
+    t = s.replace(",", "\n\n")
     await event.reply(t)
     
 
