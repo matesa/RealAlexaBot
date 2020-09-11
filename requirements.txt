@@ -69,3 +69,4 @@ gitpython
 bing_image_downloader
 alphabet_detector
 Text2Emotion
+howdoi
