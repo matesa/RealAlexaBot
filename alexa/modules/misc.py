@@ -3281,6 +3281,29 @@ async def get_font_file(client, channel_id):
     # download and return the file path
     return await client.download_media(font_file_message)
 
+import text2emotion as machi
+
+# NEW EMOTION DETECTOR MADE BY @AyushChatterjee
+@register(pattern="^/emotion (.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.is_group:
+      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
+          await event.reply("")
+          return
+    text = event.pattern_match.group(1)
+    let = str(machi.get_emotion(text))
+    m = let.replace("'Happy'", "😀")
+    n = m.replace("{", "")
+    o = n.replace("}", "")
+    p = o.replace("'Angry'", "😡")
+    q = p.replace("'Sad'", "😭")
+    r = q.replace("'Surprise'", "😮")
+    s = r.replace("'Fear'", "😱")
+    t = s.replace(",", "")
+    await event.reply(t)
+    
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
