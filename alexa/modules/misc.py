@@ -1774,7 +1774,7 @@ async def univsaye(cowmsg):
         await cowmsg.reply(f"`{cheese.milk(text).replace('`', '´')}`")
  
 
-@register(pattern="^/zombies(?: |$)(.*)")
+@register(events.NewMessage(pattern="^/zombies(?: |$)(.*)"))
 async def rm_deletedacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
     con = show.pattern_match.group(1).lower()
@@ -2452,7 +2452,7 @@ from telethon.tl.functions.channels import (EditAdminRequest,
                                             EditBannedRequest,
                                             EditPhotoRequest)
                                            
-@register(pattern="^/kickthefools")
+@register(events.NewMessage(pattern="^/kickthefools"))
 async def _(event):
     if event.fwd_from:
         return
@@ -2593,7 +2593,7 @@ async def _(event):
     await event.reply("Created BarCode in {} seconds".format(ms))
 
 
-@register(pattern="^/unbanall")
+@register(events.NewMessage(pattern="^/unbanall"))
 async def _(event):
     if event.is_private:
         await show.reply("You can use this command in groups but not in PM's")
@@ -2620,7 +2620,7 @@ async def _(event):
                 p += 1
             await done.edit("{}: {} unbanned".format(event.chat_id, p))
 
-@register(pattern="^/unmuteall")
+@register(events.NewMessage(pattern="^/unmuteall"))
 async def _(event):
     if event.fwd_from:
         return
