@@ -938,7 +938,7 @@ async def can_ban_users(message):
     if message.is_private:
         return True
     elif message.chat.admin_rights:
-        status = message.chat.admin_rights.delete_messages
+        status = message.chat.admin_rights.ban_users
         return status
     else:
         return False
