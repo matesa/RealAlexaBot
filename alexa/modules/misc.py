@@ -934,29 +934,17 @@ async def is_register_admin(chat, user):
     else:
         return None
 
-async def is_register_banful(chat, user):
-    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-        return isinstance(
-            (await tbot(functions.channels.GetParticipantRequest(chat, user))).participant,
-            (types.ChannelParticipantAdmin, types.ChatAdminRights(ban_users=True))
-        )
-    elif isinstance(chat, types.InputPeerChat):
-        ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id))) \
-            .full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatAdminRights(ban_users=True))
-        )
-    else:
-        return None
+async def can_ban_users(message):
+    status = False
+    if message.chat.admin_rights:
+        status = message.chat.admin_rights.ban_users
+    return status
 
 @user_admin
 @run_async
-def runs(update: Update):
-    chat = update.effective_chat  # type: Optional[Chat]
+def runs(update, context):
     RUNIT = ["Now you see me, now you don't.","ε=ε=ε=ε=┌(;￣▽￣)┘","Get back here!","REEEEEEEEEEEEEEEEEE!!!!!!!","Look out for the wall!","Don't leave me alone with them!!","You've got company!","Chotto matte!","Yare yare daze","*Naruto run activated*","*Nezuko run activated*","Hey take responsibilty for what you just did!","May the odds be ever in your favour.","Run everyone, they just dropped a bomb 💣💣","And they disappeared forever, never to be seen again.","Legend has it, they're still running.","Hasta la vista, baby.","Ah, what a waste. I liked that one.","As The Doctor would say... RUN!"]
-    update.effective_message.reply_text(chat.id, random.choice(RUNIT))
+    update.effective_message.reply_text(random.choice(RUNIT))
 
 
 @user_admin
@@ -1822,6 +1810,9 @@ async def rm_deletedacc(show):
         await show.reply("`I am not an admin here!`")
         return
 
+    if not await can_ban_users(message=show):
+        return
+
     await show.reply("`Deleting deleted accounts...`")
     del_u = 0
     del_a = 0
@@ -2467,17 +2458,12 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    chat = await event.get_chat()
-    admin = chat.admin_rights
-    sender = await event.get_sender()
-    
-    if not event.chat.admin_rights.ban_users:
-       await event.reply("I don't have sufficient permissions")
-       return
-
     if event.is_group:
      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
        return
+
+    if not await can_ban_users(message=event):
+        return
 
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
@@ -2608,10 +2594,8 @@ async def _(event):
 async def _(event):
     if event.is_private:
        return
-    if event.is_group: 
-       sender = event.message.sender_id
-       if not sender.ChatAdminRights(ban_users=True):
-           return
+    if not await can_ban_users(message=event):
+        return
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
@@ -2636,10 +2620,9 @@ async def _(event):
         return
     if event.is_private:
        return 
-    if event.is_group:
-       if not (await is_register_banful(event.chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    if not await can_ban_users(message=event):
+        return
+
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
