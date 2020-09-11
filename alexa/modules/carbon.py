@@ -721,7 +721,7 @@ async def is_register_admin(chat, user):
 @register(pattern="^/carbon (.*)")
 async def carbon_api(e):
 
-    approved_userss = approved_users.find({})
+    approved_userss = approved_users.find_one({})
 
     if (await is_register_admin(e.input_chat, e.message.sender_id)):
        pass
