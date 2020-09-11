@@ -3295,16 +3295,16 @@ async def _(event):
     reply = await event.get_reply_message()
     msg = reply.message
     let = str(machi.get_emotion(msg))
-    m = let.replace("'Happy'", "😀")
-    n = m.replace("{", "")
+    # m = let.replace("'Happy'", "😀")
+    n = let.replace("{", "")
     o = n.replace("}", "")
-    p = o.replace("'Angry'", "😡")
-    q = p.replace("'Sad'", "😭")
-    r = q.replace("'Surprise'", "😮")
-    s = r.replace("'Fear'", "😱")
-    t = s.replace(",", "\n\n")
-    u = t.replace("😀", " 😀")
-    await event.reply(u)
+    # p = o.replace("'Angry'", "😡")
+    # q = p.replace("'Sad'", "😭")
+    # r = q.replace("'Surprise'", "😮")
+    # s = r.replace("'Fear'", "")
+    t = o.replace(",", "\n\n")
+
+    await event.reply(t)
     
 
 __help__ = """
