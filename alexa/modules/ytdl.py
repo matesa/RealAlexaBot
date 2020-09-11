@@ -688,6 +688,14 @@ from alexa import tbot
 from alexa import YOUTUBE_API_KEY
 from alexa.events import register
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -713,10 +721,18 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/yt(audio|video) (.*)")
 async def download_video(v_url):
-    if v_url.is_group:
-        if not (await is_register_admin(v_url.input_chat,
-                                        v_url.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
+       pass
+    elif v_url.chat_id == iid and v_url.from_id == userss:  
+       pass
+    else:
+       return
+
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
     type = v_url.pattern_match.group(1).lower()
