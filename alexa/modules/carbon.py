@@ -722,10 +722,10 @@ async def is_register_admin(chat, user):
 async def carbon_api(e):
     """this method of approve system is made by @AyushChatterjee, god will curse your family if you kang it mothefucker"""
     approved_userss = approved_users.find({})
-    ch = int(approved_userss)
+    pow = ch in approved_userss
     if (await is_register_admin(e.input_chat, e.message.sender_id)):
        pass
-    elif (e.chat_id == ch['id'] and e.from_id == ch['user']):  
+    elif (e.chat_id == pow['id'] and e.from_id == pow['user']):  
        pass
     else:
        return
