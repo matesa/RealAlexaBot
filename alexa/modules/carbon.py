@@ -720,7 +720,7 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/carbon (.*)")
 async def carbon_api(e):
-    """this method of approve system is made by @AyushChatterjee, god will curse your family if you kang it mothefucker"""
+    """this method of approve system is made by @AyushChatterjee, god will curse your family if you kang it motherfucker"""
     approved_userss = approved_users.find({})
     for ch in approved_userss: 
         iid = ch['id']
