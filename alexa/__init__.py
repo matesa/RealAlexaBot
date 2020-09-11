@@ -663,7 +663,6 @@ import logging
 import os
 import sys
 import threading
-from distutils.util import strtobool as sb
 from importlib import import_module
 from logging import basicConfig
 from logging import DEBUG
@@ -783,8 +782,7 @@ if ENV:
             return False
 
     # Bot Logs setup:
-    CONSOLE_LOGGER_VERBOSE = sb(
-        os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
+    CONSOLE_LOGGER_VERBOSE = os.environ.get("CONSOLE_LOGGER_VERBOSE", "True")
 
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
