@@ -935,10 +935,13 @@ async def is_register_admin(chat, user):
         return None
 
 async def can_ban_users(message):
-    status = False
-    if message.chat.admin_rights:
-        status = message.chat.admin_rights.ban_users
-    return status
+    if message.is_private:
+        return True
+    elif message.chat.admin_rights:
+        status = message.chat.admin_rights.delete_messages
+        return status
+    else:
+        return False
 
 @user_admin
 @run_async
@@ -2593,9 +2596,12 @@ async def _(event):
 @register(pattern="^/unbanall")
 async def _(event):
     if event.is_private:
-       return
+        await show.reply("You can use this command in groups but not in PM's")
+        return
+
     if not await can_ban_users(message=event):
         return
+
     done = await event.reply("Searching Participant Lists.")
     p = 0
     async for i in event.client.iter_participants(event.chat_id, filter=ChannelParticipantsKicked, aggressive=True):
@@ -2619,7 +2625,9 @@ async def _(event):
     if event.fwd_from:
         return
     if event.is_private:
-       return 
+        await show.reply("You can use this command in groups but not in PM's")
+        return
+
     if not await can_ban_users(message=event):
         return
 
