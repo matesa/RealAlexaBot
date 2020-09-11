@@ -3303,8 +3303,8 @@ async def _(event):
     # r = q.replace("'Surprise'", "😮")
     # s = r.replace("'Fear'", "")
     t = o.replace(",", "\n\n")
-
-    await event.reply(t)
+    m = t.replace("'Happy'", " 'Happy'")
+    await event.reply(m)
     
 
 __help__ = """
