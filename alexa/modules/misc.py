@@ -3295,7 +3295,7 @@ async def _(event):
     reply = await event.get_reply_message()
     msg = reply.message
     let = str(machi.get_emotion(msg))
-    m = let.replace("'Happy'", " 😀")
+    m = let.replace("'Happy'", "😀")
     n = m.replace("{", "")
     o = n.replace("}", "")
     p = o.replace("'Angry'", "😡")
@@ -3303,7 +3303,8 @@ async def _(event):
     r = q.replace("'Surprise'", "😮")
     s = r.replace("'Fear'", "😱")
     t = s.replace(",", "\n\n")
-    await event.reply(t)
+    u = t.replace("😀", " 😀")
+    await event.reply(u)
     
 
 __help__ = """
