@@ -727,7 +727,7 @@ async def carbon_api(e):
                he = str(e.from_id)
                print(he)
                print("good boy")
-               continue
+               pass
             else:
              if not (await is_register_admin(e.input_chat, e.message.sender_id)):
                 he = str(e.from_id)
