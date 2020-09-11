@@ -727,15 +727,13 @@ async def carbon_api(e):
                he = str(e.from_id)
                print(he)
                print("good boy")
-               pass
-               break
-            elif not (await is_register_admin(e.input_chat, e.message.sender_id)):
+               continue
+            else:
+             if not (await is_register_admin(e.input_chat, e.message.sender_id)):
                 he = str(e.from_id)
                 print(he)
                 print("bad boy")
                 return
-            else:
-                print("gay")
     jj = "`Processing..`"
     gg = await e.reply(jj)
     CARBON = "https://carbon.now.sh/?bg=rgba(239%2C40%2C44%2C1)&t=one-light&wt=none&l=application%2Ftypescript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=143%25&si=false&es=2x&wm=false&code={code}"
