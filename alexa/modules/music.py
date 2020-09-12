@@ -679,7 +679,7 @@ from alexa import tbot
 from alexa.events import register
 
 from pymongo import MongoClient
-from alexa import MONGO_DB_URI
+from alexa import MONGO_DB_URI, OWNER_USERNAME, TEMP_DOWNLOAD_DIRECTORY
 from alexa.events import register
 
 client = MongoClient()
@@ -708,6 +708,36 @@ async def is_register_admin(chat, user):
     else:
         return None
 
+from telethon import events
+from telethon.errors import YouBlockedUserError
+import asyncio
+from alexa.events import alexabot
+from alexabot import ubot
+
+@alexabot(pattern="/givemysong")
+async def _(event):
+    if event.fwd_from:
+        return 
+    reply_message = cmdhdhd
+    chat = "@SpotifyMusicDownloaderBot"
+    #  await event.edit("**searching song.....**")
+    async with bot.conversation(chat) as conv:
+          try:     
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=752979930))
+              await ubot.send_message(chat, reply_message)
+              response = await response 
+              #  await event.edit("**sending the song**")
+          except YouBlockedUserError: 
+              #  await event.reply("**plz unblock me @SpotifyMusicDownloaderBot u nigga**")
+              return
+          if response.text.startswith("Hello,"):
+             #  await event.edit("**please disable your forward privacy settings**")
+          elif response.text.startswith("Couldn't"):
+             #  await event.edit("**could not find the song**")
+          else:   
+             global hdhszj
+             hdhszj = await ubot.client.download_media(response.message.media, TEMP_DOWNLOAD_DIRECTORY)
+
 
 @register(pattern="^/song (.*)")
 async def _(event):
@@ -726,25 +756,16 @@ async def _(event):
      else:
        return
 
-    cmd = event.pattern_match.group(1)
-    cmnd = f"{cmd}"
-    reply_to_id = event.message.id
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
-    subprocess.run(["spotdl", "-s", cmnd, "-q", "best"])
-    subprocess.run(
-        'for f in *.opus; do      mv -- "$f" "${f%.opus}.mp3"; done',
-        shell=True)
-    l = glob.glob("*.mp3")
-    loa = l[0]
-    await event.reply("sending the song")
+    global cmdhdhd
+    cmdhdhd = event.pattern_match.group(1)
+    entity = await event.client.get_entity(OWNER_USERNAME)
+    randika = await event.client.send_message(entity, "/givemysong")
     await event.client.send_file(
         event.chat_id,
-        loa,
+        hdhszj,
         force_document=False,
         allow_cache=False,
         supports_streaming=True,
-        caption=cmd,
-        reply_to=reply_to_id,
+        reply_to=event.id,
     )
     subprocess.run("rm -rf *.mp3", shell=True)
