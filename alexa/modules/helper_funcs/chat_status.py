@@ -681,6 +681,7 @@ from alexa.events import register
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client['test']
+global approved_users
 approved_users = db.approve
 
 
