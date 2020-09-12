@@ -803,6 +803,8 @@ def user_admin(func):
             update.effective_message.delete()
 
         elif user.id == iid and chat.id == userss:  
+             print(user.id)
+             print(chat.id)
              pass
 
         else:
