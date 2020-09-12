@@ -714,12 +714,12 @@ async def imdb(e):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if e.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     try:
