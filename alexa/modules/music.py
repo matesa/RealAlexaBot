@@ -738,7 +738,7 @@ async def _(event):
              #  await event.edit("**could not find the song**")
           else:   
              global hdhszj
-             hdhszj = await event.client.client.download_media(response.message.media, TEMP_DOWNLOAD_DIRECTORY)
+             hdhszj = await event.client.download_media(response.message.media, TEMP_DOWNLOAD_DIRECTORY)
 
 
 @register(pattern="^/song (.*)")
