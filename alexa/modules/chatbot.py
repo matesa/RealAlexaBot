@@ -775,3 +775,9 @@ REMOVE_CHAT_HANDLER = CommandHandler("rmchat", remove_chat)
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
 dispatcher.add_handler(REMOVE_CHAT_HANDLER)
+
+__mod_name__ = "Chatbot"
+__command_list__ = ["addchat", "rmchat"]
+__handlers__ = [
+    ADD_CHAT_HANDLER, REMOVE_CHAT_HANDLER
+]
