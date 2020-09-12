@@ -712,7 +712,7 @@ from telethon import events
 from telethon.errors import YouBlockedUserError
 import asyncio
 from alexa.events import alexabot
-from alexabot import ubot
+from alexa import ubot
 
 @alexabot(pattern="/givemysong")
 async def _(event):
