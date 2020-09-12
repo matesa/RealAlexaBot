@@ -935,13 +935,9 @@ async def is_register_admin(chat, user):
         return None
 
 async def can_ban_users(message):
-    if message.is_private:
-        return True
-    elif message.chat.admin_rights:
-        status = message.chat.admin_rights.ban_users
-        return status
-    else:
-        return False
+    if not message.chat.admin_rights.ban_users:
+        return
+    
 
 @user_admin
 @run_async
@@ -1783,11 +1779,14 @@ async def rm_deletedacc(show):
     chat = await show.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
-    
+    sender = show.sender.message
     if show.is_private:
         await show.reply("You can use this command in groups but not in PM's")
         return
 
+    if not await can_ban_users(message=sender):
+        return
+    
     if show.is_group:
      if not (await is_register_admin(show.input_chat, show.message.sender_id)):
           await show.reply("")
@@ -1811,9 +1810,6 @@ async def rm_deletedacc(show):
     # Well
     if not admin and not creator:
         await show.reply("`I am not an admin here!`")
-        return
-
-    if not await can_ban_users(message=show):
         return
 
     await show.reply("`Deleting deleted accounts...`")
