@@ -721,7 +721,7 @@ async def _(event):
     reply_message = cmdhdhd
     chat = "@SpotifyMusicDownloaderBot"
     #  await event.edit("**searching song.....**")
-    async with bot.conversation(chat) as conv:
+    async with ubot.conversation(chat) as conv:
           try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=752979930))
               await event.client.send_message(chat, reply_message)
