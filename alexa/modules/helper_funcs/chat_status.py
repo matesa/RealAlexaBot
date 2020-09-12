@@ -674,6 +674,15 @@ from alexa import DEL_CMDS
 from alexa import SUDO_USERS
 from alexa.mwt import MWT
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
+
 
 def can_delete(chat: Chat, bot_id: int) -> bool:
     return chat.get_member(bot_id).can_delete_messages
@@ -777,6 +786,11 @@ def user_admin(func):
     @wraps(func)
     def is_admin(update, context, *args, **kwargs):
         user = update.effective_user  # type: Optional[User]
+        chat = update.effective_chat
+        for ch in approved_userss: 
+            iid = ch['id']
+            userss = ch['user']
+
         if user and is_user_admin(update.effective_chat, user.id):
             return func(update, context, *args, **kwargs)
 
@@ -785,6 +799,9 @@ def user_admin(func):
 
         elif DEL_CMDS and " " not in update.effective_message.text:
             update.effective_message.delete()
+
+        elif user.id == iid and chat.id == userss:  
+             pass
 
         else:
             return
