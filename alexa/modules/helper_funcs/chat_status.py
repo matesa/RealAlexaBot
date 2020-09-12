@@ -787,6 +787,8 @@ def user_admin(func):
     def is_admin(update, context, *args, **kwargs):
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat
+        print(user.id)
+        print(chat.id)
         approved_userss = approved_users.find({})
 
         for ch in approved_userss: 
@@ -803,8 +805,6 @@ def user_admin(func):
             update.effective_message.delete()
 
         elif user.id == iid and chat.id == userss:  
-             print(user.id)
-             print(chat.id)
              pass
 
         else:
