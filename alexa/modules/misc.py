@@ -2536,7 +2536,7 @@ async def _(event):
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
     await event.reply("Searching Participant Lists...")
     async for i in event.client.iter_participants(event.chat_id):
-        print(i) #optional
+        print(i) #optional 
         if isinstance(i.status, UserStatusLastMonth):
             status = await event.client(EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
             if not status:
@@ -3265,16 +3265,16 @@ async def savel(event):
   if not event.reply_to_msg_id:
     return
   approved_userss = approved_users.find({})
-    for ch in approved_userss: 
+  for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
 
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
-       pass
-    elif event.chat_id == iid and event.from_id == userss:  
-       pass
-    else:
-       return
+  if (await is_register_admin(event.input_chat, event.message.sender_id)):
+      pass
+  elif event.chat_id == iid and event.from_id == userss:  
+      pass
+  else:
+      return
 
   reply_message = await event.get_reply_message() 
   global debloat
