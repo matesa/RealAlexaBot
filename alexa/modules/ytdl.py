@@ -725,12 +725,12 @@ async def download_video(v_url):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
+    if v_url.is_group:
+     if (await is_register_admin(v_url.input_chat, v_url.message.sender_id)):
        pass
-    elif v_url.chat_id == iid and v_url.from_id == userss:  
+     elif v_url.chat_id == iid and v_url.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     """ For .ytdl command, download media from YouTube and many other sites. """
