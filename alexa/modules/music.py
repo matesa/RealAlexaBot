@@ -731,8 +731,10 @@ async def _(event):
               #  await event.reply("**plz unblock me @SpotifyMusicDownloaderBot u nigga**")
               return
           if response.text.startswith("Hello,"):
+               print("")
              #  await event.edit("**please disable your forward privacy settings**")
           elif response.text.startswith("Couldn't"):
+               print("")
              #  await event.edit("**could not find the song**")
           else:   
              global hdhszj
