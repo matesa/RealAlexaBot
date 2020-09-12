@@ -681,7 +681,6 @@ from alexa.events import register
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client['test']
-global approved_users
 approved_users = db.approve
 
 
@@ -788,6 +787,8 @@ def user_admin(func):
     def is_admin(update, context, *args, **kwargs):
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat
+        approved_userss = approved_users.find({})
+
         for ch in approved_userss: 
             iid = ch['id']
             userss = ch['user']
