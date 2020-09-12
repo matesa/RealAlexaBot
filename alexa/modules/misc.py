@@ -1281,12 +1281,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     input_str = event.pattern_match.group(1)
     reply_to_id = event.message.id
@@ -1329,12 +1329,12 @@ async def wiki(wiki_q):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(wiki_q.input_chat, wiki_q.message.sender_id)):
+    if wiki_q.is_group:
+     if (await is_register_admin(wiki_q.input_chat, wiki_q.message.sender_id)):
        pass
-    elif wiki_q.chat_id == iid and wiki_q.from_id == userss:  
+     elif wiki_q.chat_id == iid and wiki_q.from_id == userss:  
        pass
-    else:
+     else:
        return
     match = wiki_q.pattern_match.group(1)
     try:
@@ -1380,12 +1380,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     # SHOW_DESCRIPTION = False
     input_str = event.pattern_match.group(1) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
@@ -1415,12 +1415,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     sample_url = "https://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric"
     input_str = event.pattern_match.group(1)
@@ -1468,11 +1468,11 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
-       pass
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        pass
     elif event.chat_id == iid and event.from_id == userss:  
-       pass
+        pass
     else:
        return
     sample_url = "https://wttr.in/{}.png"
@@ -1496,12 +1496,12 @@ async def figlet(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     input_str = event.pattern_match.group(1)
     result = pyfiglet.figlet_format(input_str)
@@ -1526,12 +1526,12 @@ async def img_sampler(event):
      for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-     if (await is_register_admin(event.input_chat, event.message.sender_id)):
+     if event.is_group:
+      if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-     elif event.chat_id == iid and event.from_id == userss:  
+      elif event.chat_id == iid and event.from_id == userss:  
        pass
-     else:
+      else:
        return
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
@@ -1609,12 +1609,12 @@ async def yts_search(video_q):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(video_q.input_chat, video_q.message.sender_id)):
+    if video_q.is_group:
+     if (await is_register_admin(video_q.input_chat, video_q.message.sender_id)):
        pass
-    elif video_q.chat_id == iid and video_q.from_id == userss:  
+     elif video_q.chat_id == iid and video_q.from_id == userss:  
        pass
-    else:
+     else:
        return
     query = video_q.pattern_match.group(1)
     result = ''
@@ -1689,12 +1689,12 @@ async def get_users(show):
         for ch in approved_userss: 
             iid = ch['id']
             userss = ch['user']
-
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if show.is_group:
+         if (await is_register_admin(event.input_chat, event.message.sender_id)):
            pass
-        elif event.chat_id == iid and event.from_id == userss:  
+         elif event.chat_id == iid and event.from_id == userss:  
            pass
-        else:
+         else:
            return
         info = await show.client.get_entity(show.chat_id)
         title = info.title if info.title else "this chat"
@@ -1727,12 +1727,12 @@ async def apk(e):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(e.input_chat, e.message.sender_id)):
+    if e.is_group:
+     if (await is_register_admin(e.input_chat, e.message.sender_id)):
        pass
-    elif e.chat_id == iid and e.from_id == userss:  
+     elif e.chat_id == iid and e.from_id == userss:  
        pass
-    else:
+     else:
        return
     try:
         app_name = e.pattern_match.group(1)
@@ -1770,12 +1770,12 @@ async def univsaye(cowmsg):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
+    if cowmsg.is_group:
+     if (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
        pass
-    elif cowmsg.chat_id == iid and cowmsg.from_id == userss:  
+     elif cowmsg.chat_id == iid and cowmsg.from_id == userss:  
        pass
-    else:
+     else:
        return
     """ For .cowsay module, uniborg wrapper for cow which says things. """
     if not cowmsg.text[0].isalpha() and cowmsg.text[0] not in ("#", "@"):
@@ -1902,12 +1902,12 @@ async def get_ocr_languages(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     languages = {}
     languages["English"] = "eng"
@@ -1946,12 +1946,12 @@ async def parse_ocr_space_api(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -2007,12 +2007,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     start = datetime.datetime.now()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -2101,12 +2101,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice(''))
@@ -2127,12 +2127,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     input_str = print(randrange(6))
     r = await event.reply(file=InputMediaDice('🏀'))
@@ -2154,12 +2154,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice('🎯'))
@@ -2309,12 +2309,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     if not event.reply_to_msg_id:
        app_id =  WOLFRAM_ID
@@ -2408,12 +2408,12 @@ async def tor_search(event):
    for ch in approved_userss: 
        iid = ch['id']
        userss = ch['user']
-
-   if (await is_register_admin(event.input_chat, event.message.sender_id)):
+   if event.is_group:
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-   elif event.chat_id == iid and event.from_id == userss:  
+    elif event.chat_id == iid and event.from_id == userss:  
        pass
-   else:
+    else:
        return
    str = event.pattern_match.group(1)
    let = f'"{str}"'
@@ -2434,12 +2434,12 @@ async def fortunate(event):
    for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-   if (await is_register_admin(event.input_chat, event.message.sender_id)):
+   if event.is_group:
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-   elif event.chat_id == iid and event.from_id == userss:  
+    elif event.chat_id == iid and event.from_id == userss:  
        pass
-   else:
+    else:
        return
    jit = subprocess.check_output(["python", "fortune"])
    pit = jit.decode()
@@ -2480,11 +2480,12 @@ async def phone(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     information = event.pattern_match.group(1)
     number = information
@@ -2569,12 +2570,12 @@ async def asciiart(event):
   for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-  if (await is_register_admin(event.input_chat, event.message.sender_id)):
+  if event.is_group:
+   if (await is_register_admin(event.input_chat, event.message.sender_id)):
       pass
-  elif event.chat_id == iid and event.from_id == userss:  
+   elif event.chat_id == iid and event.from_id == userss:  
       pass
-  else:
+   else:
       return
   directory = "./"
   test = os.listdir(directory)
@@ -2620,12 +2621,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     start = datetime.datetime.now()
     input_str = event.pattern_match.group(1)
@@ -2733,12 +2734,12 @@ async def sms_hack(event):
    for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-   if (await is_register_admin(event.input_chat, event.message.sender_id)):
+   if event.is_group:
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-   elif event.chat_id == iid and event.from_id == userss:  
+    elif event.chat_id == iid and event.from_id == userss:  
        pass
-   else:
+    else:
        return
 
    str = event.pattern_match.group(1)
@@ -3129,12 +3130,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     reply = await event.get_reply_message()
@@ -3209,12 +3210,12 @@ async def stickerizer(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     global newtext
@@ -3268,12 +3269,12 @@ async def savel(event):
   for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-  if (await is_register_admin(event.input_chat, event.message.sender_id)):
+  if event.is_group:
+   if (await is_register_admin(event.input_chat, event.message.sender_id)):
       pass
-  elif event.chat_id == iid and event.from_id == userss:  
+   elif event.chat_id == iid and event.from_id == userss:  
       pass
-  else:
+   else:
       return
 
   reply_message = await event.get_reply_message() 
@@ -3299,12 +3300,12 @@ async def stickleter(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     global stickletedtext
@@ -3401,12 +3402,12 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     reply = await event.get_reply_message()
