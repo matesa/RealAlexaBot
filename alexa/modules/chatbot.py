@@ -660,32 +660,22 @@
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
 import html
-from time import sleep
-from time import time
+# AI module using Intellivoid's Coffeehouse API by @TheRealPhoenix
+from time import sleep, time
 
+import alexa.modules.sql.chatbot_sql as sql
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
 from coffeehouse.lydia import LydiaAI
-from telegram import Update
-from telegram.error import BadRequest
-from telegram.error import RetryAfter
-from telegram.error import Unauthorized
-from telegram.ext import CallbackContext
-from telegram.ext import CommandHandler
-from telegram.ext import Filters
-from telegram.ext import MessageHandler
-from telegram.ext import run_async
-from telegram.utils.helpers import mention_html
-
-import alexa.modules.sql.chatbot_sql as sql
-from alexa import dispatcher
-from alexa import LYDIA_API_KEY
-from alexa import OWNER_ID
-from alexa.modules.helper_funcs.chat_status import user_admin
-from alexa.modules.helper_funcs.chat_status import user_can_change
+from alexa import LYDIA_API_KEY, OWNER_ID, dispatcher
+from alexa.modules.helper_funcs.chat_status import user_admin, user_can_change
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.log_channel import loggable
-# AI module using Intellivoid's Coffeehouse API by @TheRealPhoenix
+from telegram import Update
+from telegram.error import BadRequest, RetryAfter, Unauthorized
+from telegram.ext import (CallbackContext, CommandHandler, Filters,
+                          MessageHandler, run_async)
+from telegram.utils.helpers import mention_html
 
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
@@ -737,7 +727,7 @@ def remove_chat(update: Update, context: CallbackContext):
 
 def check_message(context: CallbackContext, message):
     reply_msg = message.reply_to_message
-    if message.text.lower() == "saitama":
+    if message.text.lower() == "alexa":
         return True
     if reply_msg:
         if reply_msg.from_user.id == context.bot.get_me().id:
@@ -770,7 +760,7 @@ def chatbot(update: Update, context: CallbackContext):
         except ValueError:
             pass
         try:
-            bot.send_chat_action(chat_id, action="typing")
+            bot.send_chat_action(chat_id, action='typing')
             rep = api_client.think_thought(sesh, query)
             sleep(0.3)
             msg.reply_text(rep, timeout=60)
@@ -779,28 +769,9 @@ def chatbot(update: Update, context: CallbackContext):
                              f"Chatbot error: {e} occurred in {chat_id}!")
 
 
-@run_async
-def list_chatbot_chats(update: Update, context: CallbackContext):
-    chats = sql.get_all_chats()
-    text = "<b>AI-Enabled Chats</b>\n"
-    for chat in chats:
-        try:
-            x = context.bot.get_chat(int(*chat))
-            name = x.title if x.title else x.first_name
-            text += f"• <code>{name}</code>\n"
-        except BadRequest:
-            sql.rem_chat(*chat)
-        except Unauthorized:
-            sql.rem_chat(*chat)
-        except RetryAfter as e:
-            sleep(e.retry_after)
-    update.effective_message.reply_text(text, parse_mode="HTML")
 
-
-ADD_CHAT_HANDLER = CommandHandler("autochat", add_chat)
-REMOVE_CHAT_HANDLER = CommandHandler("stopchat", remove_chat)
+ADD_CHAT_HANDLER = CommandHandler("addchat", add_chat)
+REMOVE_CHAT_HANDLER = CommandHandler("rmchat", remove_chat)
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
 dispatcher.add_handler(REMOVE_CHAT_HANDLER)
-
-__mod_name__ = "Chatbot"
