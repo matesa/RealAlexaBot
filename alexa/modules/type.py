@@ -744,3 +744,4 @@ async def typewriter(typew):
         await asyncio.sleep(2)
         await now.edit(old_text)
         await asyncio.sleep(2)
+
