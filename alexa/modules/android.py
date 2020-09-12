@@ -674,6 +674,15 @@ from telethon.tl import functions
 from alexa import LOGGER
 from alexa import tbot
 from alexa.events import register
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
+
 
 GITHUB = "https://github.com"
 
@@ -699,22 +708,28 @@ async def is_register_admin(chat, user):
     else:
         return None
 
-
 @register(pattern=r"^/magisk$")
 async def magisk(event):
     if event.from_id == None:
         return
-    if event.is_group:
-        if not (await is_register_admin(event.input_chat,
-                                        event.message.sender_id)):
-            return
-    url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
-    releases = "**Latest Magisk Releases:**\n"
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+    url = 'https://raw.githubusercontent.com/topjohnwu/magisk_files/'
+    releases = '**Latest Magisk Releases:**\n'
     variant = [
-        "master/stable", "master/beta", "canary/release", "canary/debug"
+        'master/stable', 'master/beta', 'canary/debug'
     ]
     for variants in variant:
-        fetch = get(url + variants + ".json")
+        fetch = get(url + variants + '.json')
         data = json.loads(fetch.content)
         if variants == "master/stable":
             name = "**Stable**"
@@ -724,34 +739,38 @@ async def magisk(event):
             name = "**Beta**"
             cc = 0
             branch = "master"
-        elif variants == "canary/release":
-            name = "**Canary**"
-            cc = 1
-            branch = "canary"
         elif variants == "canary/debug":
             name = "**Canary (Debug)**"
             cc = 1
             branch = "canary"
 
-        releases += (
-            f'{name}: [ZIP v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | '
-            f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | ')
+        releases += f'{name}: [ZIP v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | ' \
+                    f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | '
 
         if cc == 1:
-            releases += (f'[Uninstaller]({data["uninstaller"]["link"]}) | '
-                         f"[Changelog]({url}{branch}/notes.md)\n")
+            releases += f'[Uninstaller]({data["uninstaller"]["link"]}) | ' \
+                        f'[Changelog]({url}{branch}/notes.md)\n'
         else:
             releases += f'[Uninstaller]({data["uninstaller"]["link"]})\n'
 
     await event.reply(releases, link_preview=False)
 
 
+
+
 @register(pattern=r"^/device(?: |$)(\S*)")
 async def device_info(request):
-    if request.is_group:
-        if not (await is_register_admin(request.input_chat,
-                                        request.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+       pass
+    elif request.chat_id == iid and request.from_id == userss:  
+       pass
+    else:
+       return
     """ get android device basic info from its codename """
     textx = await request.get_reply_message()
     codename = request.pattern_match.group(1)
@@ -779,10 +798,17 @@ async def device_info(request):
 
 @register(pattern=r"^/codename(?: |)([\S]*)(?: |)([\s\S]*)")
 async def codename_info(request):
-    if request.is_group:
-        if not (await is_register_admin(request.input_chat,
-                                        request.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+       pass
+    elif request.chat_id == iid and request.from_id == userss:  
+       pass
+    else:
+       return
     """ search for android codename """
     textx = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
@@ -822,10 +848,17 @@ async def codename_info(request):
 
 @register(pattern=r"^/specs(?: |)([\S]*)(?: |)([\s\S]*)")
 async def devices_specifications(request):
-    if request.is_group:
-        if not (await is_register_admin(request.input_chat,
-                                        request.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+       pass
+    elif request.chat_id == iid and request.from_id == userss:  
+       pass
+    else:
+       return
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
@@ -880,10 +913,17 @@ async def devices_specifications(request):
 
 @register(pattern=r"^/twrp(?: |$)(\S*)")
 async def twrp(request):
-    if request.is_group:
-        if not (await is_register_admin(request.input_chat,
-                                        request.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+       pass
+    elif request.chat_id == iid and request.from_id == userss:  
+       pass
+    else:
+       return
     """ get android device twrp """
     textx = await request.get_reply_message()
     device = request.pattern_match.group(1)
