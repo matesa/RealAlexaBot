@@ -764,7 +764,7 @@ async def device_info(request):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-     if request.is_group:
+    if request.is_group:
       if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
       elif request.chat_id == iid and request.from_id == userss:  
