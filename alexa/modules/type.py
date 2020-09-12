@@ -682,6 +682,14 @@ from alexa.modules.helper_funcs.chat_status import is_user_admin
 from alexa.modules.helper_funcs.chat_status import user_admin
 from alexa.modules.helper_funcs.extraction import extract_user
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -707,11 +715,18 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/type (.*)")
 async def typewriter(typew):
-    if typew.is_group:
-        if not (await is_register_admin(typew.input_chat,
-                                        typew.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
 
+    if (await is_register_admin(typew.input_chat, typew.message.sender_id)):
+       pass
+    elif typew.chat_id == iid and typew.from_id == userss:  
+       pass
+    else:
+       return
+    
     message = typew.pattern_match.group(1)
     if message:
         pass
