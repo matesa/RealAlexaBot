@@ -716,12 +716,12 @@ async def magisk(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
     url = 'https://raw.githubusercontent.com/topjohnwu/magisk_files/'
     releases = '**Latest Magisk Releases:**\n'
@@ -764,12 +764,12 @@ async def device_info(request):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+     if request.is_group:
+      if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
-    elif request.chat_id == iid and request.from_id == userss:  
+     elif request.chat_id == iid and request.from_id == userss:  
        pass
-    else:
+     else:
        return
     """ get android device basic info from its codename """
     textx = await request.get_reply_message()
@@ -802,12 +802,12 @@ async def codename_info(request):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
-    elif request.chat_id == iid and request.from_id == userss:  
+     elif request.chat_id == iid and request.from_id == userss:  
        pass
-    else:
+     else:
        return
     """ search for android codename """
     textx = await request.get_reply_message()
@@ -852,12 +852,12 @@ async def devices_specifications(request):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
-    elif request.chat_id == iid and request.from_id == userss:  
+     elif request.chat_id == iid and request.from_id == userss:  
        pass
-    else:
+     else:
        return
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
@@ -917,12 +917,12 @@ async def twrp(request):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(request.input_chat, request.message.sender_id)):
+    if request.is_group:
+     if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
-    elif request.chat_id == iid and request.from_id == userss:  
+     elif request.chat_id == iid and request.from_id == userss:  
        pass
-    else:
+     else:
        return
     """ get android device twrp """
     textx = await request.get_reply_message()
