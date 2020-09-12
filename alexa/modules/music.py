@@ -724,7 +724,7 @@ async def _(event):
     async with bot.conversation(chat) as conv:
           try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=752979930))
-              await ubot.send_message(chat, reply_message)
+              await event.client.send_message(chat, reply_message)
               response = await response 
               #  await event.edit("**sending the song**")
           except YouBlockedUserError: 
@@ -738,7 +738,7 @@ async def _(event):
              #  await event.edit("**could not find the song**")
           else:   
              global hdhszj
-             hdhszj = await ubot.client.download_media(response.message.media, TEMP_DOWNLOAD_DIRECTORY)
+             hdhszj = await event.client.client.download_media(response.message.media, TEMP_DOWNLOAD_DIRECTORY)
 
 
 @register(pattern="^/song (.*)")
