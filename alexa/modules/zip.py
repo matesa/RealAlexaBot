@@ -709,6 +709,13 @@ async def is_register_admin(chat, user):
 async def _(event):
     if event.fwd_from:
         return
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+     elif event.chat_id == iid and event.from_id == userss:  
+       pass
+     else:
+       return
 
     if not event.is_reply:
         await event.reply("Reply to a file to compress it.")
@@ -717,14 +724,7 @@ async def _(event):
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
-       pass
-    elif event.chat_id == iid and event.from_id == userss:  
-       pass
-    else:
-       return
-
+ 
     mone = await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
