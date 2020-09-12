@@ -767,9 +767,9 @@ async def device_info(request):
      if request.is_group:
       if (await is_register_admin(request.input_chat, request.message.sender_id)):
        pass
-     elif request.chat_id == iid and request.from_id == userss:  
+      elif request.chat_id == iid and request.from_id == userss:  
        pass
-     else:
+      else:
        return
     """ get android device basic info from its codename """
     textx = await request.get_reply_message()
