@@ -912,6 +912,16 @@ from alexa.modules.helper_funcs.filters import CustomFilters
 from requests import get
 from telethon.tl.types import *
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+global approved_users
+approved_users = db.approve
+
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
