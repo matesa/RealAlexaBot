@@ -3332,14 +3332,8 @@ async def sticklet(event):
     G = random.randint(0,256)
     B = random.randint(0,256)
 
-    # get the input text
-    # the text on which we would like to do the magic on
     sticktext = stickletedtext
-
-    # delete the userbot command,
-    # i don't know why this is required
-    # await event.delete()
-
+   
     # https://docs.python.org/3/library/textwrap.html#textwrap.wrap
     sticktext = textwrap.wrap(sticktext, width=10)
     # converts back the list to a string
@@ -3359,16 +3353,12 @@ async def sticklet(event):
 
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
-    #  global image_stream
-    #  image_stream = io.BytesIO()
-    #  image_stream.name = "@Alexa.webp"
+    
     image.save("stickleted.webp")
-    #  image_stream.seek(0)
-
-    # finally, reply the sticker
-    #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
-    #replacing upper line with this to get reply tags
-
+    
+    del stickletedtext
+    del sticktext
+    
     # cleanup
     try:
         os.remove(FONT_FILE)
@@ -3615,7 +3605,7 @@ def slap(update: Update, context: CallbackContext):
     user_id = extract_user(message, args)
 
     if user_id == bot.id:
-        temp = random.choice(fun_strings.SLAP_SAITAMA_TEMPLATES)
+        temp = random.choice(fun_strings.SLAP_ALEXA_TEMPLATES)
 
         if isinstance(temp, list):
             if temp[2] == "tmute":
