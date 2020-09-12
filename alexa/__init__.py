@@ -675,6 +675,9 @@ from pyDownload import Downloader
 from telethon import TelegramClient
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.sessions import StringSession
+import time
+
+StartTime = time.time()
 
 # enable logging
 logging.basicConfig(
