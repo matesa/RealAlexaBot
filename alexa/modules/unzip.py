@@ -727,20 +727,16 @@ async def _(event):
     if event.fwd_from:
         return
 
-    if event.is_group:
-        if not (await is_register_admin(event.input_chat,
-                                        event.message.sender_id)):
-            return
     approved_userss = approved_users.find({})
     for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
-
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+    if event.is_group:
+     if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
        pass
-    else:
+     else:
        return
 
     mone = await event.reply("Processing ...")
