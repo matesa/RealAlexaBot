@@ -2566,16 +2566,16 @@ async def asciiart(event):
      await event.reply("Reply To A Image Plox..")
      return
   approved_userss = approved_users.find({})
-    for ch in approved_userss: 
+  for ch in approved_userss: 
         iid = ch['id']
         userss = ch['user']
 
-    if (await is_register_admin(event.input_chat, event.message.sender_id)):
-       pass
-    elif event.chat_id == iid and event.from_id == userss:  
-       pass
-    else:
-       return
+  if (await is_register_admin(event.input_chat, event.message.sender_id)):
+      pass
+  elif event.chat_id == iid and event.from_id == userss:  
+      pass
+  else:
+      return
   directory = "./"
   test = os.listdir(directory)
   for item in test:
