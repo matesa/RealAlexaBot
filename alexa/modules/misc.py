@@ -659,11 +659,6 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
-
-
-
 import subprocess
 import html
 import json
@@ -944,59 +939,6 @@ async def can_ban_users(message):
 def runs(update, context):
     RUNIT = ["Now you see me, now you don't.","ε=ε=ε=ε=┌(;￣▽￣)┘","Get back here!","REEEEEEEEEEEEEEEEEE!!!!!!!","Look out for the wall!","Don't leave me alone with them!!","You've got company!","Chotto matte!","Yare yare daze","*Naruto run activated*","*Nezuko run activated*","Hey take responsibilty for what you just did!","May the odds be ever in your favour.","Run everyone, they just dropped a bomb 💣💣","And they disappeared forever, never to be seen again.","Legend has it, they're still running.","Hasta la vista, baby.","Ah, what a waste. I liked that one.","As The Doctor would say... RUN!"]
     update.effective_message.reply_text(random.choice(RUNIT))
-
-
-@user_admin
-@run_async
-def slap(update: Update, context: CallbackContext):
-    chat = update.effective_chat  # type: Optional[Chat]
-    msg = update.effective_message  # type: Optional[Message]
-    args = context.args
-    # reply to correct message
-    reply_text = (msg.reply_to_message.reply_text
-                  if msg.reply_to_message else msg.reply_text)
-
-    # get user who sent message
-    if msg.from_user.username:
-        curr_user = "@" + escape_markdown(msg.from_user.username)
-    else:
-        curr_user = "[{}](tg://user?id={})".format(msg.from_user.first_name,
-                                                   msg.from_user.id)
-
-    user_id = extract_user(update.effective_message, args)
-    if user_id:
-        slapped_user = context.bot.get_chat(user_id)
-        user1 = curr_user
-        if slapped_user.username:
-            user2 = "@" + escape_markdown(slapped_user.username)
-        else:
-            user2 = "[{}](tg://user?id={})".format(slapped_user.first_name,
-                                                   slapped_user.id)
-
-    # if no target found, bot targets the sender
-    else:
-        user1 = "[{}](tg://user?id={})".format(context.bot.first_name, context.bot.id)
-        user2 = curr_user
-
-    temp = random.choice(chat.id, "SLAP_TEMPLATES-K")
-    item = random.choice(chat.id, "ITEMS-K")
-    hit = random.choice(chat.id, "HIT-K")
-    throw = random.choice(chat.id, "THROW-K")
-    itemp = random.choice(chat.id, "ITEMP-K")
-    itemr = random.choice(chat.id, "ITEMR-K")
-
-    repl = temp.format(
-        user1=user1,
-        user2=user2,
-        item=item,
-        hits=hit,
-        throws=throw,
-        itemp=itemp,
-        itemr=itemr,
-    )
-    # user1=user1, user2=user2, item=item_ru, hits=hit_ru, throws=throw_ru, itemp=itemp_ru, itemr=itemr_ru
-
-    reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
 @user_admin
@@ -1335,9 +1277,16 @@ def get_paste_stats(update: Update, context: CallbackContext):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
        return
     input_str = event.pattern_match.group(1)
     reply_to_id = event.message.id
@@ -1376,9 +1325,16 @@ async def _(event):
 @register(pattern=r"^/wiki (.*)")
 async def wiki(wiki_q):
     """ For .google command, fetch content from Wikipedia. """
-    if wiki_q.is_group:
-     if not (await is_register_admin(wiki_q.input_chat, wiki_q.message.sender_id)):
-       await wiki_q.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(wiki_q.input_chat, wiki_q.message.sender_id)):
+       pass
+    elif wiki_q.chat_id == iid and wiki_q.from_id == userss:  
+       pass
+    else:
        return
     match = wiki_q.pattern_match.group(1)
     try:
@@ -1420,9 +1376,16 @@ import html2text
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
        return
     # SHOW_DESCRIPTION = False
     input_str = event.pattern_match.group(1) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
@@ -1448,9 +1411,16 @@ from datetime import tzinfo, datetime
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
        return
     sample_url = "https://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric"
     input_str = event.pattern_match.group(1)
@@ -1494,9 +1464,16 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
        return
     sample_url = "https://wttr.in/{}.png"
     # logger.info(sample_url)
@@ -1515,9 +1492,16 @@ async def _(event):
 async def figlet(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       await event.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
        return
     input_str = event.pattern_match.group(1)
     result = pyfiglet.figlet_format(input_str)
@@ -1538,10 +1522,17 @@ import glob
 async def img_sampler(event):
      if event.fwd_from:
         return
-     if event.is_group:
-       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+     approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
      downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
@@ -1570,6 +1561,7 @@ dictionary=PyDictionary()
 
 
 @run_async
+@user_admin
 def define(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
@@ -1583,6 +1575,7 @@ def define(update: Update, context: CallbackContext):
 
 
 @run_async
+@user_admin
 def synonyms(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
@@ -1596,6 +1589,7 @@ def synonyms(update: Update, context: CallbackContext):
 
 
 @run_async
+@user_admin
 def antonyms(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/define "):]
@@ -1611,9 +1605,16 @@ def antonyms(update: Update, context: CallbackContext):
 @register(pattern="^/yt (.*)")
 async def yts_search(video_q):
     # For .yts command, do a YouTube search from Telegram.
-    if video_q.is_group:
-     if not (await is_register_admin(video_q.input_chat, video_q.message.sender_id)):
-       await video_q.reply("")
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(video_q.input_chat, video_q.message.sender_id)):
+       pass
+    elif video_q.chat_id == iid and video_q.from_id == userss:  
+       pass
+    else:
        return
     query = video_q.pattern_match.group(1)
     result = ''
@@ -1684,10 +1685,17 @@ async def get_users(show):
         if not show.is_group:
             await show.reply("Are you sure this is a group?")
             return
-        if show.is_group:
-         if not (await is_register_admin(show.input_chat, show.message.sender_id)):
-          await show.reply("")
-          return
+        approved_userss = approved_users.find({})
+        for ch in approved_userss: 
+            iid = ch['id']
+            userss = ch['user']
+
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+           pass
+        elif event.chat_id == iid and event.from_id == userss:  
+           pass
+        else:
+           return
         info = await show.client.get_entity(show.chat_id)
         title = info.title if info.title else "this chat"
         mentions = "Users in {}: \n".format(title)
@@ -1715,10 +1723,17 @@ from telethon import *
 
 @register(pattern="^/app (.*)")
 async def apk(e):
-    if e.is_group:
-     if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-          await e.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(e.input_chat, e.message.sender_id)):
+       pass
+    elif e.chat_id == iid and e.from_id == userss:  
+       pass
+    else:
+       return
     try:
         app_name = e.pattern_match.group(1)
         remove_space = app_name.split(' ')
@@ -1751,10 +1766,17 @@ from cowpy import cow
 
 @register(pattern=r"^/(\w+)say (.*)")
 async def univsaye(cowmsg):
-    if cowmsg.is_group:
-     if not (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
-          await cowmsg.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(cowmsg.input_chat, cowmsg.message.sender_id)):
+       pass
+    elif cowmsg.chat_id == iid and cowmsg.from_id == userss:  
+       pass
+    else:
+       return
     """ For .cowsay module, uniborg wrapper for cow which says things. """
     if not cowmsg.text[0].isalpha() and cowmsg.text[0] not in ("#", "@"):
         arg = cowmsg.pattern_match.group(1).lower()
@@ -1783,15 +1805,10 @@ async def rm_deletedacc(show):
     if show.is_private:
         await show.reply("You can use this command in groups but not in PM's")
         return
-
-    if not await can_ban_users(message=sender):
+        
+    if not await can_ban_users(message=show):
         return
     
-    if show.is_group:
-     if not (await is_register_admin(show.input_chat, show.message.sender_id)):
-          await show.reply("")
-          return
-
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
         async for user in show.client.iter_participants(show.chat_id):
@@ -1881,10 +1898,17 @@ def progress(current, total):
 async def get_ocr_languages(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     languages = {}
     languages["English"] = "eng"
     languages["Arabic"] = "ara"
@@ -1918,10 +1942,17 @@ async def get_ocr_languages(event):
 async def parse_ocr_space_api(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -1972,10 +2003,17 @@ import datetime
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     start = datetime.datetime.now()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -2059,10 +2097,17 @@ from telethon.tl.types import InputMediaDice
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice(''))
     if input_str:
@@ -2078,10 +2123,17 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     input_str = print(randrange(6))
     r = await event.reply(file=InputMediaDice('🏀'))
     if input_str:
@@ -2098,10 +2150,17 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     input_str = print(randrange(7))
     r = await event.reply(file=InputMediaDice('🎯'))
     if input_str:
@@ -2246,10 +2305,17 @@ from alexa import WOLFRAM_ID
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     if not event.reply_to_msg_id:
        app_id =  WOLFRAM_ID
        client = wolframalpha.Client(app_id) 
@@ -2338,10 +2404,17 @@ telegraph.create_account(short_name='Alexa')
 async def tor_search(event):
    if event.fwd_from:
       return 
-   if event.is_group:
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+   approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
    str = event.pattern_match.group(1)
    let = f'"{str}"'
    jit = subprocess.check_output(["we-get", "-s", let, "-J"])   
@@ -2357,10 +2430,17 @@ async def tor_search(event):
 async def fortunate(event):
    if event.fwd_from:
       return 
-   if event.is_group:
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+   approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
    jit = subprocess.check_output(["python", "fortune"])
    pit = jit.decode()
    await event.reply(pit)
@@ -2396,10 +2476,16 @@ import os
 
 @register(pattern=r'^/phone (.*)')
 async def phone(event): 
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     information = event.pattern_match.group(1)
     number = information
     key = "fe65b94e78fc2e3234c1c6ed1b771abd" 
@@ -2424,20 +2510,6 @@ async def phone(event):
     await event.reply(g)
 
 
-@register(pattern="^/ping")
-async def pingme(pong):
-    if pong.is_group:
-     if not (await is_register_admin(pong.input_chat, pong.message.sender_id)):
-          await pong.reply("")
-          return
-    """ FOr .pingme command, ping the userbot from any chat.  """
-    start = datetime.datetime.now()
-    up = await pong.reply("`Pong!`")
-    end = datetime.datetime.now()
-    duration = (end - start).microseconds / 1000
-    await up.edit("`Pong!\n%sms`" % (duration))
-
-
 from telethon import events
 from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChannelParticipantsKicked, ChatBannedRights
 from telethon.tl import functions, types
@@ -2457,12 +2529,17 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    if event.is_group:
-     if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-       return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
 
-    if not await can_ban_users(message=event):
-        return
+    if (await is_register_banful(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
 
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
@@ -2497,10 +2574,17 @@ async def asciiart(event):
   if not event.from_id:
      await event.reply("Reply To A Image Plox..")
      return
-  if event.is_group:
-   if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+  approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
   directory = "./"
   test = os.listdir(directory)
   for item in test:
@@ -2541,10 +2625,17 @@ from telethon import events
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-       if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
     start = datetime.datetime.now()
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `.barcode <long text to include>`"
@@ -2647,10 +2738,18 @@ async def _(event):
 async def sms_hack(event):
    if event.fwd_from:
       return 
-   if event.is_group:
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+   approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
    str = event.pattern_match.group(1)
    ptr = event.pattern_match.group(2)
    subprocess.run(["python3", "Bomber.py", "--proxy", "--sms", "500", "-T", "30", "-c", f"{str}", f"{ptr}"])
@@ -3035,10 +3134,18 @@ async def replied_user(draw, tot, text, maxlength, title):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
     reply = await event.get_reply_message()
     msg = reply.message
     repliedreply = await reply.get_reply_message()
@@ -3107,10 +3214,18 @@ async def waifu(animu):
 
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
-    if event.is_group:
-      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
     global newtext
     newtext = event.pattern_match.group(1)
     myid = int("-1009655116")
@@ -3158,10 +3273,18 @@ async def savel(event):
     return 
   if not event.reply_to_msg_id:
     return
-  if event.is_group:
-    if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+  approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
   reply_message = await event.get_reply_message() 
   global debloat
   debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
@@ -3181,10 +3304,18 @@ from telethon.tl.types import InputMessagesFilterDocument
 
 @register(pattern="^/sticklet (.*)")
 async def stickleter(event):
-    if event.is_group:
-      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity(OWNER_USERNAME)
@@ -3275,10 +3406,18 @@ import text2emotion as machi
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("")
-          return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
+
     reply = await event.get_reply_message()
     msg = reply.message
     let = str(machi.get_emotion(msg))
@@ -3292,6 +3431,337 @@ async def _(event):
     t = o.replace(", ", "\n\n")
     await event.reply(t)
     
+@run_async
+@user_admin
+def echo(update: Update, context: CallbackContext):
+    args = update.effective_message.text.split(None, 1)
+    message = update.effective_message
+
+    if message.reply_to_message:
+        message.reply_to_message.reply_text(
+            args[1], parse_mode="MARKDOWN", disable_web_page_preview=True)
+    else:
+        message.reply_text(
+            args[1],
+            quote=False,
+            parse_mode="MARKDOWN",
+            disable_web_page_preview=True)
+    message.delete()
+
+
+SLAP_ALEXA_TEMPLATES = (
+    "Slap me one more time and I'll mute you.",
+    "Stop slapping me. REEEEEEEEEEEEEE.",
+    [
+        "I am muting you for a minute.",  # normal reply
+        "Stop slapping me just because I can't mute you. REEEEEEEEEE.",  # reply to admin
+        "tmute",  # command
+        "Shut up!",
+        "Silence!"
+    ])
+
+SLAP_TEMPLATES = (
+    "{user2} was killed by magic.",
+    "{user2} starved without pats.",
+    "{user2} was knocked into the void by {user1}.",
+    "{user2} fainted.",
+    "{user2} is out of usable Pokemon! {user2} whited out!.",
+    "{user2} is out of usable Pokemon! {user2} blacked out!.",
+    "{user2} got rekt.",
+    "{user2}'s melon was split by {user1}.",
+    "{user2} was sliced and diced by {user1}.",
+    "{user2} played hot-potato with a grenade.",
+    "{user2} was knifed by {user1}.",
+    "{user2} ate a grenade.",
+    "{user2} is what's for dinner!",
+    "{user2} was terminated by {user1}.",
+    "{user1} spammed {user2}'s email.",
+    "{user1} RSA-encrypted {user2} and deleted the private key.",
+    "{user1} put {user2} in the friendzone.",
+    "{user1} slaps {user2} with a DMCA takedown request!",
+    "{user2} got a house call from Doctor {user1}.",
+    "{user1} beheaded {user2}.",
+    "{user2} got stoned...by an angry mob.",
+    "{user1} sued the pants off {user2}.",
+    "{user2} was one-hit KO'd by {user1}.",
+    "{user1} sent {user2} down the memory hole.",
+    "{user2} was a mistake. - '{user1}' ",
+    "{user2} was made redundant.",
+    "{user1} {hits} {user2} with a bat!.",
+    "{user1} {hits} {user2} with a Taijutsu Kick!.",
+    "{user1} {hits} {user2} with X-Gloves!.",
+    "{user1} {hits} {user2} with a Jet Punch!.",
+    "{user1} {hits} {user2} with a Jet Pistol!.",
+    "{user1} {hits} {user2} with a United States of Smash!.",
+    "{user1} {hits} {user2} with a Detroit Smash!.",
+    "{user1} {hits} {user2} with a Texas Smash!.",
+    "{user1} {hits} {user2} with a California Smash!.",
+    "{user1} {hits} {user2} with a New Hampshire Smash!.",
+    "{user1} {hits} {user2} with a Missouri Smash!.",
+    "{user1} {hits} {user2} with a Carolina Smash!.",
+    "{user1} {hits} {user2} with a King Kong Gun!.",
+    "{user1} {hits} {user2} with a baseball bat - metal one.!.",
+    "*Serious punches {user2}*.",
+    "*Normal punches {user2}*.",
+    "*Consecutive Normal punches {user2}*.",
+    "*Two Handed Consecutive Normal Punches {user2}*.",
+    "*Ignores {user2} to let them die of embarassment*.",
+    "*points at {user2}* What's with this sassy... lost child?.",
+    "*Hits {user2} with a Fire Tornado*.",
+    "{user1} pokes {user2} in the eye !",
+    "{user1} pokes {user2} on the sides!",
+    "{user1} pokes {user2}!",
+    "{user1} pokes {user2} with a needle!",
+    "{user1} pokes {user2} with a pen!",
+    "{user1} pokes {user2} with a stun gun!",
+    "{user2} is secretly a Furry!",
+    "Hey Everybody! {user1} is asking me to be mean!",
+    "( ･_･)ﾉ⌒●~* (･.･;) <-{user2}",
+    "Take this {user2}\n(ﾉﾟДﾟ)ﾉ ))))●~* ",
+    "Here {user2} hold this\n(｀・ω・)つ ●~＊",
+    "( ・_・)ノΞ●~*  {user2}\nDieeeee!!.",
+    "( ・∀・)ｒ鹵~<≪巛;ﾟДﾟ)ﾉ\n*Bug sprays {user2}*.",
+    "( ﾟДﾟ)ﾉ占~<巛巛巛.\n-{user2} You pest!",
+    "( う-´)づ︻╦̵̵̿╤── \(˚☐˚”)/ {user2}.",
+    "{user1} {hits} {user2} with a {item}.",
+    "{user1} {hits} {user2} in the face with a {item}.",
+    "{user1} {hits} {user2} around a bit with a {item}.",
+    "{user1} {throws} a {item} at {user2}.",
+    "{user1} grabs a {item} and {throws} it at {user2}'s face.",
+    "{user1} launches a {item} in {user2}'s general direction.",
+    "{user1} starts slapping {user2} silly with a {item}.",
+    "{user1} pins {user2} down and repeatedly {hits} them with a {item}.",
+    "{user1} grabs up a {item} and {hits} {user2} with it.",
+    "{user1} ties {user2} to a chair and {throws} a {item} at them.",
+    "{user1} gave a friendly push to help {user2} learn to swim in lava.",
+    "{user1} bullied {user2}.",
+    "Nyaan ate {user2}'s leg. *nomnomnom*",
+    "{user1} {throws} a master ball at {user2}, resistance is futile.",
+    "{user1} hits {user2} with an action beam...bbbbbb (ง・ω・)ง ====*",
+    "{user1} ara ara's {user2}.",
+    "{user1} ora ora's {user2}.",
+    "{user1} muda muda's {user2}.",
+    "{user2} was turned into a Jojo reference!",
+    "{user1} hits {user2} with {item}.",
+    "Round 2!..Ready? .. FIGHT!!",
+    "WhoPixel will oof {user2} to infinity and beyond.",
+    "{user2} ate a bat and discovered a new disease.",
+    "{user1} folded {user2} into a paper plane",
+    "{user1} served {user2} some bat soup.",
+    "{user2} was sent to his home, the planet of the apes.",
+    "{user1} kicked {user2} out of a moving train.",
+    "{user2} just killed John Wick’s dog.",
+    "{user1} performed an Avada Kedavra spell on {user2}.",
+    "{user1} subjected {user2} to a fiery furnace.",
+    "Sakura Haruno just got more useful than {user2}",
+    "{user1} unplugged {user2}'s life support.",
+    "{user1} subscribed {user2}' to 5 years of bad internet.",
+    "You know what’s worse than Dad jokes? {user2}!",
+    "{user1} took all of {user2}'s cookies.",
+    "{user2} wa mou.......Shindeiru! - {user1}.",
+    "{user2} lost his race piece!",  #No game no life reference
+    "Shut up {user2}, you are just {user2}.",  #No game no life reference
+    "{user1} hits {user2} with Aka si anse!",  #No game no life reference
+    "@NeoTheKitty scratches {user2}",  #Pixels pet cat - @NeoTheKitty 
+    "Majin buu ate {user2}",  #Dbz
+    "Goblin slayer slays {user2}",  #Goblin Slayer
+)
+
+ITEMS = (
+    "cast iron skillet",
+    "angry meow",
+    "cricket bat",
+    "wooden cane",
+    "shovel",
+    "toaster",
+    "book",
+    "laptop",
+    "rubber chicken",
+    "spiked bat",
+    "heavy rock",
+    "chunk of dirt",
+    "ton of bricks",
+    "rasengan",
+    "spirit bomb",
+    "100-Type Guanyin Bodhisattva",
+    "rasenshuriken",
+    "Murasame",
+    "ban",
+    "chunchunmaru",
+    "Kubikiribōchō",
+    "rasengan",
+    "spherical flying kat",
+)
+
+THROW = (
+    "throws",
+    "flings",
+    "chucks",
+    "hurls",
+)
+
+HIT = (
+    "hits",
+    "whacks",
+    "slaps",
+    "smacks",
+    "bashes",
+    "pats",
+)
+
+
+@run_async
+@user_admin
+def slap(update: Update, context: CallbackContext):
+    bot, args = context.bot, context.args
+    message = update.effective_message
+    chat = update.effective_chat
+
+    reply_text = message.reply_to_message.reply_text if message.reply_to_message else message.reply_text
+
+    curr_user = html.escape(message.from_user.first_name)
+    user_id = extract_user(message, args)
+
+    if user_id == bot.id:
+        temp = random.choice(fun_strings.SLAP_SAITAMA_TEMPLATES)
+
+        if isinstance(temp, list):
+            if temp[2] == "tmute":
+                if is_user_admin(chat, message.from_user.id):
+                    reply_text(temp[1])
+                    return
+
+                mutetime = int(time.time() + 60)
+                bot.restrict_chat_member(
+                    chat.id,
+                    message.from_user.id,
+                    until_date=mutetime,
+                    permissions=ChatPermissions(can_send_messages=False))
+            reply_text(temp[0])
+        else:
+            reply_text(temp)
+        return
+
+    if user_id:
+
+        slapped_user = bot.get_chat(user_id)
+        user1 = curr_user
+        user2 = html.escape(slapped_user.first_name)
+
+    else:
+        user1 = bot.first_name
+        user2 = curr_user
+
+    temp = random.choice(fun_strings.SLAP_TEMPLATES)
+    item = random.choice(fun_strings.ITEMS)
+    hit = random.choice(fun_strings.HIT)
+    throw = random.choice(fun_strings.THROW)
+
+    reply = temp.format(
+        user1=user1, user2=user2, item=item, hits=hit, throws=throw)
+
+    reply_text(reply, parse_mode=ParseMode.HTML)
+
+import time
+from typing import List
+import requests
+from telegram import ParseMode, Update
+from telegram.ext import CallbackContext, run_async
+from alexa import StartTime, dispatcher
+
+
+sites_list = {
+    "Telegram": "https://api.telegram.org",
+    "Kaizoku": "https://animekaizoku.com",
+    "Kayo": "https://animekayo.com",
+    "Jikan": "https://api.jikan.moe/v3"
+}
+
+
+def get_readable_time(seconds: int) -> str:
+    count = 0
+    ping_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
+
+    while count < 4:
+        count += 1
+        if count < 3:
+            remainder, result = divmod(seconds, 60)
+        else:
+            remainder, result = divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
+
+    for x in range(len(time_list)):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        ping_time += time_list.pop() + ", "
+
+    time_list.reverse()
+    ping_time += ":".join(time_list)
+
+    return ping_time
+
+
+def ping_func(to_ping: List[str]) -> List[str]:
+    ping_result = []
+
+    for each_ping in to_ping:
+
+        start_time = time.time()
+        site_to_ping = sites_list[each_ping]
+        r = requests.get(site_to_ping)
+        end_time = time.time()
+        ping_time = str(round((end_time - start_time), 2)) + "s"
+
+        pinged_site = f"<b>{each_ping}</b>"
+
+        if each_ping == "Kaizoku" or each_ping == "Kayo":
+            pinged_site = f'<a href="{sites_list[each_ping]}">{each_ping}</a>'
+            ping_time = f"<code>{ping_time} (Status: {r.status_code})</code>"
+
+        ping_text = f"{pinged_site}: <code>{ping_time}</code>"
+        ping_result.append(ping_text)
+
+    return ping_result
+
+
+@run_async
+@user_admin
+def ping(update: Update, context: CallbackContext):
+    msg = update.effective_message
+
+    start_time = time.time()
+    message = msg.reply_text("Pinging...")
+    end_time = time.time()
+    telegram_ping = str(round((end_time - start_time) * 1000, 3)) + " ms"
+    uptime = get_readable_time((time.time() - StartTime))
+
+    message.edit_text(
+        "PONG!!\n"
+        "<b>Time Taken:</b> <code>{}</code>\n"
+        "<b>Service uptime:</b> <code>{}</code>".format(telegram_ping, uptime),
+        parse_mode=ParseMode.HTML)
+
+
+@run_async
+@user_admin
+def pingall(update: Update, context: CallbackContext):
+    to_ping = ["Kaizoku", "Kayo", "Telegram", "Jikan"]
+    pinged_list = ping_func(to_ping)
+    pinged_list.insert(2, '')
+    uptime = get_readable_time((time.time() - StartTime))
+
+    reply_msg = "⏱Ping results are:\n"
+    reply_msg += "\n".join(pinged_list)
+    reply_msg += '\n<b>Service uptime:</b> <code>{}</code>'.format(uptime)
+
+    update.effective_message.reply_text(
+        reply_msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
 
 __help__ = """
  - /id: get the current group id. If replied to user's message gets that user's id.
@@ -3359,11 +3829,11 @@ __mod_name__ = "Utilities ⚡"
 ID_HANDLER = CommandHandler("id", get_id, pass_args=True)
 RUNS_HANDLER = CommandHandler("runs", runs)
 SHRUG_HANDLER = CommandHandler("shrug", shrug)
-SLAP_HANDLER = CommandHandler("slap", slap, pass_args=True)
+SLAP_HANDLER = CommandHandler("slap", slap)
 INFO_HANDLER = CommandHandler("info", info, pass_args=True)
 GITHUB_HANDLER = CommandHandler("git", github)
 REPO_HANDLER =CommandHandler("repo", repo, pass_args=True)
-#    ECHO_HANDLER = CommandHandler("echo", echo)
+ECHO_HANDLER = CommandHandler("echo", echo, filters=Filters.group)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
 PASTE_HANDLER = CommandHandler("paste", paste, pass_args=True)
@@ -3375,7 +3845,11 @@ STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 UD_HANDLER = CommandHandler("define", define)
 SYNO_HANDLER = CommandHandler("synonym", synonyms)
 ANTO_HANDLER = CommandHandler("antonym", antonyms)
+PING_HANDLER = DisableAbleCommandHandler("ping", ping)
+#  PINGALL_HANDLER = DisableAbleCommandHandler("pingall", pingall)
 
+dispatcher.add_handler(PING_HANDLER)
+#  dispatcher.add_handler(PINGALL_HANDLER)
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(TIME_HANDLER)
 dispatcher.add_handler(PASTE_HANDLER)
@@ -3386,7 +3860,7 @@ dispatcher.add_handler(RUNS_HANDLER)
 dispatcher.add_handler(SLAP_HANDLER)
 dispatcher.add_handler(LYRICS_HANDLER)
 dispatcher.add_handler(INFO_HANDLER)
-#   dispatcher.add_handler(ECHO_HANDLER)
+dispatcher.add_handler(ECHO_HANDLER)
 dispatcher.add_handler(SHRUG_HANDLER)
 dispatcher.add_handler(UD_HANDLER)
 dispatcher.add_handler(MD_HELP_HANDLER)
