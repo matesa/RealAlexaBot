@@ -672,6 +672,15 @@ from alexa import LOGGER
 from alexa import tbot
 from alexa.events import register
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
+
 
 def progress(current, total):
     """ Calculate and return the download progress with given arguments. """
@@ -707,10 +716,17 @@ async def parseqr(qr_e):
     if qr_e.fwd_from:
         return
 
-    if qr_e.is_group:
-        if not (await is_register_admin(qr_e.input_chat,
-                                        qr_e.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(qr_e.input_chat, qr_e.message.sender_id)):
+       pass
+    elif qr_e.chat_id == iid and qr_e.from_id == userss:  
+       pass
+    else:
+       return
 
     start = datetime.now()
     downloaded_file_name = await qr_e.client.download_media(
@@ -733,10 +749,17 @@ async def make_qr(qrcode):
     """ For .makeqr command, make a QR Code containing the given content. """
     if qrcode.fwd_from:
         return
-    if qrcode.is_group:
-        if not (await is_register_admin(qrcode.input_chat,
-                                        qrcode.message.sender_id)):
-            return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(qrcode.input_chat, qrcode.message.sender_id)):
+       pass
+    elif qrcode.chat_id == iid and qrcode.from_id == userss:  
+       pass
+    else:
+       return
     start = datetime.now()
     input_str = qrcode.pattern_match.group(1)
     message = "SYNTAX: `.makeqr <long text to include>`"
