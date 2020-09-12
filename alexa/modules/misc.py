@@ -2529,17 +2529,8 @@ async def _(event):
         await event.reply("You can use this command in groups but not in PM's")
         return
 
-    approved_userss = approved_users.find({})
-    for ch in approved_userss: 
-        iid = ch['id']
-        userss = ch['user']
-
-    if (await is_register_banful(event.input_chat, event.message.sender_id)):
-       pass
-    elif event.chat_id == iid and event.from_id == userss:  
-       pass
-    else:
-       return
+    if not await can_ban_users(message=event):
+        return
 
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
