@@ -690,6 +690,16 @@ if not os.path.isdir(extracted):
     os.makedirs(extracted)
 
 
+from pymongo import MongoClient
+from alexa import MONGO_DB_URI
+from alexa.events import register
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+approved_users = db.approve
+
+
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
@@ -721,6 +731,17 @@ async def _(event):
         if not (await is_register_admin(event.input_chat,
                                         event.message.sender_id)):
             return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
+
+    if (await is_register_admin(event.input_chat, event.message.sender_id)):
+       pass
+    elif event.chat_id == iid and event.from_id == userss:  
+       pass
+    else:
+       return
 
     mone = await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
