@@ -771,3 +771,4 @@ async def _(event):
         reply_to=event.id,
     )
     subprocess.run("rm -rf *.mp3", shell=True)
+    os.remove(hdhszj)
