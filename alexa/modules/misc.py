@@ -1545,12 +1545,12 @@ async def img_sampler(event):
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
      downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
-     os.chdir(f'./store/"{query}"')
-     types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
-     files_grabbed = []
-     for files in types:
-         files_grabbed.extend(glob.glob(files))
-     await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
+     with os.chdir(f'./store/"{query}"'):
+         types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
+         files_grabbed = []
+         for files in types:
+           files_grabbed.extend(glob.glob(files))
+         await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
      os.chdir('./')
      os.rmdir('store')
 
