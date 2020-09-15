@@ -1564,7 +1564,7 @@ async def img_sampler(event):
          files_grabbed.extend(glob.glob(files))
      await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
      os.chdir('/app/RealAlexaBot/RealAlexaBot')
-     os.rmdir('store')
+     os.system('rm -rf store')
 
 @run_async
 @user_admin
@@ -3317,35 +3317,22 @@ from telethon.tl.types import InputMessagesFilterDocument
 
 @register(pattern="^/sticklet (.*)")
 async def stickleter(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss: 
-        iid = ch['id']
-        userss = ch['user']
     if event.is_group:
      if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-     elif event.chat_id == iid and event.from_id == userss:  
-       pass
-     else:
-       return
-
+    elif event.chat_id == iid and event.from_id == userss:  
+      pass
+    else:
+      return
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
     entity = await event.client.get_entity(OWNER_USERNAME)
     chia = await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, file="stickleted.webp", reply_to=event.id)
-    #gay
-    fp = open('stickleted.webp', 'w')
-    fp.truncate(0)
-    fp.close()
-    if os.path.exists("stickleted.webp"):
-       print("The file exists")
-       os.system("rm -rf stickleted.webp")
-       print("The file is removed now")
-    else:
-       print("The file doesn't exists")
+    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
+    os.system('rm -rf image_stream')
     await chia.delete()
-    
+
+
 
 @alexabot(pattern="^/stickleted")
 async def sticklet(event):
@@ -3353,8 +3340,14 @@ async def sticklet(event):
     G = random.randint(0,256)
     B = random.randint(0,256)
 
+    # get the input text
+    # the text on which we would like to do the magic on
     sticktext = stickletedtext
-   
+
+    # delete the userbot command,
+    # i don't know why this is required
+    # await event.delete()
+
     # https://docs.python.org/3/library/textwrap.html#textwrap.wrap
     sticktext = textwrap.wrap(sticktext, width=10)
     # converts back the list to a string
@@ -3374,12 +3367,16 @@ async def sticklet(event):
 
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
-    
-    image.save("stickleted.webp")
-    
-    del stickletedtext
-    del sticktext
-    
+    global image_stream
+    image_stream = io.BytesIO()
+    image_stream.name = "@Alexa.webp"
+    image.save(image_stream, "WebP")
+    image_stream.seek(0)
+
+    # finally, reply the sticker
+    #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
+    #replacing upper line with this to get reply tags
+
     # cleanup
     try:
         os.remove(FONT_FILE)
