@@ -690,7 +690,7 @@ def can_delete(chat: Chat, bot_id: int) -> bool:
 
 def is_user_ban_protected(chat: Chat, user_id: int,
                           member: ChatMember = None) -> bool:
-    if (chat.type == "private" or user_id in int(OWNER_ID)
+    if (chat.type == "private" or user_id in str(OWNER_ID)
             or chat.all_members_are_administrators):
         return True
 
@@ -701,8 +701,8 @@ def is_user_ban_protected(chat: Chat, user_id: int,
 
 @MWT(timeout=60 * 5)  # Cache admin status for 5 mins to avoid extra requests.
 def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    if (chat.type == "private" or user_id in int(OWNER_ID)
-            or user_id == int(777000) or chat.all_members_are_administrators):
+    if (chat.type == "private" or user_id in str(OWNER_ID)
+            or user_id == str(777000) or chat.all_members_are_administrators):
         return True
 
     if not member:
@@ -787,8 +787,8 @@ def user_admin(func):
     def is_admin(update, context, *args, **kwargs):
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat
-        print(user.id)
-        print(chat.id)
+        prstr(user.id)
+        prstr(chat.id)
         approved_userss = approved_users.find({})
 
         for ch in approved_userss: 
@@ -842,7 +842,7 @@ def user_can_ban(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_restrict_members or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
@@ -860,7 +860,7 @@ def user_can_promote(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_promote_members or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
@@ -878,7 +878,7 @@ def user_can_pin(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_pin_messages or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
@@ -896,7 +896,7 @@ def user_can_restrict(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_restrict_members or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
@@ -914,7 +914,7 @@ def user_can_change(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_change_info or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
@@ -932,7 +932,7 @@ def user_can_delete(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_delete_messages or member.status == "creator")
-                and not user in int(OWNER_ID)):
+                and not user in str(OWNER_ID)):
 
             return
 
