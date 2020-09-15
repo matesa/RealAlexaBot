@@ -1527,6 +1527,18 @@ from bing_image_downloader import downloader
 import os
 import glob
 
+from contextlib import contextmanager
+
+@contextmanager
+def cwd(path):
+    oldpwd=os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(oldpwd)
+
+
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
      if event.fwd_from:
@@ -1545,13 +1557,13 @@ async def img_sampler(event):
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
      downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
-     with os.chdir(f'./store/"{query}"'):
-         types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
-         files_grabbed = []
-         for files in types:
-           files_grabbed.extend(glob.glob(files))
-         await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
-     os.chdir('./')
+     os.chdir(f'./store/"{query}"'):
+     types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
+     files_grabbed = []
+     for files in types:
+         files_grabbed.extend(glob.glob(files))
+     await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
+     os.chdir('/app/RealAlexaBot/RealAlexaBot')
      os.rmdir('store')
 
 @run_async
