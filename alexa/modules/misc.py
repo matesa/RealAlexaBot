@@ -3314,6 +3314,7 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 
+global image_stream
 
 @register(pattern="^/sticklet (.*)")
 async def stickleter(event):
@@ -3373,7 +3374,7 @@ async def sticklet(event):
 
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
-    global image_stream
+    
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
