@@ -1557,7 +1557,7 @@ async def img_sampler(event):
      query = event.pattern_match.group(1)
      jit = f'"{query}"'
      downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
-     os.chdir(f'./store/"{query}"'):
+     os.chdir(f'./store/"{query}"')
      types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
      files_grabbed = []
      for files in types:
