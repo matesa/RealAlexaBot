@@ -3336,9 +3336,7 @@ async def stickleter(event):
     os.system('rm -rf image_stream')
     await chia.delete()
     del stickletedtext
-    del image_stream
-    nonlocal image_stream
-
+    image_stream = None
 
 @alexabot(pattern="^/stickleted")
 async def sticklet(event):
