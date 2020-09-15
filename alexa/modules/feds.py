@@ -689,7 +689,7 @@ from alexa import dispatcher
 from alexa import LOGGER
 from alexa import MESSAGE_DUMP
 from alexa import OWNER_ID
-from alexa import SUDO_USERS
+from alexa import OWNER_ID
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import send_action
 from alexa.modules.helper_funcs.alternate import send_message
@@ -881,7 +881,7 @@ def join_fed(update, context):
     fed_id = sql.get_fed_id(chat.id)
     args = context.args
 
-    if user.id in SUDO_USERS:
+    if user.id in OWNER_ID:
         pass
     else:
         for admin in administrators:
@@ -939,7 +939,7 @@ def leave_fed(update, context):
 
     # administrators = chat.get_administrators().status
     getuser = context.bot.get_chat_member(chat.id, user.id).status
-    if getuser in "creator" or user.id in SUDO_USERS:
+    if getuser in "creator" or user.id in OWNER_ID:
         if sql.chat_leave_fed(chat.id) == True:
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
@@ -979,7 +979,7 @@ def user_join_fed(update, context):
 
     fed_id = sql.get_fed_id(chat.id)
 
-    if is_user_fed_owner(fed_id, user.id) or user.id in SUDO_USERS:
+    if is_user_fed_owner(fed_id, user.id) or user.id in OWNER_ID:
         user_id = extract_user(msg, args)
         if user_id:
             user = context.bot.get_chat(user_id)
@@ -1234,7 +1234,7 @@ def fed_ban(update, context):
         message.reply_text("That's a very STUPID idea!")
         return
 
-    if int(user_id) in SUDO_USERS:
+    if int(user_id) in OWNER_ID:
         message.reply_text("I will not use sudo fban!")
         return
 
@@ -1979,10 +1979,10 @@ def fed_ban_list(update, context):
                     )
                     return
                 else:
-                    if user.id not in SUDO_USERS:
+                    if user.id not in OWNER_ID:
                         put_chat(chat.id, new_jam, chat_data)
             else:
-                if user.id not in SUDO_USERS:
+                if user.id not in OWNER_ID:
                     put_chat(chat.id, new_jam, chat_data)
             backups = ""
             for users in getfban:
@@ -2020,10 +2020,10 @@ def fed_ban_list(update, context):
                     )
                     return
                 else:
-                    if user.id not in SUDO_USERS:
+                    if user.id not in OWNER_ID:
                         put_chat(chat.id, new_jam, chat_data)
             else:
-                if user.id not in SUDO_USERS:
+                if user.id not in OWNER_ID:
                     put_chat(chat.id, new_jam, chat_data)
             backups = "id,firstname,lastname,username,reason\n"
             for users in getfban:
@@ -2077,10 +2077,10 @@ def fed_ban_list(update, context):
                 )
                 return
             else:
-                if user.id not in SUDO_USERS:
+                if user.id not in OWNER_ID:
                     put_chat(chat.id, new_jam, chat_data)
         else:
-            if user.id not in SUDO_USERS:
+            if user.id not in OWNER_ID:
                 put_chat(chat.id, new_jam, chat_data)
         cleanr = re.compile("<.*?>")
         cleantext = re.sub(cleanr, "", text)
@@ -2235,10 +2235,10 @@ def fed_import_bans(update, context):
                 )
                 return
             else:
-                if user.id not in SUDO_USERS:
+                if user.id not in OWNER_ID:
                     put_chat(chat.id, new_jam, chat_data)
         else:
-            if user.id not in SUDO_USERS:
+            if user.id not in OWNER_ID:
                 put_chat(chat.id, new_jam, chat_data)
         # if int(int(msg.reply_to_message.document.file_size)/1024) >= 200:
         # 	msg.reply_text("This file is too big!")
@@ -2297,7 +2297,7 @@ def fed_import_bans(update, context):
                     if str(import_userid) == str(OWNER_ID):
                         failed += 1
                         continue
-                    if int(import_userid) in SUDO_USERS:
+                    if int(import_userid) in OWNER_ID:
                         failed += 1
                         continue
 
@@ -2369,7 +2369,7 @@ def fed_import_bans(update, context):
                     if str(import_userid) == str(OWNER_ID):
                         failed += 1
                         continue
-                    if int(import_userid) in SUDO_USERS:
+                    if int(import_userid) in OWNER_ID:
                         failed += 1
                         continue
 
