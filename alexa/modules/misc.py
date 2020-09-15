@@ -3317,12 +3317,16 @@ from telethon.tl.types import InputMessagesFilterDocument
 
 @register(pattern="^/sticklet (.*)")
 async def stickleter(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss: 
+        iid = ch['id']
+        userss = ch['user']
     if event.is_group:
      if (await is_register_admin(event.input_chat, event.message.sender_id)):
        pass
-    elif event.chat_id == iid and event.from_id == userss:  
+     elif event.chat_id == iid and event.from_id == userss:  
       pass
-    else:
+     else:
       return
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
