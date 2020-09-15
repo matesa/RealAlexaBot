@@ -787,8 +787,8 @@ def user_admin(func):
     def is_admin(update, context, *args, **kwargs):
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat
-        prstr(user.id)
-        prstr(chat.id)
+        print(user.id)
+        print(chat.id)
         approved_userss = approved_users.find({})
 
         for ch in approved_userss: 
