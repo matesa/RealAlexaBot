@@ -1551,9 +1551,8 @@ async def img_sampler(event):
      for files in types:
          files_grabbed.extend(glob.glob(files))
      await event.client.send_file(event.chat_id, files_grabbed, reply_to=event.id)
-     os.remove(files_grabbed)
-     os.chdir('/app/RealAlexaBot/RealAlexaBot')
-     os.system('rm -rf store')
+     os.chdir('./')
+     os.rmdir('store')
 
 @run_async
 @user_admin
