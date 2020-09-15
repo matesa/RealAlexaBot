@@ -1,4 +1,3 @@
-
 #                         GNU AFFERO GENERAL PUBLIC LICENSE
 #                            Version 3, 19 November 2007
 #
@@ -660,14 +659,9 @@
 #     if any, to sign a "copyright disclaimer" for the program, if necessary.
 #     For more information on this, and how to apply and follow the GNU AGPL, see
 #     <https://www.gnu.org/licenses/>.
-
-
-
-
-
 import random, re
 from random import randint
-from telegram import Message, Update, Bot, User
+from telegram import Message, Update, User
 from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async, CommandHandler
 from alexa.modules.helper_funcs.chat_status import user_admin
@@ -872,29 +866,29 @@ TOSS = (
 
 @run_async
 @user_admin
-def roll(bot: Bot, update: Update):
+def roll(update: Update):
     update.message.reply_text(random.choice(range(1, 7)))
 
-def toss(bot: Bot, update: Update):
+def toss(update: Update):
     update.message.reply_text(random.choice(TOSS))
 
 @run_async
 @user_admin
-def abuse(bot: Bot, update: Update):
+def abuse(update: Update):
     # reply to correct message
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
     reply_text(random.choice(ABUSE_STRINGS))
 
 @run_async
 @user_admin
-def bluetext(bot: Bot, update: Update):
+def bluetext(update: Update):
     # reply to correct message
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
-    reply_text("```BLUE TEXT\n MUST CLICK\n I AM A STUPID ANIMAL THAT IS ATTRACTED TO COLORS```")
+    reply_text("BLUE TEXT\n MUST CLICK\n I AM A STUPID ANIMAL THAT IS ATTRACTED TO COLORS")
 
 @run_async
 @user_admin
-def rlg(bot: Bot, update: Update):
+def rlg(update: Update):
     # reply to correct message
     eyes = random.choice(EYES)
     mouth = random.choice(MOUTHS)
@@ -902,7 +896,7 @@ def rlg(bot: Bot, update: Update):
     repl = format(ears + eyes + mouth + eyes + ears)
     update.message.reply_text(repl)
 
-def decide(bot: Bot, update: Update):
+def decide(update: Update):
         r = randint(1, 100)
         if r <= 65:
             update.message.reply_text("Yes.")
@@ -911,7 +905,7 @@ def decide(bot: Bot, update: Update):
         else:
             update.message.reply_text("Maybe.")
 
-def table(bot: Bot, update: Update):
+def table(update: Update):
             r = randint(1, 100)
             if r <= 45:
                 update.message.reply_text("(╯°□°）╯彡 ┻━┻")
