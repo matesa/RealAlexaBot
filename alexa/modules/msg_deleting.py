@@ -665,7 +665,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
 from telethon.tl.types import ChannelParticipantsAdmins
 
-from alexa import SUDO_USERS
+from alexa import OWNER_ID
 from alexa import tbot
 from alexa.events import register
 from alexa.events import tbot
@@ -676,7 +676,7 @@ async def is_administrator(user_id: int, message):
     admin = False
     async for user in tbot.iter_participants(message.chat_id,
                                              filter=ChannelParticipantsAdmins):
-        if user_id == user.id or user_id in SUDO_USERS:
+        if user_id == user.id or user_id in OWNER_ID:
             admin = True
             break
     return admin
