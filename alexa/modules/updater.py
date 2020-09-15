@@ -812,7 +812,7 @@ async def upstream(ups):
 
     if force_update:
         await lol.edit(
-            '`Force-Syncing to latest stable userbot code, please wait...`')
+            '`Force-Syncing to latest stable bot code, please wait...`')
     else:
         await lol.edit('`Still Running ....`')
 
