@@ -3313,10 +3313,11 @@ import random
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
+from alexa import ubot
 
 
 @register(pattern="^/sticklet (.*)")
-async def stickleter(event):
+async def sticklet(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss: 
         iid = ch['id']
@@ -3328,26 +3329,14 @@ async def stickleter(event):
       pass
      else:
       return
-    global stickletedtext
-    stickletedtext = event.pattern_match.group(1)
-    entity = await event.client.get_entity(OWNER_USERNAME)
-    chia = await event.client.send_message(entity, "/stickleted")
-    await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
-    os.system('rm -rf image_stream')
-    await chia.delete()
-    del stickletedtext
-    image_stream = None
-
-@alexabot(pattern="^/stickleted")
-async def sticklet(event):
     R = random.randint(0,256)
     G = random.randint(0,256)
     B = random.randint(0,256)
 
     # get the input text
     # the text on which we would like to do the magic on
-    sticktext = stickletedtext
-
+    sticktext= event.pattern_match.group(1)
+    
     # delete the userbot command,
     # i don't know why this is required
     # await event.delete()
@@ -3360,8 +3349,8 @@ async def sticklet(event):
     image = Image.new("RGBA", (512, 512), (255, 255, 255, 0))
     draw = ImageDraw.Draw(image)
     fontsize = 230
-
-    FONT_FILE = await get_font_file(event.client, "@IndianBot_Fonts")
+    
+    FONT_FILE = await get_font_file(ubot.client, "@IndianBot_Fonts")
 
     font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
@@ -3372,14 +3361,13 @@ async def sticklet(event):
     width, height = draw.multiline_textsize(sticktext, font=font)
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
 
-    global image_stream
     image_stream = io.BytesIO()
     image_stream.name = "@Alexa.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
 
     # finally, reply the sticker
-    #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
+    await event.reply(file=image_stream, reply_to=event.message.reply_to_msg_id)
     #replacing upper line with this to get reply tags
 
     # cleanup
@@ -3387,7 +3375,6 @@ async def sticklet(event):
         os.remove(FONT_FILE)
     except:
         pass
-
 
 async def get_font_file(client, channel_id):
     # first get the font messages
