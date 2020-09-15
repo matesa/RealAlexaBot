@@ -690,7 +690,7 @@ def can_delete(chat: Chat, bot_id: int) -> bool:
 
 def is_user_ban_protected(chat: Chat, user_id: int,
                           member: ChatMember = None) -> bool:
-    if (chat.type == "private" or user_id in str(OWNER_ID)
+    if (chat.type == "private" or str(user_id) in str(OWNER_ID)
             or chat.all_members_are_administrators):
         return True
 
@@ -701,7 +701,7 @@ def is_user_ban_protected(chat: Chat, user_id: int,
 
 @MWT(timeout=60 * 5)  # Cache admin status for 5 mins to avoid extra requests.
 def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    if (chat.type == "private" or user_id in str(OWNER_ID)
+    if (chat.type == "private" or str(user_id) in str(OWNER_ID)
             or user_id == str(777000) or chat.all_members_are_administrators):
         return True
 
