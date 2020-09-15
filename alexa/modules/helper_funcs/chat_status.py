@@ -671,7 +671,7 @@ from telegram import User
 from telegram.ext import CallbackContext
 
 from alexa import DEL_CMDS
-from alexa import int(OWNER_ID)
+from alexa import OWNER_ID
 from alexa.mwt import MWT
 
 from pymongo import MongoClient
