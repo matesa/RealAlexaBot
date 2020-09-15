@@ -678,7 +678,7 @@ from telegram.utils.helpers import mention_html
 import alexa.modules.sql.locks_sql as sql
 from alexa import dispatcher
 from alexa import LOGGER
-from alexa import SUDO_USERS
+from alexa import OWNER_ID
 from alexa.modules.connection import connected
 from alexa.modules.disable import DisableAbleCommandHandler
 from alexa.modules.helper_funcs.alternate import send_message
@@ -823,7 +823,7 @@ def restr_members(bot,
                   other=False,
                   previews=False):
     for mem in members:
-        if mem.user in SUDO_USERS:
+        if mem.user in OWNER_ID:
             pass
         try:
             bot.restrict_chat_member(
