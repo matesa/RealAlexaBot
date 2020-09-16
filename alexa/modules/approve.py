@@ -666,13 +666,28 @@
 
 
 from pymongo import MongoClient
-from alexa import MONGO_DB_URI
+from alexa import MONGO_DB_URI, tbot, ubot
 from alexa.events import register
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client['test']
 approved_users = db.approve
+
+async def get_admins_rights(chat_id, force_update=True):
+        admins = await tbot.get_chat_administrators(chat_id)
+        for admin in admins:
+            alist = {
+                'status': admin['status'],
+                'admin': True,
+                'can_change_info': admin['can_change_info'],
+                'can_delete_messages': admin['can_delete_messages'],
+                'can_invite_users': admin['can_invite_users'],
+                'can_restrict_members': admin['can_restrict_members'],
+                'can_pin_messages': admin['can_pin_messages'],
+                'can_promote_members': admin['can_promote_members']
+            }
+        return alist          
 
 async def check_admin_rights(chat_id, user_id, rights):
     # User's pm should have admin rights
