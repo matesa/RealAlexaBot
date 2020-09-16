@@ -697,16 +697,16 @@ async def check_admin_rights(chat_id, user_id, rights):
 async def approve(event):
 	if event.fwd_from:
 		return  
-        chat_id = event.chat.id
-        sender = await event.from_id
-        if not await check_admin_rights(chat_id, sender, ['can_restrict_members']):
-          await message.reply("")
-          return
 	if MONGO_DB_URI is None:
 		return
+	chat_id = event.chat.id
+	sender = await event.from_id
+	if not await check_admin_rights(chat_id, sender, ['can_promote_members']):
+	   return
 	if not event.from_id:
 		await event.edit("Reply To Someone's Message To Approve Them")
 		return	
+		
 	reply_msg = await event.get_reply_message()	
 	chats = approved_users.find({})
 	for c in chats:
