@@ -800,7 +800,10 @@ def user_admin(func):
 
         elif user.id == iid and chat.id == userss:  
              pass
-
+             
+        elif str(user.id) in str(OWNER_ID):
+             pass
+             
         else:
             return
 
@@ -842,7 +845,7 @@ def user_can_ban(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_restrict_members or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
@@ -860,7 +863,7 @@ def user_can_promote(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_promote_members or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
@@ -878,7 +881,7 @@ def user_can_pin(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_pin_messages or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
@@ -896,7 +899,7 @@ def user_can_restrict(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_restrict_members or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
@@ -914,7 +917,7 @@ def user_can_change(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_change_info or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
@@ -932,7 +935,7 @@ def user_can_delete(func):
         member = update.effective_chat.get_member(user)
 
         if (not (member.can_delete_messages or member.status == "creator")
-                and not user in str(OWNER_ID)):
+                and not str(user) in str(OWNER_ID)):
 
             return
 
