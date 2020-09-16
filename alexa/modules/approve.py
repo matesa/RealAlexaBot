@@ -700,7 +700,7 @@ async def approve(event):
 	if MONGO_DB_URI is None:
 		return
 	chat_id = event.chat.id
-	sender = await event.from_id
+	sender = event.from_id
 	if not await check_admin_rights(chat_id, sender, ['can_promote_members']):
 	   return
 	if not event.from_id:
