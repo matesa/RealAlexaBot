@@ -3350,7 +3350,7 @@ async def sticklet(event):
     draw = ImageDraw.Draw(image)
     fontsize = 230
     
-    FONT_FILE = await get_font_file(ubot.client, "@IndianBot_Fonts")
+    FONT_FILE = await get_font_file(ubot, "@IndianBot_Fonts")
 
     font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
