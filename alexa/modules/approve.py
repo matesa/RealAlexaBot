@@ -674,10 +674,34 @@ client = MongoClient(MONGO_DB_URI)
 db = client['test']
 approved_users = db.approve
 
+async def check_admin_rights(chat_id, user_id, rights):
+    # User's pm should have admin rights
+    if chat_id == user_id:
+        return True
+
+    admin_rights = await get_admins_rights(chat_id)
+    if user_id not in admin_rights:
+        return False
+
+    if admin_rights[user_id]['status'] == 'creator':
+        return True
+
+    for permission in rights:
+        if not admin_rights[user_id][permission]:
+            return permission
+
+    return True
+
+
 @register(pattern="^/approve")
 async def approve(event):
 	if event.fwd_from:
 		return  
+        chat_id = event.chat.id
+        sender = await event.from_id
+        if not await check_admin_rights(chat_id, sender, ['can_restrict_members']):
+          await message.reply("")
+          return
 	if MONGO_DB_URI is None:
 		return
 	if not event.from_id:
