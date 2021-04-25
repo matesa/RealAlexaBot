@@ -7,4 +7,4 @@ database.**
 
 Deploy Alexa to Heroku:
 
-<p align="left"><a href="https://heroku.com/deploy?template=https://github.com/Ayush1311/RealAlexaBot/tree/stable"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
+<p align="left"><a href="https://heroku.com/deploy?template=https://github.com/matesa/RealAlexaBot/tree/stable"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
